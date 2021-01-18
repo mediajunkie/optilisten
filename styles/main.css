@@ -1,0 +1,415 @@
+/* CSS Reset */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* font-family: 'Oswald', sans-serif; */
+/* font-family: 'Permanent Marker', cursive; */
+
+.main-wrapper {
+  padding: 2rem;
+}
+
+.main-content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.h1 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: 4.875rem;
+  margin: 40px 0;
+}
+
+.h2 {
+  /* TODO: needs to change */
+  font-family: Avenir, sans-serif;
+  font-weight: 300;
+  font-size: 2.25rem;
+  line-height: 47px;
+}
+
+.h3 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: 3.5rem;
+  margin: 25px 0;
+}
+
+.blue-link {
+  color: #3c64b1;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 10px;
+  color: #fff;
+  padding: 0.75rem;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  font-size: 24px;
+}
+
+.pink-btn {
+  background-color: #eb297d;
+}
+
+.pink-btn:hover {
+  background-color: #b21a5c;
+}
+
+.blue-btn {
+  background-color: #3c64b1;
+}
+
+.blue-btn:hover {
+  background-color: #294479;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.header-logo {
+  margin-right: auto;
+  width: 11rem;
+}
+
+.main-nav__list {
+  display: flex;
+  align-items: center;
+}
+
+.main-nav__item {
+  margin-left: 2rem;
+  text-align: center;
+}
+
+.main-nav__item a {
+  color: #000;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.main-nav__item:last-child {
+  margin-left: 1rem;
+}
+
+.main-nav__item.active a,
+.main-nav__item a:hover {
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.main-nav__item.product {
+  width: 93px;
+}
+.main-nav__item.UX {
+  width: 35px;
+}
+.main-nav__item.books {
+  width: 73px;
+}
+.main-nav__item.contact {
+  width: 94px;
+}
+.main-nav__item.about {
+  width: 72px;
+}
+.main-nav__item.join {
+  width: 240px;
+}
+
+/* Hero */
+.hero-section {
+  display: flex;
+  align-items: center;
+}
+
+.hero-illus-image {
+  width: 600px;
+}
+
+.hero-content {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-content__description {
+  max-width: 612px;
+}
+
+.hero-content__cta {
+  display: inline-block;
+  width: 380px;
+  margin-top: 30px;
+}
+
+/* Home - space junk section */
+.space-junk {
+  margin-top: 150px;
+  display: flex;
+}
+
+.space-junk__text {
+  width: 66.66666%;
+  flex-shrink: 0;
+}
+
+.space-junk__subtitle {
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 30px;
+  margin-bottom: 40px;
+}
+
+.space-junk__questions-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.space-junk__question {
+  width: 50%;
+  margin: 20px 0;
+}
+
+.space-junk__question-icon {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.space-junk__question-text {
+  display: inline-block;
+  max-width: 315px;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.space-junk__graphic-wrapper {
+  width: 33.33333%;
+  align-self: flex-end;
+}
+
+.space-junk__graphic {
+  width: 100%;
+}
+
+/* Home - do for you section */
+.do-for-you {
+  display: flex;
+  margin-top: 150px;
+}
+
+.do-for-you__graphic-wrapper {
+  width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.do-for-you__graphic {
+  width: 430px;
+}
+
+.do-for-you__text {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.do-for-you__point {
+  max-width: 550px;
+  font-size: 24px;
+  line-height: 26px;
+  margin: 30px 0;
+}
+
+/* collaborative quote section */
+.collaboration-quote__wrapper {
+  max-width: 1113px;
+  margin: 0 auto;
+  margin-top: 150px;
+}
+
+.collaboration-quote {
+  font-family: "Permanent Marker", cursive;
+  font-size: 56px;
+  line-height: 52px;
+}
+
+.collaboration-quote__source {
+  display: block;
+  font-size: 28px;
+  line-height: 22px;
+  margin-top: 40px;
+  align-self: flex-start;
+}
+
+.collaboration-quote__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 380px;
+  margin-top: 40px;
+}
+
+.collaboration-quote__btn-icon {
+  margin-right: 15px;
+}
+
+/* Footer */
+.footer-separator {
+  width: 100%;
+  margin-top: 125px;
+}
+
+.footer-logo {
+  margin: 50px auto 75px;
+  display: block;
+}
+
+.footer-nav__list {
+  margin: 0 auto 50px;
+  justify-content: center;
+}
+
+.footer-copyright {
+  display: block;
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 107px;
+}
