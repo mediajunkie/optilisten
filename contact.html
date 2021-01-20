@@ -8,7 +8,13 @@
       href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,400&family=Oswald:wght@700&family=Permanent+Marker&display=swap"
       rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
-    <title>Design in Product - Home</title>
+    <title>Design in Product - Contact</title>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="js/form-validation.js"></script>
   </head>
   <body>
     <div class="main-wrapper">
@@ -42,7 +48,99 @@
       <!-- Header end -->
 
       <div class="main-content-wrapper">
+        <!-- Hero start -->
+        <div class="hero-section">
+          <div class="hero-content contact-hero-content">
+            <h1 class="h1">We can help.</h1>
+            <h2 class="h2 contact-content__description">Making great products
+              that
+              deliver amazing experiences (often in collaboration with far-flung
+              teams) was never going to be easy, but you don’t have to figure it
+              all out yourself.</h2>
+          </div>
+          <img class="contact-hero-image"
+            src="/images/contact-hero-illus.png"
+            alt="Hero Image">
+        </div>
+        <!-- Hero end -->
 
+        <!-- Build for humans start -->
+        <div class="build-for-humans">
+          <img class="build-for-humans__image"
+            src="/images/contact-hero-2.png"
+            alt="Hero Image">
+          <div class="build-for-humans__content">
+            <h3 class="h3">Build for Humans.</h3>
+            <p class="build-for-humans__description">We combine decades of
+              experience and analysis with a deep exploration of your particular
+              goals and the people on your team.</p>
+            <p class="build-for-humans__description"> You too can lead empowered
+              product management, design and development teams who deliver
+              meaningful value to the lives of real people.</p>
+          </div>
+        </div>
+        <!-- Build for humans end -->
+
+        <!-- Contact form start -->
+        <div class="contact-us">
+          <div class="contact-form__wrapper">
+            <h3 class="h3">Contact Us</h3>
+            <p class="contact-form__subtitle">Value Prop - Why should I fill out
+              this form? Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit.
+              In mattis diam risus, mauris. Orci.</p>
+            <form class="contact-form" name="contact">
+
+              <div class="contact-form__input required">
+                <input type="text" name="firstname" id="firstname" />
+                <label for="firstname">First name</label>
+              </div>
+
+              <div class="contact-form__input required">
+                <input type="text" name="lastname" id="lastname" />
+                <label for="lastname">Last name</label>
+              </div>
+
+              <div class="contact-form__input">
+                <input type="company" name="company" id="company" />
+                <label for="company">Company name</label>
+              </div>
+
+              <div class="contact-form__input required">
+                <input type="email" name="email" id="email" />
+                <label for="email">Email</label>
+              </div>
+
+              <div class="contact-form__textarea">
+                <textarea id="message" name="message" rows="10"
+                  placeholder="What can we help you with?"></textarea>
+                <label for="message">Message</label>
+              </div>
+
+              <button type="submit" class="btn pink-btn contact-form__submit">Send</button>
+            </form>
+          </div>
+          <div class="contact-us__image-wrapper">
+            <img class="contact-us__image" src="images/contact-illus-3.png"
+              alt="Mailbox">
+          </div>
+        </div>
+        <!-- Contact form end -->
+
+        <!-- Collaboration quote start -->
+        <div class="collaboration-quote__wrapper">
+          <p class="collaboration-quote">“Without tight alignment on the
+            discovery process, there is a huge risk of wasted parallel effort.”</p>
+          <span class="collaboration-quote__source">Christian Crumlish,
+            ‘Growing
+            Product People’</span>
+          <a href="" class="btn blue-btn collaboration-quote__btn">
+            <img class="collaboration-quote__btn-icon"
+              src="/images/btn-twitter-icon.png" alt="twitter icon">
+            <span>Tweet This</span>
+          </a>
+        </div>
+        <!-- Collaboration quote end -->
       </div>
 
       <footer>
