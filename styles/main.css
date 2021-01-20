@@ -278,6 +278,7 @@ body {
 .space-junk {
   margin-top: 150px;
   display: flex;
+  justify-content: space-around;
 }
 .space-junk__text {
   width: 66.66666%;
@@ -310,7 +311,7 @@ body {
   line-height: 30px;
 }
 .space-junk__graphic-wrapper {
-  width: 33.33333%;
+  width: 25%;
   align-self: flex-end;
 }
 .space-junk__graphic {
@@ -446,9 +447,11 @@ body {
 }
 
 /* UX page */
-.ux-points h3,
-.ux-points__spacer {
-  width: 530px;
+.ux-points__wrapper h3 {
+  margin-top: 150px;
+}
+
+.ux-points__wrapper h3 {
   margin-bottom: 50px;
 }
 .ux-points {
@@ -479,4 +482,60 @@ body {
   margin-bottom: 30px;
   font-size: 32px;
   line-height: 38px;
+}
+
+/* Books page */
+.books__main-heading {
+  margin-top: 0;
+}
+.books__section {
+  margin-top: 100px;
+  display: flex;
+}
+.books__image-wrapper {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  margin-right: 60px;
+  height: 713px;
+}
+.books__image-wrapper--1 {
+  background-image: url("../images/books-bkgrnd-1.png");
+}
+.books__image-wrapper--1 img {
+  height: 511px;
+}
+.books__image-wrapper--2 {
+  background-image: url("../images/books-bkgrnd-2.png");
+}
+.books__image-wrapper--2 img {
+  height: 514px;
+}
+.books__image-wrapper--3 {
+  background-image: url("../images/books-bkgrnd-3.png");
+}
+.books__image-wrapper--3 img {
+  height: 516px;
+}
+.books__image-wrapper--4 {
+  background-image: url("../images/books-bkgrnd-4.png");
+}
+.books__image-wrapper--4 img {
+  height: 532px;
+}
+.books__description-wrapper {
+  width: 550px;
+}
+.books__description-text {
+  font-size: 22px;
+  line-height: 26px;
+  margin-bottom: 25px;
+}
+.books__cta {
+  display: block;
+  width: 255px;
 }
