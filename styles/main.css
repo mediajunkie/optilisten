@@ -213,6 +213,9 @@ body {
   margin-right: auto;
   width: 11rem;
 }
+.main-nav__mobile-wrapper {
+  display: none;
+}
 .main-nav__list {
   display: flex;
   align-items: center;
@@ -330,6 +333,9 @@ body {
 .space-junk__graphic {
   width: 100%;
 }
+.space-junk__graphic-wrapper-mobile {
+  display: none;
+}
 
 /* Home - do for you section */
 .do-for-you {
@@ -342,6 +348,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.do-for-you__graphic-wrapper-mobile {
+  display: none;
 }
 .do-for-you__graphic {
   width: 430px;

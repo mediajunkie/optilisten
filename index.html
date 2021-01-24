@@ -8,6 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,400&family=Oswald:wght@700&family=Permanent+Marker&display=swap"
       rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/responsive.css">
     <title>Design in Product - Home</title>
   </head>
   <body>
@@ -39,7 +40,42 @@
               <a href="/join-the-community.html">Join The Community</a>
             </li>
           </ul>
+
+          <div class="main-nav__mobile-wrapper">
+            <label for="toggle" class="main-nav__mobile-menu-trigger">
+              <img src="images/mobile-menu.png" alt="open menu">
+            </label>
+            <input type="checkbox" id="toggle"
+              class="main-nav__mobile-menu-checkbox">
+            <div class="main-nav__mobile-collapse">
+              <label for="toggle" class="main-nav__mobile-menu-trigger
+                main-nav__mobile-menu-trigger-close">
+                <img src="images/mobile-menu-x.png" alt="open menu">
+              </label>
+              <ul class="main-nav__mobile-list">
+                <li class="main-nav__item">
+                  <a href="/product.html">Product</a>
+                </li>
+                <li class="main-nav__item">
+                  <a href="/UX.html">UX</a>
+                </li>
+                <li class="main-nav__item">
+                  <a href="/books.html">Books</a>
+                </li>
+                <li class="main-nav__item">
+                  <a href="/contact.html">Contact</a>
+                </li>
+                <li class="main-nav__item">
+                  <a href="/about.html">About</a>
+                </li>
+                <li class="main-nav__item">
+                  <a href="/join-the-community.html">Join The Community</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </nav>
+
       </div>
       <!-- Header end -->
 
@@ -63,6 +99,11 @@
         <div class="space-junk">
           <div class="space-junk__text">
             <h3 class="h3"> Stop shipping space junk</h3>
+            <div class="space-junk__graphic-wrapper-mobile">
+              <img class="space-junk__graphic-mobile"
+                src="images/mobile-rocket.gif"
+                alt="Rocket launch">
+            </div>
             <p class="space-junk__subtitle">If you are experiencing one of the
               following issues, <br/> <a
                   class="blue-link" href="">book an appointment</a> with me
@@ -126,6 +167,10 @@
             </div>
             <div class="do-for-you__text">
               <h3 class="h3">What do we do for you?</h3>
+              <div class="do-for-you__graphic-wrapper-mobile">
+                <img class="do-for-you__graphic" src="images/teamwork.gif"
+                  alt="High five">
+              </div>
               <p class="do-for-you__point">We put people at the center of your
                 design;</p>
               <p class="do-for-you__point">Design at the center of your product,
