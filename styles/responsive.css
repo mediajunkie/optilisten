@@ -1,4 +1,7 @@
 @media only screen and (max-width: 1023px) {
+  .large-screen-only {
+    display: none;
+  }
   .about__wrapper {
   }
   .h1 {
@@ -17,6 +20,7 @@
   }
   .h4 {
     text-align: center;
+    font-size: 26px;
   }
 
   /* Buttons */
@@ -56,7 +60,7 @@
     right: -283px;
     width: 250px;
     background-color: white;
-    border: solid 4px black;
+    border: solid 3px black;
     border-radius: 10px;
     padding: 0.75rem;
     transition: right 0.3s ease-in-out;
@@ -96,6 +100,9 @@
   .product-hero-section {
   }
   .product-hero-image {
+    order: -1;
+    width: 300px;
+    align-self: center;
   }
 
   /* Home - space junk section */
@@ -128,6 +135,7 @@
   .space-junk__question-icon {
     width: 75px;
     height: 75px;
+    align-self: center;
   }
   .space-junk__question-text {
     font-size: 1rem;
@@ -191,6 +199,7 @@
 
   /* Footer */
   .footer-separator {
+    margin-top: 75px;
   }
   .footer-logo {
     margin: 30px auto;
@@ -216,122 +225,190 @@
 
   /* Product page */
   .how-can-we-help {
+    margin-top: 75px;
   }
   .how-can-we-help__points {
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 50px auto 0;
+    max-width: 450px;
   }
   .how-can-we-help__point {
+    max-width: 200px;
+    margin-bottom: 30px;
   }
   .how-can-we-help__point-icon {
+    height: 100px;
+    width: 100px;
   }
   .how-can-we-help__point-text {
+    font-size: 18px;
+    line-height: 24px;
   }
   .product-value-prop {
+    margin-top: 75px;
+    flex-wrap: wrap;
   }
   .product-value-prop__graphic-wrapper {
+    width: 200px;
   }
   .product-value-prop__graphic {
+    width: 200px;
   }
   .product-value-prop__text {
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
   }
   .product-value-prop__point {
+    font-size: 25px;
+    line-height: 28px;
+    margin-bottom: 20px;
   }
   .product-value-prop__point--cta {
+    margin: 0 0 10px 0;
   }
   .product-value-prop__cta {
   }
 
   /* UX page */
   .ux-points__wrapper h3 {
+    margin-top: 100px;
+    margin-bottom: 20px;
   }
 
-  .ux-points__wrapper h3 {
-  }
   .ux-points {
+    margin-top: 0;
   }
   .ux-point {
+    width: 100%;
+    margin-bottom: 20px;
   }
   .ux-point__image {
+    width: 150px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    margin-bottom: 0;
   }
   .ux-point__text {
+    margin: 16px 0;
+    font-size: 20px;
+    line-height: 26px;
+    text-align: center;
   }
   .ux-value-prop__wrapper {
   }
   .ux-value-prop {
+    margin-top: 75px;
+    flex-wrap: wrap;
   }
   .ux-value-prop__graphic-wrapper {
+    width: 200px;
+    height: 193.2px;
   }
   .ux-value-prop__graphic {
+    width: 200px;
+    height: 193.2px;
   }
 
   /* Books page */
   .books__main-heading {
+    margin-bottom: 50px;
   }
   .books__section {
+    flex-direction: column;
   }
   .books__image-wrapper {
+    width: 300px !important;
+    max-width: 100% !important;
+    height: 370px !important;
+    margin: 0 auto;
   }
-  .books__image-wrapper--1 {
-  }
-  .books__image-wrapper--1 img {
-  }
-  .books__image-wrapper--2 {
-  }
-  .books__image-wrapper--2 img {
-  }
-  .books__image-wrapper--3 {
-  }
-  .books__image-wrapper--3 img {
-  }
-  .books__image-wrapper--4 {
-  }
-  .books__image-wrapper--4 img {
+  .books__image-wrapper img {
+    width: 200px !important;
+    max-width: 75% !important;
+    height: auto !important;
   }
   .books__description-wrapper {
+    width: 100%;
   }
   .books__description-text {
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 16px;
+    text-align: center;
   }
   .books__cta {
+    margin: 0 auto 40px;
+  }
+  .books__cta:last-of-type {
+    margin-bottom: -20px;
   }
 
   /* Contact page */
-  .build-for-humans {
+  .contact-hero-image {
+    order: -1;
+    width: 250px;
+    align-self: center;
   }
-  .build-for-humans__image {
-  }
-  .build-for-humans__content {
-  }
-  .build-for-humans__content h3 {
-  }
-  .build-for-humans__description {
-  }
-
-  /* Contact page */
   .contact-hero-content {
+    width: 100%;
   }
   .contact-us {
+    flex-direction: column;
+    margin-top: 75px;
   }
   .contact-us__image-wrapper {
+    margin-bottom: 20px;
+  }
+  .contact-us__image {
+    width: 250px;
   }
   .contact-us__text-wrapper {
+    max-width: 100%;
   }
   .contact-us__text {
+    font-size: 24px;
+    line-height: 32px;
+    text-align: center;
+    margin-top: 20px;
   }
   .contact-us__cta {
+    display: block;
+    margin: 20px auto 0;
   }
   .contact-us__footnote {
-  }
-  .contact-us__footnote-link {
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    margin-bottom: -40px;
   }
 
   /* About page */
   .about__subtitle {
+    font-size: 26px;
+    line-height: 30px;
+    text-align: center;
   }
   .about__img {
+    width: 225px;
+    height: 225px;
+    display: block;
+    margin: 50px auto;
   }
   .about__text {
-  }
-  .about__text-link {
+    font-size: 20px;
+    line-height: 32px;
+    margin-bottom: 16px;
+    text-align: center;
   }
   .about__cta-link {
+    font-size: 20px;
+    line-height: 32px;
+    text-align: center;
+    display: block;
+    margin-bottom: -60px;
   }
 }
