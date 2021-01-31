@@ -170,7 +170,10 @@ body {
   line-height: 47px;
 }
 .blue-link {
-  color: #3c64b1;
+  color: #1C5DEB;
+}
+.blue-link:hover {
+  color: #1547B3;
 }
 .pink-link {
   color: #eb297d;
@@ -665,7 +668,12 @@ body {
   margin-bottom: 25px;
 }
 .about__text-link {
-  color: #3c64b1;
+  color: #1C5DEB;
+  text-decoration: none;
+}
+.about__text-link:hover {
+  color: #1547B3;
+  text-decoration: underline;
 }
 .about__cta-link {
   font-size: 28px;
