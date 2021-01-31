@@ -194,10 +194,10 @@ body {
   background-color: #b21a5c;
 }
 .blue-btn {
-  background-color: #3c64b1;
+  background-color: #1C5DEB;
 }
 .blue-btn:hover {
-  background-color: #294479;
+  background-color: #1547B3;
 }
 .error {
   color: red;
@@ -236,7 +236,7 @@ body {
 }
 .main-nav__item.active a,
 .main-nav__item a:hover {
-  font-weight: 800;
+  font-weight: 300;
   text-decoration: underline;
   color: #b21a5c;
 }
