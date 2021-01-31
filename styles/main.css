@@ -679,4 +679,11 @@ body {
   font-size: 28px;
   line-height: 38px;
   text-decoration: none;
+  color: #1C5DEB;
+}
+.about__cta-link:hover {
+  font-size: 28px;
+  line-height: 38px;
+  text-decoration: none;
+  color: #1547B3;
 }
