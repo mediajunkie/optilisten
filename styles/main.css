@@ -171,9 +171,11 @@ body {
 }
 .blue-link {
   color: #1C5DEB;
+  text-decoration: none;
 }
 .blue-link:hover {
   color: #1547B3;
+  text-decoration: underline;
 }
 .pink-link {
   color: #eb297d;
