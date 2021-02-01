@@ -307,6 +307,7 @@ body {
   font-size: 22px;
   line-height: 30px;
   margin-bottom: 40px;
+  width: 70%;
 }
 .space-junk__questions-wrapper {
   display: flex;
@@ -454,7 +455,7 @@ body {
   line-height: 30px;
 }
 .product-value-prop {
-  margin-top: 150px;
+  margin-top: 100px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -493,7 +494,7 @@ body {
 }
 
 .ux-points__wrapper h3 {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 .ux-points {
   margin-top: 150px;
@@ -503,14 +504,14 @@ body {
   justify-content: space-between;
 }
 .ux-point {
-  width: 530px;
+  width: 30%;
 }
 .ux-point__image {
   margin-bottom: 20px;
 }
 .ux-point__text {
   margin: 25px 0;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 30px;
   font-style: italic;
 }
