@@ -690,3 +690,62 @@ body {
   text-decoration: none;
   color: #1547B3;
 }
+
+.subSection{
+  display:flex;
+  /* align-items: center; */
+  gap: 5vmin;
+  text-align: left;
+  margin: 10vmin 0;
+}
+
+.subsectionImage{
+  margin:0;
+  width:40vmin;
+  
+}
+.subsectionText{
+  text-align: left !important;
+font-family: Avenir;
+font-style: normal;
+font-weight: 300;
+font-size: 28px;
+line-height: 38px;
+color: #000000;
+}
+
+.subsectionButton{
+  margin: 0 !important;
+}
+
+.subsectionHeader {
+font-family: Oswald; 
+font-style: normal;
+font-weight: bold;
+font-size: 40px;
+color: #000000;
+}
+
+.subsectionContainer{
+  display: flex;
+  flex-wrap: wrap; 
+  align-content: space-evenly; 
+}
+
+.ctaText{      
+font-family: Avenir;
+font-style: normal;
+font-weight: 300;
+font-size: 20px;
+color: #000000;
+line-height: 27px;
+}
+
+.pageDescription{
+font-family: Avenir;
+font-style: italic;
+font-weight: 300;
+font-size: 32px;
+color: #000000;
+line-height: 38px;
+}
