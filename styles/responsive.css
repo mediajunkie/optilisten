@@ -56,9 +56,9 @@
   }
   .main-nav__mobile-collapse {
     position: fixed;
-    top: 3px;
-    right: -283px;
-    width: 250px;
+    top: 1px;
+    right: -110vw;
+    width: calc(100vw - 32px);
     background-color: white;
     border: solid 3px black;
     border-radius: 10px;
@@ -66,7 +66,7 @@
     transition: right 0.3s ease-in-out;
   }
   .main-nav__mobile-menu-checkbox:checked + .main-nav__mobile-collapse {
-    right: 3px;
+    right: 1px;
   }
   .main-nav__mobile-menu-trigger-close {
     display: block;
@@ -218,9 +218,9 @@
     margin: 0 !important;
   }
   .main-nav__item a {
-    font-size: 16px;
+    font-size: 18px;
     display: block;
-    padding: 0.75rem 0;
+    padding: 1rem 0;
   }
 
   /* Product page */
