@@ -697,12 +697,17 @@ body {
   gap: 5vmin;
   text-align: left;
   margin: 10vmin 0;
+  flex-wrap: wrap;
+  
 }
-
+.subsectionFoldable{
+  flex-basis: 250px;
+    flex-grow: 1;
+    margin-right: 2vmin;
+}
 .subsectionImage{
   margin:0;
   width:40vmin;
-  
 }
 .subsectionText{
   text-align: left !important;
