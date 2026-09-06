@@ -1,0 +1,52 @@
+# XcodeGen spec — `brew install xcodegen && xcodegen generate`
+#
+# Keeps the Xcode project generated rather than committed, so there is no
+# .pbxproj to merge-conflict over and the whole project is reconstructible from
+# this file plus the sources. Pard can also just build the target by hand in
+# Xcode; nothing here is load-bearing beyond the settings block.
+
+name: OptiListen
+options:
+  bundleIdPrefix: com.optilisten
+  deploymentTarget:
+    iOS: "17.0"     # See Docs/COMPLIANCE.md — 1.1 shipped at iOS 11, which
+                    # Xcode 26 no longer supports. Confirm against App Analytics
+                    # installed-base before locking this in.
+  createIntermediateGroups: true
+
+settings:
+  base:
+    MARKETING_VERSION: "2.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    DEVELOPMENT_TEAM: ""              # Pard: fill from the signing account
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+
+targets:
+  OptiListen:
+    type: application
+    platform: iOS
+    sources:
+      - path: OptiListen
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.optilisten.ios   # matches the existing
+                                                        # App Store record — do
+                                                        # not change, the listing
+                                                        # is tied to it
+        INFOPLIST_KEY_CFBundleDisplayName: OptiListen
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "OptiListen listens to the room to estimate how much of a conversation you spend talking. Audio is analyzed on your device as loudness only — nothing is recorded, transcribed, or sent anywhere."
+        # Deliberately absent: UIBackgroundModes.
+        # OptiListen 1.x shipped a 30-second background ceiling, raised it to 50,
+        # and was rejected by Apple in July 2023 over the background-mode
+        # changes. 2.0 does not run in the background. The phone is an
+        # instrument you set on the desk with the screen on.
+        ITSAppUsesNonExemptEncryption: NO
+    info:
+      path: OptiListen/Support/Info.plist
+      properties:
+        ITSAppUsesNonExemptEncryption: false

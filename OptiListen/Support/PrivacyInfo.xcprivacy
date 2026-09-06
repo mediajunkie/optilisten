@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Required for App Store submission. OptiListen collects nothing, but "nothing"
+  still has to be declared, and undeclared required-reason API use is one of the
+  most common rejection causes.
+
+  Audio never leaves the device and is never written to disk: the mic tap
+  computes an RMS level per 100ms buffer and discards the buffer. There is no
+  recording, no transcription, no network call.
+
+  Pard — before submitting, re-check this against the final dependency list. If
+  any third-party SDK gets added it needs its own manifest, and the app's
+  declarations must cover anything new.
+-->
+<plist version="1.0">
+<dict>
+    <key>NSPrivacyTracking</key>
+    <false/>
+
+    <key>NSPrivacyTrackingDomains</key>
+    <array/>
+
+    <key>NSPrivacyCollectedDataTypes</key>
+    <array/>
+
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <!-- CA92.1: access only to app's own defaults, no data sharing. -->
+                <string>CA92.1</string>
+            </array>
+        </dict>
+    </array>
+</dict>
+</plist>
