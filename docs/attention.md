@@ -30,6 +30,7 @@ Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f1
 | **Pard** | Rename `~/Development/OptiListen` → `optilisten-site` on Amber — xian approved | nothing |
 | **Janus** | Registry: two entries, not one — `mediajunkie/optilisten` (the app, Cairn) and `Design-in-Product/optilisten` (the live site, no owner) | memo sent 2026-09-07 |
 | **Cairn** | Deferred-reflection resume flow in `HomeView` (currently a placeholder); mine `RecordSession.tsx` + the voice patch for how 1.x actually did speaker discrimination | not blocked |
+| **Cairn** | **The Dan package** — xian promised options (minimally comply / reposition / sunset), a prototype, and a recommendation. Prototype means a TestFlight build Dan can hold, so it sits downstream of Pard's first build; the recommendation sits downstream of the analytics | first build; analytics |
 | **open** | Whether Cairn runs as Cowork or Code, and on which machine | xian; not urgent |
 
 ## Closed since 2026-09-05
