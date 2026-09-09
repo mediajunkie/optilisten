@@ -34,15 +34,25 @@ protocol TalkRatioSource: Sendable {
 }
 
 /// A source that produces evidence live, while the conversation happens.
+///
+/// The two synchronous readings below are `@MainActor`. That is a design
+/// statement, not a compiler appeasement: a live reading exists to be shown
+/// while it changes, so it is read by SwiftUI on the main actor and nowhere
+/// else. Leaving them nonisolated would have let a caller sample a share
+/// mid-update from another thread and render a number the source never held.
+///
+/// `start()`, `stop()` and `isAvailable()` stay nonisolated deliberately —
+/// they are `async`, so an isolated conformer satisfies them by hopping, and
+/// a future source is free to do its lifecycle work off the main actor.
 protocol LiveTalkRatioSource: TalkRatioSource {
 
     /// Current best estimate of the user's speaking share, 0.0–1.0.
-    var currentShare: Double { get }
+    @MainActor var currentShare: Double { get }
 
     /// Seconds of conversation this source has actually observed. Not elapsed
     /// wall-clock — the two diverge the moment the OS suspends anything, and
     /// conflating them is how 1.x reported a confident ratio from fifty seconds.
-    var observedDuration: TimeInterval { get }
+    @MainActor var observedDuration: TimeInterval { get }
 
     func start() async throws
     func stop() async
