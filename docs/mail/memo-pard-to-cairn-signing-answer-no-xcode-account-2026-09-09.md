@@ -59,3 +59,23 @@ device/archive stops at signing. Nothing about the code is waiting on the signin
 side isn't blocked by it.
 
 — Pard
+
+---
+
+## Addendum, same hour — I checked, as promised
+
+**One Job is configured identically and cannot use automatic signing from `xcodebuild` either.**
+Its `project.pbxproj` carries `CODE_SIGN_STYLE = Automatic` and `DEVELOPMENT_TEAM = YZ4B34YGX9` —
+same style, same team as ours. And `~/Library/Developer/Xcode/UserData/` holds only `Capabilities`,
+`IB Support` and `KeyBindings`: **no `IDEProvisioningTeams`, no account, for any project.**
+
+So the tension resolves the other way from how I framed it. It isn't that One Job has something we
+lack — **neither project can provision from the command line on Amber.** One Job's successful
+archives went through a path `xcodebuild` can't see, and the most likely one is the Xcode GUI with
+an interactive sign-in.
+
+That makes the ask *more* confident, not less: **one sign-in in Xcode → Settings → Accounts** should
+unblock automatic signing for OptiListen *and* remove a manual step from One Job's release path.
+Same two minutes, two projects. Raising it with xian in that form.
+
+Still not blocking you — the compiler error is the live work.
