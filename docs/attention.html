@@ -200,7 +200,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 10 Sep 2026, 16:45 PT · rev 12 · file and page in sync</div>
+    <div class="stamp">Updated 10 Sep 2026, 17:30 PT · rev 13 · file and page in sync</div>
   </header>
 
   <section class="win">
@@ -212,7 +212,7 @@
       <code>git merge-base --is-ancestor b22f06b HEAD</code> before saying so, because "the build
       passed" and "the build passed <em style="font-style:italic;display:inline">with your
       fix</em>" are different claims. <b>The compile risk is retired. Exactly one thing now stands
-      between this project and a TestFlight build, and it is a two-minute Apple ID re-add on Amber — an account that was there in August and quietly is not.</b></p>
+      between this project and a TestFlight build, and it is not a missing account — it is running the archive in a session that can see the account you already have. Item 01.</b></p>
   </section>
 
   <section class="clock" aria-label="Grace period remaining">
@@ -233,25 +233,22 @@
       <div class="item blocking">
         <div class="rank">01</div>
         <div class="body">
-          <div class="title">Re-add your Apple ID to Xcode on Amber — it was there in August, and it is gone</div>
-          <div class="why">Answered, and it turns out you were both right about different weeks.
-            Pard read Xcode's preference file <b>directly from disk</b> rather than through his
-            session cache: the account list is an empty array, and there is no
-            <code>idmsa.apple.com</code> item in the login keychain. But One Job's provisioning
-            profiles were minted <b>13–15 August</b> by the only Xcode install that has ever been on
-            that machine — so an Apple ID <em style="font-style:italic;display:inline">was</em> signed
-            in then, minted them, and is no longer there. Nobody removed it on purpose and nothing
-            surfaced its absence for about four weeks. <b>The ask is not to sign in to something you
-            said was already signed in. It is to re-add an account that silently went missing</b>,
-            and it now needs to mint a profile for <code>com.longskymedia.optilisten</code>. The same
-            account is also the only thing that can renew One Job's two profiles when they expire
-            Aug 2027.</div>
+          <div class="title">Run the archive where the account is visible — nothing needs adding</div>
+          <div class="why">You were right. <code>xian@pobox.com</code> is signed into Xcode on
+            Amber. Since Xcode 9.3, Apple keeps developer-account credentials in the
+            <b>local items keychain</b>, which an SSH or Background session cannot read — and Pard
+            runs over SSH in tmux. So his <code>No Accounts</code> was true for <em style="font-style:italic;display:inline">his</em>
+            session and told us nothing about yours; his "empty on disk" check read a key Xcode
+            doesn't use for this. Apple DevRel confirms the exact symptom on the developer forums
+            (thread 112606). <b>Rev 11–12 told you to re-add something that was there. That was
+            wrong, and it was mine.</b></div>
           <div class="steps">
-            <b>Xcode → Settings → Accounts → +</b> → Apple ID → <b>xian@pobox.com</b> (owner of YZ4B34YGX9)
+            <b>(a) now, at the desk:</b> open ~/Development/optilisten/OptiListen.xcodeproj → Product → Archive → Distribute → TestFlight<br>
+            <b>(b) durable, so Pard can archive unattended:</b> wait for Coral — One Job shipped from this machine on 5 Sep and Coral knows the working path
           </div>
           <div class="meta">
             <span class="pill stop">archive → TestFlight → Dan's prototype → submission</span>
-            <span class="pill cost">~2 min, at the desk</span>
+            <span class="pill cost">(a) ~5 min · (b) one answer from Coral</span>
           </div>
         </div>
       </div>
@@ -290,16 +287,14 @@
   <section class="sec">
     <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep</span></div>
     <div class="rows">
+      <div class="row done"><div class="who">Retracted</div><div class="txt">
+        <b>"The account is absent."</b> It's present in your GUI session; Pard's SSH session can't
+        read the local-items keychain where Xcode stores it. My session hypothesis was right and I
+        accepted a disk read that "ruled it out" without asking whether the read was valid.
+        <em>Same moment, different keychain visibility — not two weeks apart.</em></div></div>
       <div class="row done"><div class="who">Mail</div><div class="txt">
         <b>Apple's mail now reaches a mailbox an agent can read.</b> pobox→Gmail forward set up
         10 Sep. Deadline changes and review results become visible to scheduled fires from here.</div></div>
-      <div class="row done"><div class="who">Answered</div><div class="txt">
-        <b>"Which macOS session archived One Job?" — neither. The account really is absent, and
-        really was present in August.</b> Pard's session limitation was real and worth ruling out
-        (he runs over SSH, <code>launchctl managername → Background</code>, not Aqua) — and he
-        ruled it out properly instead of re-asserting, by reading
-        <code>com.apple.dt.Xcode.plist</code> from disk.
-        <em>Two true statements six weeks apart. Item 01 is now "re-add," not "investigate."</em></div></div>
       <div class="row done"><div class="who">Checked</div><div class="txt">
         <b>Version and build numbering clears an upload.</b> 1.x last carried
         <code>MARKETING_VERSION = 1.3</code> / <code>CURRENT_PROJECT_VERSION = 6</code>; 2.0 carries
@@ -486,7 +481,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · this page's HTML is versioned beside it at <code>docs/attention.html</code> · file and page in sync at rev 12<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · this page's HTML is versioned beside it at <code>docs/attention.html</code> · file and page in sync at rev 13<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>

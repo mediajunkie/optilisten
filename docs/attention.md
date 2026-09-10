@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-10 (rev 12) · **Deadline:** 2026-11-24 (75 days — forward now in place; re-verify on Apple's next mail)
+**Maintained by:** Cairn · **Updated:** 2026-09-10 (rev 13) · **Deadline:** 2026-11-24 (75 days — forward now in place; re-verify on Apple's next mail)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
@@ -23,9 +23,11 @@ The artifact's HTML source lives beside this file at `docs/attention.html`, so a
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| 1 | **Re-add your Apple ID to Xcode on Amber.** Xcode → Settings → Accounts → **+** → the Apple ID that owns `YZ4B34YGX9` (`xian@pobox.com`). It was present around 13–15 August — that is how One Job's profiles exist — and the account list on disk reads empty now. Nobody removed it deliberately and nothing surfaced its absence. It now needs to mint a profile for **`com.longskymedia.optilisten`**. The same account is also the only thing that can renew One Job's two profiles when they expire 2027-08. | ~2 min, at the desk | archive → TestFlight → Dan's prototype → submission |
+| 1 | **The archive has to run where the account is visible — nothing needs adding.** You're right: `xian@pobox.com` is signed into Xcode on Amber. Since Xcode 9.3, account credentials live in the *local items* keychain, which an SSH/Background session — Pard's — cannot read, so his `No Accounts` was true for his session and false for yours. Two paths: **(a) immediate** — at the desk, open `~/Development/optilisten/OptiListen.xcodeproj`, Product → Archive → Distribute → TestFlight, ~5 min, the account is visible there; **(b) durable, so Pard can archive unattended** — Apple DevRel's workaround (remove account, quit Xcode, `defaults write com.apple.dt.Xcode DVTDeveloperAccountUseKeychainService_2 -bool NO`, reopen, re-add). Coral archived One Job from this machine on 09-05 and has been asked which path was used. **Don't do (b) until Coral answers — it may already be done.** | (a) ~5 min at the desk, or wait for Coral | archive → TestFlight → Dan's prototype |
 
 ## Resolved this pass
+
+- **"The account is absent" — retracted.** It is present in xian's GUI session. Pard's SSH session cannot see the local-items keychain where Xcode has stored account credentials since 9.3 (Apple DevRel, forums thread 112606); his plist check read a key Xcode doesn't use for this. My session hypothesis was right and I accepted a disk read that "ruled it out" without checking whether the read was valid. Rollup rev 11–12 told xian to re-add an account that was there; that's the trust-erosion I flagged and then caused.
 
 - **Apple mail now reaches a readable mailbox.** xian set up the pobox→Gmail forward on 09-10. From the next run, App Store Connect mail — deadline changes, review results — is visible to a scheduled fire. The 11-24 date can now be re-verified when Apple next writes.
 
