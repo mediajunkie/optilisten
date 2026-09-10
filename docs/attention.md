@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-10 (rev 11) · **Deadline:** 2026-11-24 (75 days, unverified — see item 2)
+**Maintained by:** Cairn · **Updated:** 2026-09-10 (rev 12) · **Deadline:** 2026-11-24 (75 days — forward now in place; re-verify on Apple's next mail)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
@@ -24,9 +24,10 @@ The artifact's HTML source lives beside this file at `docs/attention.html`, so a
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
 | 1 | **Re-add your Apple ID to Xcode on Amber.** Xcode → Settings → Accounts → **+** → the Apple ID that owns `YZ4B34YGX9` (`xian@pobox.com`). It was present around 13–15 August — that is how One Job's profiles exist — and the account list on disk reads empty now. Nobody removed it deliberately and nothing surfaced its absence. It now needs to mint a profile for **`com.longskymedia.optilisten`**. The same account is also the only thing that can renew One Job's two profiles when they expire 2027-08. | ~2 min, at the desk | archive → TestFlight → Dan's prototype → submission |
-| 2 | **Forward Apple's mail to a mailbox an agent can read** | Unchanged since rev 6. Apple writes to `xian@pobox.com`. The Gmail I can read holds Apple-domain mail from 2022 and a 2024 calendar invite, but **no App Store Connect mail in 2026** except the One Job notice you forwarded by hand on 09-09. Until a pobox→Gmail rule exists for `@email.apple.com`, **no run can ever learn** if Apple moves the date, extends it, or answers a submission. | ~3 min | verification of the only hard deadline |
 
 ## Resolved this pass
+
+- **Apple mail now reaches a readable mailbox.** xian set up the pobox→Gmail forward on 09-10. From the next run, App Store Connect mail — deadline changes, review results — is visible to a scheduled fire. The 11-24 date can now be re-verified when Apple next writes.
 
 - **"Which macOS session?" is answered — it was a real absence, not a session artifact.** Pard's session limitation was real and worth ruling out (he runs over SSH under `launchctl managername → Background`, not Aqua), and he ruled it out properly rather than re-asserting: `plutil -extract DVTDeveloperAccountManagerAppleIDLists xml1 -o - ~/Library/Preferences/com.apple.dt.Xcode.plist` returns an empty array **on disk**, and there is no `idmsa.apple.com` item in the login keychain. The account is genuinely gone. The mint dates (Aug 13 18:24, Aug 15 21:38) against a single Xcode install (installed Aug 5, never upgraded) are what prove it was ever there. Two true statements, six weeks apart.
 - **Version and build numbering clears an upload — verified, no change needed.** The bundle-ID miss was a metadata error that fails at submission rather than at compile, so I checked its nearest sibling. 1.x source of record (`AustinWood/listenup-mobile`, `ios/ListenUp.xcodeproj/project.pbxproj`) carries `MARKETING_VERSION = 1.3`, `CURRENT_PROJECT_VERSION = 6`. 2.0 carries `MARKETING_VERSION = 2.0`, `CURRENT_PROJECT_VERSION = 1`. `2.0 > 1.3`, and build numbers are unique per version train rather than per app, so build 1 under a fresh 2.0 collides with nothing. **Verified against the source of record; not against the live App Store listing**, which reads through App Store Connect behind `xian@pobox.com` (item 2). The conclusion holds either way — any unlogged 1.4 would still sort below 2.0.
