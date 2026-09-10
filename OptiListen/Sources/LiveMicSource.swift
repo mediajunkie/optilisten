@@ -69,6 +69,19 @@ final class LiveMicSource: LiveTalkRatioSource {
 
     private(set) var calibration: Calibration = .unavailable
 
+    /// Store a calibration built from two measured levels.
+    ///
+    /// The source owns this value deliberately — `private(set)` keeps the
+    /// thresholds from being assembled in three places and drifting apart.
+    /// Callers run the two samples, hand over the raw readings, and get the
+    /// derived calibration back; construction lives here, once.
+    @discardableResult
+    func applyCalibration(userLevel: Double, ambientLevel: Double) -> Calibration {
+        let calibration = Calibration(userLevel: userLevel, ambientLevel: ambientLevel)
+        self.calibration = calibration
+        return calibration
+    }
+
     // MARK: Live state
 
     private(set) var isRunning = false

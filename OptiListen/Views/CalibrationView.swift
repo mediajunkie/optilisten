@@ -120,11 +120,10 @@ struct CalibrationView: View {
             phase = .quiet
             ambientLevel = (try? await source.sampleLevel(for: sampleSeconds)) ?? -50
 
-            let calibration = LiveMicSource.Calibration(
+            let calibration = source.applyCalibration(
                 userLevel: userLevel,
                 ambientLevel: ambientLevel
             )
-            source.calibration = calibration
             phase = calibration.isUsable ? .result : .tooClose
         }
     }
