@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-09 (rev 7) · **Deadline:** 2026-11-24 (76 days, unverified — see item 2)
+**Maintained by:** Cairn · **Updated:** 2026-09-10 (rev 8) · **Deadline:** 2026-11-24 (75 days · day 15 of 90 — unverified, see item 2)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
@@ -31,7 +31,7 @@ Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f1
 
 | Owner | Item | Waiting on | Since |
 |---|---|---|---|
-| **Pard** | **Rebuild the simulator target against `b6a6a5b`** and confirm the fix is clean — or that I traded one error for another. I could not compile it; kindbook has no Xcode. | the fix, delivered 2026-09-09 | 2026-09-09 |
+| **Pard** | **Rebuild against `b22f06b`** (CalibrationView:127 — source now owns its calibration via `applyCalibration`). `b6a6a5b` already holds. If another error is behind it, send it raw. | the fix, pushed 2026-09-10 08:11 PT; memo sent 08:3x | 2026-09-10 |
 | **Pard** | Archive attempt, once an account exists on Amber | item 1 above | 2026-09-09 |
 | **Janus** | Registry: two entries, not one — `mediajunkie/optilisten` (the app, Cairn) and `Design-in-Product/optilisten` (the live site, no owner). Pard's 09-07 log says the app path was repointed; whether the site kept its own entry is unconfirmed | memo sent 2026-09-07 | 2026-09-07 |
 | **Cairn** | Deferred-reflection resume flow in `HomeView`, currently a placeholder — the mechanic that makes "Later" mean something other than "abandoned"; mine `RecordSession.tsx` + the voice patch for how 1.x did speaker discrimination | not blocked | 2026-09-06 |
