@@ -200,7 +200,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 10 Sep 2026, 08:35 PT · rev 9 · file and page in sync</div>
+    <div class="stamp">Updated 10 Sep 2026, 11:10 PT · rev 10 · file and page in sync</div>
   </header>
 
   <section class="win">
@@ -233,28 +233,21 @@
       <div class="item blocking">
         <div class="rank">01</div>
         <div class="body">
-          <div class="title">Sign into Xcode on Amber</div>
-          <div class="why">Unchanged, and re-measured overnight: Pard's duty cycle reads
-            <code>IDE.Identifiers.Prod = ()</code> every pass, most recently ~07:0x this morning.
-            Amber holds the signing <b>certificates</b> —
-            <code>Apple Distribution: Christian Crumlish (YZ4B34YGX9)</code> — but <b>no Apple
-            account</b>. Certificates let you sign with a profile you already have; an account is
-            what <em style="font-style:italic;display:inline">mints</em> one.
-            <code>com.optilisten.ios</code> has none and cannot get one until an account exists.
-            Nobody but you can type that password — and once it's done, Pard can archive without
-            you at the keyboard, which is what a 75-day deadline actually needs.</div>
+          <div class="title">Tell Pard which macOS session One Job was archived from</div>
+          <div class="why">You say <code>xian@pobox.com</code> is already signed into Xcode on
+            Amber and One Job shipping proves it. Pard's <code>xcodebuild</code> reads
+            <code>No Accounts</code> every cycle. <b>Both can be true.</b> Xcode accounts are
+            per-macOS-user — they live in that user's defaults and login keychain — so if Pard's
+            headless session isn't your GUI login, it can't see your account, and One Job archived
+            because a GUI session did it. He has the commands to tell that apart from a sign-in
+            that didn't persist. If it's a session problem, <b>no sign-in is needed</b>: the archive
+            runs in your session, or you do it at the desk now that the build is green.</div>
           <div class="steps">
-            Xcode → Settings → Accounts → <b>+</b> → Apple ID that owns team <b>YZ4B34YGX9</b>
-          </div>
-          <div class="evid">
-            <div class="evid-row"><span>Signing identities in the keychain</span><span class="yes">✓</span></div>
-            <div class="evid-row"><span>Provisioning profiles for <code>com.optilisten.ios</code></span><span class="no">✕</span></div>
-            <div class="evid-row"><span>Apple account in Xcode — <code>DVTDeveloperAccountManagerAppleIDLists</code> empty; <code>IDE.Identifiers.Prod = ()</code>, re-checked by Pard every duty cycle</span><span class="no">✕</span></div>
-            <div class="evid-row"><span><code>xcodebuild -allowProvisioningUpdates</code> — fails with <code>No Accounts</code></span><span class="no">✕</span></div>
+            Pard runs: <b>whoami · launchctl managername · defaults read com.apple.dt.Xcode IDE.Identifiers.Prod</b> — as himself, then as xian
           </div>
           <div class="meta">
             <span class="pill stop">archive → TestFlight → Dan's prototype → submission</span>
-            <span class="pill cost">~2 min</span>
+            <span class="pill cost">one reply, or ~2 min</span>
           </div>
         </div>
       </div>
@@ -310,6 +303,21 @@
   <section class="sec">
     <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep</span></div>
     <div class="rows">
+      <div class="row done"><div class="who">Bundle ID</div><div class="txt">
+        <b>It was wrong, and your question caught it.</b> <code>project.yml</code> carried
+        <code>com.optilisten.ios</code>, the identifier Austin's 2022 setup email told you to
+        create. What actually shipped — from the 1.x <code>project.pbxproj</code> — is
+        <b><code>com.longskymedia.optilisten</code></b>. An archive under the wrong ID would not
+        have updated the existing App Store record. Fixed at <code>73f2b95</code>; Pard runs
+        <code>xcodegen generate</code> before the next build.
+        <em>Method note: the instruction said one thing; the artifact did another. Trust the
+        artifact.</em></div></div>
+      <div class="row done"><div class="who">Ownership</div><div class="txt">
+        <b>The "skymedia" prefix has no bearing on who owns it.</b> A bundle ID's reverse-domain
+        string is a naming convention; the identifier is registered to a team, and this one is on
+        <code>YZ4B34YGX9</code> — the 1.x project's <code>DEVELOPMENT_TEAM</code>, and App Store
+        Connect shows <code>xian@pobox.com</code> as Account Holder and Admin there. Dan's Apple
+        ID is not involved.</div></div>
       <div class="row done"><div class="who">Compiled</div><div class="txt">
         <b>The 2.0 tree has been through a compiler.</b> Simulator target, 9 Sep, with
         <code>CODE_SIGNING_ALLOWED=NO</code> to get past signing to the actual compiler.
@@ -417,6 +425,11 @@
   <section class="sec">
     <div class="sec-hd"><h2>Method notes</h2><span class="count">five worth keeping</span></div>
     <div class="notes">
+      <div class="note"><b>The instruction is not the artifact.</b> I carried
+        <code>com.optilisten.ios</code> from an email telling xian what to create, for five days,
+        into a build config. The 1.x project file — the thing that actually shipped — said
+        <code>com.longskymedia.optilisten</code> the whole time and I never opened it for that
+        field. When both exist, read the artifact.</div>
       <div class="note"><b>The first error hid the second, and that is worth expecting rather than
         rediscovering.</b> Clearing <code>LiveMicSource:37</code> immediately surfaced
         <code>CalibrationView:127</code>, which would have failed identically before the first fix —
@@ -450,7 +463,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · this page's HTML is versioned beside it at <code>docs/attention.html</code> · file and page in sync at rev 9<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · this page's HTML is versioned beside it at <code>docs/attention.html</code> · file and page in sync at rev 10<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>

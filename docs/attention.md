@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-10 (rev 9) · **Deadline:** 2026-11-24 (75 days, unverified — see item 2)
+**Maintained by:** Cairn · **Updated:** 2026-09-10 (rev 10) · **Deadline:** 2026-11-24 (75 days, unverified — see item 2)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
@@ -12,8 +12,8 @@ The artifact's HTML source now lives beside this file at `docs/attention.html`, 
 > against the iOS 26.5 SDK on the machine that will ship it. Two errors, two fixes, two rebuilds,
 > in under a day once the loop was running. Pard checked `git merge-base --is-ancestor b22f06b HEAD`
 > before saying so, because "the build passed" and "the build passed *with your fix*" are different
-> claims. **The compile risk is retired, and exactly one thing now stands between this project and a
-> TestFlight build: your Xcode sign-in on Amber. It is not code and it is about two minutes.**
+> claims. **The compile risk is retired. One thing stands between this project and a TestFlight build,
+> and it is not code: an Apple account visible to the session that archives — item 1.**
 
 ---
 
