@@ -7,7 +7,7 @@
 
 name: OptiListen
 options:
-  bundleIdPrefix: com.optilisten
+  bundleIdPrefix: com.longskymedia
   deploymentTarget:
     iOS: "17.0"     # See Docs/COMPLIANCE.md — 1.1 shipped at iOS 11, which
                     # Xcode 26 no longer supports. Confirm against App Analytics
@@ -32,7 +32,7 @@ targets:
       - path: OptiListen
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.optilisten.ios   # matches the existing
+        PRODUCT_BUNDLE_IDENTIFIER: com.longskymedia.optilisten   # matches the existing
                                                         # App Store record — do
                                                         # not change, the listing
                                                         # is tied to it

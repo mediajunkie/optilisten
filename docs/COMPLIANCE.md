@@ -28,7 +28,7 @@ imported 2022-07-09 to a third GitHub account registered as `optilisten@designin
 — is misleadingly named: it contains the designinproduct.com book/UX site, not the app.
 Nothing named optilisten is cloned under `~/Development` on the Mac Studio.
 
-**Bundle ID:** `com.optilisten.ios`
+**Bundle ID:** `com.longskymedia.optilisten`
 
 ## The stack — this is the expensive branch
 
@@ -128,7 +128,7 @@ possibility, and it blocks everything downstream with its own turnaround. Check 
 committing to a schedule.
 
 Also check, in the same session: signing certificates and provisioning profiles (a 2023
-profile is expired), and that the `com.optilisten.ios` identifier is still registered.
+profile is expired), and that the `com.longskymedia.optilisten` identifier is still registered.
 
 ### 3. Pull App Analytics
 

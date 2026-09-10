@@ -106,7 +106,7 @@ Or make the target by hand — nothing depends on the generated project.
 **Pard, before the first build:**
 
 1. Set `DEVELOPMENT_TEAM` in `project.yml`.
-2. Confirm `com.optilisten.ios` is still registered at
+2. Confirm `com.longskymedia.optilisten` is still registered at
    https://developer.apple.com/account — it's the existing App Store record's
    bundle ID and must not change.
 3. Verify the Apple Developer Program membership is current. In July 2023 an
