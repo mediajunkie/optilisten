@@ -249,7 +249,7 @@
           <div class="evid">
             <div class="evid-row"><span>Signing identities in the keychain</span><span class="yes">✓</span></div>
             <div class="evid-row"><span>Provisioning profiles for <code>com.optilisten.ios</code></span><span class="no">✕</span></div>
-            <div class="evid-row"><span>Apple account in Xcode — <code>DVTDeveloperAccountManagerAppleIDLists</code> reads empty</span><span class="no">✕</span></div>
+            <div class="evid-row"><span>Apple account in Xcode — <code>DVTDeveloperAccountManagerAppleIDLists</code> empty; <code>IDE.Identifiers.Prod = ()</code>, re-checked by Pard every duty cycle</span><span class="no">✕</span></div>
             <div class="evid-row"><span><code>xcodebuild -allowProvisioningUpdates</code> — fails with <code>No Accounts</code></span><span class="no">✕</span></div>
           </div>
           <div class="meta">
@@ -302,8 +302,8 @@
         recommendation has its baseline in <code>docs/analytics-2026-09-07.md</code>.</em></div></div>
       <div class="row"><div class="who">open</div><div class="txt">
         <b>Whether Cairn runs as Cowork or Code, and on which machine.</b>
-        <em>Yours; less pressing now that the scheduled Cowork run has reached a Mac and pushed
-        unattended twice.</em></div></div>
+        <em>Yours; less pressing now that the scheduled Cowork run has proven it can reach a Mac,
+        fix a compiler error, and push unattended — three fires running.</em></div></div>
     </div>
   </section>
 
@@ -347,14 +347,20 @@
       <div class="row done"><div class="who">Committed</div><div class="txt">
         <b><code>DEVELOPMENT_TEAM</code> is settled for real.</b> Pard had set
         <code>YZ4B34YGX9</code> in his working copy only; <code>main</code> carried the empty
-        placeholder.
+        placeholder. He owned it plainly: "I reported the state of my machine as the state of the
+        world."
         <em>Committed at <code>b6a6a5b</code>, local copy discarded 9 Sep — both now agree and the
         authoritative one is in the repo.</em></div></div>
       <div class="row done"><div class="who">Binding</div><div class="txt">
-        <b>The scheduled mail check runs unattended, twice over.</b> The 9 Sep 23:00 UTC and 10 Sep
-        15:09 UTC fires both reached kindbook's shell and pushed to both origins with nobody at the
-        keyboard.
+        <b>The scheduled mail check runs unattended.</b> Three fires since rebinding — 16:00 and
+        23:06 UTC on the 9th, 16:00 UTC today — each reached kindbook's shell, rebased both repos
+        and pushed; the last two each fixed a compiler error.
         <em>The 8 Sep cloud-only failure mode has not recurred.</em></div></div>
+      <div class="row done"><div class="who">Renamed</div><div class="txt">
+        <b>The checkout collision, and it was worse than flagged.</b> macOS is case-insensitive, so
+        the lowercase name I suggested resolved to the <em style="display:inline;font-style:italic">same
+        directory</em> as the site checkout and Pard's first clone silently no-opped into it.
+        <em>Now <code>optilisten-site</code> (marketing) and <code>optilisten</code> (2.0).</em></div></div>
       <div class="row done"><div class="who">SDK</div><div class="txt">
         <b>Residual 26.5-SDK worry retired.</b> One Job reached "Pending Developer Release" on
         8 Sep through Amber's Xcode 26.6 / iOS 26.5 toolchain — a live acceptance from this
@@ -409,7 +415,7 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Method notes</h2><span class="count">four worth keeping</span></div>
+    <div class="sec-hd"><h2>Method notes</h2><span class="count">five worth keeping</span></div>
     <div class="notes">
       <div class="note"><b>The first error hid the second, and that is worth expecting rather than
         rediscovering.</b> Clearing <code>LiveMicSource:37</code> immediately surfaced
@@ -421,6 +427,10 @@
         with no notes and no diagnostics attached. Reading <code>private(set)</code> as an invariant
         rather than an obstacle is what picked the fix — and the fix was a design decision the
         compiler had no opinion about.</div>
+      <div class="note"><b>A commit isn't mail.</b> The 08:11 fire pushed <code>b22f06b</code> and
+        sent no memo; Pard's 03:0x log line "Cairn has pushed nothing further" was true when
+        written, and nobody told him otherwise until 08:2x. Every fix now ships with its memo in
+        the same fire.</div>
       <div class="note"><b>Two Cairn instances worked this repo inside fifteen minutes, and the
         rollup nearly lost an update.</b> The 16:00 UTC scheduled fire pushed <code>b22f06b</code>
         at 08:11 PT and sent no memo; an interactive session opened at ~08:2x, read the commit,
