@@ -200,17 +200,19 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 10 Sep 2026, 08:20 PT · rev 8 · file and page in sync</div>
+    <div class="stamp">Updated 10 Sep 2026, 08:35 PT · rev 9 · file and page in sync</div>
   </header>
 
   <section class="win">
-    <div class="tag">The fix held</div>
-    <p><b>Pard rebuilt against <code>b6a6a5b</code> and <code>LiveMicSource.swift:37</code> is
-      gone</b> — rev 7's top standing risk was "the fix is unverified," and a real compiler has now
-      closed it. One error was behind it, <code>CalibrationView.swift:127</code>, and it was plain
-      access control rather than concurrency; fixed and pushed at <code>b22f06b</code>, awaiting the
-      next rebuild. <b>Nothing has changed about what needs you: one Apple ID sign-in on Amber is
-      still the only thing on the critical path.</b></p>
+    <div class="tag">Build succeeded</div>
+    <p><b>The whole tree compiles clean on Amber.</b> 1,151 lines of SwiftUI, Swift 6 with
+      <code>SWIFT_STRICT_CONCURRENCY: complete</code>, zero errors and zero concurrency warnings,
+      against the iOS 26.5 SDK on the machine that will ship it. Two errors, two fixes, two
+      rebuilds, in under a day once the loop was running — and Pard checked
+      <code>git merge-base --is-ancestor b22f06b HEAD</code> before saying so, because "the build
+      passed" and "the build passed <em style="font-style:italic;display:inline">with your
+      fix</em>" are different claims. <b>The compile risk is retired. Exactly one thing now stands
+      between this project and a TestFlight build, and it is your two-minute Xcode sign-in.</b></p>
   </section>
 
   <section class="clock" aria-label="Grace period remaining">
@@ -278,16 +280,12 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>In flight</h2><span class="count">4 owned · 1 open question</span></div>
+    <div class="sec-hd"><h2>In flight</h2><span class="count">3 owned · 1 open question</span></div>
     <div class="rows">
       <div class="row warnrow"><div class="who">Pard</div><div class="txt">
-        <b>Rebuild the simulator target against <code>b22f06b</code></b> — the
-        <code>CalibrationView</code> access fix, pushed this morning.
-        <em>Pushed 08:11 PT, memo sent 08:2x. Expect another error behind it rather than a clean
-        build; that is the normal shape of a first compile.</em></div></div>
-      <div class="row"><div class="who">Pard</div><div class="txt">
-        <b>Archive attempt</b>, once an account exists on Amber.
-        <em>Waiting on item 01 — nothing else.</em></div></div>
+        <b>Archive and hand over a TestFlight build</b> — the last step, and the only one left.
+        <em>He has said he will do it the same hour the account lands, which makes the Dan
+        prototype assemblable that hour too. Waiting on item 01 and nothing else.</em></div></div>
       <div class="row"><div class="who">Janus</div><div class="txt">
         <b>Registry: two entries, not one.</b> Pard's 7 Sep log says the app path was repointed to
         <code>mediajunkie/optilisten</code>.
@@ -333,8 +331,15 @@
         than opening the setter — <code>Calibration</code> carries the app's thresholds, including
         the 0.45 ambient bias that exists so the app never flatters the user, so construction stays
         inside the type that owns them.
-        <em>One write site in the tree, grep-confirmed; two reads in <code>PracticeLoopView</code>
-        untouched. Syntax-parsed only on kindbook — awaiting Pard's rebuild.</em></div></div>
+        <em>One write site in the tree, grep-confirmed. Verified 10 Sep: the tree builds clean,
+        and Pard confirmed <code>b22f06b</code> was an ancestor of the built HEAD before reporting
+        it.</em></div></div>
+      <div class="row done"><div class="who">Clean</div><div class="txt">
+        <b>The 2.0 tree compiles end to end.</b> <code>** BUILD SUCCEEDED **</code> on Amber,
+        10 Sep — 1,151 lines, Swift 6 <code>SWIFT_STRICT_CONCURRENCY: complete</code>, zero errors,
+        zero concurrency warnings, iOS 26.5 SDK.
+        <em>Two errors found and fixed in under a day once the build loop was actually
+        running.</em></div></div>
       <div class="row done"><div class="who">Answered</div><div class="txt">
         <b>Does automatic signing provision on its own? No — and not for the reason expected.</b>
         It fails one step before the portal: there is no Apple account on Amber at all.
@@ -379,15 +384,11 @@
 
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
-    <div class="risk"><span class="dot">▲</span><div><b><code>b22f06b</code> is unverified, in the
-      same narrow sense <code>b6a6a5b</code> was.</b> <code>xcrun swiftc -parse</code> passed on
-      both changed files, but kindbook has no iOS SDK — that is syntax only, with no type checking
-      and no isolation analysis. The same class of reasoning-plus-parse held up under a real
-      compiler last time; that is one data point, not a method.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Expect more errors, and don't read them as
-      trouble.</b> The compiler surfaces one at a time on a fresh tree, so each fix buys one more
-      file's worth of visibility. "Another error" is progress through the file list, not a widening
-      problem.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Compiling is not running.</b> The tree
+      builds clean; nobody has yet watched it <em style="font-style:italic;display:inline">behave</em>
+      — the mic tap, the calibration flow, the practice loop under a real conversation. A clean
+      Swift 6 build says the concurrency is sound, not that the app works. TestFlight is where that
+      gets answered, which is one more reason item 01 is the whole critical path.</div></div>
     <div class="risk"><span class="dot">▲</span><div><b>Calibration is <code>Codable</code> and
       nothing persists it.</b> Not a compile error — the user simply recalibrates from scratch on
       every cold launch. Someone made it storable and no one stored it. Folded into the
@@ -439,7 +440,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · this page's HTML is versioned beside it at <code>docs/attention.html</code> · file and page in sync at rev 8<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · this page's HTML is versioned beside it at <code>docs/attention.html</code> · file and page in sync at rev 9<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>

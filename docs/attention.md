@@ -1,18 +1,19 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-10 (rev 8) · **Deadline:** 2026-11-24 (75 days, unverified — see item 2)
+**Maintained by:** Cairn · **Updated:** 2026-09-10 (rev 9) · **Deadline:** 2026-11-24 (75 days, unverified — see item 2)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source now lives beside this file at `docs/attention.html`, so a run edits it rather than retyping it.
 
-> **rev 8: the fix held, and the next error is already fixed too.** Pard rebuilt against `b6a6a5b` —
-> `LiveMicSource.swift:37` is gone, and rev 7's top standing risk ("the fix is unverified") is closed
-> by a real compiler. One error was behind it, `CalibrationView.swift:127`, plain access control
-> rather than concurrency; fixed and pushed at `b22f06b`, awaiting the next rebuild. **Nothing has
-> changed about what needs you: one Apple ID sign-in on Amber, still the only thing on the critical
-> path.**
+> **rev 9: BUILD SUCCEEDED.** The whole tree compiles clean on Amber — 1,151 lines of SwiftUI,
+> Swift 6 with `SWIFT_STRICT_CONCURRENCY: complete`, zero errors and zero concurrency warnings,
+> against the iOS 26.5 SDK on the machine that will ship it. Two errors, two fixes, two rebuilds,
+> in under a day once the loop was running. Pard checked `git merge-base --is-ancestor b22f06b HEAD`
+> before saying so, because "the build passed" and "the build passed *with your fix*" are different
+> claims. **The compile risk is retired, and exactly one thing now stands between this project and a
+> TestFlight build: your Xcode sign-in on Amber. It is not code and it is about two minutes.**
 
 ---
 
@@ -25,16 +26,16 @@ The artifact's HTML source now lives beside this file at `docs/attention.html`, 
 
 ## Resolved this pass
 
-- **`b6a6a5b` compiles.** Pard pulled it, ran `xcodegen generate` clean, and rebuilt the simulator target: `LiveMicSource.swift:37` is gone. Isolating the two protocol requirements rather than the conformance was the right call, and no Swift 6.2 feature was needed. Rev 7's headline standing risk is retired by measurement, not by argument.
-- **`DEVELOPMENT_TEAM` is settled for real.** Pard confirmed he discarded his Amber-local edit and is building against the value on origin. Both copies now agree, and the authoritative one is in the repo.
-- **The second compile error, same day it was reported.** `CalibrationView.swift:127` — `source.calibration = calibration` against a `private(set)` setter. Not a knock-on from the first fix; it was simply behind it, since the compiler stopped at `LiveMicSource` and never reached the view. Fixed at `b22f06b`.
+- **The tree compiles, end to end.** `b6a6a5b` cleared the isolation error; `b22f06b` cleared the access-control error behind it; Pard's rebuild this morning returned `** BUILD SUCCEEDED **` with nothing left. This was the project's top standing risk for four days and it is now measured rather than estimated.
+- **`DEVELOPMENT_TEAM` is settled for real.** Pard discarded his Amber-local edit and is building against the value on origin. Both copies agree and the authoritative one is in the repo.
+- **The mail channel was never broken — it was timing, plus a real gap Pard closed.** My 09-09 sync ran 33 minutes before his first reply of the day existed, so "no response" was accurate when written and stale within the hour. The underlying cause was that `mediajunkie/optilisten` had never been in his standing duty-cycle sweep; he was reading my mail by hand. Added to the sweep this morning, so the floor is now one duty cycle rather than whether he remembered.
+- **The 403 on scheduled cloud sessions is not Pard's to fix.** Amber authenticates over SSH as `mediajunkie` with no `GH_TOKEN` at all, so there is no host-side credential upstream of the cloud container. Wren hitting the same wall on a different repo makes it a property of the Cowork scheduled-session environment. It is back with xian as an account-side question — and it has not bitten since, because these fires reach kindbook's shell instead.
 
 ## In flight
 
 | Owner | Item | Waiting on | Since |
 |---|---|---|---|
-| **Pard** | **Rebuild the simulator target against `b22f06b`** — the `CalibrationView` access fix. Expect another error behind it rather than a clean build; that is the normal shape of a first compile, not a bad sign | the fix, pushed 08:11 PT; memo `memo-cairn-to-pard-b22f06b-pushed-rebuild-please-2026-09-10.md` sent 08:2x | 2026-09-10 |
-| **Pard** | Archive attempt, once an account exists on Amber | item 1 above | 2026-09-09 |
+| **Pard** | **Archive and hand over a TestFlight build** — the last step, and the only one left. He has said he will do it the same hour the account lands, which makes the Dan prototype assemblable that hour too | item 1 above, and nothing else | 2026-09-09 |
 | **Janus** | Registry: two entries, not one — `mediajunkie/optilisten` (the app, Cairn) and `Design-in-Product/optilisten` (the live site, no owner). Pard's 09-07 log says the app path was repointed; whether the site kept its own entry is unconfirmed | memo sent 2026-09-07 | 2026-09-07 |
 | **Cairn** | Deferred-reflection resume flow in `HomeView`, currently a placeholder — the mechanic that makes "Later" mean something other than "abandoned"; mine `RecordSession.tsx` + the voice patch for how 1.x did speaker discrimination. Calibration persistence (below) folds into this | not blocked | 2026-09-06 |
 | **Cairn** | **The Dan package** — options (minimally comply / reposition / sunset), a prototype he can hold, and a recommendation. Prototype means a TestFlight build, so it sits downstream of item 1; the recommendation has its baseline in `docs/analytics-2026-09-07.md` | item 1 | 2026-09-06 |
@@ -46,7 +47,8 @@ The artifact's HTML source now lives beside this file at `docs/attention.html`, 
 |---|---|
 | **The 2.0 tree has never been compiled** | Compiled 2026-09-09 on Amber, simulator target with `CODE_SIGNING_ALLOWED=NO`. `PracticeLoopView`, `HomeView`, `OptiListenApp`, `TalkRatioSource`, `RetrospectiveSources` and `Practice` all built clean. |
 | **Error 1 — `LiveMicSource.swift:37`** | `@MainActor LiveMicSource` conforming to `LiveTalkRatioSource`, whose `currentShare` and `observedDuration` were nonisolated. Fixed at `b6a6a5b` by isolating the two protocol requirements. **Verified by rebuild 2026-09-09** — the error is gone. |
-| **Error 2 — `CalibrationView.swift:127`** | `source.calibration = calibration` against a `private(set)` setter. Fixed at `b22f06b` by adding `applyCalibration(userLevel:ambientLevel:)` to `LiveMicSource` rather than opening the setter: `Calibration` carries the app's thresholds (including the 0.45 ambient bias that stops the app flattering the user), so construction stays inside the type that owns them. One write site in the tree, grep-confirmed; two reads in `PracticeLoopView` untouched. **Syntax-parsed only on kindbook — awaiting Pard's rebuild.** |
+| **Error 2 — `CalibrationView.swift:127`** | `source.calibration = calibration` against a `private(set)` setter. Fixed at `b22f06b` by adding `applyCalibration(userLevel:ambientLevel:)` to `LiveMicSource` rather than opening the setter: `Calibration` carries the app's thresholds (including the 0.45 ambient bias that stops the app flattering the user), so construction stays inside the type that owns them. One write site in the tree, grep-confirmed; two reads in `PracticeLoopView` untouched. **Verified 2026-09-10:** the tree builds clean, and Pard confirmed `b22f06b` was an ancestor of the built HEAD before reporting it. |
+| **The 2.0 tree compiles clean, end to end** | `** BUILD SUCCEEDED **` on Amber 2026-09-10 — 1,151 lines, Swift 6 `SWIFT_STRICT_CONCURRENCY: complete`, zero errors, zero concurrency warnings, iOS 26.5 SDK. Two errors found and fixed in under a day. |
 | **Does automatic signing provision on its own?** | **No, and not for the reason expected.** It fails one step before the portal: there is no Apple account on Amber at all. Now item 1. |
 | **`DEVELOPMENT_TEAM` in the repo** | It wasn't — Pard had set it locally only. Committed at `b6a6a5b`; local copy discarded 09-09, both now agree. |
 | **Scheduled mail check unbound to a device** | Fixed and proven unattended twice — the 09-09 23:00 UTC and 09-10 15:09 UTC fires both reached kindbook's shell and pushed to both origins with no one at the keyboard. |
@@ -61,8 +63,7 @@ The artifact's HTML source now lives beside this file at `docs/attention.html`, 
 
 ## Standing risks
 
-- **`b22f06b` is unverified, in the same narrow sense as `b6a6a5b` was.** I ran `xcrun swiftc -parse` on both changed files and it passed, but kindbook has no iOS SDK — that is syntax only, with no type checking and no isolation analysis. Last time the same class of reasoning-plus-parse held up under a real compiler; that is one data point, not a method.
-- **Expect more errors, and don't read them as trouble.** The compiler surfaces one at a time on a fresh tree, so "another error" is progress through the file list rather than a widening problem. Pard is feeding them raw and I'd rather he keep doing that than round them into a status.
+- **Compiling is not running.** The tree builds clean; no one has yet watched it *behave* — the mic tap, the calibration flow, the practice loop under a real conversation. A clean Swift 6 build says the concurrency is sound, not that the app works. The TestFlight build is where that gets answered, which is one more reason item 1 is the whole critical path.
 - **Calibration is `Codable` and nothing persists it.** Not a compile error — the user simply recalibrates from scratch on every cold launch. Someone made it storable and no one stored it. Folded into the `HomeView` work rather than fixed inside a build patch.
 - **The fleet has exactly one signing path, and it expires 2027-08.** One Job's two cached profiles are the only thing letting anything on Amber archive, and nothing would surface their lapse until it happened. Not urgent; should not be invisible.
 - **The 2026-11-24 date has not been re-verified since the original notice.** Apple's mail reaches no mailbox an agent reads. Item 2.
