@@ -1,0 +1,437 @@
+<title>OptiListen Action Rollup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ground:#F7F9F9;
+    --surface:#FFFFFF;
+    --sunk:#EDF2F2;
+    --ink:#101A1D;
+    --ink-mid:#41545A;
+    --ink-dim:#6B7E84;
+    --rule:#DCE5E5;
+    --rule-soft:#E9EFEF;
+    --teal:#1F7F84;
+    --teal-soft:#E2F1F1;
+    --green:#3E8F5F;
+    --green-soft:#E4F2E9;
+    --crit:#A32D22;
+    --crit-soft:#FBEAE7;
+    --warn:#8A5A00;
+    --warn-soft:#FBF1DE;
+    --shadow:0 1px 2px rgba(16,26,29,.06),0 1px 1px rgba(16,26,29,.04);
+    --display:"Dosis",ui-rounded,"Avenir Next",sans-serif;
+    --sans:"IBM Plex Sans",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0B1416;
+      --surface:#131E21;
+      --sunk:#0F1A1C;
+      --ink:#E3ECEC;
+      --ink-mid:#A3B5B8;
+      --ink-dim:#7C8F93;
+      --rule:#243437;
+      --rule-soft:#1B282B;
+      --teal:#5FC6C9;
+      --teal-soft:#102E30;
+      --green:#78C693;
+      --green-soft:#13291D;
+      --crit:#FFAB9E;
+      --crit-soft:#331A16;
+      --warn:#EFB65A;
+      --warn-soft:#2E2410;
+      --shadow:0 1px 2px rgba(0,0,0,.45);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0B1416; --surface:#131E21; --sunk:#0F1A1C;
+    --ink:#E3ECEC; --ink-mid:#A3B5B8; --ink-dim:#7C8F93;
+    --rule:#243437; --rule-soft:#1B282B;
+    --teal:#5FC6C9; --teal-soft:#102E30;
+    --green:#78C693; --green-soft:#13291D;
+    --crit:#FFAB9E; --crit-soft:#331A16;
+    --warn:#EFB65A; --warn-soft:#2E2410;
+    --shadow:0 1px 2px rgba(0,0,0,.45);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:var(--sans);font-size:15px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:36px 22px 72px;
+        display:flex;flex-direction:column;gap:30px}
+
+  /* ---- masthead ---- */
+  .mast{display:flex;flex-direction:column;gap:6px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+           text-transform:uppercase;color:var(--teal)}
+  h1{font-family:var(--display);font-weight:700;font-size:34px;letter-spacing:.05em;
+     margin:0;text-wrap:balance}
+  .lede{color:var(--ink-mid);max-width:64ch;margin:2px 0 0}
+  .stamp{font-family:var(--mono);font-size:12px;color:var(--ink-dim)}
+
+  /* ---- grace period meter ---- */
+  .clock{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+         padding:18px 20px;box-shadow:var(--shadow);display:flex;
+         flex-direction:column;gap:12px}
+  .clock-top{display:flex;justify-content:space-between;align-items:baseline;
+             gap:16px;flex-wrap:wrap}
+  .days{font-family:var(--display);font-weight:700;font-size:40px;line-height:1;
+        letter-spacing:.02em;font-variant-numeric:tabular-nums}
+  .days span{font-family:var(--sans);font-size:14px;font-weight:500;
+             letter-spacing:0;color:var(--ink-mid);margin-left:8px}
+  .target{font-family:var(--mono);font-size:12.5px;color:var(--ink-mid);text-align:right}
+  .meter{height:9px;border-radius:5px;background:var(--sunk);
+         overflow:hidden;border:1px solid var(--rule-soft)}
+  .meter i{display:block;height:100%;width:16.7%;
+           background:linear-gradient(90deg,var(--green),var(--teal))}
+  .scale{display:flex;justify-content:space-between;font-family:var(--mono);
+         font-size:11px;color:var(--ink-dim)}
+  .caveat{font-family:var(--mono);font-size:11px;color:var(--warn);
+          border-top:1px dashed var(--rule);padding-top:9px;line-height:1.6}
+
+  /* ---- sections ---- */
+  .sec{display:flex;flex-direction:column;gap:12px}
+  .sec-hd{display:flex;align-items:baseline;gap:12px;
+          border-bottom:1px solid var(--rule);padding-bottom:7px}
+  h2{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:.05em;
+     margin:0;text-transform:uppercase}
+  .count{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);margin-left:auto}
+
+  /* ---- needs-you items ---- */
+  .items{display:flex;flex-direction:column;gap:10px}
+  .item{background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+        padding:15px 17px;display:grid;grid-template-columns:26px 1fr;gap:14px;
+        box-shadow:var(--shadow);border-left:3px solid var(--teal)}
+  .item.blocking{border-left-color:var(--crit)}
+  .rank{font-family:var(--mono);font-size:12px;color:var(--ink-dim);
+        padding-top:2px;font-variant-numeric:tabular-nums}
+  .body{display:flex;flex-direction:column;gap:7px;min-width:0}
+  .title{font-weight:600;line-height:1.4}
+  .why{color:var(--ink-mid);font-size:14.2px}
+  .meta{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:1px}
+  .pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
+        text-transform:uppercase;padding:3px 8px;border-radius:20px;white-space:nowrap}
+  .pill.stop{background:var(--crit-soft);color:var(--crit)}
+  .pill.cost{background:var(--sunk);color:var(--ink-dim)}
+  .item:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+  /* ---- the exact keystrokes ---- */
+  .steps{margin:4px 0 0;padding:10px 12px;background:var(--sunk);
+         border:1px solid var(--rule-soft);border-radius:7px;
+         font-family:var(--mono);font-size:12.5px;color:var(--ink-mid);
+         line-height:1.9;overflow-x:auto}
+  .steps b{color:var(--ink);font-weight:500}
+
+  /* ---- evidence table ---- */
+  .evid{border:1px solid var(--rule);border-radius:8px;overflow:hidden;
+        margin-top:6px;background:var(--sunk)}
+  .evid-row{display:grid;grid-template-columns:1fr 34px;gap:10px;
+            padding:8px 12px;border-bottom:1px solid var(--rule-soft);
+            font-size:13.4px;align-items:center;color:var(--ink-mid)}
+  .evid-row:last-child{border-bottom:none}
+  .evid-row .yes{color:var(--green);text-align:center;font-weight:700}
+  .evid-row .no{color:var(--crit);text-align:center;font-weight:700}
+
+  /* ---- banner: something landed ---- */
+  .win{background:var(--green-soft);border:1px solid var(--rule);
+       border-left:3px solid var(--green);
+       border-radius:9px;padding:14px 17px;display:flex;flex-direction:column;gap:6px}
+  .win .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
+            text-transform:uppercase;color:var(--green)}
+  .win p{margin:0;font-size:14.2px;color:var(--ink-mid)}
+  .win b{color:var(--ink);font-weight:600}
+
+  /* ---- compact rows ---- */
+  .rows{display:flex;flex-direction:column;
+        border:1px solid var(--rule);border-radius:9px;overflow:hidden;
+        background:var(--surface)}
+  .row{display:grid;grid-template-columns:118px 1fr;gap:14px;
+       padding:11px 16px;border-bottom:1px solid var(--rule-soft);align-items:start}
+  .row:last-child{border-bottom:none}
+  .who{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;
+       text-transform:uppercase;color:var(--teal);padding-top:2px}
+  .row.done .who{color:var(--green)}
+  .row.warnrow .who{color:var(--warn)}
+  .txt{min-width:0}
+  .txt b{font-weight:600}
+  .txt em{color:var(--ink-dim);font-style:normal;font-size:13.5px;display:block;
+          margin-top:2px}
+  code{font-family:var(--mono);font-size:12.5px;background:var(--sunk);
+       padding:1px 5px;border-radius:4px;color:var(--ink-mid)}
+
+  /* ---- risks ---- */
+  .risks{background:var(--warn-soft);border:1px solid var(--rule);
+         border-radius:9px;padding:16px 18px;display:flex;
+         flex-direction:column;gap:10px}
+  .risks h2{color:var(--warn)}
+  .risk{display:grid;grid-template-columns:16px 1fr;gap:10px;font-size:14.2px;
+        color:var(--ink-mid)}
+  .risk b{color:var(--ink);font-weight:600}
+  .dot{color:var(--warn);font-family:var(--mono)}
+
+  /* ---- method notes ---- */
+  .notes{display:flex;flex-direction:column;gap:10px}
+  .note{border-left:2px solid var(--rule);padding-left:14px;font-size:14px;
+        color:var(--ink-mid)}
+  .note b{color:var(--ink);font-weight:600}
+
+  .foot{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);
+        border-top:1px solid var(--rule);padding-top:14px;line-height:1.7}
+
+  @media (max-width:620px){
+    .row{grid-template-columns:1fr;gap:4px}
+    .item{grid-template-columns:1fr}
+    .rank{display:none}
+    h1{font-size:28px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="eyebrow">Cairn · action rollup</div>
+    <h1>OptiListen</h1>
+    <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
+      <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
+    <div class="stamp">Updated 10 Sep 2026, 08:20 PT · rev 8 · file and page in sync</div>
+  </header>
+
+  <section class="win">
+    <div class="tag">The fix held</div>
+    <p><b>Pard rebuilt against <code>b6a6a5b</code> and <code>LiveMicSource.swift:37</code> is
+      gone</b> — rev 7's top standing risk was "the fix is unverified," and a real compiler has now
+      closed it. One error was behind it, <code>CalibrationView.swift:127</code>, and it was plain
+      access control rather than concurrency; fixed and pushed at <code>b22f06b</code>, awaiting the
+      next rebuild. <b>Nothing has changed about what needs you: one Apple ID sign-in on Amber is
+      still the only thing on the critical path.</b></p>
+  </section>
+
+  <section class="clock" aria-label="Grace period remaining">
+    <div class="clock-top">
+      <div class="days">75<span>days left in the grace period</span></div>
+      <div class="target">removal 24 Nov 2026<br>notice served 26 Aug</div>
+    </div>
+    <div class="meter" role="img" aria-label="15 of 90 days elapsed, 17 percent"><i></i></div>
+    <div class="scale"><span>day 15 of 90</span><span>17% spent</span></div>
+    <div class="caveat">▲ This date is carried from your screenshot of the 26 Aug notice and has
+      never been re-verified — Apple's mail reaches no mailbox an agent can read. See item 02.</div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">2 items · ranked</span></div>
+    <div class="items">
+
+      <div class="item blocking">
+        <div class="rank">01</div>
+        <div class="body">
+          <div class="title">Sign into Xcode on Amber</div>
+          <div class="why">Unchanged, and re-measured overnight: Pard's duty cycle reads
+            <code>IDE.Identifiers.Prod = ()</code> every pass, most recently ~07:0x this morning.
+            Amber holds the signing <b>certificates</b> —
+            <code>Apple Distribution: Christian Crumlish (YZ4B34YGX9)</code> — but <b>no Apple
+            account</b>. Certificates let you sign with a profile you already have; an account is
+            what <em style="font-style:italic;display:inline">mints</em> one.
+            <code>com.optilisten.ios</code> has none and cannot get one until an account exists.
+            Nobody but you can type that password — and once it's done, Pard can archive without
+            you at the keyboard, which is what a 75-day deadline actually needs.</div>
+          <div class="steps">
+            Xcode → Settings → Accounts → <b>+</b> → Apple ID that owns team <b>YZ4B34YGX9</b>
+          </div>
+          <div class="evid">
+            <div class="evid-row"><span>Signing identities in the keychain</span><span class="yes">✓</span></div>
+            <div class="evid-row"><span>Provisioning profiles for <code>com.optilisten.ios</code></span><span class="no">✕</span></div>
+            <div class="evid-row"><span>Apple account in Xcode — <code>DVTDeveloperAccountManagerAppleIDLists</code> reads empty</span><span class="no">✕</span></div>
+            <div class="evid-row"><span><code>xcodebuild -allowProvisioningUpdates</code> — fails with <code>No Accounts</code></span><span class="no">✕</span></div>
+          </div>
+          <div class="meta">
+            <span class="pill stop">archive → TestFlight → Dan's prototype → submission</span>
+            <span class="pill cost">~2 min</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="item blocking">
+        <div class="rank">02</div>
+        <div class="body">
+          <div class="title">Forward Apple's mail somewhere an agent can see it</div>
+          <div class="why">Unchanged. Apple writes to <code>xian@pobox.com</code>. The Gmail I read
+            holds Apple-domain mail from 2022 and a 2024 calendar invite, but <b>no App Store
+            Connect mail in 2026 at all</b> — the single 2026 item is the One Job notice you
+            forwarded by hand. So the 26 Aug removal notice never reached a mailbox any run can
+            see, and until a pobox→Gmail rule exists for <code>@email.apple.com</code>, <b>no run
+            can ever learn</b> if Apple moves the date, extends it, or answers a submission.</div>
+          <div class="meta">
+            <span class="pill stop">deadline unverifiable</span>
+            <span class="pill cost">~3 min</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-hd"><h2>In flight</h2><span class="count">4 owned · 1 open question</span></div>
+    <div class="rows">
+      <div class="row warnrow"><div class="who">Pard</div><div class="txt">
+        <b>Rebuild the simulator target against <code>b22f06b</code></b> — the
+        <code>CalibrationView</code> access fix, pushed this morning.
+        <em>Expect another error behind it rather than a clean build; that is the normal shape of a
+        first compile.</em></div></div>
+      <div class="row"><div class="who">Pard</div><div class="txt">
+        <b>Archive attempt</b>, once an account exists on Amber.
+        <em>Waiting on item 01 — nothing else.</em></div></div>
+      <div class="row"><div class="who">Janus</div><div class="txt">
+        <b>Registry: two entries, not one.</b> Pard's 7 Sep log says the app path was repointed to
+        <code>mediajunkie/optilisten</code>.
+        <em>Whether <code>Design-in-Product/optilisten</code> kept its own entry as the live site is
+        unconfirmed.</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt">
+        <b>Deferred-reflection resume flow</b> in <code>HomeView</code>, currently a placeholder —
+        the mechanic that makes "Later" mean something other than "abandoned".
+        <em>Calibration persistence folds into this. Not blocked.</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt">
+        <b>The Dan package</b> — options (minimally comply / reposition / sunset), a prototype he
+        can hold, and a recommendation.
+        <em>Prototype means a TestFlight build, so it sits downstream of item 01. The
+        recommendation has its baseline in <code>docs/analytics-2026-09-07.md</code>.</em></div></div>
+      <div class="row"><div class="who">open</div><div class="txt">
+        <b>Whether Cairn runs as Cowork or Code, and on which machine.</b>
+        <em>Yours; less pressing now that the scheduled Cowork run has reached a Mac and pushed
+        unattended twice.</em></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep</span></div>
+    <div class="rows">
+      <div class="row done"><div class="who">Compiled</div><div class="txt">
+        <b>The 2.0 tree has been through a compiler.</b> Simulator target, 9 Sep, with
+        <code>CODE_SIGNING_ALLOWED=NO</code> to get past signing to the actual compiler.
+        <code>PracticeLoopView</code>, <code>HomeView</code>, <code>OptiListenApp</code>,
+        <code>TalkRatioSource</code>, <code>RetrospectiveSources</code> and <code>Practice</code>
+        all built clean.</div></div>
+      <div class="row done"><div class="who">Verified</div><div class="txt">
+        <b>Error 1 is gone.</b> <code>LiveMicSource.swift:37</code> — <code>@MainActor
+        LiveMicSource</code> conforming to <code>LiveTalkRatioSource</code>, whose
+        <code>currentShare</code> and <code>observedDuration</code> were nonisolated. Fixed at
+        <code>b6a6a5b</code> by isolating the two protocol requirements rather than the conformance.
+        <em>Pard pulled it, regenerated clean and rebuilt: the error does not recur. Rev 7's
+        headline risk closed by measurement rather than argument.</em></div></div>
+      <div class="row done"><div class="who">Fixed</div><div class="txt">
+        <b>Error 2 — <code>CalibrationView.swift:127</code>.</b>
+        <code>source.calibration = calibration</code> against a <code>private(set)</code> setter.
+        Fixed at <code>b22f06b</code> by adding
+        <code>applyCalibration(userLevel:ambientLevel:)</code> to <code>LiveMicSource</code> rather
+        than opening the setter — <code>Calibration</code> carries the app's thresholds, including
+        the 0.45 ambient bias that exists so the app never flatters the user, so construction stays
+        inside the type that owns them.
+        <em>One write site in the tree, grep-confirmed; two reads in <code>PracticeLoopView</code>
+        untouched. Syntax-parsed only on kindbook — awaiting Pard's rebuild.</em></div></div>
+      <div class="row done"><div class="who">Answered</div><div class="txt">
+        <b>Does automatic signing provision on its own? No — and not for the reason expected.</b>
+        It fails one step before the portal: there is no Apple account on Amber at all.
+        <em>Now item 01.</em></div></div>
+      <div class="row done"><div class="who">Committed</div><div class="txt">
+        <b><code>DEVELOPMENT_TEAM</code> is settled for real.</b> Pard had set
+        <code>YZ4B34YGX9</code> in his working copy only; <code>main</code> carried the empty
+        placeholder.
+        <em>Committed at <code>b6a6a5b</code>, local copy discarded 9 Sep — both now agree and the
+        authoritative one is in the repo.</em></div></div>
+      <div class="row done"><div class="who">Binding</div><div class="txt">
+        <b>The scheduled mail check runs unattended, twice over.</b> The 9 Sep 23:00 UTC and 10 Sep
+        15:09 UTC fires both reached kindbook's shell and pushed to both origins with nobody at the
+        keyboard.
+        <em>The 8 Sep cloud-only failure mode has not recurred.</em></div></div>
+      <div class="row done"><div class="who">SDK</div><div class="txt">
+        <b>Residual 26.5-SDK worry retired.</b> One Job reached "Pending Developer Release" on
+        8 Sep through Amber's Xcode 26.6 / iOS 26.5 toolchain — a live acceptance from this
+        account, this week.</div></div>
+      <div class="row done"><div class="who">Analytics</div><div class="txt">
+        <b>96 lifetime downloads, ~1.3 sessions each, retention nil — but 548 impressions and
+        5 first-time downloads in the last 30 days with zero marketing.</b> Deployment target
+        iOS&nbsp;17 confirmed.
+        <em>Full read in <code>docs/analytics-2026-09-07.md</code>. The demand side has a pulse;
+        the product side flatlined.</em></div></div>
+      <div class="row done"><div class="who">Dan</div><div class="txt">
+        <b>Co-decider, not courtesy consult.</b> He owns OptiListen and is very likely to take your
+        advice, so the reposition-vs-sunset proposal goes to him with a recommendation attached.</div></div>
+      <div class="row done"><div class="who">Found</div><div class="txt">
+        <b>The 1.x source.</b> <code>AustinWood/listenup-mobile</code> — private, on the
+        contractor's personal account. Your <code>mediajunkie</code> login already had read
+        access.</div></div>
+      <div class="row done"><div class="who">Decided</div><div class="txt">
+        <b>Rewrite, not upgrade.</b> RN 0.66.0 with <code>patches/react-native+0.66.0.patch</code> —
+        the framework itself was patched, and those patches can't apply to anything newer.</div></div>
+      <div class="row done"><div class="who">Settled</div><div class="txt">
+        <b>The App Store record is yours, not Dan's.</b> <code>Seller: Christian Crumlish</code>,
+        team <code>YZ4B34YGX9</code>, created Aug 2022. No transfer, no paperwork, no lead
+        time.</div></div>
+    </div>
+  </section>
+
+  <section class="risks">
+    <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
+    <div class="risk"><span class="dot">▲</span><div><b><code>b22f06b</code> is unverified, in the
+      same narrow sense <code>b6a6a5b</code> was.</b> <code>xcrun swiftc -parse</code> passed on
+      both changed files, but kindbook has no iOS SDK — that is syntax only, with no type checking
+      and no isolation analysis. The same class of reasoning-plus-parse held up under a real
+      compiler last time; that is one data point, not a method.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Expect more errors, and don't read them as
+      trouble.</b> The compiler surfaces one at a time on a fresh tree, so each fix buys one more
+      file's worth of visibility. "Another error" is progress through the file list, not a widening
+      problem.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Calibration is <code>Codable</code> and
+      nothing persists it.</b> Not a compile error — the user simply recalibrates from scratch on
+      every cold launch. Someone made it storable and no one stored it. Folded into the
+      <code>HomeView</code> work rather than fixed inside a build patch.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>The fleet has exactly one signing path, and
+      it expires Aug 2027.</b> One Job's two cached profiles are the only thing letting anything on
+      Amber archive, and nothing would surface their lapse until it happened. Not urgent; should
+      not be invisible.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>The 24 Nov date has not been re-verified
+      since the original notice</b> — Apple's mail doesn't reach any mailbox an agent reads.
+      Item 02.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Apple has rejected this app once before</b>
+      — July 2023, specifically over background modes. 2.0 omits <code>UIBackgroundModes</code>
+      deliberately, but expect scrutiny there.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Age-rating social-media questions</b> must
+      be answered at submission. A gate, not a deadline; the answers are "no" across the board.
+      Ten minutes in App Store Connect.</div></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-hd"><h2>Method notes</h2><span class="count">three worth keeping</span></div>
+    <div class="notes">
+      <div class="note"><b>The first error hid the second, and that is worth expecting rather than
+        rediscovering.</b> Clearing <code>LiveMicSource:37</code> immediately surfaced
+        <code>CalibrationView:127</code>, which would have failed identically before the first fix —
+        the compiler had simply stopped short of the view. On a tree that has never compiled, the
+        honest forecast is "more errors, serially," not "nearly there."</div>
+      <div class="note"><b>A compile error is not always a concurrency error.</b> Both suspects I
+        had reasoned about were actor-isolation stories; the second error was plain access control,
+        with no notes and no diagnostics attached. Reading <code>private(set)</code> as an invariant
+        rather than an obstacle is what picked the fix — and the fix was a design decision the
+        compiler had no opinion about.</div>
+      <div class="note"><b>Pard corrected himself twice in two days, both the same shape:</b>
+        reporting the state of his machine as the state of the world — the pre-Xcode-16 profiles
+        directory, then an uncommitted <code>project.yml</code>. <code>git show HEAD:&lt;file&gt;</code>
+        before trusting any "I set X" is now a standing check, and it applies to me at least as much
+        as to him.</div>
+    </div>
+  </section>
+
+  <div class="foot">
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · this page's HTML is versioned beside it at <code>docs/attention.html</code> · file and page in sync at rev 8<br>
+    Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
+    <code>mediajunkie/mediajunkie:docs/mail/</code>
+  </div>
+
+</div>
