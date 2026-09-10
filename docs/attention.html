@@ -283,8 +283,8 @@
       <div class="row warnrow"><div class="who">Pard</div><div class="txt">
         <b>Rebuild the simulator target against <code>b22f06b</code></b> — the
         <code>CalibrationView</code> access fix, pushed this morning.
-        <em>Expect another error behind it rather than a clean build; that is the normal shape of a
-        first compile.</em></div></div>
+        <em>Pushed 08:11 PT, memo sent 08:2x. Expect another error behind it rather than a clean
+        build; that is the normal shape of a first compile.</em></div></div>
       <div class="row"><div class="who">Pard</div><div class="txt">
         <b>Archive attempt</b>, once an account exists on Amber.
         <em>Waiting on item 01 — nothing else.</em></div></div>
@@ -408,7 +408,7 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Method notes</h2><span class="count">three worth keeping</span></div>
+    <div class="sec-hd"><h2>Method notes</h2><span class="count">four worth keeping</span></div>
     <div class="notes">
       <div class="note"><b>The first error hid the second, and that is worth expecting rather than
         rediscovering.</b> Clearing <code>LiveMicSource:37</code> immediately surfaced
@@ -420,6 +420,16 @@
         with no notes and no diagnostics attached. Reading <code>private(set)</code> as an invariant
         rather than an obstacle is what picked the fix — and the fix was a design decision the
         compiler had no opinion about.</div>
+      <div class="note"><b>Two Cairn instances worked this repo inside fifteen minutes, and the
+        rollup nearly lost an update.</b> The 16:00 UTC scheduled fire pushed <code>b22f06b</code>
+        at 08:11 PT and sent no memo; an interactive session opened at ~08:2x, read the commit,
+        sent Pard the memo and bumped this page to rev 8. The scheduled run then rewrote
+        <code>docs/attention.md</code> from its own draft at 08:23. Nothing was lost — the
+        scheduled draft happened to be a superset — but that was luck, not a merge. The standing
+        rule needs a sibling: read
+        <code>git log origin/main -- docs/attention.md</code> immediately before writing it,
+        because the other writer may be another instance of me, minutes old. The duplicate memo
+        was caught and not sent.</div>
       <div class="note"><b>Pard corrected himself twice in two days, both the same shape:</b>
         reporting the state of his machine as the state of the world — the pre-Xcode-16 profiles
         directory, then an uncommitted <code>project.yml</code>. <code>git show HEAD:&lt;file&gt;</code>
