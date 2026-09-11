@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>OptiListen.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>1</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>88BA1454C0FB11A26C1227EEF9EF9DE6CF678888</string>
+				<key>dateExpires</key>
+				<string>8/15/27</string>
+				<key>type</key>
+				<string>Apple Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>YZ4B34YGX9.com.longskymedia.optilisten</string>
+				<key>beta-reports-active</key>
+				<true/>
+				<key>com.apple.developer.team-identifier</key>
+				<string>YZ4B34YGX9</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>OptiListen.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>0bc85666-363c-4613-a769-eca484d9ce0e</string>
+				<key>dateExpires</key>
+				<string>8/15/27</string>
+				<key>name</key>
+				<string>OptiListen App Store Distribution</string>
+			</dict>
+			<key>symbols</key>
+			<true/>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>YZ4B34YGX9</string>
+				<key>name</key>
+				<string></string>
+			</dict>
+			<key>versionNumber</key>
+			<string>2.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -36,16 +36,22 @@ targets:
                                                         # App Store record — do
                                                         # not change, the listing
                                                         # is tied to it
-        INFOPLIST_KEY_CFBundleDisplayName: OptiListen
-        INFOPLIST_KEY_UILaunchScreen_Generation: YES
-        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
-        INFOPLIST_KEY_NSMicrophoneUsageDescription: "OptiListen listens to the room to estimate how much of a conversation you spend talking. Audio is analyzed on your device as loudness only — nothing is recorded, transcribed, or sent anywhere."
+        # INFOPLIST_KEY_* settings REMOVED 2026-09-11 (Pard): they inject only into GENERATED
+        # Info.plists, and this project declares an explicit one (info.path below) — so every one
+        # of them was silently absent from the built bundle. Apple's validator caught orientations
+        # (90474) and launch screen (90475); the missing mic-usage string would have been a crash
+        # on first mic access in TestFlight. All now declared under info.properties, the one place
+        # that actually lands. Do not reintroduce INFOPLIST_KEY_ lines while info.path exists.
         # Deliberately absent: UIBackgroundModes.
         # OptiListen 1.x shipped a 30-second background ceiling, raised it to 50,
         # and was rejected by Apple in July 2023 over the background-mode
         # changes. 2.0 does not run in the background. The phone is an
         # instrument you set on the desk with the screen on.
         ITSAppUsesNonExemptEncryption: NO
+        # Icon: single-size 1024 catalog (Xcode generates all sizes incl. iPad 152). The PNG is the
+        # ORIGINAL 1.x App Store icon, recovered 2026-09-11 from Apple's own artwork CDN via the
+        # iTunes lookup API -- the 2.0 rebuild had no asset catalog at all (validator 90023).
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     info:
       path: OptiListen/Support/Info.plist
       properties:
@@ -56,3 +62,19 @@ targets:
         # 1.3 — an upload-time rejection, invisible at compile. (Pard)
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        # Same class as the version bug above, caught by Apple's validator at upload (90474,
+        # 2026-09-11): INFOPLIST_KEY_UISupportedInterfaceOrientations in the settings block only
+        # injects into GENERATED Info.plists — this project has an explicit one, so the key never
+        # reached the bundle and the IPA shipped with no orientations at all. Declared here, where
+        # it actually lands. iPad lists all four because Apple requires full orientation support
+        # for iPad multitasking (the alternative is UIRequiresFullScreen, a worse trade). (Pard)
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        CFBundleDisplayName: OptiListen
+        UILaunchScreen: {}
+        NSMicrophoneUsageDescription: "OptiListen listens to the room to estimate how much of a conversation you spend talking. Audio is analyzed on your device as loudness only — nothing is recorded, transcribed, or sent anywhere."

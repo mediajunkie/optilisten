@@ -1,0 +1,143 @@
+2026-09-11 18:04:36 +0000 [MT] Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0xa38ddc000; archive(resolved)="<IDEArchive: 0xa378211f0>", distributionTask(resolved)="2", distributionDestination(resolved)="1", distributionMethod(resolved)="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team(resolved)="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	Chain (15, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0xa38ddc000; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	<IDEDistributionProcessingPipelineContext: 0xa38ddc600; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	<IDEDistributionContext: 0xa37941b80; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	<IDEDistributionContext: 0xa37941900; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	<IDEDistributionContext: 0xa37941680; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	<IDEDistributionContext: 0xa37941400; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	<IDEDistributionContext: 0xa37941180; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	<IDEDistributionContext: 0xa37940f00; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	<IDEDistributionContext: 0xa37940c80; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	<IDEDistributionContext: 0xa37940a00; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	<IDEDistributionContext: 0xa37940780; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	<IDEDistributionContext: 0xa37940500; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="<IDEProvisioningBasicTeam: 0xa3a1a5cc0; teamID='YZ4B34YGX9', teamName='(null)'>">
+	<IDEDistributionContext: 0xa37940280; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="(null)">
+	<IDEDistributionContext: 0xa37940000; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="<IDEDistributionMethodiOSAppStoreDistribution: 0xa390e7b10>", team="(null)">
+	<IDEDistributionContext: 0x104dac520; archive = "<IDEArchive: 0xa378211f0>", distributionMethod="(null)", team="(null)">
+</IDEDistributionProcessingPipelineContext: 0xa38ddc000>
+2026-09-11 18:04:36 +0000 [MT] Processing step: IDEDistributionCreateDestRootStep
+2026-09-11 18:04:36 +0000 [MT] Processing step: IDEDistributionCopyItemStep
+2026-09-11 18:04:36 +0000 [MT] Running /usr/bin/ditto '-V' '/Users/xian/Development/optilisten/build/OptiListen.xcarchive/Products/Applications/OptiListen.app' '/var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/Root/Payload/OptiListen.app'
+2026-09-11 18:04:36 +0000  >>> Copying /Users/xian/Development/optilisten/build/OptiListen.xcarchive/Products/Applications/OptiListen.app 
+2026-09-11 18:04:36 +0000  copying file ./_CodeSignature/CodeResources ... 
+2026-09-11 18:04:36 +0000  3003 bytes for ./_CodeSignature/CodeResources
+2026-09-11 18:04:36 +0000  copying file ./OptiListen ... 
+2026-09-11 18:04:36 +0000  374128 bytes for ./OptiListen
+2026-09-11 18:04:36 +0000  copying file ./AppIcon60x60@2x.png ... 
+2026-09-11 18:04:36 +0000  3546 bytes for ./AppIcon60x60@2x.png
+2026-09-11 18:04:36 +0000  copying file ./Assets.car ... 
+2026-09-11 18:04:36 +0000  159416 bytes for ./Assets.car
+2026-09-11 18:04:36 +0000  copying file ./AppIcon76x76@2x~ipad.png ... 
+2026-09-11 18:04:36 +0000  4804 bytes for ./AppIcon76x76@2x~ipad.png
+2026-09-11 18:04:36 +0000  copying file ./PrivacyInfo.xcprivacy ... 
+2026-09-11 18:04:36 +0000  1382 bytes for ./PrivacyInfo.xcprivacy
+2026-09-11 18:04:36 +0000  copying file ./embedded.mobileprovision ... 
+2026-09-11 18:04:36 +0000  16870 bytes for ./embedded.mobileprovision
+2026-09-11 18:04:36 +0000  copying file ./Info.plist ... 
+2026-09-11 18:04:36 +0000  1709 bytes for ./Info.plist
+2026-09-11 18:04:36 +0000  copying file ./PkgInfo ... 
+2026-09-11 18:04:36 +0000  8 bytes for ./PkgInfo
+2026-09-11 18:04:36 +0000 [MT] /usr/bin/ditto exited with 0
+2026-09-11 18:04:36 +0000 [MT] Processing step: IDEDistributionEmbedProfileStep
+2026-09-11 18:04:36 +0000 [MT] Processing step: IDEDistributionInfoPlistStep
+2026-09-11 18:04:36 +0000 [MT] Skipping setting DTXcodeBuildDistribution because toolsBuildVersionName was nil.
+2026-09-11 18:04:36 +0000 [MT] Processing step: IDEDistributionItemRemovalStep
+2026-09-11 18:04:36 +0000 [MT] Processing step: IDEDistributionAppThinningPlistStep
+2026-09-11 18:04:36 +0000 [MT] Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2026-09-11 18:04:36 +0000 [MT] Processing step: IDEDistributionSymbolsStep
+2026-09-11 18:04:37 +0000 [MT] Writing /var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/Symbols/B29BCF0E-C4BE-3D8E-A00E-DED1BD4615CF.symbols
+2026-09-11 18:04:37 +0000 [MT] Processing step: IDEDistributionCopyAppleProvidedContentStep
+2026-09-11 18:04:37 +0000 [MT] Processing step: IDEDistributionAppThinningStep
+2026-09-11 18:04:37 +0000 [MT] Skipping step: IDEDistributionAppThinningStep because it said so
+2026-09-11 18:04:37 +0000 [MT] Processing step: IDEDistributionArchThinningStep
+2026-09-11 18:04:37 +0000 [MT] Archs to thin for item /Users/xian/Development/optilisten/build/OptiListen.xcarchive/Products/Applications/OptiListen.app are []
+2026-09-11 18:04:37 +0000 [MT] Processing step: IDEDistributionODRStep
+2026-09-11 18:04:37 +0000 [MT] Processing step: IDEDistributionStripXattrsStep
+2026-09-11 18:04:37 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
+2026-09-11 18:04:37 +0000 [MT] Processing step: IDEDistributionCodesignStep
+2026-09-11 18:04:37 +0000 [MT] Entitlements for <IDEDistributionItem: 0xa3a1a1560; bundleID='com.longskymedia.optilisten', path='<DVTFilePath:0xa399bbb40:'/Users/xian/Development/optilisten/build/OptiListen.xcarchive/Products/Applications/OptiListen.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xa3a1a1500; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xa37af6640; name='Apple Development: Created via API (D96QY6RRB3)', hash='E776E2B5F5F8EB6033667FEC1B1318288B5BCE8D', serialNumber='68272FC794604BED3C6C83111903C2A6', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2026-08-14 01:14:14 +0000''>', entitlements='{
+    "application-identifier" = "YZ4B34YGX9.com.longskymedia.optilisten";
+    "com.apple.developer.team-identifier" = YZ4B34YGX9;
+    "get-task-allow" = 1;
+}', teamID='YZ4B34YGX9', identifier='com.longskymedia.optilisten', executablePath='<DVTFilePath:0xa3a1a0c60:'/Users/xian/Development/optilisten/build/OptiListen.xcarchive/Products/Applications/OptiListen.app/OptiListen'>', hardenedRuntime='0'>'>: {
+    "application-identifier" = "YZ4B34YGX9.com.longskymedia.optilisten";
+    "beta-reports-active" = 1;
+    "com.apple.developer.team-identifier" = YZ4B34YGX9;
+    "get-task-allow" = 0;
+}
+2026-09-11 18:04:37 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2026-09-11 18:04:37 +0000 [MT] Entitlements for <IDEDistributionItem: 0xa3a1a1560; bundleID='com.longskymedia.optilisten', path='<DVTFilePath:0xa399bbb40:'/Users/xian/Development/optilisten/build/OptiListen.xcarchive/Products/Applications/OptiListen.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xa3a1a1500; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xa37af4000; name='Apple Development: Created via API (D96QY6RRB3)', hash='E776E2B5F5F8EB6033667FEC1B1318288B5BCE8D', serialNumber='68272FC794604BED3C6C83111903C2A6', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2026-08-14 01:14:14 +0000''>', entitlements='{
+    "application-identifier" = "YZ4B34YGX9.com.longskymedia.optilisten";
+    "com.apple.developer.team-identifier" = YZ4B34YGX9;
+    "get-task-allow" = 1;
+}', teamID='YZ4B34YGX9', identifier='com.longskymedia.optilisten', executablePath='<DVTFilePath:0xa3a1a0c60:'/Users/xian/Development/optilisten/build/OptiListen.xcarchive/Products/Applications/OptiListen.app/OptiListen'>', hardenedRuntime='0'>'> are: {
+    "application-identifier" = "YZ4B34YGX9.com.longskymedia.optilisten";
+    "beta-reports-active" = 1;
+    "com.apple.developer.team-identifier" = YZ4B34YGX9;
+    "get-task-allow" = 0;
+}
+2026-09-11 18:04:37 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0xa3a1a1560; bundleID='com.longskymedia.optilisten', path='<DVTFilePath:0xa399bbb40:'/Users/xian/Development/optilisten/build/OptiListen.xcarchive/Products/Applications/OptiListen.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xa3a1a1500; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xa37af4000; name='Apple Development: Created via API (D96QY6RRB3)', hash='E776E2B5F5F8EB6033667FEC1B1318288B5BCE8D', serialNumber='68272FC794604BED3C6C83111903C2A6', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2026-08-14 01:14:14 +0000''>', entitlements='{
+    "application-identifier" = "YZ4B34YGX9.com.longskymedia.optilisten";
+    "com.apple.developer.team-identifier" = YZ4B34YGX9;
+    "get-task-allow" = 1;
+}', teamID='YZ4B34YGX9', identifier='com.longskymedia.optilisten', executablePath='<DVTFilePath:0xa3a1a0c60:'/Users/xian/Development/optilisten/build/OptiListen.xcarchive/Products/Applications/OptiListen.app/OptiListen'>', hardenedRuntime='0'>'> to: /var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/entitlements~~~LKvcsy
+2026-09-11 18:04:37 +0000 [MT] invoking codesign: <NSConcreteTask: 0xa3a386fd0; launchPath='/usr/bin/codesign', arguments='(
+    "-f",
+    "-s",
+    88BA1454C0FB11A26C1227EEF9EF9DE6CF678888,
+    "--entitlements",
+    "/var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/entitlements~~~LKvcsy",
+    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
+    "--generate-entitlement-der",
+    "--strip-disallowed-xattrs",
+    "-vvv",
+    "/var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/Root/Payload/OptiListen.app"
+)'>
+2026-09-11 18:04:37 +0000 [MT] codesign output: /var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/Root/Payload/OptiListen.app: replacing existing signature
+/var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/Root/Payload/OptiListen.app: signed app bundle with Mach-O thin (arm64) [com.longskymedia.optilisten]
+2026-09-11 18:04:37 +0000 [MT] Processing step: IDEDistributionZipODRItemStep
+2026-09-11 18:04:37 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
+2026-09-11 18:04:37 +0000 [MT] Processing step: IDEDistributionCreateIPAStep
+2026-09-11 18:04:37 +0000 [MT] Running /usr/bin/rsync '-8aPhhE' '/var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/Symbols' '--link-dest' '/var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU' '/var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/Root'
+2026-09-11 18:04:37 +0000  Symbols/
+Symbols/B29BCF0E-C4BE-3D8E-A00E-DED1BD4615CF.symbols
+2026-09-11 18:04:37 +0000 [MT] /usr/bin/rsync exited with 0
+2026-09-11 18:04:37 +0000 [MT] Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/Root' '/var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/Packages/OptiListen.ipa'
+2026-09-11 18:04:37 +0000  >>> Copying /var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/Root 
+2026-09-11 18:04:37 +0000  copying file ./Payload/OptiListen.app/_CodeSignature/CodeResources ... 
+2026-09-11 18:04:37 +0000  3003 bytes for ./Payload/OptiListen.app/_CodeSignature/CodeResources
+2026-09-11 18:04:37 +0000  copying file ./Payload/OptiListen.app/OptiListen ... 
+2026-09-11 18:04:37 +0000  374192 bytes for ./Payload/OptiListen.app/OptiListen
+2026-09-11 18:04:37 +0000  copying file ./Payload/OptiListen.app/AppIcon60x60@2x.png ... 
+2026-09-11 18:04:37 +0000  3546 bytes for ./Payload/OptiListen.app/AppIcon60x60@2x.png
+2026-09-11 18:04:37 +0000  copying file ./Payload/OptiListen.app/Assets.car ... 
+2026-09-11 18:04:37 +0000  159416 bytes for ./Payload/OptiListen.app/Assets.car
+2026-09-11 18:04:37 +0000  copying file ./Payload/OptiListen.app/AppIcon76x76@2x~ipad.png ... 
+2026-09-11 18:04:37 +0000  4804 bytes for ./Payload/OptiListen.app/AppIcon76x76@2x~ipad.png
+2026-09-11 18:04:37 +0000  copying file ./Payload/OptiListen.app/PrivacyInfo.xcprivacy ... 
+2026-09-11 18:04:37 +0000  1382 bytes for ./Payload/OptiListen.app/PrivacyInfo.xcprivacy
+2026-09-11 18:04:37 +0000  copying file ./Payload/OptiListen.app/embedded.mobileprovision ... 
+2026-09-11 18:04:37 +0000  12265 bytes for ./Payload/OptiListen.app/embedded.mobileprovision
+2026-09-11 18:04:37 +0000  copying file ./Payload/OptiListen.app/Info.plist ... 
+2026-09-11 18:04:37 +0000  1709 bytes for ./Payload/OptiListen.app/Info.plist
+2026-09-11 18:04:37 +0000  copying file ./Payload/OptiListen.app/PkgInfo ... 
+8 bytes for ./Payload/OptiListen.app/PkgInfo
+2026-09-11 18:04:37 +0000  copying file ./Symbols/B29BCF0E-C4BE-3D8E-A00E-DED1BD4615CF.symbols ... 
+2026-09-11 18:04:37 +0000  601484 bytes for ./Symbols/B29BCF0E-C4BE-3D8E-A00E-DED1BD4615CF.symbols
+2026-09-11 18:04:37 +0000 [MT] /usr/bin/ditto exited with 0
+2026-09-11 18:04:37 +0000 [MT] Processing step: IDEDistributionAppStoreInformationStep
+2026-09-11 18:04:37 +0000 [MT] Skipping step: IDEDistributionAppStoreInformationStep because it said so
+2026-09-11 18:04:37 +0000 [MT] Processing step: IDEDistributionGenerateProcessedDistributionItems
+2026-09-11 18:04:37 +0000 [MT] IDEDistributionItem init <DVTFilePath:0xa3a1a1da0:'/var/folders/jl/g34tk0xx7nj20xbjvyq6bskc0000gn/T/XcodeDistPipeline.~~~IFQMRU/Root/Payload/OptiListen.app'>
+2026-09-11 18:04:37 +0000 [MT] Processing step: IDEDistributionCreateManifestStep
+2026-09-11 18:04:37 +0000 [MT] Skipping step: IDEDistributionCreateManifestStep because it said so
