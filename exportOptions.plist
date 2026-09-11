@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Committed 2026-09-10 (Pard), mirroring one-job/ios/exportOptions.plist which has been proven
+  live since 2026-08-16. Keeping it in the repo rather than /tmp so the export command is stable
+  and reviewable, and so the next person doesn't have to reconstruct it.
+-->
+<plist version="1.0">
+<dict>
+  <key>method</key><string>app-store-connect</string>
+  <key>teamID</key><string>YZ4B34YGX9</string>
+  <key>signingStyle</key><string>automatic</string>
+  <key>uploadSymbols</key><true/>
+  <key>destination</key><string>export</string>
+</dict>
+</plist>
