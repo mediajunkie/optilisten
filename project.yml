@@ -50,3 +50,9 @@ targets:
       path: OptiListen/Support/Info.plist
       properties:
         ITSAppUsesNonExemptEncryption: false
+        # Without these two, xcodegen writes CFBundleShortVersionString=1.0 / CFBundleVersion=1
+        # into Info.plist and the plist WINS over MARKETING_VERSION/CURRENT_PROJECT_VERSION in the
+        # build settings. Caught 2026-09-10: the first archive carried 1.0 while the App Store has
+        # 1.3 — an upload-time rejection, invisible at compile. (Pard)
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
