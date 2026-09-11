@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
-  Committed 2026-09-10 (Pard), mirroring one-job/ios/exportOptions.plist which has been proven
-  live since 2026-08-16. Keeping it in the repo rather than /tmp so the export command is stable
-  and reviewable, and so the next person doesn't have to reconstruct it.
+  Committed 2026-09-10 (Pard), mirroring one-job/ios/exportOptions.plist.
+  2026-09-11: switched signingStyle automatic -> manual. Automatic here means CLOUD signing,
+  which needs the signed-in-account permission this project has never had on Amber -- it is the
+  wall behind every "No profiles / Cloud signing permission error" in this saga. Manual pins the
+  export to the profile minted via the ASC API on 09-11 (id UL843FQA32, embedded UUID
+  0bc85666-363c-4613-a769-eca484d9ce0e, "OptiListen App Store Distribution", exp 2027-08-16),
+  which lives in ~/Library/Developer/Xcode/UserData/Provisioning Profiles/ under both names.
+  The Apple Distribution cert + private key are in the login keychain (verified 09-09).
 -->
 <plist version="1.0">
 <dict>
   <key>method</key><string>app-store-connect</string>
   <key>teamID</key><string>YZ4B34YGX9</string>
-  <key>signingStyle</key><string>automatic</string>
+  <key>signingStyle</key><string>manual</string>
+  <key>signingCertificate</key><string>Apple Distribution</string>
+  <key>provisioningProfiles</key>
+  <dict>
+    <key>com.longskymedia.optilisten</key><string>OptiListen App Store Distribution</string>
+  </dict>
   <key>uploadSymbols</key><true/>
   <key>destination</key><string>export</string>
 </dict>
