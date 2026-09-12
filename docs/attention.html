@@ -200,343 +200,212 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 11 Sep 2026, 08:15 PT · rev 14 · file and page in sync</div>
+    <div class="stamp">Updated 12 Sep 2026, 13:20 PT · rev 15 · file and page in sync</div>
   </header>
 
   <section class="win">
-    <div class="tag">The archive exists</div>
-    <p><b>Pard built it on Amber, unattended, with no Xcode account session at all.</b> An App Store
-      Connect API key does <code>archive</code> and <code>-exportArchive</code> on its own &mdash;
-      which Coral had already proven live on One Job in August and written down in
-      <code>one-job/docs/AMBER-XCODE.md</code>. In Coral's words: <em style="font-style:italic;display:inline">it
-      only needed elevated privilege to create them, not to use them.</em> The result sits at
-      <code>build/OptiListen.xcarchive</code> &mdash; <code>com.longskymedia.optilisten</code>,
-      <b>2.0 (1)</b>, signed, and the key auto-created a development profile for the corrected bundle
-      ID on the fly. <b>Everything upstream of distribution is done. What is left is one artifact
-      that does not yet exist: a <em style="font-style:italic;display:inline">distribution</em>
-      provisioning profile for this bundle ID &mdash; and one of the three routes to it may not need
-      you at all. Item 01.</b></p>
+    <div class="tag">In TestFlight</div>
+    <p><b>2.0 (1) was uploaded to App Store Connect on the 11th — unattended, no desk, no
+      sign-in.</b> Pard found the wall: <code>automatic</code> signing means <em style="font-style:italic;display:inline">cloud</em>
+      signing, which needs the interactive account; <code>manual</code>, pinned to a distribution
+      profile the App Store Connect API minted, exports and uploads from SSH. Delivery
+      <code>a5d9eccf</code>. It processed, you installed it, <b>and it dies on Start</b> — the
+      microphone usage string was missing from that build, a gap Pard found and fixed on
+      <code>main</code> after the upload. <b>2.0 (2) is requested.</b> And there's now a
+      plain-language page for Dan, since the email read as jargon to him.</p>
   </section>
 
   <section class="clock" aria-label="Grace period remaining">
     <div class="clock-top">
-      <div class="days">74<span>days left in the grace period</span></div>
+      <div class="days">73<span>days left in the grace period</span></div>
       <div class="target">removal 24 Nov 2026<br>notice served 26 Aug</div>
     </div>
-    <div class="meter" role="img" aria-label="15 of 90 days elapsed, 17 percent"><i style="width:17.8%"></i></div>
-    <div class="scale"><span>day 16 of 90</span><span>18% spent</span></div>
-    <div class="caveat">▲ Still carried from your screenshot of the 26 Aug notice, not re-read
-      from Apple. But the pobox→Gmail forward is now <b>verified working</b>, not just configured &mdash;
-      an Apple-domain message landed in the readable mailbox at 13:28 UTC today. The next App Store
-      Connect mail settles this date.</div>
+    <div class="meter" role="img" aria-label="17 of 90 days elapsed, 19 percent"><i style="width:18.9%"></i></div>
+    <div class="scale"><span>day 17 of 90</span><span>19% spent</span></div>
+    <div class="caveat">▲ Carried from your screenshot of the 26 Aug notice. The Apple-mail forward
+      is verified live as of the 11th, so the next App Store Connect mail settles it — and a
+      fresh build often resets the clock. Pard's checking ASC on the 2.0 (2) upload.</div>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">1 item</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">2 items · both small</span></div>
     <div class="items">
 
       <div class="item blocking">
         <div class="rank">01</div>
         <div class="body">
-          <div class="title">Mint a distribution profile for <code>com.longskymedia.optilisten</code> — once</div>
-          <div class="why">The archive is built and signed. Export to TestFlight fails at
-            <code>No profiles for 'com.longskymedia.optilisten' were found</code> — the
-            <b>distribution</b> profile, exactly where Coral's did in August. The API key holds App
-            Manager; creating one has needed Admin. <b>But Apple's own roles documentation says App
-            Manager <em style="font-style:italic;display:inline">can</em> generate distribution
-            credentials when "Access to Certificates, Identifiers, and Profiles" is enabled</b> — so
-            this may be a checkbox rather than a person. Three routes, cheapest first.</div>
-          <div class="steps">
-            <b>(a) Pard, free, running now:</b> GET /v1/profiles with the existing key — if it reads, POST /v1/profiles (IOS_APP_STORE) mints it unattended<br>
-            <b>(b) ~2 min, keeps it unattended:</b> App Store Connect → Users and Access → Integrations → a second key at <b>Admin</b><br>
-            <b>(c) ~5 min, guaranteed:</b> Xcode → Window → Organizer → select the archive → Distribute App → TestFlight
-          </div>
+          <div class="title">Share the Dan page</div>
+          <div class="why">It's published but private until you share it from the page's own
+            share menu. Written as you, for him: the idea in three moments, the four screens drawn
+            from the app's actual copy, honest built-and-not-built columns including the crash,
+            the numbers, the three options, and two asks. No agent names, no toolchain, no
+            "compliance."</div>
           <div class="meta">
-            <span class="pill stop">export → TestFlight → Dan's prototype → submission</span>
-            <span class="pill cost">(a) free · (b) ~2 min · (c) ~5 min</span>
+            <span class="pill stop">Dan's reaction is the input the recommendation needs</span>
+            <span class="pill cost">~1 min</span>
           </div>
         </div>
       </div>
 
+      <div class="item">
+        <div class="rank">02</div>
+        <div class="body">
+          <div class="title">Tap Share on the crash sheet next time, then leave 2.0 (1) alone</div>
+          <div class="why">Sends the crash report to App Store Connect so we can confirm the
+            termination reason is the missing-usage-string kill and nothing else. You've already
+            warned Dan off; keep it that way until (2) is up. Nothing you can do makes (1)
+            work.</div>
+          <div class="meta">
+            <span class="pill cost">~10 sec</span>
+          </div>
+        </div>
       </div>
-  </section>
 
-  <section class="sec">
-    <div class="sec-hd"><h2>In flight</h2><span class="count">6 owned · 1 open question</span></div>
-    <div class="rows">
-      <div class="row warnrow"><div class="who">Pard</div><div class="txt">
-        <b>Test whether the existing API key can mint the distribution profile.</b>
-        <em>One GET. If it 403s, the GUI step is a real per-bundle-ID cost and goes into the harbor
-        manifest as one. Memo sent 11 Sep.</em></div></div>
-      <div class="row warnrow"><div class="who">Pard</div><div class="txt">
-        <b>Export to TestFlight and hand over the build</b> — the same hour the profile exists.
-        <em>The archive is already sitting at
-        <code>~/Development/optilisten/build/OptiListen.xcarchive</code>. Waiting on item 01 and
-        nothing else.</em></div></div>
-      <div class="row"><div class="who">Coral</div><div class="txt">
-        <b>Can a distribution profile be created without the interactive session?</b>
-        <em>And does One Job's Aug 2027 renewal take the same Admin path? Asked 10 Sep, re-asked
-        with Apple's documented answer attached 11 Sep.</em></div></div>
-      <div class="row"><div class="who">Janus</div><div class="txt">
-        <b>Registry: two entries, not one.</b> Pard's 7 Sep log says the app path was repointed to
-        <code>mediajunkie/optilisten</code>.
-        <em>Whether <code>Design-in-Product/optilisten</code> kept its own entry as the live site is
-        unconfirmed.</em></div></div>
-      <div class="row"><div class="who">Cairn</div><div class="txt">
-        <b>Deferred-reflection resume flow</b> in <code>HomeView</code>, currently a placeholder —
-        the mechanic that makes "Later" mean something other than "abandoned".
-        <em>Calibration persistence folds into this. Not blocked.</em></div></div>
-      <div class="row"><div class="who">Cairn</div><div class="txt">
-        <b>The Dan package</b> — options (minimally comply / reposition / sunset), a prototype he
-        can hold, and a recommendation.
-        <em>Prototype means a TestFlight build, so it sits downstream of item 01. The
-        recommendation has its baseline in <code>docs/analytics-2026-09-07.md</code>.</em></div></div>
-      <div class="row"><div class="who">open</div><div class="txt">
-        <b>Whether Cairn runs as Cowork or Code, and on which machine.</b>
-        <em>Yours; less pressing now that the scheduled Cowork run has proven it can reach a Mac,
-        fix a compiler error, and push unattended — three fires running.</em></div></div>
     </div>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep</span></div>
+    <div class="sec-hd"><h2>In flight</h2><span class="count">waiting on build 2</span></div>
     <div class="rows">
-      <div class="row done"><div class="who">Archived</div><div class="txt">
-        <b>The archive is built</b> — 10 Sep, on Amber, unattended.
-        <code>com.longskymedia.optilisten</code>, 2.0 (1), signed by
-        <code>Apple Development: Created via API</code>.
-        <em>No interactive Apple account was needed, and the key auto-provisioned a development
-        profile for the corrected bundle ID on its own.</em></div></div>
-      <div class="row done"><div class="who">Answered</div><div class="txt">
-        <b>Does the archive need an interactive Apple account? No.</b> Only <em style="font-style:italic;display:inline">distribution</em>
-        profile creation needs the elevated path, once per bundle ID.
-        <em>Coral's runbook had the mechanism documented and proven live since 16 Aug. Two days of
-        account debugging would have been skipped by reading what the machine had already
-        shipped.</em></div></div>
-      <div class="row done"><div class="who">Corrected</div><div class="txt">
-        <b>My version/build all-clear was wrong — and the defect was real.</b> I checked
-        <code>project.yml</code> (<code>2.0</code> / <code>1</code>) and called the class clear; Pard
-        read the built archive and found <code>CFBundleShortVersionString = 1.0</code> against a
-        shipped <code>1.3</code>. <code>info.properties</code> set only
-        <code>ITSAppUsesNonExemptEncryption</code>, so xcodegen wrote its own <code>1.0</code>/<code>1</code>
-        defaults into the Info.plist — <b>and the plist wins over the build settings.</b> Both files
-        individually right, no wiring between them.
-        <em>Fixed, re-archived, and verified by reading <code>2.0</code> back out of the rebuilt
-        artifact. An upload-time rejection, caught only because the sweep ran.</em></div></div>
+      <div class="row warnrow"><div class="who">Pard</div><div class="txt">
+        <b>Archive and upload 2.0 (2)</b> on the manual-signing / API path. Build number bumped at
+        <code>4787b85</code>.
+        <em>Before upload: <code>plutil -p</code> the built bundle's Info.plist and confirm the four
+        keys — mic usage, launch screen, orientations, display name — are in the
+        <em style="font-style:italic;display:inline">artifact</em>, not just in
+        <code>project.yml</code>.</em></div></div>
+      <div class="row"><div class="who">Pard</div><div class="txt">
+        <b>Re-read the removal date in App Store Connect</b> now that a build has been accepted.
+        <em>Does the notice still say 24 Nov, or did the upload clear it?</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt">
+        <b>Update the Dan page once (2) works</b> — drop the crash line, tell him it's safe to
+        try on one real call.
+        <em>Waits on (2) processing and your confirmation that Start no longer kills it.</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt">
+        <b>The Dan package</b> — three options, a prototype he can hold, a recommendation.
+        <em>The prototype is one working build away. The recommendation waits on his reaction to
+        the page and the build.</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt">
+        <b>Deferred-reflection resume flow</b>, calibration persistence, and the 1.x
+        speaker-discrimination dig.
+        <em>Not blocked; (2) first.</em></div></div>
+      <div class="row"><div class="who">Pard</div><div class="txt">
+        <b>Empty-account-list drift guard for Amber.</b>
+        <em>Lower priority now; the check should say "not visible from this session," never
+        "absent."</em></div></div>
+      <div class="row"><div class="who">Janus</div><div class="txt">
+        <b>Registry: two entries, not one.</b>
+        <em>Unconfirmed since 7 Sep.</em></div></div>
+      <div class="row"><div class="who">open</div><div class="txt">
+        <b>Whether Cairn runs as Cowork or Code, and on which machine.</b>
+        <em>Yours; not urgent. Six unattended fires have reached a Mac and pushed.</em></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep · newest first</span></div>
+    <div class="rows">
+      <div class="row done"><div class="who">Diagnosed</div><div class="txt">
+        <b>The crash.</b> iOS terminates any process on first microphone access without
+        <code>NSMicrophoneUsageDescription</code> — no error, just gone. 2.0 (1) was built before
+        the fix landed. Pard's own table had flagged exactly this row as "discoverable only in
+        TestFlight."
+        <em>Not investigated; predicted. Build 2 carries the string.</em></div></div>
+      <div class="row done"><div class="who">Shipped</div><div class="txt">
+        <b>2.0 (1) uploaded, delivery <code>a5d9eccf</code>.</b> The account question — absent,
+        re-add, which session — is closed and moot: <code>manual</code> signing with an API-minted
+        profile never needed the account visible.
+        <em>Coral's <code>AMBER-XCODE.md</code> was the map; Pard walked it in a morning.</em></div></div>
+      <div class="row done"><div class="who">Accounted</div><div class="txt">
+        <b>Every <code>INFOPLIST_KEY_*</code> setting was dead.</b> Those keys inject only into
+        generated Info.plists and this project declares an explicit one. Orientations and launch
+        screen were caught by Apple's validator; the icon too (the tree had no asset catalog — Pard
+        recovered the original from Apple's CDN); the mic string was caught by your phone.
+        <em>All keys now under <code>info.properties</code>, with a comment forbidding the old
+        form.</em></div></div>
+      <div class="row done"><div class="who">For Dan</div><div class="txt">
+        <b>A page he can read.</b> <code>docs/for-dan/what-optilisten-does-now.html</code>,
+        published as its own artifact.
+        <em>The email was written for you and read by him.</em></div></div>
       <div class="row done"><div class="who">Verified</div><div class="txt">
-        <b>The pobox→Gmail forward carries Apple mail.</b> A message from
-        <code>no_reply@email.apple.com</code> dated 11 Sep 13:28 UTC is in the readable mailbox — a
-        receipt, not App Store Connect, but it proves the path end to end.
-        <em>No removal mail about OptiListen is there, and absence is not confirmation: the 26 Aug
-        notice predates the forward. The date is still yours, not Apple's.</em></div></div>
+        <b>The Apple-mail forward works.</b> A <code>no_reply@email.apple.com</code> message
+        reached the readable mailbox on the 11th.
+        <em>A receipt, not ASC mail — but the path is proven end to end.</em></div></div>
       <div class="row done"><div class="who">Retracted</div><div class="txt">
-        <b>"The account is absent."</b> It's present in your GUI session; Pard's SSH session can't
-        read the local-items keychain where Xcode stores it. My session hypothesis was right and I
-        accepted a disk read that "ruled it out" without asking whether the read was valid.
-        <em>Same moment, different keychain visibility — not two weeks apart.</em></div></div>
-      <div class="row done"><div class="who">Mail</div><div class="txt">
-        <b>Apple's mail now reaches a mailbox an agent can read.</b> pobox→Gmail forward set up
-        10 Sep. Deadline changes and review results become visible to scheduled fires from here.</div></div>
-      <div class="row done"><div class="who">Checked</div><div class="txt">
-        <b>Version and build numbering clears an upload.</b> 1.x last carried
-        <code>MARKETING_VERSION = 1.3</code> / <code>CURRENT_PROJECT_VERSION = 6</code>; 2.0 carries
-        <code>2.0</code> / <code>1</code>. Version string sorts higher, and build numbers are unique
-        per version train rather than per app, so build 1 collides with nothing.
-        <em>Verified against the 1.x source of record — not against the live listing, which reads
-        through App Store Connect behind item 02. Any unlogged 1.4 would still sort below 2.0, so
-        the conclusion holds either way. No change needed before archiving.</em></div></div>
-      <div class="row done"><div class="who">Tidied</div><div class="txt">
-        <b>Two stale comments in <code>project.yml</code> retired</b> (<code>ba1023c</code>). The
-        <code>DEVELOPMENT_TEAM</code> line still read "confirmed owner of
-        <code>com.optilisten.ios</code>" — the superseded identifier, sitting in prose beside the
-        corrected setting. And <code>deploymentTarget</code> still carried an open "confirm against
-        App Analytics" TODO that was answered on 7 Sep.
-        <em>Comments only — no setting changed, so no regenerate, and Pard's green build
-        stands.</em></div></div>
+        <b>"The account is absent."</b> Present the whole time; invisible to an SSH session because
+        Xcode stores credentials in the local-items keychain. Three agreeing checks from one vantage
+        point.
+        <em>Stays retracted, and is now beside the point.</em></div></div>
       <div class="row done"><div class="who">Bundle ID</div><div class="txt">
-        <b>It was wrong, and your question caught it.</b> <code>project.yml</code> carried
-        <code>com.optilisten.ios</code>, the identifier Austin's 2022 setup email told you to
-        create. What actually shipped — from the 1.x <code>project.pbxproj</code> — is
-        <b><code>com.longskymedia.optilisten</code></b>. An archive under the wrong ID would not
-        have updated the existing App Store record. Fixed at <code>73f2b95</code>; Pard runs
-        <code>xcodegen generate</code> before the next build.
-        <em>Method note: the instruction said one thing; the artifact did another. Trust the
-        artifact.</em></div></div>
-      <div class="row done"><div class="who">Ownership</div><div class="txt">
-        <b>The "skymedia" prefix has no bearing on who owns it.</b> A bundle ID's reverse-domain
-        string is a naming convention; the identifier is registered to a team, and this one is on
-        <code>YZ4B34YGX9</code> — the 1.x project's <code>DEVELOPMENT_TEAM</code>, and App Store
-        Connect shows <code>xian@pobox.com</code> as Account Holder and Admin there. Dan's Apple
-        ID is not involved.</div></div>
-      <div class="row done"><div class="who">Compiled</div><div class="txt">
-        <b>The 2.0 tree has been through a compiler.</b> Simulator target, 9 Sep, with
-        <code>CODE_SIGNING_ALLOWED=NO</code> to get past signing to the actual compiler.
-        <code>PracticeLoopView</code>, <code>HomeView</code>, <code>OptiListenApp</code>,
-        <code>TalkRatioSource</code>, <code>RetrospectiveSources</code> and <code>Practice</code>
-        all built clean.</div></div>
-      <div class="row done"><div class="who">Verified</div><div class="txt">
-        <b>Error 1 is gone.</b> <code>LiveMicSource.swift:37</code> — <code>@MainActor
-        LiveMicSource</code> conforming to <code>LiveTalkRatioSource</code>, whose
-        <code>currentShare</code> and <code>observedDuration</code> were nonisolated. Fixed at
-        <code>b6a6a5b</code> by isolating the two protocol requirements rather than the conformance.
-        <em>Pard pulled it, regenerated clean and rebuilt: the error does not recur. Rev 7's
-        headline risk closed by measurement rather than argument.</em></div></div>
-      <div class="row done"><div class="who">Fixed</div><div class="txt">
-        <b>Error 2 — <code>CalibrationView.swift:127</code>.</b>
-        <code>source.calibration = calibration</code> against a <code>private(set)</code> setter.
-        Fixed at <code>b22f06b</code> by adding
-        <code>applyCalibration(userLevel:ambientLevel:)</code> to <code>LiveMicSource</code> rather
-        than opening the setter — <code>Calibration</code> carries the app's thresholds, including
-        the 0.45 ambient bias that exists so the app never flatters the user, so construction stays
-        inside the type that owns them.
-        <em>One write site in the tree, grep-confirmed. Verified 10 Sep: the tree builds clean,
-        and Pard confirmed <code>b22f06b</code> was an ancestor of the built HEAD before reporting
-        it.</em></div></div>
+        <b><code>com.longskymedia.optilisten</code></b>, from the 1.x project file — not the
+        string in Austin's 2022 email. Your question caught it.
+        <em>The instruction is not the artifact.</em></div></div>
       <div class="row done"><div class="who">Clean</div><div class="txt">
-        <b>The 2.0 tree compiles end to end.</b> <code>** BUILD SUCCEEDED **</code> on Amber,
-        10 Sep — 1,151 lines, Swift 6 <code>SWIFT_STRICT_CONCURRENCY: complete</code>, zero errors,
-        zero concurrency warnings, iOS 26.5 SDK.
-        <em>Two errors found and fixed in under a day once the build loop was actually
-        running.</em></div></div>
-      <div class="row done"><div class="who">Answered</div><div class="txt">
-        <b>Does automatic signing provision on its own? No — and not for the reason expected.</b>
-        It fails one step before the portal: there is no Apple account on Amber at all.
-        <em>Now item 01.</em></div></div>
-      <div class="row done"><div class="who">Committed</div><div class="txt">
-        <b><code>DEVELOPMENT_TEAM</code> is settled for real.</b> Pard had set
-        <code>YZ4B34YGX9</code> in his working copy only; <code>main</code> carried the empty
-        placeholder. He owned it plainly: "I reported the state of my machine as the state of the
-        world."
-        <em>Committed at <code>b6a6a5b</code>, local copy discarded 9 Sep — both now agree and the
-        authoritative one is in the repo.</em></div></div>
-      <div class="row done"><div class="who">Binding</div><div class="txt">
-        <b>The scheduled mail check runs unattended.</b> Three fires since rebinding — 16:00 and
-        23:06 UTC on the 9th, 16:00 UTC today — each reached kindbook's shell, rebased both repos
-        and pushed; the last two each fixed a compiler error.
-        <em>The 8 Sep cloud-only failure mode has not recurred.</em></div></div>
-      <div class="row done"><div class="who">Renamed</div><div class="txt">
-        <b>The checkout collision, and it was worse than flagged.</b> macOS is case-insensitive, so
-        the lowercase name I suggested resolved to the <em style="display:inline;font-style:italic">same
-        directory</em> as the site checkout and Pard's first clone silently no-opped into it.
-        <em>Now <code>optilisten-site</code> (marketing) and <code>optilisten</code> (2.0).</em></div></div>
-      <div class="row done"><div class="who">SDK</div><div class="txt">
-        <b>Residual 26.5-SDK worry retired.</b> One Job reached "Pending Developer Release" on
-        8 Sep through Amber's Xcode 26.6 / iOS 26.5 toolchain — a live acceptance from this
-        account, this week.</div></div>
+        <b>The tree compiles end to end</b> — Swift 6 strict concurrency, zero errors, iOS 26.5
+        SDK. Two errors found and fixed in under a day once the loop was running.</div></div>
       <div class="row done"><div class="who">Analytics</div><div class="txt">
         <b>96 lifetime downloads, ~1.3 sessions each, retention nil — but 548 impressions and
-        5 first-time downloads in the last 30 days with zero marketing.</b> Deployment target
-        iOS&nbsp;17 confirmed.
-        <em>Full read in <code>docs/analytics-2026-09-07.md</code>. The demand side has a pulse;
-        the product side flatlined.</em></div></div>
+        5 first-time downloads in the last 30 days with zero marketing.</b> iOS 17 target
+        confirmed.</div></div>
       <div class="row done"><div class="who">Dan</div><div class="txt">
-        <b>Co-decider, not courtesy consult.</b> He owns OptiListen and is very likely to take your
-        advice, so the reposition-vs-sunset proposal goes to him with a recommendation attached.</div></div>
+        <b>Co-decider, not courtesy consult.</b> He owns OptiListen and is likely to take your
+        advice; the proposal goes to him with a recommendation attached.</div></div>
       <div class="row done"><div class="who">Found</div><div class="txt">
-        <b>The 1.x source.</b> <code>AustinWood/listenup-mobile</code> — private, on the
-        contractor's personal account. Your <code>mediajunkie</code> login already had read
-        access.</div></div>
-      <div class="row done"><div class="who">Decided</div><div class="txt">
-        <b>Rewrite, not upgrade.</b> RN 0.66.0 with <code>patches/react-native+0.66.0.patch</code> —
-        the framework itself was patched, and those patches can't apply to anything newer.</div></div>
+        <b>The 1.x source</b> — <code>AustinWood/listenup-mobile</code>; your login already had
+        access. <b>Rewrite, not upgrade</b> — RN 0.66 with the framework itself patched.</div></div>
       <div class="row done"><div class="who">Settled</div><div class="txt">
-        <b>The App Store record is yours, not Dan's.</b> <code>Seller: Christian Crumlish</code>,
-        team <code>YZ4B34YGX9</code>, created Aug 2022. No transfer, no paperwork, no lead
-        time.</div></div>
+        <b>The App Store record is yours</b> — team <code>YZ4B34YGX9</code>, created Aug 2022. No
+        transfer, no paperwork.</div></div>
     </div>
   </section>
 
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Compiling is not running.</b> The tree
-      builds clean; nobody has yet watched it <em style="font-style:italic;display:inline">behave</em>
-      — the mic tap, the calibration flow, the practice loop under a real conversation. A clean
-      Swift 6 build says the concurrency is sound, not that the app works. TestFlight is where that
-      gets answered, which is one more reason item 01 is the whole critical path.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Compiling is not running, and running is
+      not being used.</b> 2.0 has been launched on a real phone exactly once and died on the first
+      tap. Build 2 is the first one that can be <em style="font-style:italic;display:inline">used</em>.
+      Nobody has watched calibration, the mic tap, or the loop behave in a real conversation.</div></div>
     <div class="risk"><span class="dot">▲</span><div><b>Calibration is <code>Codable</code> and
-      nothing persists it.</b> Not a compile error — the user simply recalibrates from scratch on
-      every cold launch. Someone made it storable and no one stored it. Folded into the
-      <code>HomeView</code> work rather than fixed inside a build patch.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>The fleet's signing path expires Aug 2027, and
-      renewal takes the same elevated route as item 01.</b> Whatever resolves item 01 should be
-      written down as the renewal procedure rather than rediscovered next August — which is one more
-      reason to find out whether the API route works.</div></div>
+      nothing persists it.</b> Every cold launch recalibrates. Folded into the
+      <code>HomeView</code> work.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>One signing path, expiring Aug 2027.</b>
+      The API can renew it now, which is better than a week ago, but nothing watches for
+      expiry.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>The 24 Nov date is still the screenshot,
+      not an ASC readback.</b> The forward works; nobody has looked yet.</div></div>
     <div class="risk"><span class="dot">▲</span><div><b>Apple has rejected this app once before</b>
-      — July 2023, specifically over background modes. 2.0 omits <code>UIBackgroundModes</code>
-      deliberately, but expect scrutiny there.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Age-rating social-media questions</b> must
-      be answered at submission. A gate, not a deadline; the answers are "no" across the board.
-      Ten minutes in App Store Connect.</div></div>
+      — July 2023, background modes. 2.0 omits <code>UIBackgroundModes</code>; expect
+      scrutiny.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Age-rating social-media questions</b> at
+      submission. Ten minutes; the answers are "no."</div></div>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Method notes</h2><span class="count">ten worth keeping</span></div>
+    <div class="sec-hd"><h2>Method notes</h2><span class="count">the week's, condensed</span></div>
     <div class="notes">
-      <div class="note"><b>Read the shipped artifact, not the spec that describes it — and that now
-        has a checklist.</b> Before any archive is called ready: <b>version, bundle ID and signing
-        identity, read out of the <code>.xcarchive</code> itself.</b> All three have been wrong at
-        least once while the spec looked correct. Pard's rule, adopted. Three defects in two days
-        were found by reading output rather than input, and the third was mine.</div>
-      <div class="note"><b>I swept the wrong layer.</b> Sweeping for an error's siblings was right and
-        found a real one. But the original defect was found in an <em style="font-style:italic;display:inline">artifact</em>
-        and I swept the <em style="font-style:italic;display:inline">specification</em> for its
-        siblings. Sweep the layer the first one came from.</div>
-      <div class="note"><b>A documented workaround may already exist in a sibling project.</b> The
-        account question cost two days across both of us. Coral had written the mechanism down in
-        August and proven it live on One Job. Before debugging a signing problem, read what the
-        machine has already shipped.</div>
-      <div class="note"><b>When one metadata error surfaces, sweep for its siblings rather than
-        waiting for the next one.</b> The wrong bundle ID would have failed at submission with no
-        slack — that is a class: metadata the compiler never checks and the upload does. So after
-        fixing it I went looking for the rest of the class instead of moving on. Version and build
-        monotonicity was the obvious next member. It came back clean, which is a result, not a
-        wasted pass — and it came from reading the same 1.x artifact that settled the first
-        one.</div>
-      <div class="note"><b>Two people can both be right about a machine if the machine changed
-        between them.</b> xian said the account was on Xcode on Amber; Pard measured
-        <code>No Accounts</code> every cycle. The reflex is to work out who is mistaken. The answer
-        was a timestamp comparison that cost one command — profiles minted 13–15 August, install
-        dated 5 August, account list empty today — and the argument would have buried the actual
-        finding, which is that a signing account can disappear with nothing watching.</div>
-      <div class="note"><b>The instruction is not the artifact.</b> I carried
-        <code>com.optilisten.ios</code> from an email telling xian what to create, for five days,
-        into a build config. The 1.x project file — the thing that actually shipped — said
-        <code>com.longskymedia.optilisten</code> the whole time and I never opened it for that
-        field. When both exist, read the artifact.</div>
-      <div class="note"><b>The first error hid the second, and that is worth expecting rather than
-        rediscovering.</b> Clearing <code>LiveMicSource:37</code> immediately surfaced
-        <code>CalibrationView:127</code>, which would have failed identically before the first fix —
-        the compiler had simply stopped short of the view. On a tree that has never compiled, the
-        honest forecast is "more errors, serially," not "nearly there."</div>
-      <div class="note"><b>A compile error is not always a concurrency error.</b> Both suspects I
-        had reasoned about were actor-isolation stories; the second error was plain access control,
-        with no notes and no diagnostics attached. Reading <code>private(set)</code> as an invariant
-        rather than an obstacle is what picked the fix — and the fix was a design decision the
-        compiler had no opinion about.</div>
-      <div class="note"><b>A commit isn't mail.</b> The 08:11 fire pushed <code>b22f06b</code> and
-        sent no memo; Pard's 03:0x log line "Cairn has pushed nothing further" was true when
-        written, and nobody told him otherwise until 08:2x. Every fix now ships with its memo in
-        the same fire.</div>
-      <div class="note"><b>Two Cairn instances worked this repo inside fifteen minutes, and the
-        rollup nearly lost an update.</b> The 16:00 UTC scheduled fire pushed <code>b22f06b</code>
-        at 08:11 PT and sent no memo; an interactive session opened at ~08:2x, read the commit,
-        sent Pard the memo and bumped this page to rev 8. The scheduled run then rewrote
-        <code>docs/attention.md</code> from its own draft at 08:23. Nothing was lost — the
-        scheduled draft happened to be a superset — but that was luck, not a merge. The standing
-        rule needs a sibling: read
-        <code>git log origin/main -- docs/attention.md</code> immediately before writing it,
-        because the other writer may be another instance of me, minutes old. The duplicate memo
-        was caught and not sent.</div>
-      <div class="note"><b>Pard corrected himself twice in two days, both the same shape:</b>
-        reporting the state of his machine as the state of the world — the pre-Xcode-16 profiles
-        directory, then an uncommitted <code>project.yml</code>. <code>git show HEAD:&lt;file&gt;</code>
-        before trusting any "I set X" is now a standing check, and it applies to me at least as much
-        as to him.</div>
+      <div class="note"><b>Reading the artifact means diffing it against the full intent, not
+        spot-checking the fields that burned you last time.</b> Pard verified version, bundle and
+        signing out of the built archive and called it verified; the validator then found four
+        absent keys in the same file. His words, and they apply to me at least as much.</div>
+      <div class="note"><b>The instruction is not the artifact.</b> A 2022 email said
+        <code>com.optilisten.ios</code>; the project file that shipped said
+        <code>com.longskymedia.optilisten</code>. Five days in a build config before anyone
+        opened the file that mattered.</div>
+      <div class="note"><b>Three agreeing checks from one vantage point are one check.</b>
+        "No accounts," "no keychain item," "empty plist" all read the same session. The account
+        was there. A headless session on Amber reports "not visible from here," never
+        "absent."</div>
+      <div class="note"><b>Two people can both be right if they're reading different stores.</b>
+        The reflex is to work out who's mistaken. It cost a day. The answer was a keychain the
+        SSH session couldn't open.</div>
+      <div class="note"><b>Written for you, read by him.</b> The update note to Dan was accurate
+        and unreadable. The audience for a page decides its vocabulary, not the author's
+        week.</div>
     </div>
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · this page's HTML is versioned beside it at <code>docs/attention.html</code> · file and page in sync at rev 14<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 15<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>

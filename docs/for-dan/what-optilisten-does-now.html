@@ -1,0 +1,399 @@
+<title>What OptiListen Does Now</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dosis:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+  :root{
+    --ground:#FAFBFA; --surface:#FFFFFF; --sunk:#EEF3F2;
+    --ink:#131C1F; --ink-mid:#42545A; --ink-dim:#6E7F85;
+    --rule:#DCE4E3; --rule-soft:#E9EFEE;
+    --teal:#1F7F84; --teal-soft:#E0F0F0;
+    --green:#3E8F5F; --green-soft:#E3F1E8;
+    --amber:#9A5B00; --amber-soft:#FBF0DC;
+    --navy:#0F1A22; --navy-2:#16242E;
+    --grad:linear-gradient(135deg,#78C693,#34A0A4);
+    --display:"Dosis",ui-rounded,"Avenir Next",sans-serif;
+    --sans:"IBM Plex Sans",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0C1417; --surface:#131E22; --sunk:#0F191C;
+      --ink:#E5ECEC; --ink-mid:#A6B6B9; --ink-dim:#7F9094;
+      --rule:#25353A; --rule-soft:#1C292D;
+      --teal:#5FC6C9; --teal-soft:#10302F;
+      --green:#78C693; --green-soft:#132A1D;
+      --amber:#EFB65A; --amber-soft:#2E2410;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0C1417; --surface:#131E22; --sunk:#0F191C;
+    --ink:#E5ECEC; --ink-mid:#A6B6B9; --ink-dim:#7F9094;
+    --rule:#25353A; --rule-soft:#1C292D;
+    --teal:#5FC6C9; --teal-soft:#10302F;
+    --green:#78C693; --green-soft:#132A1D;
+    --amber:#EFB65A; --amber-soft:#2E2410;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+       font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:44px 22px 80px;display:flex;
+        flex-direction:column;gap:44px}
+
+  /* masthead */
+  .mast{display:flex;flex-direction:column;gap:10px}
+  .mark{display:flex;align-items:center;gap:12px}
+  .logo{width:44px;height:44px;border-radius:11px;background:var(--navy);display:grid;
+        place-items:center;flex:none}
+  .logo svg{width:26px;height:22px}
+  .wordmark{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.12em;
+            text-transform:uppercase;color:var(--ink)}
+  h1{font-family:var(--display);font-weight:600;font-size:42px;line-height:1.1;
+     letter-spacing:.01em;margin:6px 0 0;text-wrap:balance}
+  .lede{font-size:19px;color:var(--ink-mid);max-width:60ch;margin:4px 0 0;
+        text-wrap:pretty}
+  .from{font-family:var(--mono);font-size:12.5px;color:var(--ink-dim);margin-top:6px}
+
+  /* sections */
+  section{display:flex;flex-direction:column;gap:14px}
+  h2{font-family:var(--display);font-weight:600;font-size:26px;letter-spacing:.02em;
+     margin:0;text-wrap:balance}
+  p{margin:0;max-width:66ch;text-wrap:pretty}
+  p+p{margin-top:2px}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;
+           text-transform:uppercase;color:var(--teal)}
+  b{font-weight:600}
+  em{font-style:italic}
+  .aside{border-left:3px solid var(--teal);padding:4px 0 4px 16px;color:var(--ink-mid);
+         max-width:62ch}
+
+  /* the three moments */
+  .moments{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+  .moment{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+          padding:16px 16px 18px;display:flex;flex-direction:column;gap:6px}
+  .moment .when{font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+                text-transform:uppercase;color:var(--green)}
+  .moment .what{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.2}
+  .moment p{font-size:14.5px;color:var(--ink-mid)}
+
+  /* phones */
+  .screens{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 18px;margin-top:8px}
+  .shot{display:flex;flex-direction:column;gap:10px}
+  .cap{font-size:14.5px;color:var(--ink-mid);max-width:36ch}
+  .cap b{color:var(--ink)}
+  .phone{background:var(--navy);border-radius:28px;padding:10px;box-shadow:
+         0 1px 2px rgba(0,0,0,.18),0 12px 30px rgba(15,26,34,.18);
+         max-width:300px;margin:0 auto;width:100%}
+  .glass{background:#F6F8F8;border-radius:20px;padding:18px 16px 16px;color:#131C1F;
+         font-family:var(--sans);min-height:520px;display:flex;flex-direction:column;
+         gap:12px;position:relative;overflow:hidden}
+  .glass.dark{background:var(--navy-2);color:#E5ECEC}
+  .sb{display:flex;justify-content:space-between;font-size:11px;font-weight:600;
+      color:#131C1F;opacity:.85;padding:0 4px}
+  .glass.dark .sb{color:#E5ECEC}
+  .nav{display:flex;justify-content:space-between;align-items:center;font-size:15px;
+       font-weight:600;padding:2px 2px 6px}
+  .nav .act{color:#1F7F84;font-weight:600}
+  .glass.dark .nav .act{color:#5FC6C9}
+  .nav .dis{opacity:.35}
+  .card{background:#fff;border:1px solid #E2E8E8;border-radius:12px;padding:12px 12px;
+        display:flex;flex-direction:column;gap:6px}
+  .glass.dark .card{background:#1E2E39;border-color:#2B3E4A}
+  .lbl{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6E7F85;
+       font-weight:600}
+  .glass.dark .lbl{color:#8FA3A9}
+  .field{font-size:14px;color:#8B9A9F;padding:2px 0}
+  .field.filled{color:#131C1F}
+  .glass.dark .field.filled{color:#E5ECEC}
+  .big{font-family:var(--display);font-weight:500;font-size:44px;line-height:1;
+       letter-spacing:.02em;font-variant-numeric:tabular-nums}
+  .huge{font-family:var(--display);font-weight:300;font-size:76px;line-height:1;
+        letter-spacing:.02em;text-align:center;margin-top:34px}
+  .sub{font-size:13px;color:#6E7F85;text-align:center}
+  .glass.dark .sub{color:#8FA3A9}
+  .focus{font-size:18px;text-align:center;margin:22px 20px 0;line-height:1.35}
+  .slider{height:4px;border-radius:2px;background:#DCE4E3;position:relative;margin:8px 4px}
+  .slider i{position:absolute;left:0;top:0;height:100%;width:34%;border-radius:2px;
+            background:var(--grad)}
+  .slider b{position:absolute;left:34%;top:50%;width:22px;height:22px;border-radius:50%;
+            background:#fff;border:1px solid #C9D3D3;transform:translate(-50%,-50%);
+            box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .foot-note{font-size:12px;color:#6E7F85;line-height:1.45}
+  .toggle{display:flex;justify-content:space-between;align-items:center;font-size:14px}
+  .sw{width:40px;height:24px;border-radius:12px;background:#D6DEDE;position:relative}
+  .sw::after{content:"";position:absolute;left:2px;top:2px;width:20px;height:20px;
+             border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+  .btn{margin-top:auto;border-radius:12px;padding:12px;text-align:center;font-weight:600;
+       font-size:15px;background:var(--grad);color:#fff}
+  .btn.stop{background:#C9402F}
+  .seg{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:#E2E8E8;
+       border-radius:9px;padding:2px}
+  .seg span{text-align:center;padding:6px 0;font-size:14px;border-radius:7px}
+  .seg span.on{background:#fff;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .timer{font-family:var(--mono);font-size:12px;color:#6E7F85;text-align:center;
+         margin-top:auto}
+  .glass.dark .timer{color:#8FA3A9}
+  .row{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;
+       padding:6px 0;border-bottom:1px solid #EDF1F1}
+  .row:last-child{border-bottom:none}
+  .row .t{display:flex;flex-direction:column;gap:1px}
+  .row .t small{font-size:12px;color:#6E7F85}
+  .row .n{font-family:var(--mono);font-size:13px}
+  .row .n.ok{color:#3E8F5F}.row .n.over{color:#B86A00}
+  .mini{height:64px;display:flex;align-items:flex-end;gap:5px;padding:4px 2px 0}
+  .mini i{flex:1;border-radius:3px 3px 0 0;background:var(--grad);opacity:.85}
+  .mini .g{background:none;border-top:2px dashed #B8C3C3;height:38% !important;opacity:1}
+
+  /* status: built / not yet */
+  .status{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+  .col{border:1px solid var(--rule);border-radius:12px;padding:16px 18px;
+       background:var(--surface);display:flex;flex-direction:column;gap:8px}
+  .col h3{font-family:var(--display);font-weight:600;font-size:18px;margin:0;
+          letter-spacing:.03em}
+  .col.yes h3{color:var(--green)}.col.no h3{color:var(--amber)}
+  .col ul{margin:0;padding-left:18px;color:var(--ink-mid);font-size:15px;
+          display:flex;flex-direction:column;gap:5px}
+
+  /* options */
+  .opts{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+  .opt{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+       padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:14px}
+  .opt .k{font-family:var(--display);font-weight:700;font-size:26px;color:var(--teal);
+          line-height:1;padding-top:2px}
+  .opt .t{font-weight:600;font-size:17px;margin-bottom:4px}
+  .opt p{font-size:15px;color:var(--ink-mid)}
+
+  /* numbers */
+  .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+  .num{background:var(--sunk);border-radius:12px;padding:14px 16px}
+  .num .v{font-family:var(--display);font-weight:600;font-size:34px;line-height:1;
+          font-variant-numeric:tabular-nums}
+  .num .k{font-size:13px;color:var(--ink-mid);margin-top:6px;line-height:1.35}
+
+  .foot{font-family:var(--mono);font-size:12px;color:var(--ink-dim);
+        border-top:1px solid var(--rule);padding-top:16px;line-height:1.7}
+
+  @media (max-width:640px){
+    h1{font-size:34px}
+    .moments,.status,.nums{grid-template-columns:1fr}
+    .screens{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mark">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 26 22"><g fill="#5FC6C9"><rect x="1" y="8" width="2.4" height="6" rx="1.2"/><rect x="5.2" y="4" width="2.4" height="14" rx="1.2"/><rect x="9.4" y="0" width="2.4" height="22" rx="1.2"/><rect x="13.6" y="6" width="2.4" height="10" rx="1.2"/><rect x="17.8" y="2" width="2.4" height="18" rx="1.2"/><rect x="22" y="8" width="2.4" height="6" rx="1.2"/></g></svg>
+      </div>
+      <div class="wordmark">OptiListen</div>
+    </div>
+    <h1>What OptiListen does now</h1>
+    <p class="lede">A plain-language walkthrough of the rebuilt app — what it's for, what's actually
+      on the screens today, what isn't finished, and what I'd like from you.</p>
+    <div class="from">from xian · 12 Sep 2026</div>
+  </header>
+
+  <section>
+    <div class="eyebrow">Where we started</div>
+    <h2>The version you know measured how much you talked</h2>
+    <p>You put the phone beside you on a call, and it told you what share of the conversation was
+      your voice. Simple, and in 2021 nothing else did it.</p>
+    <p>Two things have happened since. Apple has told me the app will be pulled from the store on
+      <b>November 24</b> unless we ship an update — the old code is three years stale and can't be
+      updated as-is, so an update means a rebuild. And in the meantime, every meeting tool grew
+      that same feature. Zoom, Teams, Google Meet, the note-taking apps — they all show you your
+      talk time now, for free, without you doing anything.</p>
+    <p class="aside">So rebuilding the measuring part alone would put us back on the shelf next to
+      products that do it better, built in, for nothing. That's the part of the situation that
+      shaped everything below.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">The idea</div>
+    <h2>Nobody helps you <em>practice</em> listening. That's the gap.</h2>
+    <p>All those tools measure you. None of them ask you to decide anything before a conversation,
+      none nudge you while it's still happening, and none ask afterward whether you were actually
+      there. Your original screens did all three — the goal, the live number, the "how present were
+      you" question — and that was the good part all along.</p>
+    <p>So the rebuild makes those three moments the whole product:</p>
+    <div class="moments">
+      <div class="moment">
+        <div class="when">Before</div>
+        <div class="what">Set an intention</div>
+        <p>How much of this conversation do you mean to spend talking? And in one line: what are you
+          practicing? "Ask before answering." "Let silences run."</p>
+      </div>
+      <div class="moment">
+        <div class="when">During</div>
+        <div class="what">See the gap while it counts</div>
+        <p>Your share of the talking, live, next to the ceiling you set — and the line you wrote,
+          right there on the screen, while you can still act on it.</p>
+      </div>
+      <div class="moment">
+        <div class="when">After</div>
+        <div class="what">Say how it went</div>
+        <p>How present were you, one to five? What happened? Your own read, not the microphone's.
+          This is the part that makes it practice instead of a report.</p>
+      </div>
+    </div>
+    <p>The count on the home screen isn't your average talk share. It's how many conversations you
+      set an intention for and came back to. A conversation with a number but no reflection doesn't
+      count. One with a reflection and no number does.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">What exists today</div>
+    <h2>The four screens, as built</h2>
+    <p>These are drawn from the app's actual code — same words, same layout — so you can see it
+      before the working build reaches your phone.</p>
+
+    <div class="screens">
+
+      <div class="shot">
+        <div class="phone"><div class="glass">
+          <div class="sb"><span>12:10</span><span>●●● ▮</span></div>
+          <div class="nav"><span class="dis">Cancel</span><span>Before</span><span class="act">Start</span></div>
+          <div class="card"><div class="lbl">Optional</div><div class="field">What's this conversation?</div></div>
+          <div class="card"><div class="lbl">Your ceiling</div>
+            <div class="big">30%</div>
+            <div class="slider"><i></i><b></b></div>
+            <div class="foot-note">Share of the conversation you intend to spend talking.</div></div>
+          <div class="card"><div class="lbl">What are you practicing?</div>
+            <div class="field filled">Ask before answering.</div>
+            <div class="foot-note">One line. This is the part you'll actually remember mid-conversation.</div></div>
+          <div class="card"><div class="toggle"><span>I'm wearing headphones</span><span class="sw"></span></div>
+            <div class="foot-note">Set the phone face-up beside you, screen on. It listens to the room; nothing is recorded or sent anywhere.</div></div>
+        </div></div>
+        <div class="cap"><b>Before.</b> Pick a ceiling, write one line about what you're working on. The line is required; the name isn't.</div>
+      </div>
+
+      <div class="shot">
+        <div class="phone"><div class="glass dark">
+          <div class="sb"><span>12:14</span><span>●●● ▮</span></div>
+          <div class="nav"><span></span><span>Listening</span><span></span></div>
+          <div class="huge">24%</div>
+          <div class="sub">of 30%</div>
+          <div class="focus">Ask before answering.</div>
+          <div class="timer">03:14</div>
+          <div class="btn stop">End</div>
+        </div></div>
+        <div class="cap"><b>During.</b> One number, your line, and a timer. It turns amber if you cross your ceiling. With headphones on there's no number at all — just your line — because the mic could only hear you.</div>
+      </div>
+
+      <div class="shot">
+        <div class="phone"><div class="glass">
+          <div class="sb"><span>12:41</span><span>●●● ▮</span></div>
+          <div class="nav"><span class="act">Later</span><span>After</span><span class="act">Done</span></div>
+          <div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline"><span class="big" style="font-size:36px">24%</span><span class="foot-note">aimed at 30%</span></div></div>
+          <div class="card"><div class="lbl">How present were you?</div>
+            <div class="seg"><span>1</span><span>2</span><span class="on">3</span><span>4</span><span>5</span></div>
+            <div class="foot-note">Your call, not the microphone's. You can hit your number and still have been somewhere else.</div></div>
+          <div class="card"><div class="lbl">You were practicing: Ask before answering.</div>
+            <div class="field filled">Caught myself twice. Once I didn't.</div></div>
+        </div></div>
+        <div class="cap"><b>After.</b> The reading, your own presence score, and a note. "Later" saves it as unfinished and brings it back — it doesn't let you quietly skip this.</div>
+      </div>
+
+      <div class="shot">
+        <div class="phone"><div class="glass">
+          <div class="sb"><span>12:44</span><span>●●● ▮</span></div>
+          <div class="nav"><span class="dis">⚙</span><span>OptiListen</span><span class="act">＋</span></div>
+          <div><div class="big" style="font-size:48px">7</div><div class="foot-note" style="margin-top:2px">conversations practiced</div></div>
+          <div class="card"><div class="lbl">Still open</div>
+            <div class="row"><div class="t">Standup<small>Let Priya finish.</small></div><span class="n">›</span></div></div>
+          <div class="card"><div class="lbl">Goal vs. actual</div>
+            <div class="mini"><i style="height:52%"></i><i style="height:70%"></i><i style="height:44%"></i><i style="height:38%"></i><i style="height:60%"></i><i style="height:30%"></i><i style="height:34%"></i><i class="g"></i></div></div>
+          <div class="card"><div class="lbl">Recent</div>
+            <div class="row"><div class="t">1:1 with Marcus<small>Ask before answering.</small></div><span class="n ok">24%</span></div>
+            <div class="row"><div class="t">Board prep<small>Don't fill silences.</small></div><span class="n over">41%</span></div>
+            <div class="row"><div class="t">Dinner<small>Listen for what's not said.</small></div><span class="n">—</span></div></div>
+        </div></div>
+        <div class="cap"><b>Home.</b> Conversations practiced, anything left open, and the trend. The dash on "Dinner" is a conversation with no reading — headphones, or no phone on the table — and it still counts.</div>
+      </div>
+
+    </div>
+    <p class="aside">The example names and numbers on the Home screen are made up to show the layout.
+      Everything else is the app's real wording.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">Honest status</div>
+    <h2>What works, what doesn't, and why the test build crashes</h2>
+    <div class="status">
+      <div class="col yes"><h3>Built and working</h3>
+        <ul>
+          <li>All four screens, front to back</li>
+          <li>The intention → listening → reflection loop, saved on the phone</li>
+          <li>Live speaking share from the microphone, with a one-time setup that learns your voice against the room and refuses to give a number if the room is too noisy to trust</li>
+          <li>The headphones mode (no number, just your line)</li>
+          <li>Nothing leaves the phone. No account, no server, no recording.</li>
+        </ul>
+      </div>
+      <div class="col no"><h3>Not there yet</h3>
+        <ul>
+          <li><b>The build on TestFlight right now crashes the moment you tap Start.</b> A required one-line permission notice was left out of that build. Fixed; a new build is on its way. Don't judge it by this one.</li>
+          <li>The one-time voice setup doesn't remember itself between launches yet</li>
+          <li>The "Still open" list on Home shows, but tapping through to finish one isn't wired up</li>
+          <li>No app icon polish, no onboarding, no App Store screenshots</li>
+        </ul>
+      </div>
+    </div>
+    <p>Two things I want to be straight about. First, the microphone approach is the same idea the
+      2021 app used — the phone sits beside you and listens to the room — but the old app only
+      managed about a minute before the phone shut it off in the background. That's the thing that
+      quietly broke it for everyone. The new one doesn't fight that: it's meant to sit on the desk
+      with the screen on, like a timer. Second, it's never been used in a real conversation yet. It
+      compiles clean and runs; whether it <em>feels</em> right is exactly what I need you for.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">The numbers, plainly</div>
+    <h2>What three years in the store actually looked like</h2>
+    <div class="nums">
+      <div class="num"><div class="v">96</div><div class="k">downloads, ever, since January 2023</div></div>
+      <div class="num"><div class="v">~1</div><div class="k">session per download — most people opened it once</div></div>
+      <div class="num"><div class="v">548</div><div class="k">people saw the listing last month, with no marketing at all</div></div>
+    </div>
+    <p>The first two are what you'd expect from an app that stopped working a minute into every
+      call. The third one surprised me: five people downloaded it last month, and the listing hasn't
+      been touched since 2023. Something about "listen" is still bringing people to the door.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">The decision</div>
+    <h2>Three ways this can go</h2>
+    <div class="opts">
+      <div class="opt"><div class="k">1</div><div><div class="t">Keep the shelf space</div>
+        <p>Ship the rebuild as-is to satisfy Apple, keep the listing alive, and leave it there. Costs
+          almost nothing more than we've already spent. Doesn't ask anything of anyone.</p></div></div>
+      <div class="opt"><div class="k">2</div><div><div class="t">Make it the practice thing</div>
+        <p>Commit to the before-during-after idea above, get it in front of people who'd actually use
+          it — coaches, facilitators, anyone who runs meetings for a living — and see if it holds.
+          More work, and the first real question is whether anyone comes back on day two.</p></div></div>
+      <div class="opt"><div class="k">3</div><div><div class="t">Let it go, well</div>
+        <p>Let Apple pull it, or pull it ourselves, and write the honest story: a 2021 app that named a
+          real problem before the tools caught up. Not a failure. Some things are precursors.</p></div></div>
+    </div>
+    <p>I'll have a recommendation once you've held the working build and told me what you think.
+      I'm not attached to any of the three, and I don't want to decide this without you.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">What I'm asking</div>
+    <h2>Two things, neither urgent this week</h2>
+    <p><b>React to the idea.</b> Does before-during-after feel like what OptiListen was always
+      trying to be, or does it feel like a different app wearing its name? Both are useful answers.</p>
+    <p><b>Wait for the next build, then try it on one real call.</b> I'll tell you when it's up.
+      Phone on the desk, screen on, one intention. Then tell me whether the "how present were you"
+      question landed or felt silly. That single reaction is worth more than anything else I could
+      measure.</p>
+  </section>
+
+  <div class="foot">
+    OptiListen 2.0 · rebuilt September 2026 · this page will be updated as the build changes
+  </div>
+
+</div>
