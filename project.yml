@@ -17,7 +17,7 @@ options:
 settings:
   base:
     MARKETING_VERSION: "2.0"
-    CURRENT_PROJECT_VERSION: "1"
+    CURRENT_PROJECT_VERSION: "2"
     SWIFT_VERSION: "6.0"
     SWIFT_STRICT_CONCURRENCY: complete
     DEVELOPMENT_TEAM: "YZ4B34YGX9"    # Christian Crumlish; confirmed owner of com.longskymedia.optilisten
