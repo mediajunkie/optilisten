@@ -1,0 +1,661 @@
+<title>Three Futures for OptiListen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  /* ---------- tokens: light is the base, both dark states redefine ---------- */
+  :root{
+    --paper:#F2F1EC;
+    --sheet:#FFFFFF;
+    --sunk:#E9E7E0;
+    --ink:#20262A;
+    --ink-mid:#546065;
+    --ink-dim:#7C878A;
+    --rule:#DDD9D0;
+    --rule-soft:#E7E3DB;
+    --brass:#8A6A22;
+    --brass-bright:#B08A32;
+    --felt:#2F5C4C;
+    --felt-soft:#E0EAE4;
+    --clay:#9B4A32;
+    --clay-soft:#F3E4DE;
+    --lift:0 1px 2px rgba(32,38,42,.05), 0 8px 24px rgba(32,38,42,.05);
+    --lift-lg:0 2px 4px rgba(32,38,42,.07), 0 22px 48px rgba(32,38,42,.10);
+
+    --display:"Fraunces", Georgia, "Times New Roman", serif;
+    --sans:"Karla", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    /* phone interior, so mockups track the theme */
+    --dev-shell:#2A3330;
+    --dev-face:#F7F6F2;
+    --dev-face-dark:#232C2A;
+    --dev-ink:#20262A;
+    --dev-ink-dark:#E8E9E3;
+    --dev-card:#FFFFFF;
+    --dev-card-dark:#2C3735;
+    --dev-line:#E4E0D8;
+    --dev-line-dark:#3A4643;
+    --dev-dim:#7C878A;
+    --dev-dim-dark:#94A09D;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#14181A;
+      --sheet:#1C2225;
+      --sunk:#191F21;
+      --ink:#E9E8E2;
+      --ink-mid:#A9B1B0;
+      --ink-dim:#818B8B;
+      --rule:#2C3438;
+      --rule-soft:#232B2E;
+      --brass:#D0A94E;
+      --brass-bright:#E2C070;
+      --felt:#79B097;
+      --felt-soft:#18302A;
+      --clay:#E09475;
+      --clay-soft:#33201A;
+      --lift:0 1px 2px rgba(0,0,0,.4);
+      --lift-lg:0 2px 6px rgba(0,0,0,.45), 0 24px 52px rgba(0,0,0,.35);
+      --dev-shell:#0C1011;
+      --dev-face:#1F2628;
+      --dev-face-dark:#151B1C;
+      --dev-ink:#E8E9E3;
+      --dev-ink-dark:#E8E9E3;
+      --dev-card:#272F31;
+      --dev-card-dark:#1E2627;
+      --dev-line:#38423F;
+      --dev-line-dark:#2B3433;
+      --dev-dim:#94A09D;
+      --dev-dim-dark:#94A09D;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14181A; --sheet:#1C2225; --sunk:#191F21;
+    --ink:#E9E8E2; --ink-mid:#A9B1B0; --ink-dim:#818B8B;
+    --rule:#2C3438; --rule-soft:#232B2E;
+    --brass:#D0A94E; --brass-bright:#E2C070;
+    --felt:#79B097; --felt-soft:#18302A;
+    --clay:#E09475; --clay-soft:#33201A;
+    --lift:0 1px 2px rgba(0,0,0,.4);
+    --lift-lg:0 2px 6px rgba(0,0,0,.45), 0 24px 52px rgba(0,0,0,.35);
+    --dev-shell:#0C1011; --dev-face:#1F2628; --dev-face-dark:#151B1C;
+    --dev-ink:#E8E9E3; --dev-ink-dark:#E8E9E3;
+    --dev-card:#272F31; --dev-card-dark:#1E2627;
+    --dev-line:#38423F; --dev-line-dark:#2B3433;
+    --dev-dim:#94A09D; --dev-dim-dark:#94A09D;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:16.5px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px; margin:0 auto; padding-block:0 96px; padding-left:22px; padding-right:22px}
+
+  h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0}
+  h1{font-weight:600; font-size:clamp(38px,7vw,58px); line-height:1.04;
+     letter-spacing:-.018em; font-variation-settings:"SOFT" 30,"WONK" 1}
+  h2{font-weight:600; font-size:clamp(25px,3.6vw,31px); line-height:1.16;
+     letter-spacing:-.012em; font-variation-settings:"SOFT" 22}
+  h3{font-weight:600; font-size:20px; line-height:1.25; letter-spacing:-.008em}
+  p{margin:0}
+  em{font-style:italic}
+  strong{font-weight:600; color:var(--ink)}
+  a{color:var(--felt)}
+
+  .eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:.17em;
+           text-transform:uppercase; color:var(--brass)}
+
+  section{display:flex; flex-direction:column; gap:16px; padding-block:46px;
+          border-top:1px solid var(--rule-soft)}
+  section > p{max-width:64ch; color:var(--ink-mid)}
+  section > p.tight{margin-top:-4px}
+
+  /* ---------- masthead ---------- */
+  .mast{display:flex; flex-direction:column; gap:20px; padding-block:64px 44px; border:none}
+  .mark{display:flex; align-items:center; gap:11px}
+  .mark svg{display:block}
+  .wordmark{font-family:var(--display); font-weight:600; font-size:18px;
+            letter-spacing:.02em; font-variation-settings:"SOFT" 20}
+  .mast .lede{font-size:19.5px; line-height:1.55; color:var(--ink-mid); max-width:54ch}
+  .from{font-family:var(--mono); font-size:12px; color:var(--ink-dim); letter-spacing:.03em}
+
+  /* ---------- the measure: this product's one true picture ---------- */
+  .measure{display:flex; flex-direction:column; gap:9px; padding:22px 24px;
+           background:var(--sheet); border:1px solid var(--rule); border-radius:4px;
+           box-shadow:var(--lift)}
+  .measure-top{display:flex; justify-content:space-between; align-items:baseline; gap:14px}
+  .measure-top b{font-family:var(--display); font-weight:600; font-size:27px;
+                 font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+  .measure-top span{font-family:var(--mono); font-size:11.5px; color:var(--ink-dim);
+                    letter-spacing:.04em; text-align:right}
+  .bar{position:relative; height:12px; background:var(--sunk); border-radius:2px}
+  .bar i{position:absolute; inset:0 auto 0 0; width:24%; background:var(--felt);
+         border-radius:2px 0 0 2px}
+  .bar u{position:absolute; top:-5px; bottom:-5px; left:30%; width:2px;
+         background:var(--brass); text-decoration:none}
+  .measure-legend{position:relative; height:14px; font-family:var(--mono);
+                  font-size:11px; color:var(--ink-dim)}
+  .measure-legend span{position:absolute; top:0; white-space:nowrap}
+  .measure-legend .m-you{left:0}
+  .measure-legend .m-ceil{left:30%; transform:translateX(-50%); color:var(--brass)}
+
+  /* ---------- three moments ---------- */
+  .moments{display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+           background:var(--rule); border:1px solid var(--rule); border-radius:4px;
+           overflow:hidden}
+  .moment{background:var(--sheet); padding:20px 18px; display:flex;
+          flex-direction:column; gap:7px}
+  .moment .when{font-family:var(--mono); font-size:10.5px; letter-spacing:.13em;
+                text-transform:uppercase; color:var(--brass)}
+  .moment h3{font-size:17.5px}
+  .moment p{font-size:14.5px; line-height:1.5; color:var(--ink-mid)}
+
+  /* ---------- phone mockups ---------- */
+  .screens{display:grid; grid-template-columns:repeat(2,1fr); gap:26px 20px; margin-top:6px}
+  .shot{display:flex; flex-direction:column; gap:11px}
+  .cap{font-size:14.5px; line-height:1.5; color:var(--ink-mid); max-width:38ch}
+  .cap b{color:var(--ink); font-weight:600}
+  .phone{background:var(--dev-shell); border-radius:30px; padding:9px;
+         box-shadow:var(--lift-lg); max-width:294px; width:100%; margin:0 auto}
+  .glass{background:var(--dev-face); color:var(--dev-ink); border-radius:23px;
+         padding:17px 15px 15px; font-family:var(--sans); height:612px;
+         display:flex; flex-direction:column; gap:11px; overflow:hidden}
+  .glass.dim{background:var(--dev-face-dark); color:var(--dev-ink-dark)}
+  .sb{display:flex; justify-content:space-between; font-size:10.5px; font-weight:600;
+      opacity:.7; padding:0 4px}
+  .nav{display:flex; justify-content:space-between; align-items:center;
+       font-size:14.5px; font-weight:600; padding:2px 2px 4px}
+  .nav .act{color:var(--felt)}
+  .nav .dis{opacity:.33}
+  .card{background:var(--dev-card); border:1px solid var(--dev-line); border-radius:12px;
+        padding:11px; display:flex; flex-direction:column; gap:6px}
+  .glass.dim .card{background:var(--dev-card-dark); border-color:var(--dev-line-dark)}
+  .lbl{font-family:var(--mono); font-size:9.5px; letter-spacing:.09em;
+       text-transform:uppercase; color:var(--dev-dim)}
+  .field{font-size:13.5px; color:var(--dev-dim)}
+  .field.filled{color:inherit}
+  .big{font-family:var(--display); font-weight:600; font-size:40px; line-height:1;
+       font-variant-numeric:tabular-nums; letter-spacing:-.02em}
+  .huge{font-family:var(--display); font-weight:400; font-size:74px; line-height:1;
+        text-align:center; margin-top:38px; font-variant-numeric:tabular-nums;
+        letter-spacing:-.03em}
+  .sub{font-size:12.5px; color:var(--dev-dim); text-align:center; margin-top:2px}
+  .focus{font-size:17px; text-align:center; margin:24px 16px 0; line-height:1.35}
+  .slider{height:4px; border-radius:2px; background:var(--dev-line); position:relative;
+          margin:7px 3px}
+  .slider i{position:absolute; left:0; top:0; height:100%; width:34%; border-radius:2px;
+            background:var(--felt)}
+  .slider b{position:absolute; left:34%; top:50%; width:20px; height:20px; border-radius:50%;
+            background:#fff; border:1px solid #C9C4B8; transform:translate(-50%,-50%);
+            box-shadow:0 1px 3px rgba(0,0,0,.25)}
+  .foot-note{font-size:11.5px; line-height:1.45; color:var(--dev-dim)}
+  .toggle{display:flex; justify-content:space-between; align-items:center; font-size:13.5px}
+  .sw{width:38px; height:22px; border-radius:11px; background:var(--dev-line);
+      position:relative; flex:none}
+  .sw::after{content:""; position:absolute; left:2px; top:2px; width:18px; height:18px;
+             border-radius:50%; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.25)}
+  .btn{margin-top:auto; border-radius:12px; padding:11px; text-align:center;
+       font-weight:600; font-size:14.5px; background:var(--clay); color:#fff}
+  .seg{display:grid; grid-template-columns:repeat(5,1fr); gap:2px;
+       background:var(--dev-line); border-radius:9px; padding:2px}
+  .glass.dim .seg{background:var(--dev-line-dark)}
+  .seg span{text-align:center; padding:5px 0; font-size:13.5px; border-radius:7px}
+  .seg span.on{background:var(--dev-card); font-weight:600; box-shadow:0 1px 2px rgba(0,0,0,.14)}
+  .timer{font-family:var(--mono); font-size:11.5px; color:var(--dev-dim);
+         text-align:center; margin-top:auto}
+  .row{display:flex; justify-content:space-between; align-items:baseline; font-size:13.5px;
+       padding:5px 0; border-bottom:1px solid var(--dev-line)}
+  .glass.dim .row{border-color:var(--dev-line-dark)}
+  .row:last-child{border-bottom:none}
+  .row .t{display:flex; flex-direction:column; gap:1px}
+  .row .t small{font-size:11.5px; color:var(--dev-dim)}
+  .row .n{font-family:var(--mono); font-size:12.5px}
+  .row .n.ok{color:var(--felt)} .row .n.over{color:var(--clay)}
+  .mini{height:58px; display:flex; align-items:flex-end; gap:5px; padding-top:4px}
+  .mini i{flex:1; border-radius:2px 2px 0 0; background:var(--felt); opacity:.8}
+  .mini .g{background:none; border-top:2px dashed var(--dev-dim); height:38%!important; opacity:1}
+  .aside{font-size:13.5px; color:var(--ink-dim); max-width:60ch}
+
+  /* ---------- numbers ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  .tile{background:var(--sheet); border:1px solid var(--rule); border-radius:4px;
+        padding:18px 16px; display:flex; flex-direction:column; gap:3px}
+  .tile b{font-family:var(--display); font-weight:600; font-size:38px; line-height:1;
+          font-variant-numeric:tabular-nums; letter-spacing:-.025em}
+  .tile .t-lab{font-size:14px; color:var(--ink-mid); line-height:1.35}
+  .tile .t-sub{font-family:var(--mono); font-size:10.5px; color:var(--ink-dim);
+               letter-spacing:.05em; margin-top:4px}
+
+  /* ---------- the three options: identical weight, identical structure ---------- */
+  .options{display:flex; flex-direction:column; gap:16px}
+  .option{background:var(--sheet); border:1px solid var(--rule); border-radius:4px;
+          box-shadow:var(--lift); overflow:hidden}
+  .option-hd{padding:20px 22px 16px; display:flex; flex-direction:column; gap:6px;
+             border-bottom:1px solid var(--rule-soft)}
+  .option-hd h3{font-size:22px}
+  .option-hd p{font-size:15px; color:var(--ink-mid); max-width:56ch}
+  .grid{display:grid; grid-template-columns:132px 1fr}
+  .grid > div{padding:13px 22px; border-bottom:1px solid var(--rule-soft); font-size:15px}
+  .grid > div:nth-child(2n+1){font-family:var(--mono); font-size:10.5px;
+       letter-spacing:.1em; text-transform:uppercase; color:var(--ink-dim);
+       padding-top:16px; padding-right:0}
+  .grid > div:nth-child(2n){color:var(--ink-mid)}
+  .grid > div:nth-last-child(-n+2){border-bottom:none}
+
+  /* ---------- timeline ---------- */
+  .dates{display:flex; flex-direction:column; border:1px solid var(--rule);
+         border-radius:4px; background:var(--sheet); overflow:hidden}
+  .date{display:grid; grid-template-columns:118px 1fr; gap:16px; padding:14px 20px;
+        border-bottom:1px solid var(--rule-soft); align-items:baseline}
+  .date:last-child{border-bottom:none}
+  .date .d{font-family:var(--mono); font-size:11.5px; letter-spacing:.04em;
+           color:var(--ink-dim)}
+  .date.now{background:var(--felt-soft)}
+  .date.now .d{color:var(--felt)}
+  .date.hard .d{color:var(--clay)}
+  .date .w{font-size:15px; color:var(--ink-mid)}
+  .date .w b{color:var(--ink)}
+
+  /* ---------- pull quote ---------- */
+  .pull{font-family:var(--display); font-weight:400; font-size:clamp(22px,3.4vw,27px);
+        line-height:1.34; letter-spacing:-.01em; color:var(--ink);
+        border-left:2px solid var(--brass); padding:2px 0 2px 22px; max-width:30ch;
+        font-variation-settings:"SOFT" 28,"WONK" 1}
+
+  /* ---------- status split ---------- */
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--rule);
+         border:1px solid var(--rule); border-radius:4px; overflow:hidden}
+  .col{background:var(--sheet); padding:18px 18px 20px; display:flex;
+       flex-direction:column; gap:10px}
+  .col .h{font-family:var(--mono); font-size:10.5px; letter-spacing:.11em;
+          text-transform:uppercase}
+  .col.yes .h{color:var(--felt)}
+  .col.not .h{color:var(--clay)}
+  .col ul{margin:0; padding-left:17px; display:flex; flex-direction:column; gap:7px}
+  .col li{font-size:14.5px; line-height:1.48; color:var(--ink-mid)}
+  .col li b{color:var(--ink); font-weight:600}
+
+  /* ---------- close ---------- */
+  .close{background:var(--sheet); border:1px solid var(--rule); border-radius:4px;
+         padding:28px 26px; display:flex; flex-direction:column; gap:12px;
+         box-shadow:var(--lift)}
+  .close p{font-size:16.5px; color:var(--ink-mid); max-width:58ch}
+  .sign{font-family:var(--display); font-weight:600; font-size:19px; margin-top:4px;
+        font-variation-settings:"SOFT" 24,"WONK" 1}
+
+  .foot{font-family:var(--mono); font-size:11px; color:var(--ink-dim); line-height:1.8;
+        padding-top:26px; border-top:1px solid var(--rule-soft); margin-top:46px}
+
+  @media (max-width:640px){
+    .moments{grid-template-columns:1fr}
+    .screens{grid-template-columns:1fr}
+    .tiles{grid-template-columns:1fr}
+    .split{grid-template-columns:1fr}
+    .grid{grid-template-columns:1fr}
+    .grid > div{padding:10px 20px; border-bottom:none}
+    .grid > div:nth-child(2n+1){padding-top:14px; padding-bottom:2px}
+    .grid > div:nth-child(2n){padding-bottom:14px; border-bottom:1px solid var(--rule-soft)}
+    .grid > div:last-child{border-bottom:none}
+    .date{grid-template-columns:1fr; gap:3px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mark">
+      <svg width="27" height="22" viewBox="0 0 27 22" aria-hidden="true">
+        <g fill="currentColor" style="color:var(--felt)">
+          <rect x="0"  y="8"   width="2.6" height="6"  rx="1.3"/>
+          <rect x="4.9" y="4.5" width="2.6" height="13" rx="1.3"/>
+          <rect x="9.8" y="0"   width="2.6" height="22" rx="1.3"/>
+          <rect x="14.7" y="5.5" width="2.6" height="11" rx="1.3"/>
+          <rect x="19.6" y="2"  width="2.6" height="18" rx="1.3"/>
+          <rect x="24.5" y="8"  width="2.6" height="6"  rx="1.3"/>
+        </g>
+      </svg>
+      <div class="wordmark">OptiListen</div>
+    </div>
+
+    <h1>Three futures for OptiListen</h1>
+
+    <p class="lede">Apple is going to remove OptiListen from the App Store on 24 November unless we
+      update it. That deadline made me go back and look at the whole thing properly — what it was,
+      what changed around it, and what it could still be. Here's all of it, including a rebuilt
+      version that already runs.</p>
+
+    <div class="from">A note for Dan · from Christian · September 2026</div>
+  </header>
+
+  <section>
+    <div class="eyebrow">The picture the app is built around</div>
+    <h2>One number, and a line you drew before the conversation started</h2>
+    <p>Everything below comes back to this. Green is how much of the conversation you actually
+      took up. The brass line is the ceiling you set for yourself beforehand, before you knew how
+      it would go.</p>
+
+    <div class="measure">
+      <div class="measure-top">
+        <b>24% of 30%</b>
+        <span>1:1 with Marcus · 27 min<br>practicing: ask before answering</span>
+      </div>
+      <div class="bar"><i></i><u></u></div>
+      <div class="measure-legend"><span class="m-you">you</span><span class="m-ceil">your ceiling</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Where we started</div>
+    <h2>The version you know measured how much you talked</h2>
+    <p>You set the phone beside you on a call and afterward it told you what share of the talking
+      was yours. In 2021 that was a real thing to know and nothing else would tell you.</p>
+    <p>Two things have happened since, and they point in opposite directions.</p>
+
+    <p class="pull">The thing we built is now a free feature of everything.</p>
+
+    <p><strong>Talk-time measurement got absorbed.</strong> Zoom, Teams, Granola, Gong and Fathom
+      all report who spoke how much, at higher accuracy than a phone on a table can manage, without
+      anyone remembering to start anything. Rebuilding OptiListen as a measurement app in 2026 means
+      competing with a checkbox inside tools people already have open.</p>
+
+    <p><strong>And it never really worked the way it promised.</strong> I went back through the old
+      build to be sure about this. On an iPhone, an app that isn't playing audio gets suspended
+      shortly after you switch away from it — so the original app stopped listening roughly
+      thirty seconds into a call and reported a confident percentage based on that. The team raised
+      it to fifty seconds; Apple rejected a build over the workaround in July 2023. The number
+      people saw was a sample of the first minute, presented as the meeting.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">What nobody is doing</div>
+    <h2>Every one of those tools tells you what happened. None of them helps you get better.</h2>
+    <p>A transcript summary arrives after the meeting, when there's nothing left to do about it.
+      That's analytics. What no tool does is treat a conversation as something you practice — which
+      is the only framing under which any of this changes how someone actually behaves.</p>
+
+    <div class="moments">
+      <div class="moment">
+        <div class="when">Before</div>
+        <h3>Commit to something</h3>
+        <p>Set a ceiling and write one line: "ask before answering." Ten seconds, and now there's
+          something to fail at.</p>
+      </div>
+      <div class="moment">
+        <div class="when">During</div>
+        <h3>See the gap while it matters</h3>
+        <p>One number and your own line, on the table in front of you, at the moment you can still
+          do something about it.</p>
+      </div>
+      <div class="moment">
+        <div class="when">After</div>
+        <h3>Say how present you were</h3>
+        <p>Not what the microphone heard — what you know. You can hit your number and still have
+          been somewhere else entirely.</p>
+      </div>
+    </div>
+
+    <p>The unit stops being the number and becomes the loop. In the rebuild, a conversation counts
+      as practiced if you set an intention and reflected on it — <em>even if there's no
+      measurement at all.</em> A perfect ratio with no reflection doesn't count. That inversion is
+      the whole product argument, and it's the one thing none of the incumbents can copy without
+      changing what they are.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">What already exists</div>
+    <h2>The four screens, as built</h2>
+    <p>These are drawn from the rebuilt app's actual code — same words, same layout. It's roughly
+      eleven hundred lines of Swift, written fresh rather than patched, and it runs on a phone
+      today.</p>
+
+    <div class="screens">
+
+      <div class="shot">
+        <div class="phone"><div class="glass">
+          <div class="sb"><span>12:10</span><span>●●● ▮</span></div>
+          <div class="nav"><span class="dis">Cancel</span><span>Before</span><span class="act">Start</span></div>
+          <div class="card"><div class="lbl">Optional</div><div class="field">What's this conversation?</div></div>
+          <div class="card"><div class="lbl">Your ceiling</div>
+            <div class="big">30%</div>
+            <div class="slider"><i></i><b></b></div>
+            <div class="foot-note">Share of the conversation you intend to spend talking.</div></div>
+          <div class="card"><div class="lbl">What are you practicing?</div>
+            <div class="field filled">Ask before answering.</div>
+            <div class="foot-note">One line. This is the part you'll actually remember mid-conversation.</div></div>
+          <div class="card"><div class="toggle"><span>I'm wearing headphones</span><span class="sw"></span></div>
+            <div class="foot-note">Set the phone face-up beside you, screen on. It listens to the room; nothing is recorded or sent anywhere.</div></div>
+        </div></div>
+        <div class="cap"><b>Before.</b> Pick a ceiling, write one line about what you're working on.
+          The line is required; naming the conversation isn't.</div>
+      </div>
+
+      <div class="shot">
+        <div class="phone"><div class="glass dim">
+          <div class="sb"><span>12:14</span><span>●●● ▮</span></div>
+          <div class="nav"><span></span><span>Listening</span><span></span></div>
+          <div class="huge">24%</div>
+          <div class="sub">of 30%</div>
+          <div class="focus">Ask before answering.</div>
+          <div class="timer">03:14</div>
+          <div class="btn">End</div>
+        </div></div>
+        <div class="cap"><b>During.</b> One number, your line, a timer. It turns amber if you cross
+          your ceiling. With headphones on there's no number at all — just the line — because the
+          microphone could only hear you.</div>
+      </div>
+
+      <div class="shot">
+        <div class="phone"><div class="glass">
+          <div class="sb"><span>12:41</span><span>●●● ▮</span></div>
+          <div class="nav"><span class="act">Later</span><span>After</span><span class="act">Done</span></div>
+          <div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span class="big" style="font-size:34px">24%</span>
+            <span class="foot-note">aimed at 30%</span></div></div>
+          <div class="card"><div class="lbl">How present were you?</div>
+            <div class="seg"><span>1</span><span>2</span><span class="on">3</span><span>4</span><span>5</span></div>
+            <div class="foot-note">Your call, not the microphone's.</div></div>
+          <div class="card"><div class="lbl">You were practicing: ask before answering</div>
+            <div class="field filled">Caught myself twice. Once I didn't.</div></div>
+        </div></div>
+        <div class="cap"><b>After.</b> The reading, your own presence score, a note. "Later" saves it
+          as unfinished and brings it back rather than letting you quietly skip it.</div>
+      </div>
+
+      <div class="shot">
+        <div class="phone"><div class="glass">
+          <div class="sb"><span>12:44</span><span>●●● ▮</span></div>
+          <div class="nav"><span class="dis">⚙</span><span>OptiListen</span><span class="act">＋</span></div>
+          <div><div class="big" style="font-size:46px">7</div>
+            <div class="foot-note" style="margin-top:2px">conversations practiced</div></div>
+          <div class="card"><div class="lbl">Still open</div>
+            <div class="row"><div class="t">Standup<small>Let Priya finish.</small></div><span class="n">›</span></div></div>
+          <div class="card"><div class="lbl">Goal vs. actual</div>
+            <div class="mini"><i style="height:52%"></i><i style="height:70%"></i><i style="height:44%"></i><i style="height:38%"></i><i style="height:60%"></i><i style="height:30%"></i><i style="height:34%"></i><i class="g"></i></div></div>
+          <div class="card"><div class="lbl">Recent</div>
+            <div class="row"><div class="t">1:1 with Marcus<small>Ask before answering.</small></div><span class="n ok">24%</span></div>
+            <div class="row"><div class="t">Board prep<small>Don't fill silences.</small></div><span class="n over">41%</span></div>
+            <div class="row"><div class="t">Dinner<small>Listen for what's not said.</small></div><span class="n">—</span></div></div>
+        </div></div>
+        <div class="cap"><b>Home.</b> Conversations practiced, anything left open, the trend. The
+          dash on "Dinner" is a conversation with no reading — and it still counts.</div>
+      </div>
+
+    </div>
+    <p class="aside">Example names and numbers on the Home screen are invented to show the layout.
+      Everything else is the app's real wording.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">Honest status</div>
+    <h2>What's real, and what isn't yet</h2>
+
+    <div class="split">
+      <div class="col yes">
+        <div class="h">Working</div>
+        <ul>
+          <li>The full loop, <b>before → during → after</b>, end to end.</li>
+          <li><b>Live listening.</b> Loudness only, on the phone, in the moment — no recording, no
+            transcript, no account, nothing sent anywhere.</li>
+          <li>A <b>calibration</b> step that learns your voice against the room, and that will tell
+            you honestly when it can't — rather than inventing a number.</li>
+          <li><b>Typing the number yourself</b> instead, so the loop still closes with headphones on
+            or the phone in a pocket.</li>
+          <li>It's <b>uploaded and in Apple's test system</b> right now.</li>
+        </ul>
+      </div>
+      <div class="col not">
+        <div class="h">Not yet</div>
+        <ul>
+          <li><b>It crashes.</b> I hit it on my own phone and we have not found it yet — we've
+            fixed two plausible causes and neither was the one. That's the current work, and it's
+            why I haven't put it on your phone.</li>
+          <li><b>No first-run walkthrough.</b> It drops you straight in.</li>
+          <li><b>Calibration forgets itself</b> between launches.</li>
+          <li><b>Reading the number out of Zoom or Granola</b> is designed for but not built —
+            their access is locked behind business plans today.</li>
+          <li><b>New store screenshots</b> still to make.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">What three years in the store looked like</div>
+    <h2>Almost no one used it — and a handful of strangers still find it every month</h2>
+
+    <div class="tiles">
+      <div class="tile"><b>96</b><div class="t-lab">downloads, ever</div>
+        <div class="t-sub">JAN 2023 – SEP 2026</div></div>
+      <div class="tile"><b>~1</b><div class="t-lab">sessions per person before they stopped</div>
+        <div class="t-sub">RETENTION ESSENTIALLY NIL</div></div>
+      <div class="tile"><b>548</b><div class="t-lab">store impressions in the last 30 days</div>
+        <div class="t-sub">5 NEW DOWNLOADS · NO MARKETING</div></div>
+    </div>
+
+    <p>I find the third number more interesting than the first two. Nobody has touched this app in
+      three years, and people are still searching their way to it and installing it. That's not
+      a business — it's five people a month — but it does say the phrase "listen better" sends
+      people looking, and that the thing they found gave them nothing to come back to. Which is
+      exactly what a measurement-only app would do.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">The clock</div>
+    <h2>One hard date</h2>
+    <div class="dates">
+      <div class="date"><span class="d">26 Aug 2026</span>
+        <span class="w">Apple's notice: OptiListen is scheduled for removal as an app that hasn't
+          been updated in years. <b>Routine housekeeping, not a complaint about the app.</b></span></div>
+      <div class="date now"><span class="d">now</span>
+        <span class="w">Rebuilt app uploaded and in Apple's test system. <b>Chasing the
+          crash.</b></span></div>
+      <div class="date hard"><span class="d">24 Nov 2026</span>
+        <span class="w"><b>Removed from the App Store</b> unless an update has been submitted and
+          approved by then. The listing, the reviews and the name all go with it.</span></div>
+    </div>
+    <p class="tight">Two of the three options below need an approved update before that date. One
+      doesn't need anything.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">Three futures</div>
+    <h2>Laid out evenly, because I don't think this one is mine to decide</h2>
+    <p>These are genuinely different bets, not a ladder with a right answer at the top. I've tried
+      to write each one as its own advocate would.</p>
+
+    <div class="options">
+
+      <div class="option">
+        <div class="option-hd">
+          <h3>Keep the shelf space</h3>
+          <p>Ship the smallest honest update that satisfies Apple, and leave OptiListen exactly what
+            it is. Decide the rest later, with more information and no deadline.</p>
+        </div>
+        <div class="grid">
+          <div>What it means</div>
+          <div>The rebuilt app goes up because it has to be modern to be accepted at all, but we
+            don't promote it, don't extend it, and don't ask anything of it.</div>
+          <div>What it takes</div>
+          <div>Finishing the crash and the store paperwork. Weeks, not months, and most of it is
+            already done.</div>
+          <div>What it wins</div>
+          <div>The listing stays alive, the name stays ours, and the five-people-a-month keeps
+            trickling. Every other option stays open indefinitely.</div>
+          <div>What it costs</div>
+          <div>Nothing changes. It stays a measurement app in a world that measures for free, and
+            we'll be having this same conversation whenever we next look up.</div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-hd">
+          <h3>Build the practice tool</h3>
+          <p>Treat the rebuild as the beginning rather than the compliance step, and go make the
+            thing none of the meeting tools are going to make.</p>
+        </div>
+        <div class="grid">
+          <div>What it means</div>
+          <div>Finish the loop properly — the walkthrough, the reflection you come back to, a reason
+            to open it a second time — and put it in front of people who already want to be better
+            at this: coaches, facilitators, new managers.</div>
+          <div>What it takes</div>
+          <div>Sustained attention over months, not a push. Design, real people testing it, and
+            someone caring whether anyone comes back.</div>
+          <div>What it wins</div>
+          <div>A claim nobody else is making, in a category everyone else has reduced to a
+            statistic. If practice-as-a-product works at all, it works here.</div>
+          <div>What it costs</div>
+          <div>The time, and a real risk: practicing is a habit, and most people don't want one.
+            Those 96 downloads are not evidence that they do.</div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-hd">
+          <h3>Retire it on purpose</h3>
+          <p>Let it go deliberately, while we can still say what it was for, rather than letting
+            Apple's sweep do it for us in November.</p>
+        </div>
+        <div class="grid">
+          <div>What it means</div>
+          <div>No update. On 24 November the listing comes down. We keep optilisten.com, write the
+            honest account of what we tried and what the market did, and put it up there.</div>
+          <div>What it takes</div>
+          <div>An afternoon. Everything else is already built.</div>
+          <div>What it wins</div>
+          <div>A clean ending and the attention back. OptiListen was three years early to something
+            that is now standard equipment, and that's a real thing to have been.</div>
+          <div>What it costs</div>
+          <div>The listing and the name, permanently. Starting again later means a new record, a new
+            identity, and none of the history.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Where this leaves you</div>
+    <div class="close">
+      <h2>Nothing needed from you right now</h2>
+      <p>I wanted you to have the whole picture before there's any decision in front of you, rather
+        than a summary after I'd already made up my mind. I haven't.</p>
+      <p>Next from me: the crash, then the working app on your phone so you can hold the thing
+        rather than read about it. When you've used it a few times, we talk about which of the
+        three this should be — and I'll tell you then what I actually think.</p>
+      <div class="sign">— Christian</div>
+    </div>
+  </section>
+
+  <div class="foot">
+    OptiListen · a Long Sky Media app · written September 2026<br>
+    Download figures from App Store Connect, lifetime through September 2026. Screens drawn from the
+    rebuilt app's own code.
+  </div>
+
+</div>

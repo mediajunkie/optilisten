@@ -191,6 +191,15 @@
     h1{font-size:28px}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  /* rev 16: the headline is not a win */
+  .alert{background:var(--crit-soft);border:1px solid var(--rule);
+         border-left:3px solid var(--crit);border-radius:9px;padding:14px 17px;
+         display:flex;flex-direction:column;gap:6px}
+  .alert .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
+              text-transform:uppercase;color:var(--crit)}
+  .alert p{margin:0;font-size:14.2px;color:var(--ink-mid)}
+  .alert b{color:var(--ink);font-weight:600}
 </style>
 
 <div class="wrap">
@@ -200,48 +209,56 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 12 Sep 2026, 13:20 PT · rev 15 · file and page in sync</div>
+    <div class="stamp">Updated 14 Sep 2026, 20:50 PT · rev 16 · file and page in sync</div>
   </header>
 
-  <section class="win">
-    <div class="tag">In TestFlight</div>
-    <p><b>2.0 (1) was uploaded to App Store Connect on the 11th — unattended, no desk, no
-      sign-in.</b> Pard found the wall: <code>automatic</code> signing means <em style="font-style:italic;display:inline">cloud</em>
-      signing, which needs the interactive account; <code>manual</code>, pinned to a distribution
-      profile the App Store Connect API minted, exports and uploads from SSH. Delivery
-      <code>a5d9eccf</code>. It processed, you installed it, <b>and it dies on Start</b> — the
-      microphone usage string was missing from that build, a gap Pard found and fixed on
-      <code>main</code> after the upload. <b>2.0 (2) is requested.</b> And there's now a
-      plain-language page for Dan, since the email read as jargon to him.</p>
+  <section class="alert">
+    <div class="tag">Two builds, zero hypotheses</div>
+    <p><b>2.0 (2) shipped on 09-14 at 17:07 with the fix for the first-run microphone path. Apple
+      finished processing at 17:11:55; xian installed it minutes later and it crashed identically.</b>
+      Janus established the build identity from Apple's own timestamps rather than anyone's
+      recollection — exactly one other "completed processing" mail exists for this app this week — and
+      Pard accepted the refutation without hedging. The <code>sampleLevel</code> theory is dead. We are
+      at <b>zero</b> hypotheses, which is worse than it sounds: the tempting next move is to invent
+      another plausible story and ship against it, and that is how 09-12 through 09-14 were spent.
+      <b>No third build ships without a stack trace — and the stack has been sitting in Apple's console
+      since 09-11. Reading it is item 01.</b></p>
   </section>
 
   <section class="clock" aria-label="Grace period remaining">
     <div class="clock-top">
-      <div class="days">73<span>days left in the grace period</span></div>
+      <div class="days">71<span>days left in the grace period</span></div>
       <div class="target">removal 24 Nov 2026<br>notice served 26 Aug</div>
     </div>
-    <div class="meter" role="img" aria-label="17 of 90 days elapsed, 19 percent"><i style="width:18.9%"></i></div>
-    <div class="scale"><span>day 17 of 90</span><span>19% spent</span></div>
-    <div class="caveat">▲ Carried from your screenshot of the 26 Aug notice. The Apple-mail forward
-      is verified live as of the 11th, so the next App Store Connect mail settles it — and a
-      fresh build often resets the clock. Pard's checking ASC on the 2.0 (2) upload.</div>
+    <div class="meter" role="img" aria-label="19 of 90 days elapsed"><i style="width:21.1%"></i></div>
+    <div class="scale"><span>day 19 of 90</span><span>21% spent</span></div>
+    <div class="caveat">▲ Still the 26 Aug screenshot, never read back from Apple. <b>Two builds have
+      now been accepted</b>, which often moves a removal clock — so this number may be pessimistic and
+      nobody has looked. One glance in App Store Connect settles it, and item 01 puts someone there
+      anyway.</div>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">2 items · both small</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">2 items · one blocks everything</span></div>
     <div class="items">
 
       <div class="item blocking">
         <div class="rank">01</div>
         <div class="body">
-          <div class="title">Share the Dan page</div>
-          <div class="why">It's published but private until you share it from the page's own
-            share menu. Written as you, for him: the idea in three moments, the four screens drawn
-            from the app's actual copy, honest built-and-not-built columns including the crash,
-            the numbers, the three options, and two asks. No agent names, no toolchain, no
-            "compliance."</div>
+          <div class="title">Sign in to App Store Connect so I can read the crash log</div>
+          <div class="why">The API exposes the crash <em style="font-style:italic;display:inline">submissions</em>
+            — three of them, in your own words, the first dated 09-11 19:26: <em style="font-style:italic;display:inline">"crashed
+            when it went to background"</em> — but 404s on the log body. <b>The stack itself is only
+            behind the console login.</b> Its top frame separates an audio-session-deactivation story
+            from a watchdog kill, and those need opposite fixes. Three days and two builds have gone
+            to inference; this one artifact ends it.</div>
+          <div class="steps">
+            <b>A Chrome tab is already open at:</b> https://appstoreconnect.apple.com/apps/1593948410/testflight/crashes<br>
+            Sign in, say <b>"in"</b>, and I read the stack and report the top frame.<br>
+            <b>Equivalent, if you'd rather:</b> Xcode → Window → Organizer → Crashes, on Amber.
+          </div>
           <div class="meta">
-            <span class="pill stop">Dan's reaction is the input the recommendation needs</span>
+            <span class="pill stop">blocks build 3 → a usable prototype → Dan's hands</span>
             <span class="pill cost">~1 min</span>
           </div>
         </div>
@@ -250,14 +267,16 @@
       <div class="item">
         <div class="rank">02</div>
         <div class="body">
-          <div class="title">Tap Share on the crash sheet next time, then leave 2.0 (1) alone</div>
-          <div class="why">Sends the crash report to App Store Connect so we can confirm the
-            termination reason is the missing-usage-string kill and nothing else. You've already
-            warned Dan off; keep it that way until (2) is up. Nothing you can do makes (1)
-            work.</div>
-          <div class="meta">
-            <span class="pill cost">~10 sec</span>
+          <div class="title">Send Dan the brochure, whenever you're ready</div>
+          <div class="why">Three futures — keep the shelf space / build the practice tool / retire it
+            on purpose — at deliberately equal weight, with no recommendation and no ask at the end,
+            per your call. It absorbs the earlier explainer, so <b>send this one and not both</b>. It
+            is private until you share it from the page's own share menu.</div>
+          <div class="steps">
+            <b>Page:</b> "Three futures for OptiListen" · versioned at <code>docs/for-dan/three-futures-for-optilisten.html</code><br>
+            <b>Note:</b> the brochure says plainly that the test build crashes and that's why it isn't on his phone yet.
           </div>
+          <div class="meta"><span class="pill cost">~1 min · FYI by design</span></div>
         </div>
       </div>
 
@@ -265,46 +284,76 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>In flight</h2><span class="count">waiting on build 2</span></div>
+    <div class="sec-hd"><h2>In flight</h2><span class="count">everything waits on one stack trace</span></div>
     <div class="rows">
+      <div class="row warnrow"><div class="who">Cairn</div><div class="txt">
+        <b>Read the symbolicated crash log and produce a diagnosis with a stack behind it.</b>
+        <em>Nothing else in this table moves until this does.</em></div></div>
       <div class="row warnrow"><div class="who">Pard</div><div class="txt">
-        <b>Archive and upload 2.0 (2)</b> on the manual-signing / API path. Build number bumped at
-        <code>4787b85</code>.
-        <em>Before upload: <code>plutil -p</code> the built bundle's Info.plist and confirm the four
-        keys — mic usage, launch screen, orientations, display name — are in the
-        <em style="font-style:italic;display:inline">artifact</em>, not just in
-        <code>project.yml</code>.</em></div></div>
+        <b>Build 3, within the hour of a diagnosis.</b> Pipeline is warm — 34 minutes door to door,
+        proven twice.
+        <em>Explicitly not authoring the next theory, and right to refuse.</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt">
+        <b>One candidate, to be tested against the log rather than instead of it.</b> Nothing in the
+        tree observes <code>scenePhase</code> or <code>didEnterBackground</code>, <code>stop()</code>
+        is only called from a view action at <code>PracticeLoopView.swift:57</code>, and the app
+        declares no <code>UIBackgroundModes</code> — so a running engine has nothing deactivating it
+        when the app backgrounds.
+        <em>A story with a code path attached, which is exactly what the last two were.</em></div></div>
       <div class="row"><div class="who">Pard</div><div class="txt">
-        <b>Re-read the removal date in App Store Connect</b> now that a build has been accepted.
-        <em>Does the notice still say 24 Nov, or did the upload clear it?</em></div></div>
+        <b>Re-check the removal date in App Store Connect</b> now that two builds have been accepted.
+        <em>Natural to do in the same session as item 01.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt">
-        <b>Update the Dan page once (2) works</b> — drop the crash line, tell him it's safe to
-        try on one real call.
-        <em>Waits on (2) processing and your confirmation that Start no longer kills it.</em></div></div>
+        <b>Update Dan's brochure once a build survives use</b> — the "it crashes" line comes out of the
+        Not-yet column and the prototype goes to his phone.
+        <em>Then the recommendation, which xian gives him in person rather than in a document.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt">
-        <b>The Dan package</b> — three options, a prototype he can hold, a recommendation.
-        <em>The prototype is one working build away. The recommendation waits on his reaction to
-        the page and the build.</em></div></div>
-      <div class="row"><div class="who">Cairn</div><div class="txt">
-        <b>Deferred-reflection resume flow</b>, calibration persistence, and the 1.x
-        speaker-discrimination dig.
-        <em>Not blocked; (2) first.</em></div></div>
-      <div class="row"><div class="who">Pard</div><div class="txt">
-        <b>Empty-account-list drift guard for Amber.</b>
-        <em>Lower priority now; the check should say "not visible from this session," never
-        "absent."</em></div></div>
+        <b>Deferred-reflection resume flow</b> in <code>HomeView</code>; calibration persistence.
+        <em>Not blocked; the crash comes first.</em></div></div>
       <div class="row"><div class="who">Janus</div><div class="txt">
-        <b>Registry: two entries, not one.</b>
-        <em>Unconfirmed since 7 Sep.</em></div></div>
+        <b>Registry: two entries, not one</b> — <code>mediajunkie/optilisten</code> (app) and
+        <code>Design-in-Product/optilisten</code> (live site).
+        <em>Memo 09-07; unconfirmed.</em></div></div>
       <div class="row"><div class="who">open</div><div class="txt">
         <b>Whether Cairn runs as Cowork or Code, and on which machine.</b>
-        <em>Yours; not urgent. Six unattended fires have reached a Mac and pushed.</em></div></div>
+        <em>Yours; not urgent.</em></div></div>
     </div>
   </section>
 
   <section class="sec">
     <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep · newest first</span></div>
     <div class="rows">
+      <div class="row done"><div class="who">Shipped</div><div class="txt">
+        <b>2.0 (2) exists</b> — 09-14 17:07, delivery <code>0702a0ea</code>, 34 minutes from Janus's
+        GO. Carries the four Info.plist keys verified in the artifact, plus a real fix:
+        <code>sampleLevel</code> behind the same permission gate <code>start()</code> uses, and both
+        tap sites refusing a 0 Hz format rather than raising an uncatchable exception.
+        <em>It did not fix the crash. It was still a defect worth closing.</em></div></div>
+      <div class="row done"><div class="who">Refuted</div><div class="txt">
+        <b>The <code>sampleLevel</code> theory, by direct test.</b> Janus's timestamp chain: Apple
+        processed 2.0 (2) at 17:11:55, exactly one other "completed processing" mail exists for this
+        app this week (2.0 (1), 09-11), so there was no older build to confuse it with — and the
+        third crash submission says <em style="font-style:italic;display:inline">"definitely latest
+        build (2)"</em> from the device itself.
+        <em>Right twice over, from two independent records.</em></div></div>
+      <div class="row done"><div class="who">Retracted</div><div class="txt">
+        <b>My missing-mic-string diagnosis was wrong, and Pard caught it before rebuilding.</b> He read
+        all four keys out of the <em style="font-style:italic;display:inline">accepted</em> IPA: present.
+        2.0 (1) was built from the already-fixed tree; <code>99a34bc</code> was the record of the fix,
+        pushed after the upload.
+        <em>"Ship regardless" was correct under my premise, and the premise was false. The commit graph
+        read naturally and was not the artifact.</em></div></div>
+      <div class="row done"><div class="who">Found</div><div class="txt">
+        <b>The crash submissions were readable by API the whole time</b> —
+        <code>GET /v1/apps/1593948410/betaFeedbackCrashSubmissions</code>, the same key that mints
+        profiles. Three of them, in xian's own words, the first dated <b>09-11 19:26: "crashed when it
+        went to background."</b>
+        <em>Nobody fetched it for three days. Now one of Pard's standing checks for this app.</em></div></div>
+      <div class="row done"><div class="who">Dan</div><div class="txt">
+        <b>The brochure is built</b> — <code>docs/for-dan/three-futures-for-optilisten.html</code>.
+        Three futures at equal weight, no recommendation, no ask.
+        <em>Supersedes <code>what-optilisten-does-now.html</code>; don't send both.</em></div></div>
+
       <div class="row done"><div class="who">Diagnosed</div><div class="txt">
         <b>The crash.</b> iOS terminates any process on first microphone access without
         <code>NSMicrophoneUsageDescription</code> — no error, just gone. 2.0 (1) was built before
@@ -356,33 +405,57 @@
       <div class="row done"><div class="who">Settled</div><div class="txt">
         <b>The App Store record is yours</b> — team <code>YZ4B34YGX9</code>, created Aug 2022. No
         transfer, no paperwork.</div></div>
-    </div>
+        </div>
   </section>
 
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Compiling is not running, and running is
-      not being used.</b> 2.0 has been launched on a real phone exactly once and died on the first
-      tap. Build 2 is the first one that can be <em style="font-style:italic;display:inline">used</em>.
-      Nobody has watched calibration, the mic tap, or the loop behave in a real conversation.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Calibration is <code>Codable</code> and
-      nothing persists it.</b> Every cold launch recalibrates. Folded into the
-      <code>HomeView</code> work.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>One signing path, expiring Aug 2027.</b>
-      The API can renew it now, which is better than a week ago, but nothing watches for
-      expiry.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>The 24 Nov date is still the screenshot,
-      not an ASC readback.</b> The forward works; nobody has looked yet.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Apple has rejected this app once before</b>
-      — July 2023, background modes. 2.0 omits <code>UIBackgroundModes</code>; expect
-      scrutiny.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Age-rating social-media questions</b> at
-      submission. Ten minutes; the answers are "no."</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Two builds shipped against two theories, and
+      nothing diagnosed.</b> Both theories were real defects; neither was the one. The pattern to break
+      is reasoning from source to a mechanism we can <em style="font-style:italic;display:inline">see</em>
+      when the reporter has already named a mechanism we'd have to go look for. Pard's own rule, adopted
+      here: <b>when a report names two things and you can only explain one, the one you can't explain is
+      the finding.</b></div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>No instrumentation.</b> Every crash this month
+      was found because a human installed a build and hit it. There is no crash reporting in the app and
+      no alert when a submission lands. xian raised this on 09-14 and 09-14 is the argument for it.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Compiling is not running, and running is not
+      being used.</b> 2.0 has been launched on a real phone twice and died both times. Nobody has watched
+      calibration, the mic tap, or the loop behave in an actual conversation.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Calibration is <code>Codable</code> and nothing
+      persists it</b> — recalibrates on every cold launch.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Apple rejected this app once before over
+      background modes</b> (July 2023). 2.0 omits <code>UIBackgroundModes</code> deliberately — which is
+      also, possibly, the thing making it crash. <b>If the fix needs an audio background mode, that is a
+      submission-risk conversation, not just a code change.</b></div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>The 24 Nov date is still the screenshot.</b> The
+      mail forward works; nobody has looked. Two accepted builds may well have moved it.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>One signing path, expiring Aug 2027.</b> The API
+      can renew it; nothing watches for expiry. <b>Age-rating questions</b> still due at submission, ~10
+      min, answers are "no".</div></div>
   </section>
 
   <section class="sec">
     <div class="sec-hd"><h2>Method notes</h2><span class="count">the week's, condensed</span></div>
     <div class="notes">
+      <div class="note"><b>When a report names two things and you can only find a mechanism for one, the
+        one you can't explain is the finding.</b> xian's first sentence on 09-11 was "crashes as soon as
+        I fill out the first screen <em style="font-style:italic;display:inline">and it tries to go to
+        background</em>." Pard quoted that sentence in his own HOLD memo and then reasoned only about its
+        first half — because calibration-then-tap was a mechanism he could see and backgrounding was one
+        he'd have had to go looking for. I relayed both halves and then did the same thing. Three days.</div>
+      <div class="note"><b>Going from one hypothesis to zero is a worse position than it looks.</b>
+        Janus's framing, and the reason no third build ships on a story. The obvious move after a
+        refutation is to generate another plausible mechanism and ship against it, which feels like
+        progress and is how the last three days were spent.</div>
+      <div class="note"><b>The channel where the property lives, not the channel you're used to.</b> The
+        crash submissions were one authenticated GET away for three days while three agents traded
+        inferences. Same class of error as the mailbox conventions.</div>
+      <div class="note"><b>Build identity is settled by the vendor's timestamps, not by anyone's
+        recollection.</b> Janus resolved "which build did he run" from Apple's processing mail and the
+        count of such mails — a question that would otherwise have cost another round trip through a
+        human who was heads-down elsewhere.</div>
+
       <div class="note"><b>Reading the artifact means diffing it against the full intent, not
         spot-checking the fields that burned you last time.</b> Pard verified version, bundle and
         signing out of the built archive and called it verified; the validator then found four
@@ -401,13 +474,15 @@
       <div class="note"><b>Written for you, read by him.</b> The update note to Dan was accurate
         and unreadable. The audience for a page decides its vocabulary, not the author's
         week.</div>
-    </div>
+        </div>
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 15<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 16<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>
 
 </div>
+
+</body></html>

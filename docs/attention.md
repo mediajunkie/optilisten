@@ -1,21 +1,20 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-12 (rev 15) · **Deadline:** 2026-11-24 (73 days · day 17 of 90 — carried from the 08-26 notice; the Apple-mail forward is live, so the next App Store Connect mail settles it)
+**Maintained by:** Cairn · **Updated:** 2026-09-14 (rev 16) · **Deadline:** 2026-11-24 (71 days · day 19 of 90 — still carried from the 08-26 notice; nobody has read it back from App Store Connect)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
 
-> **rev 15: 2.0 is in TestFlight, and the first build crashes.** On 09-11 Pard shipped **2.0 (1)** to
-> App Store Connect unattended — no desk, no sign-in — by switching `exportOptions` from automatic
-> (which means *cloud* signing, the account wall) to manual, pinned to a distribution profile the
-> App Store Connect API minted (`UL843FQA32`). Delivery `a5d9eccf`. It processed; xian installed it;
-> **it dies on Start.** Cause known before it happened: every `INFOPLIST_KEY_*` setting was dead
-> because the project uses an explicit Info.plist, and the microphone usage string — the one the
-> validator can't catch — was missing from that build. Fixed on `main` at `99a34bc`, after the
-> upload. **2.0 (2) requested.** Separately: Dan found the update note too thick with jargon, so
-> there's now a plain-language page for him, published and versioned in `docs/for-dan/`.
+> **rev 16: two builds shipped, zero hypotheses left, and the artifact that settles it has been sitting in Apple's console since 09-11.**
+> 2.0 (2) went up on 09-14 at 17:07 with Pard's fix for the first-run microphone path. Apple finished
+> processing at 17:11:55; xian installed it minutes later and **it crashed identically.** Janus proved
+> the build identity from Apple's own timestamps rather than anyone's recollection, and Pard accepted
+> the refutation without hedging. So the `sampleLevel` theory is dead, and we are at **zero**
+> hypotheses — which is worse than it sounds, because the tempting next move is to invent another
+> plausible story and ship against it. That is precisely how 09-12 through 09-14 were spent.
+> **No third build ships without a stack trace.** The crash log exists; reading it is item 1.
 
 ---
 
@@ -23,35 +22,38 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| 1 | **Share the Dan page** — from the artifact's share menu, it's private until you do. | It's written as you, for him: the idea in three moments, the four screens drawn from the app's real copy, honest built/not-built columns (including the crash), the numbers, the three options, two asks. No agent names, no toolchain. | ~1 min | Dan's reaction — the input the recommendation needs |
-| 2 | **Tap Share on the crash sheet** the next time 2.0 (1) dies, so the report reaches App Store Connect. Then leave (1) alone until (2) is up. | Confirms the termination reason reads as the missing-usage-string kill, not something else. You've already warned Dan off; keep it that way until (2). | ~10 sec | nothing — confirmation only |
+| 1 | **Sign in to App Store Connect** so Cairn can read the crash log — https://appstoreconnect.apple.com/apps/1593948410/testflight/crashes — a Chrome tab is already open there. Say "in" and Cairn reads the stack. | The API exposes the crash *submissions* but 404s on the log body; the stack is only behind the console login or Xcode → Window → Organizer → Crashes on Amber. **This one artifact ends a three-day loop.** The top frame separates an audio-session-deactivation-on-background story from a watchdog kill, and those need opposite fixes. | ~1 min | **everything.** Build 3, the working prototype, Dan's hands-on |
+| 2 | **Send Dan the brochure** when you're ready — it's private until shared from the page's share menu. | Three futures laid out at equal weight, no recommendation, no ask at the end, per your call. It supersedes the earlier explainer page — send this one, not both. | ~1 min | nothing; it's FYI by design |
 
 ## Resolved this pass
 
-- **The archive → TestFlight path is proven, unattended, end to end.** `automatic` signing in `exportOptions.plist` means *cloud signing*, which needs the interactive account — that was the entire wall. `manual`, pinned to an API-minted distribution profile, exports and uploads from SSH with nobody at a desk. Coral's `AMBER-XCODE.md` was the map; Pard walked it in a morning. The "account absent / re-add / which session" thread is closed and moot: **the shipping path never needed the account visible.**
-- **The `INFOPLIST_KEY_*` class, fully accounted.** Four keys were silently absent from every bundle ever built: orientations and launch screen (caught by Apple's validator at upload, 90474/90475), the app icon (90023 — the 2.0 tree had no asset catalog; Pard recovered the original 1.x icon from Apple's CDN), and **`NSMicrophoneUsageDescription`** (never caught by the validator; caught by xian's phone). All keys now live under `info.properties` with a comment forbidding the `INFOPLIST_KEY_` form while `info.path` exists.
-- **The crash is diagnosed, not investigated.** iOS terminates any process on first microphone access without the usage string — no error, just gone. 2.0 (1) was built before the fix. Build bumped to 2 at `4787b85`.
-- **The Dan page exists** — `docs/for-dan/what-optilisten-does-now.html`, artifact `98ea8355…`. The email he found jargon-thick was written for xian and read by Dan; this was written for Dan.
-- **Apple mail forward verified live** (09-11): a `no_reply@email.apple.com` message reached the readable mailbox. The removal date is still carried from the 08-26 screenshot — that notice predates the forward — but the channel works, and Pard notes a fresh build often resets removal clocks, so it's worth checking in ASC.
+- **2.0 (2) exists and shipped** — 09-14 17:07, delivery `0702a0ea`, 34 minutes from Janus's GO. It carries the four Info.plist keys verified in the artifact, and a real fix: `sampleLevel` now sits behind the same permission gate `start()` uses, and both tap sites refuse a 0 Hz format rather than raising an uncatchable exception.
+- **The mic-usage-string theory was wrong, and Pard caught it before rebuilding.** He read the four keys out of the *accepted* IPA — all four present. 2.0 (1) was built from the already-fixed tree; `99a34bc` was the record of the fix, pushed after the upload. The commit graph read naturally and was not the artifact. My "ship regardless" instinct was correct *under my premise* and the premise was false.
+- **The `sampleLevel` theory was also wrong, and the refutation was clean.** Janus: exactly one other "completed processing" mail exists for this app in the past week (2.0 (1), 09-11), so there was no older build to confuse it with. The build xian tested is the build Pard shipped.
+- **The crash submissions were readable by API the whole time** — `GET /v1/apps/1593948410/betaFeedbackCrashSubmissions`, same key that mints profiles. Three of them, in xian's own words, the first dated **09-11 19:26: "crashed when it went to background."** Nobody fetched it for three days. It is now one of Pard's standing checks for this app.
+- **The reproduction is specific and has been all along:** it crashes on going to background after completing the setup for a call — not on first-run permission. Both halves of that sentence were in the original report on 09-11.
+- **Dan's brochure is built** — `docs/for-dan/three-futures-for-optilisten.html`. Three options at equal weight, no recommendation, no ask. Supersedes `what-optilisten-does-now.html`, which should not also be sent.
 
 ## In flight
 
 | Owner | Item | Waiting on |
 |---|---|---|
-| **Pard** | **Archive + upload 2.0 (2)** on the manual-signing / API path. Before upload: `plutil -p` the built bundle's Info.plist and confirm `NSMicrophoneUsageDescription`, `UILaunchScreen`, `UISupportedInterfaceOrientations`, `CFBundleDisplayName` are *in the artifact*, not just in `project.yml`. | nothing — memo sent 09-12 |
-| **Pard** | Re-check the removal date in App Store Connect now that a build has been accepted — does the grace-period notice still show 11-24, or did the upload clear it? | the 2.0 (2) upload is a natural moment |
-| **Pard** | Empty-account-list drift guard for Amber — lower priority now; the check should distinguish *absent* from *not visible from this session* | not blocked |
-| **Cairn** | Once 2.0 (2) is up and xian confirms Start works: **update the Dan page** — remove the crash line from "Not there yet," tell Dan it's safe to try | (2) processed + xian's confirmation |
-| **Cairn** | Deferred-reflection resume flow in `HomeView` (placeholder); calibration persistence; mine `RecordSession.tsx` for 1.x speaker discrimination | not blocked; (2) first |
-| **Cairn** | **The Dan package** — three options, a prototype he can hold, a recommendation. The prototype is one working build away; the recommendation waits on his reaction to the page and the build | (2), then Dan |
+| **Cairn** | **Read the symbolicated crash log and produce a diagnosis with a stack behind it.** Nothing else in this table moves until this does. | item 1 — the ASC login |
+| **Pard** | **Build 3, within the hour of a diagnosis.** Pipeline is warm; 34 minutes door to door, proven twice. Explicitly *not* authoring the next theory. | the stack |
+| **Pard** | Re-check the removal date in App Store Connect now that two builds have been accepted — did the grace-period notice move? | a natural moment in the console |
+| **Cairn** | Candidate to test *against the log, not instead of it*: nothing in the tree observes `scenePhase` or `didEnterBackground`, `stop()` is only called from a view action at `PracticeLoopView.swift:57`, and the app declares no `UIBackgroundModes` — so a running engine has nothing deactivating it when the app backgrounds. **A story with a code path attached, which is exactly what the last two were.** | the stack |
+| **Cairn** | Update the Dan brochure once a build survives use — the "it crashes" line comes out of the Not-yet column and the prototype goes to his phone | build 3 working |
+| **Cairn** | Deferred-reflection resume flow in `HomeView`; calibration persistence | not blocked; the crash first |
 | **Janus** | Registry: two entries — `mediajunkie/optilisten` (app) and `Design-in-Product/optilisten` (live site) | memo 09-07; unconfirmed |
-| **open** | Whether Cairn runs as Cowork or Code, and on which machine | xian; not urgent — six unattended fires have now reached a Mac and pushed |
+| **open** | Whether Cairn runs as Cowork or Code, and on which machine | xian; not urgent |
 
 ## Standing risks
 
-- **Compiling is not running, and running is not being used.** 2.0 has now been launched on a real phone exactly once and died on the first tap. (2) is the first build that can be *used*. Nobody has watched the calibration, the mic tap, or the loop behave in a real conversation.
-- **Calibration is `Codable` and nothing persists it** — the user recalibrates every cold launch. Folded into the `HomeView` work.
-- **The fleet has one signing path and it expires Aug 2027.** One Job's cached profiles plus the API-minted one for OptiListen. The API path can renew them, which is better than a week ago, but nothing watches for expiry.
-- **The 24 Nov date is still the screenshot, not an ASC readback.** The forward works; nobody has looked.
-- **Apple has rejected this app once before** (July 2023, background modes). 2.0 omits `UIBackgroundModes`; expect scrutiny.
+- **We have shipped two builds against two theories and diagnosed nothing.** Both theories were real defects; neither was the one. The pattern to break is reasoning from source to a mechanism we can *see*, when the reporter has already named a mechanism we'd have to go look for. Pard's own rule, adopted here: **when a report names two things and you can only explain one, the one you can't explain is the finding.**
+- **No instrumentation.** Every crash this month was found because a human installed a build and hit it. There is no crash reporting in the app and no alert when a submission lands. xian raised this on 09-14 and today is the argument for it.
+- **Compiling is not running, and running is not being used.** 2.0 has been launched on a real phone twice and died both times. Nobody has yet watched calibration, the mic tap, or the loop behave in an actual conversation.
+- **Calibration is `Codable` and nothing persists it** — recalibrates every cold launch.
+- **The fleet has one signing path and it expires Aug 2027.** The API can renew it; nothing watches for expiry.
+- **The 24 Nov date is still the screenshot, not an ASC readback.** The forward works; nobody has looked. Two accepted builds may well have moved it.
+- **Apple has rejected this app once before** (July 2023, background modes). 2.0 omits `UIBackgroundModes` — which is also, possibly, the thing making it crash. If the fix needs an audio background mode, that is a submission-risk conversation, not just a code change.
 - **Age-rating social-media questions** at submission; ~10 min; answers are "no."
