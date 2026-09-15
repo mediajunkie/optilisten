@@ -137,6 +137,7 @@ final class LiveMicSource: LiveTalkRatioSource {
 
         let input = engine.inputNode
         let format = input.outputFormat(forBus: 0)
+        guard format.sampleRate > 0 else { throw TalkRatioSourceError.inputUnavailable }
         let frames = AVAudioFrameCount(format.sampleRate * bufferSeconds)
 
         input.installTap(onBus: 0, bufferSize: frames, format: format) { [weak self] buffer, _ in
@@ -186,10 +187,22 @@ final class LiveMicSource: LiveTalkRatioSource {
     /// Sample the room for `duration`, returning mean dBFS. Called twice at
     /// setup: once while the user speaks, once while they're quiet.
     func sampleLevel(for duration: TimeInterval) async throws -> Double {
+        // 2026-09-14: calibration runs BEFORE any start(), so on a first run this was
+        // the first code to touch the microphone — with permission still `undetermined`.
+        // The engine then has no live input, outputFormat(forBus:) returns 0 Hz, and
+        // installTap raises `required condition is false: format.sampleRate > 0`, an
+        // uncatchable ObjC exception. Every dev device had permission from an earlier
+        // run, so only a fresh install (i.e. every TestFlight install) could hit it.
+        // Same gate start() already has: requests permission when undetermined.
+        guard await isAvailable() else { throw TalkRatioSourceError.permissionDenied }
+
         try configureSession()
 
         let input = engine.inputNode
         let format = input.outputFormat(forBus: 0)
+        // Defensive, and the durable half of the fix: a tap that cannot see its input
+        // must fail as a report, not a crash. Covers any future variant of this.
+        guard format.sampleRate > 0 else { throw TalkRatioSourceError.inputUnavailable }
         let frames = AVAudioFrameCount(format.sampleRate * bufferSeconds)
 
         let samples = Samples()

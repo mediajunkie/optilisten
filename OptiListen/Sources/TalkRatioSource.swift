@@ -94,6 +94,11 @@ enum TalkRatioSourceError: LocalizedError {
     case unavailableOnThisPlan(String)
     case noSpeakerAttribution
     case interrupted
+    /// The audio input reported no usable format (sample rate 0). Seen on a first
+    /// run before microphone permission is resolved: the engine has no live input,
+    /// so installing a tap against that format raises an uncatchable ObjC exception.
+    /// Surfacing it as a thrown error lets the UI say something instead of dying.
+    case inputUnavailable
 
     var errorDescription: String? {
         switch self {
@@ -105,6 +110,8 @@ enum TalkRatioSourceError: LocalizedError {
             "That recording doesn't say who was speaking, so there's no ratio to read."
         case .interrupted:
             "Listening stopped early, so this reading covers only part of the conversation."
+        case .inputUnavailable:
+            "The microphone isn't available yet. Close and reopen OptiListen, and allow microphone access when asked."
         }
     }
 }
