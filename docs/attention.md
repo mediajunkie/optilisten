@@ -1,31 +1,35 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-14 (rev 16) · **Deadline:** 2026-11-24 (71 days · day 19 of 90 — still carried from the 08-26 notice; nobody has read it back from App Store Connect)
+**Maintained by:** Cairn · **Updated:** 2026-09-14 (rev 17) · **Deadline:** 2026-11-24 (71 days · day 19 of 90 — still carried from the 08-26 notice; nobody has read it back from App Store Connect)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
 
-> **rev 16: two builds shipped, zero hypotheses left, and the artifact that settles it has been sitting in Apple's console since 09-11.**
-> 2.0 (2) went up on 09-14 at 17:07 with Pard's fix for the first-run microphone path. Apple finished
-> processing at 17:11:55; xian installed it minutes later and **it crashed identically.** Janus proved
-> the build identity from Apple's own timestamps rather than anyone's recollection, and Pard accepted
-> the refutation without hedging. So the `sampleLevel` theory is dead, and we are at **zero**
-> hypotheses — which is worse than it sounds, because the tempting next move is to invent another
-> plausible story and ship against it. That is precisely how 09-12 through 09-14 were spent.
-> **No third build ships without a stack trace.** The crash log exists; reading it is item 1.
-
+> **rev 17: the stack exists and the cause is named — nothing is waiting on you.** Pard pulled the
+> symbolicated log by API after all: his `/crashLog` 404 was **a truncated submission ID**, not a
+> missing resource — he had printed `id[:12]` for readability in an earlier probe and then used the
+> printed string as the identifier. With the full ID it returns 200 and 23,762 bytes of `logText`.
+> **No console login, no Organizer, no signed-in Xcode. Item 1 on rev 16 asked you for something that
+> was never needed.** The crash is a **Swift 6 actor-isolation assert** — `EXC_BREAKPOINT`, not memory
+> corruption — firing on AVFAudio's real-time thread inside `start()`'s tap closure. The next move is
+> a design call, and it's mine.
 ---
 
 ## Needs you
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| 1 | **Sign in to App Store Connect** so Cairn can read the crash log — https://appstoreconnect.apple.com/apps/1593948410/testflight/crashes — a Chrome tab is already open there. Say "in" and Cairn reads the stack. | The API exposes the crash *submissions* but 404s on the log body; the stack is only behind the console login or Xcode → Window → Organizer → Crashes on Amber. **This one artifact ends a three-day loop.** The top frame separates an audio-session-deactivation-on-background story from a watchdog kill, and those need opposite fixes. | ~1 min | **everything.** Build 3, the working prototype, Dan's hands-on |
-| 2 | **Send Dan the brochure** when you're ready — it's private until shared from the page's share menu. | Three futures laid out at equal weight, no recommendation, no ask at the end, per your call. It supersedes the earlier explainer page — send this one, not both. | ~1 min | nothing; it's FYI by design |
+| 1 | **Send Dan the brochure** when you're ready — it's private until shared from the page's share menu. | Three futures laid out at equal weight, no recommendation, no ask at the end, per your call. It supersedes the earlier explainer page — send this one, not both. | ~1 min | nothing; it's FYI by design |
 
 ## Resolved this pass
+
+- **The stack, and the cause.** `EXC_BREAKPOINT (SIGTRAP)` on thread 2, version 2.0 (2). Bottom-up: AVFAudio delivers a buffer on its real-time messenger queue → calls the tap block → the block touches `self` → `swift_task_isCurrentExecutorWithFlagsImpl` → `_dispatch_assert_queue_fail`. `LiveMicSource` is `@MainActor`; the tap callback runs off it; `guard let self` touches main-actor-isolated state from the audio thread, and under `SWIFT_STRICT_CONCURRENCY: complete` on Swift 6 that check is a **hard trap, not a warning**.
+- **Why it was never `sampleLevel` — the discriminator nobody saw.** Calibration's tap captures *no* `self`: it closes over a local `Samples` actor and calls a `static`. `start()`'s tap captures `self`. **The two tap sites look almost identical and differ on the only thing that matters.** Pard's two guards went into both and touched neither — the isolation assert sits *above* his guard in the same function. They fixed a real defect that was never this one.
+- **And it explains the report exactly.** `start()` is called from `PracticeLoopView.swift:198` — *after* setup — and the first buffers arrive moments later. Not the backgrounding as such: the practice loop starting. xian's "as soon as I fill out the first screen and it tries to go to background" was one event described from the outside.
+- **"Needs the console login" was a capability limit that didn't exist.** Pard's third error of the week and the same shape as the other two: *a reading of his own output mistaken for a reading of the world.* He named it himself before anyone asked.
+- **Crash-log fetch is now a standing capability** — `/v1/betaFeedbackCrashSubmissions/{full-id}/crashLog` returns `logText` inline. Pard pulls it automatically on any future TestFlight crash for this app and puts the trace in front of whoever owns the fix.
 
 - **2.0 (2) exists and shipped** — 09-14 17:07, delivery `0702a0ea`, 34 minutes from Janus's GO. It carries the four Info.plist keys verified in the artifact, and a real fix: `sampleLevel` now sits behind the same permission gate `start()` uses, and both tap sites refuse a 0 Hz format rather than raising an uncatchable exception.
 - **The mic-usage-string theory was wrong, and Pard caught it before rebuilding.** He read the four keys out of the *accepted* IPA — all four present. 2.0 (1) was built from the already-fixed tree; `99a34bc` was the record of the fix, pushed after the upload. The commit graph read naturally and was not the artifact. My "ship regardless" instinct was correct *under my premise* and the premise was false.
@@ -38,8 +42,8 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 
 | Owner | Item | Waiting on |
 |---|---|---|
-| **Cairn** | **Read the symbolicated crash log and produce a diagnosis with a stack behind it.** Nothing else in this table moves until this does. | item 1 — the ASC login |
-| **Pard** | **Build 3, within the hour of a diagnosis.** Pipeline is warm; 34 minutes door to door, proven twice. Explicitly *not* authoring the next theory. | the stack |
+| **Cairn** | **Choose and push the isolation fix.** The trace names the closure, but there are at least three defensible shapes — make the tap capture nothing isolated and hop to the actor with the value; make `classify` `nonisolated` over a lock; move level state into a dedicated actor as `Samples` already is. **Picking among them is a design call about where this class's state should live, which is why Pard declined to make it.** | nothing — it's the critical path |
+| **Pard** | **Build 3 the moment the fix is pushed** — build, standing artifact check, binary grep, upload. 34 minutes, warm, proven twice. | Cairn's push |
 | **Pard** | Re-check the removal date in App Store Connect now that two builds have been accepted — did the grace-period notice move? | a natural moment in the console |
 | **Cairn** | Candidate to test *against the log, not instead of it*: nothing in the tree observes `scenePhase` or `didEnterBackground`, `stop()` is only called from a view action at `PracticeLoopView.swift:57`, and the app declares no `UIBackgroundModes` — so a running engine has nothing deactivating it when the app backgrounds. **A story with a code path attached, which is exactly what the last two were.** | the stack |
 | **Cairn** | Update the Dan brochure once a build survives use — the "it crashes" line comes out of the Not-yet column and the prototype goes to his phone | build 3 working |

@@ -209,20 +209,24 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 14 Sep 2026, 20:50 PT · rev 16 · file and page in sync</div>
+    <div class="stamp">Updated 14 Sep 2026, 21:40 PT · rev 17 · file and page in sync</div>
   </header>
 
-  <section class="alert">
-    <div class="tag">Two builds, zero hypotheses</div>
-    <p><b>2.0 (2) shipped on 09-14 at 17:07 with the fix for the first-run microphone path. Apple
-      finished processing at 17:11:55; xian installed it minutes later and it crashed identically.</b>
-      Janus established the build identity from Apple's own timestamps rather than anyone's
-      recollection — exactly one other "completed processing" mail exists for this app this week — and
-      Pard accepted the refutation without hedging. The <code>sampleLevel</code> theory is dead. We are
-      at <b>zero</b> hypotheses, which is worse than it sounds: the tempting next move is to invent
-      another plausible story and ship against it, and that is how 09-12 through 09-14 were spent.
-      <b>No third build ships without a stack trace — and the stack has been sitting in Apple's console
-      since 09-11. Reading it is item 01.</b></p>
+  <section class="win">
+    <div class="tag">The stack — and the cause</div>
+    <p><b>Nothing is waiting on you.</b> Pard pulled the symbolicated log by API after all: his
+      <code>/crashLog</code> 404 was <b>a truncated submission ID</b>, not a missing resource — he had
+      printed <code>id[:12]</code> for readability in an earlier probe and then used the printed string
+      as the identifier. With the full ID it returns 200 and 23,762 bytes of <code>logText</code>.
+      <b>No console login, no Organizer, no signed-in Xcode — rev 16 asked you for something that was
+      never needed.</b> The crash is a <b>Swift 6 actor-isolation assert</b>
+      (<code>EXC_BREAKPOINT</code>, a deliberate runtime trap rather than memory corruption) firing on
+      AVFAudio's real-time thread inside <code>start()</code>'s tap closure:
+      <code>LiveMicSource</code> is <code>@MainActor</code>, the tap runs off it, and
+      <code>guard let self</code> touches isolated state from the audio thread — which under
+      <code>SWIFT_STRICT_CONCURRENCY: complete</code> is a hard trap. <b>Calibration's tap captures no
+      <code>self</code> at all, which is exactly why it was never the path.</b> The next move is a
+      design call, and it's mine.</p>
   </section>
 
   <section class="clock" aria-label="Grace period remaining">
@@ -239,33 +243,11 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">2 items · one blocks everything</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">1 item · FYI by design</span></div>
     <div class="items">
 
-      <div class="item blocking">
-        <div class="rank">01</div>
-        <div class="body">
-          <div class="title">Sign in to App Store Connect so I can read the crash log</div>
-          <div class="why">The API exposes the crash <em style="font-style:italic;display:inline">submissions</em>
-            — three of them, in your own words, the first dated 09-11 19:26: <em style="font-style:italic;display:inline">"crashed
-            when it went to background"</em> — but 404s on the log body. <b>The stack itself is only
-            behind the console login.</b> Its top frame separates an audio-session-deactivation story
-            from a watchdog kill, and those need opposite fixes. Three days and two builds have gone
-            to inference; this one artifact ends it.</div>
-          <div class="steps">
-            <b>A Chrome tab is already open at:</b> https://appstoreconnect.apple.com/apps/1593948410/testflight/crashes<br>
-            Sign in, say <b>"in"</b>, and I read the stack and report the top frame.<br>
-            <b>Equivalent, if you'd rather:</b> Xcode → Window → Organizer → Crashes, on Amber.
-          </div>
-          <div class="meta">
-            <span class="pill stop">blocks build 3 → a usable prototype → Dan's hands</span>
-            <span class="pill cost">~1 min</span>
-          </div>
-        </div>
-      </div>
-
       <div class="item">
-        <div class="rank">02</div>
+        <div class="rank">01</div>
         <div class="body">
           <div class="title">Send Dan the brochure, whenever you're ready</div>
           <div class="why">Three futures — keep the shelf space / build the practice tool / retire it
@@ -284,15 +266,19 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>In flight</h2><span class="count">everything waits on one stack trace</span></div>
+    <div class="sec-hd"><h2>In flight</h2><span class="count">the fix, then 34 minutes</span></div>
     <div class="rows">
       <div class="row warnrow"><div class="who">Cairn</div><div class="txt">
-        <b>Read the symbolicated crash log and produce a diagnosis with a stack behind it.</b>
-        <em>Nothing else in this table moves until this does.</em></div></div>
+        <b>Choose and push the isolation fix.</b> The trace names the closure, but there are at least
+        three defensible shapes — tap captures nothing isolated and hops to the actor with the value;
+        <code>classify</code> goes <code>nonisolated</code> over a lock; level state moves into a
+        dedicated actor as <code>Samples</code> already is.
+        <em>Picking among them is a design call about where this class's state should live, which is
+        why Pard declined to make it. Critical path.</em></div></div>
       <div class="row warnrow"><div class="who">Pard</div><div class="txt">
-        <b>Build 3, within the hour of a diagnosis.</b> Pipeline is warm — 34 minutes door to door,
-        proven twice.
-        <em>Explicitly not authoring the next theory, and right to refuse.</em></div></div>
+        <b>Build 3 the moment the fix is pushed</b> — build, standing artifact check, binary grep,
+        upload. 34 minutes, warm, proven twice.
+        <em>Right to have refused to author the theory.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt">
         <b>One candidate, to be tested against the log rather than instead of it.</b> Nothing in the
         tree observes <code>scenePhase</code> or <code>didEnterBackground</code>, <code>stop()</code>
@@ -478,7 +464,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 16<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 17<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>
