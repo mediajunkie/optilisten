@@ -32,6 +32,21 @@ import Observation
 /// Every one of these is surfaced in the UI rather than hidden, because a
 /// confident wrong number is worse than an honest partial one. That is the
 /// lesson of 1.x encoded as a design rule.
+///
+/// ## 2026-09-16: the same rule, turned on this file
+///
+/// Three builds were diagnosed by reading source, because the app had no way to
+/// say what had happened to it. Every defect this month presented identically:
+/// it died, or it did nothing, and it told no one why. `start()` had four throw
+/// sites and its only caller discarded all four with `try?`; calibration
+/// substituted `-20` and `-50` for two failed readings and rendered the result
+/// as success. **A failed capture was pixel-identical to a working one in a
+/// quiet room.**
+///
+/// So this type now reports. `state` is what the capture path believes about
+/// itself, `events` is what it did in order, and both are rendered rather than
+/// inferred. Nothing here fixes a crash; it converts the next bug from an
+/// inference problem into a reading problem.
 @Observable
 @MainActor
 final class LiveMicSource: LiveTalkRatioSource {
@@ -64,10 +79,25 @@ final class LiveMicSource: LiveTalkRatioSource {
         /// headphones, a very loud room, a phone across the desk.
         var isUsable: Bool { userLevel - ambientLevel >= 8.0 }
 
+        /// The value held before anyone has calibrated.
+        ///
+        /// **Known defect, deliberately not changed in this build.** Its 30 dB
+        /// gap passes `isUsable`, so "never calibrated" is numerically
+        /// indistinguishable from "calibrated well" — the same
+        /// failure-looks-like-success shape this build exists to remove.
+        /// Making `calibration` an `Optional` and deleting this is the right
+        /// repair, and it changes classification behaviour, so it does not
+        /// belong in a build whose job is to observe. `isCalibrated` below
+        /// makes the distinction *visible* in the meantime, which is what a
+        /// diagnostic build owes you.
         static let unavailable = Calibration(userLevel: -20, ambientLevel: -50)
     }
 
     private(set) var calibration: Calibration = .unavailable
+
+    /// Whether `calibration` came from two real readings or is still the
+    /// placeholder. Read by the UI; see the note on `.unavailable`.
+    private(set) var isCalibrated = false
 
     /// Store a calibration built from two measured levels.
     ///
@@ -79,7 +109,96 @@ final class LiveMicSource: LiveTalkRatioSource {
     func applyCalibration(userLevel: Double, ambientLevel: Double) -> Calibration {
         let calibration = Calibration(userLevel: userLevel, ambientLevel: ambientLevel)
         self.calibration = calibration
+        isCalibrated = true
+        note(String(
+            format: "calibrated — user %.1f dBFS, ambient %.1f dBFS, gap %.1f dB, threshold %.1f",
+            userLevel, ambientLevel, userLevel - ambientLevel, calibration.threshold
+        ) + ", usable \(calibration.isUsable ? "yes" : "NO")")
         return calibration
+    }
+
+    // MARK: Diagnostics
+
+    /// What the capture path believes about itself, right now.
+    ///
+    /// The point of the associated `String` on `.failed` is that the reason
+    /// survives to the screen. Every path that can fail sets this before it
+    /// throws, so even a caller that discards the error renders the truth.
+    enum CaptureState: Equatable, Sendable {
+        case idle
+        case starting
+        case running
+        case failed(String)
+
+        var label: String {
+            switch self {
+            case .idle: "idle"
+            case .starting: "starting"
+            case .running: "running"
+            case .failed(let reason): "failed(\(reason))"
+            }
+        }
+
+        var failureText: String? {
+            if case .failed(let reason) = self { return reason }
+            return nil
+        }
+    }
+
+    private(set) var state: CaptureState = .idle
+
+    /// One line of what the capture path did, in order.
+    struct CaptureEvent: Identifiable, Sendable {
+        let id = UUID()
+        let at = Date()
+        let text: String
+    }
+
+    private(set) var events: [CaptureEvent] = []
+    private let eventCeiling = 300
+
+    /// Buffers actually delivered by the tap.
+    ///
+    /// This is the number that separates the two failures we could not tell
+    /// apart: `isRunning == true` with `buffersReceived == 0` means the engine
+    /// started and the microphone is sending nothing, which reads on screen as
+    /// a calm `0%` and is the "it failed to start tracking anything" xian
+    /// reported against 2.0 (3).
+    private(set) var buffersReceived = 0
+    private(set) var lastLevel: Double?
+
+    /// Record one line. Cheap, ordered, and capped — this runs per session, not
+    /// per buffer.
+    func note(_ text: String) {
+        events.append(CaptureEvent(text: text))
+        if events.count > eventCeiling {
+            events.removeFirst(events.count - eventCeiling)
+        }
+    }
+
+    /// The log as text the tester can paste into a message.
+    ///
+    /// Deliberately not a crash report: it exists so that learning what
+    /// happened does not depend on catching a modal sheet and tapping Share.
+    var eventLogText: String {
+        let header = [
+            "OptiListen capture log",
+            "state: \(state.label)",
+            "running: \(isRunning)  buffers: \(buffersReceived)",
+            "calibrated: \(isCalibrated)  usable: \(calibration.isUsable)",
+            String(format: "user %.1f / ambient %.1f / threshold %.1f / floor %.1f",
+                   calibration.userLevel, calibration.ambientLevel,
+                   calibration.threshold, calibration.silenceFloor),
+            String(format: "heard %.1fs — user %.1f / other %.1f / silence %.1f",
+                   observedDuration, userSpeakingSeconds,
+                   otherSpeakingSeconds, silenceSeconds),
+            ""
+        ].joined(separator: "\n")
+
+        let lines = events.map {
+            "\($0.at.formatted(date: .omitted, time: .standard))  \($0.text)"
+        }
+        return header + lines.joined(separator: "\n")
     }
 
     // MARK: Live state
@@ -112,6 +231,10 @@ final class LiveMicSource: LiveTalkRatioSource {
     private let engine = AVAudioEngine()
     private let bufferSeconds: TimeInterval = 0.1
 
+    /// Held so the observer can be removed. It was previously discarded, which
+    /// added a fresh observer on every `start()` and never removed any.
+    private var interruptionObserver: NSObjectProtocol?
+
     func isAvailable() async -> Bool {
         await withCheckedContinuation { continuation in
             switch AVAudioApplication.shared.recordPermission {
@@ -128,49 +251,71 @@ final class LiveMicSource: LiveTalkRatioSource {
     }
 
     func start() async throws {
-        guard await isAvailable() else { throw TalkRatioSourceError.permissionDenied }
-        guard !isRunning else { return }
-
-        reset()
-        try configureSession()
-        observeInterruptions()
-
-        let input = engine.inputNode
-        let format = input.outputFormat(forBus: 0)
-        guard format.sampleRate > 0 else { throw TalkRatioSourceError.inputUnavailable }
-        let frames = AVAudioFrameCount(format.sampleRate * bufferSeconds)
-
-        // This block runs on AVFAudio's real-time messenger thread, and it must not
-        // inherit this class's `@MainActor` isolation. A non-`@Sendable` closure
-        // written inside an isolated context inherits that isolation, and under Swift 6
-        // with `SWIFT_STRICT_CONCURRENCY: complete` the compiler emits a hard
-        // `_swift_task_checkIsolated` precondition at closure entry. Off the main
-        // actor that precondition is a `SIGTRAP`, not a warning: it is what killed
-        // 2.0 (2) at `closure #1 in LiveMicSource.start()`, one frame below
-        // `AVAudioNodeTap::CheckEmitBuffer`.
-        //
-        // `@Sendable` makes the closure nonisolated. It then touches no isolated
-        // state at all: the level is computed by a `nonisolated static`, and the only
-        // thing that crosses to the actor is a `Double`. `sampleLevel`'s tap was
-        // always shaped this way — it captures no `self` — which is precisely why
-        // calibration never crashed while this site always would. The two tap sites
-        // now agree on the one property that matters.
-        input.installTap(onBus: 0, bufferSize: frames, format: format) { @Sendable [weak self] buffer, _ in
-            let level = Self.rmsDecibels(buffer)
-            Task { @MainActor in self?.classify(level) }
+        guard !isRunning else {
+            note("start() ignored — already running")
+            return
         }
 
-        engine.prepare()
-        try engine.start()
-        isRunning = true
+        state = .starting
+        note("start() requested")
+
+        do {
+            guard await isAvailable() else { throw TalkRatioSourceError.permissionDenied }
+            note("microphone permission: granted")
+
+            reset()
+            try configureSession()
+            note("session configured — .record / .measurement / allowBluetooth, active")
+
+            observeInterruptions()
+
+            let input = engine.inputNode
+            let format = input.outputFormat(forBus: 0)
+            note("input format — \(Int(format.sampleRate)) Hz, \(format.channelCount) ch")
+            guard format.sampleRate > 0 else { throw TalkRatioSourceError.inputUnavailable }
+            let frames = AVAudioFrameCount(format.sampleRate * bufferSeconds)
+
+            // This block runs on AVFAudio's real-time messenger thread, and it must not
+            // inherit this class's `@MainActor` isolation. A non-`@Sendable` closure
+            // written inside an isolated context inherits that isolation, and under Swift 6
+            // with `SWIFT_STRICT_CONCURRENCY: complete` the compiler emits a hard
+            // `_swift_task_checkIsolated` precondition at closure entry. Off the main
+            // actor that precondition is a `SIGTRAP`, not a warning: it is what killed
+            // 2.0 (2) at `closure #1 in LiveMicSource.start()`, one frame below
+            // `AVAudioNodeTap::CheckEmitBuffer`.
+            //
+            // `@Sendable` makes the closure nonisolated. It then touches no isolated
+            // state at all: the level is computed by a `nonisolated static`, and the only
+            // thing that crosses to the actor is a `Double`. `sampleLevel`'s tap was
+            // always shaped this way — it captures no `self` — which is precisely why
+            // calibration never crashed while this site always would. The two tap sites
+            // now agree on the one property that matters.
+            input.installTap(onBus: 0, bufferSize: frames, format: format) { @Sendable [weak self] buffer, _ in
+                let level = Self.rmsDecibels(buffer)
+                Task { @MainActor in self?.classify(level) }
+            }
+            note("tap installed — \(frames) frames per buffer")
+
+            engine.prepare()
+            try engine.start()
+
+            isRunning = true
+            state = .running
+            note(isCalibrated
+                 ? "engine running — calibrated"
+                 : "engine running — NOT CALIBRATED, classifying against placeholder thresholds")
+        } catch {
+            await fail(error, during: "start()")
+            throw error
+        }
     }
 
     func stop() async {
-        guard isRunning else { return }
-        engine.inputNode.removeTap(onBus: 0)
-        engine.stop()
-        isRunning = false
-        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        note("stop() requested — state was \(state.label)")
+        await teardown()
+        // A failure outlives the stop that follows it: the reflection screen
+        // still has to be able to say why there is no number.
+        if state.failureText == nil { state = .idle }
     }
 
     func reset() {
@@ -178,11 +323,53 @@ final class LiveMicSource: LiveTalkRatioSource {
         otherSpeakingSeconds = 0
         silenceSeconds = 0
         wasInterrupted = false
+        buffersReceived = 0
+        lastLevel = nil
+    }
+
+    /// Record a failure where the UI can read it, then tear down.
+    ///
+    /// The old `start()` left `isRunning == false` on every throw, and `stop()`
+    /// guarded on `isRunning` — so after a failed start the engine could never
+    /// be torn down, and a second attempt installed a second tap on a bus that
+    /// already had one.
+    private func fail(_ error: Error, during phase: String) async {
+        let reason = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+        state = .failed(reason)
+        note("\(phase) FAILED — \(reason)  [\(String(describing: error))]")
+        await teardown()
+    }
+
+    /// Return the engine to a known state from *any* state, including a
+    /// half-built one. Every step is individually safe to repeat.
+    private func teardown() async {
+        engine.inputNode.removeTap(onBus: 0)
+        if engine.isRunning { engine.stop() }
+        isRunning = false
+
+        if let token = interruptionObserver {
+            NotificationCenter.default.removeObserver(token)
+            interruptionObserver = nil
+        }
+
+        do {
+            try AVAudioSession.sharedInstance()
+                .setActive(false, options: .notifyOthersOnDeactivation)
+        } catch {
+            note("session deactivate failed — \(error.localizedDescription)")
+        }
     }
 
     // MARK: Classification
 
     private func classify(_ level: Double) {
+        buffersReceived += 1
+        lastLevel = level
+
+        if buffersReceived == 1 {
+            note(String(format: "first buffer — %.1f dBFS", level))
+        }
+
         guard calibration.isUsable else {
             silenceSeconds += bufferSeconds
             return
@@ -201,42 +388,56 @@ final class LiveMicSource: LiveTalkRatioSource {
     /// Sample the room for `duration`, returning mean dBFS. Called twice at
     /// setup: once while the user speaks, once while they're quiet.
     func sampleLevel(for duration: TimeInterval) async throws -> Double {
-        // 2026-09-14: calibration runs BEFORE any start(), so on a first run this was
-        // the first code to touch the microphone — with permission still `undetermined`.
-        // The engine then has no live input, outputFormat(forBus:) returns 0 Hz, and
-        // installTap raises `required condition is false: format.sampleRate > 0`, an
-        // uncatchable ObjC exception. Every dev device had permission from an earlier
-        // run, so only a fresh install (i.e. every TestFlight install) could hit it.
-        // Same gate start() already has: requests permission when undetermined.
-        guard await isAvailable() else { throw TalkRatioSourceError.permissionDenied }
+        note("sampleLevel(\(Int(duration))s) requested")
+        do {
+            // 2026-09-14: calibration runs BEFORE any start(), so on a first run this was
+            // the first code to touch the microphone — with permission still `undetermined`.
+            // The engine then has no live input, outputFormat(forBus:) returns 0 Hz, and
+            // installTap raises `required condition is false: format.sampleRate > 0`, an
+            // uncatchable ObjC exception. Every dev device had permission from an earlier
+            // run, so only a fresh install (i.e. every TestFlight install) could hit it.
+            // Same gate start() already has: requests permission when undetermined.
+            guard await isAvailable() else { throw TalkRatioSourceError.permissionDenied }
 
-        try configureSession()
+            try configureSession()
 
-        let input = engine.inputNode
-        let format = input.outputFormat(forBus: 0)
-        // Defensive, and the durable half of the fix: a tap that cannot see its input
-        // must fail as a report, not a crash. Covers any future variant of this.
-        guard format.sampleRate > 0 else { throw TalkRatioSourceError.inputUnavailable }
-        let frames = AVAudioFrameCount(format.sampleRate * bufferSeconds)
+            let input = engine.inputNode
+            let format = input.outputFormat(forBus: 0)
+            note("sample input format — \(Int(format.sampleRate)) Hz")
+            // Defensive, and the durable half of the fix: a tap that cannot see its input
+            // must fail as a report, not a crash. Covers any future variant of this.
+            guard format.sampleRate > 0 else { throw TalkRatioSourceError.inputUnavailable }
+            let frames = AVAudioFrameCount(format.sampleRate * bufferSeconds)
 
-        let samples = Samples()
-        input.installTap(onBus: 0, bufferSize: frames, format: format) { buffer, _ in
-            Task { await samples.append(Self.rmsDecibels(buffer)) }
+            let samples = Samples()
+            input.installTap(onBus: 0, bufferSize: frames, format: format) { @Sendable buffer, _ in
+                Task { await samples.append(Self.rmsDecibels(buffer)) }
+            }
+
+            engine.prepare()
+            try engine.start()
+            try? await Task.sleep(for: .seconds(duration))
+
+            input.removeTap(onBus: 0)
+            engine.stop()
+
+            let count = await samples.count
+            let mean = await samples.mean
+            note("sample complete — \(count) buffers, mean " + String(format: "%.1f", mean) + " dBFS")
+            // A reading taken from nothing is not a reading. Previously this
+            // returned the -80 floor, which looks exactly like a silent room.
+            guard count > 0 else { throw TalkRatioSourceError.inputUnavailable }
+            return mean
+        } catch {
+            await fail(error, during: "sampleLevel()")
+            throw error
         }
-
-        engine.prepare()
-        try engine.start()
-        try? await Task.sleep(for: .seconds(duration))
-
-        input.removeTap(onBus: 0)
-        engine.stop()
-
-        return await samples.mean
     }
 
     private actor Samples {
         private var values: [Double] = []
         func append(_ value: Double) { values.append(value) }
+        var count: Int { values.count }
         var mean: Double {
             guard !values.isEmpty else { return -80 }
             return values.reduce(0, +) / Double(values.count)
@@ -254,13 +455,18 @@ final class LiveMicSource: LiveTalkRatioSource {
     }
 
     private func observeInterruptions() {
-        NotificationCenter.default.addObserver(
+        if let token = interruptionObserver {
+            NotificationCenter.default.removeObserver(token)
+            interruptionObserver = nil
+        }
+        interruptionObserver = NotificationCenter.default.addObserver(
             forName: AVAudioSession.interruptionNotification,
             object: AVAudioSession.sharedInstance(),
             queue: .main
         ) { @Sendable [weak self] _ in
             Task { @MainActor in
                 self?.wasInterrupted = true
+                self?.note("interrupted by the system — stopping")
                 await self?.stop()
             }
         }

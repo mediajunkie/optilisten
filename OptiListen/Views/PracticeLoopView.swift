@@ -57,7 +57,8 @@ struct PracticeLoopView: View {
             await source.stop()
             // Headphones mean the microphone only ever heard the user, so the
             // ratio is meaningless. Record the duration, refuse the number.
-            guard !usingHeadphones, source.calibration.isUsable else { return }
+            guard !usingHeadphones, source.calibration.isUsable,
+                  source.state.failureText == nil, source.buffersReceived > 0 else { return }
             practice.measuredSpeakingShare = source.currentShare
             practice.evidenceDuration = source.observedDuration
             practice.evidenceSourceID = source.id
@@ -133,6 +134,7 @@ private struct ListeningStep: View {
     var onEnd: () -> Void
 
     @State private var elapsed: TimeInterval = 0
+    @State private var showingDiagnostics = false
     private let tick = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     private var overGoal: Bool { source.currentShare > practice.goalSpeakingShare }
@@ -141,7 +143,10 @@ private struct ListeningStep: View {
         VStack(spacing: 28) {
             Spacer()
 
-            if usingHeadphones || !source.calibration.isUsable {
+            if let failure = source.state.failureText {
+                // A failed start used to be pixel-identical to a working one.
+                CaptureFailureCard(message: failure, log: source.eventLogText)
+            } else if usingHeadphones || !source.calibration.isUsable {
                 // No number, on purpose. The intention still does the work.
                 VStack(spacing: 14) {
                     Image(systemName: "ear")
@@ -171,6 +176,23 @@ private struct ListeningStep: View {
                     .font(.title3)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
+
+                // Two things that were previously invisible and both of which
+                // render as a confident 0%: an engine that started and is
+                // receiving nothing, and a number computed against the
+                // placeholder calibration.
+                if source.isRunning && source.buffersReceived == 0 && elapsed >= 3 {
+                    Label("No audio is arriving from the microphone.", systemImage: "exclamationmark.triangle")
+                        .font(.footnote)
+                        .foregroundStyle(.orange)
+                        .padding(.horizontal, 32)
+                }
+                if !source.isCalibrated {
+                    Text("Not calibrated — this number is against placeholder thresholds.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 32)
+                }
             }
 
             Spacer()
@@ -191,11 +213,29 @@ private struct ListeningStep: View {
         .navigationTitle(practice.label.isEmpty ? "Listening" : practice.label)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showingDiagnostics = true
+                } label: {
+                    Image(systemName: "stethoscope")
+                }
+                .accessibilityLabel("Diagnostics")
+            }
+        }
+        .sheet(isPresented: $showingDiagnostics) {
+            DiagnosticsSheet(log: source.eventLogText)
+        }
         .persistentSystemOverlays(.hidden)
         .onReceive(tick) { _ in elapsed += 1 }
         .task {
             guard !usingHeadphones else { return }
-            try? await source.start()
+            // The error is not discarded and it is not rethrown into nothing:
+            // `start()` has already written the reason into `source.state`,
+            // and `body` renders it. This was `try? await source.start()`,
+            // which swallowed four distinct throw sites and left the screen
+            // showing a calm 0%.
+            do { try await source.start() } catch { }
         }
         // The screen stays lit because the phone is functioning as an
         // instrument on the desk, not a phone in a pocket. This is the
@@ -268,5 +308,74 @@ private struct ReflectionStep: View {
             }
         }
         .onAppear { if practice.presence == nil { practice.presence = 3 } }
+    }
+}
+
+// MARK: - Diagnostics surfaces
+
+/// Why there is no reading, said on the screen the user is already looking at.
+///
+/// Deliberately not an alert and not a crash sheet: a TestFlight crash
+/// submission only exists if the tester happens to tap Share on a modal, which
+/// is how 2.0 (3) produced a failure nobody could examine. This renders where
+/// the number renders, and the log copies with one tap.
+private struct CaptureFailureCard: View {
+    let message: String
+    let log: String
+
+    @State private var copied = false
+
+    var body: some View {
+        VStack(spacing: 14) {
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 40, weight: .light))
+                .foregroundStyle(.orange)
+            Text("Listening didn't start.")
+                .font(.title3)
+            Text(message)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+            Button(copied ? "Copied" : "Copy diagnostics") {
+                UIPasteboard.general.string = log
+                copied = true
+            }
+            .font(.footnote)
+            .buttonStyle(.bordered)
+        }
+        .multilineTextAlignment(.center)
+        .padding(.horizontal, 32)
+    }
+}
+
+/// The whole capture log, in order, copyable.
+private struct DiagnosticsSheet: View {
+    let log: String
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var copied = false
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                Text(log)
+                    .font(.caption.monospaced())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .textSelection(.enabled)
+                    .padding()
+            }
+            .navigationTitle("Diagnostics")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(copied ? "Copied" : "Copy") {
+                        UIPasteboard.general.string = log
+                        copied = true
+                    }
+                }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Done") { dismiss() }
+                }
+            }
+        }
     }
 }

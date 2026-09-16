@@ -8,7 +8,7 @@ import SwiftUI
 /// crucially, it can *fail honestly*: if the two readings are too close together,
 /// the app says the room won't work rather than shipping a confident wrong ratio.
 struct CalibrationView: View {
-    enum Phase { case intro, speaking, quiet, result, tooClose }
+    enum Phase: Equatable { case intro, speaking, quiet, result, tooClose, failed(String) }
 
     @Environment(\.dismiss) private var dismiss
     let source: LiveMicSource
@@ -81,6 +81,16 @@ struct CalibrationView: View {
                 .font(.footnote)
                 .foregroundStyle(.secondary)
 
+        case .failed(let message):
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 44, weight: .light))
+                .foregroundStyle(.red)
+            Text("Calibration didn't run.")
+                .font(.title2)
+            Text(message)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+
         case .tooClose:
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 44, weight: .light))
@@ -109,22 +119,45 @@ struct CalibrationView: View {
                     .buttonStyle(.borderedProminent)
                 Button("Practice without a number") { dismiss() }
             }
+        case .failed:
+            VStack(spacing: 12) {
+                Button("Try again") { phase = .intro }
+                    .buttonStyle(.borderedProminent)
+                Button("Copy diagnostics") {
+                    UIPasteboard.general.string = source.eventLogText
+                }
+                .font(.footnote)
+            }
         }
     }
 
+    /// Run the two readings.
+    ///
+    /// This was `(try? await source.sampleLevel(...)) ?? -20` and `?? -50`.
+    /// Those two fallbacks are numerically `Calibration.unavailable`, whose
+    /// 30 dB gap passes `isUsable` — so a calibration in which *both readings
+    /// failed* rendered a green checkmark and "Ready." A failure that reports
+    /// itself as success is the defect class this build exists to remove, and
+    /// this was its worst instance.
     private func run() {
         Task {
-            phase = .speaking
-            userLevel = (try? await source.sampleLevel(for: sampleSeconds)) ?? -20
+            do {
+                phase = .speaking
+                userLevel = try await source.sampleLevel(for: sampleSeconds)
 
-            phase = .quiet
-            ambientLevel = (try? await source.sampleLevel(for: sampleSeconds)) ?? -50
+                phase = .quiet
+                ambientLevel = try await source.sampleLevel(for: sampleSeconds)
 
-            let calibration = source.applyCalibration(
-                userLevel: userLevel,
-                ambientLevel: ambientLevel
-            )
-            phase = calibration.isUsable ? .result : .tooClose
+                let calibration = source.applyCalibration(
+                    userLevel: userLevel,
+                    ambientLevel: ambientLevel
+                )
+                phase = calibration.isUsable ? .result : .tooClose
+            } catch {
+                let message = (error as? LocalizedError)?.errorDescription
+                    ?? error.localizedDescription
+                phase = .failed(message)
+            }
         }
     }
 }
