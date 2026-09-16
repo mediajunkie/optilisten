@@ -324,20 +324,18 @@
 
     <h1>Three futures for OptiListen</h1>
 
-    <p class="lede">Apple is going to remove OptiListen from the App Store on 24 November unless we
-      update it. That deadline made me go back and look at the whole thing properly — what it was,
-      what changed around it, and what it could still be. Here's all of it, including a rebuilt
-      version that already runs.</p>
+    <p class="lede">Apple will remove OptiListen from the App Store on 24 November unless we update it.
+      This note covers what the app was, what changed around it, and three options for what happens
+      next. It includes a rebuilt version that already runs.</p>
 
     <div class="from">A note for Dan · from Christian · September 2026</div>
   </header>
 
   <section>
-    <div class="eyebrow">The picture the app is built around</div>
-    <h2>One number, and a line you drew before the conversation started</h2>
-    <p>Everything below comes back to this. Green is how much of the conversation you actually
-      took up. The brass line is the ceiling you set for yourself beforehand, before you knew how
-      it would go.</p>
+    <div class="eyebrow">What the app shows you</div>
+    <h2>The number and the ceiling</h2>
+    <p>Green is how much of the conversation you took up. The brass line is the ceiling you
+      set beforehand.</p>
 
     <div class="measure">
       <div class="measure-top">
@@ -353,64 +351,54 @@
     <div class="eyebrow">Where we started</div>
     <h2>The version you know measured how much you talked</h2>
     <p>You set the phone beside you on a call and afterward it told you what share of the talking
-      was yours. In 2021 that was a real thing to know and nothing else would tell you.</p>
-    <p>Two things have happened since, and they point in opposite directions.</p>
-
-    <p class="pull">The thing we built is now a free feature of everything.</p>
-
-    <p><strong>Talk-time measurement got absorbed.</strong> Zoom, Teams, Granola, Gong and Fathom
-      all report who spoke how much, at higher accuracy than a phone on a table can manage, without
+      was yours. In 2021 nothing else would tell you that.</p>
+    <p><strong>Talk-time measurement is now built into other tools.</strong> Zoom, Teams, Granola, Gong and Fathom
+      all report who spoke how much, more accurately than a phone on a table can measure, without
       anyone remembering to start anything. Rebuilding OptiListen as a measurement app in 2026 means
-      competing with a checkbox inside tools people already have open.</p>
+      competing with a checkbox in tools people already have open.</p>
 
-    <p><strong>And it never really worked the way it promised.</strong> I went back through the old
-      build to be sure about this. On an iPhone, an app that isn't playing audio gets suspended
-      shortly after you switch away from it — so the original app stopped listening roughly
+    <p><strong>And it never worked as promised.</strong> On an iPhone, an app that isn't playing audio gets suspended
+      shortly after you switch away from it, so the original app stopped listening roughly
       thirty seconds into a call and reported a confident percentage based on that. The team raised
       it to fifty seconds; Apple rejected a build over the workaround in July 2023. The number
-      people saw was a sample of the first minute, presented as the meeting.</p>
+      people saw was a sample of the first minute, presented as the whole meeting.</p>
   </section>
 
   <section>
-    <div class="eyebrow">What nobody is doing</div>
-    <h2>Every one of those tools tells you what happened. None of them helps you get better.</h2>
+    <div class="eyebrow">What the other tools don't do</div>
+    <h2>Those tools report what happened. None of them helps you practice.</h2>
     <p>A transcript summary arrives after the meeting, when there's nothing left to do about it.
-      That's analytics. What no tool does is treat a conversation as something you practice — which
-      is the only framing under which any of this changes how someone actually behaves.</p>
+      No tool treats a conversation as something you practice.</p>
 
     <div class="moments">
       <div class="moment">
         <div class="when">Before</div>
         <h3>Commit to something</h3>
-        <p>Set a ceiling and write one line: "ask before answering." Ten seconds, and now there's
-          something to fail at.</p>
+        <p>Set a ceiling and write one line: "ask before answering." It takes ten seconds.</p>
       </div>
       <div class="moment">
         <div class="when">During</div>
-        <h3>See the gap while it matters</h3>
-        <p>One number and your own line, on the table in front of you, at the moment you can still
-          do something about it.</p>
+        <h3>See the gap during the call</h3>
+        <p>One number and your own line, on the table in front of you, while you can still act on it.</p>
       </div>
       <div class="moment">
         <div class="when">After</div>
         <h3>Say how present you were</h3>
-        <p>Not what the microphone heard — what you know. You can hit your number and still have
-          been somewhere else entirely.</p>
+        <p>Your own judgment, not the microphone's. You can hit your number and still not have been
+          paying attention.</p>
       </div>
     </div>
 
-    <p>The unit stops being the number and becomes the loop. In the rebuild, a conversation counts
-      as practiced if you set an intention and reflected on it — <em>even if there's no
-      measurement at all.</em> A perfect ratio with no reflection doesn't count. That inversion is
-      the whole product argument, and it's the one thing none of the incumbents can copy without
-      changing what they are.</p>
+    <p>In the rebuild, a conversation counts as practiced if you set an intention and reflected
+      on it, <em>even with no measurement.</em> A perfect ratio with no reflection doesn't count.
+      The meeting tools would have to change what they are to copy it.</p>
   </section>
 
   <section>
     <div class="eyebrow">What already exists</div>
-    <h2>The four screens, as built</h2>
-    <p>These are drawn from the rebuilt app's actual code — same words, same layout. It's roughly
-      eleven hundred lines of Swift, written fresh rather than patched, and it runs on a phone
+    <h2>The four screens</h2>
+    <p>These are drawn from the rebuilt app's code, with the same words and layout. The app is
+      about eleven hundred lines of Swift, written fresh rather than patched, and it runs on a phone
       today.</p>
 
     <div class="screens">
@@ -445,8 +433,8 @@
           <div class="btn">End</div>
         </div></div>
         <div class="cap"><b>During.</b> One number, your line, a timer. It turns amber if you cross
-          your ceiling. With headphones on there's no number at all — just the line — because the
-          microphone could only hear you.</div>
+          your ceiling. With headphones on there's no number, only the line, because the microphone
+          could only hear you.</div>
       </div>
 
       <div class="shot">
@@ -463,7 +451,7 @@
             <div class="field filled">Caught myself twice. Once I didn't.</div></div>
         </div></div>
         <div class="cap"><b>After.</b> The reading, your own presence score, a note. "Later" saves it
-          as unfinished and brings it back rather than letting you quietly skip it.</div>
+          as unfinished and brings it back rather than letting you skip it.</div>
       </div>
 
       <div class="shot">
@@ -482,7 +470,7 @@
             <div class="row"><div class="t">Dinner<small>Listen for what's not said.</small></div><span class="n">—</span></div></div>
         </div></div>
         <div class="cap"><b>Home.</b> Conversations practiced, anything left open, the trend. The
-          dash on "Dinner" is a conversation with no reading — and it still counts.</div>
+          dash on "Dinner" is a conversation with no reading, and it still counts.</div>
       </div>
 
     </div>
@@ -491,33 +479,33 @@
   </section>
 
   <section>
-    <div class="eyebrow">Honest status</div>
-    <h2>What's real, and what isn't yet</h2>
+    <div class="eyebrow">Status</div>
+    <h2>What's working, and what isn't yet</h2>
 
     <div class="split">
       <div class="col yes">
         <div class="h">Working</div>
         <ul>
-          <li>The full loop, <b>before → during → after</b>, end to end.</li>
-          <li><b>Live listening.</b> Loudness only, on the phone, in the moment — no recording, no
+          <li>The full loop, <b>before → during → after</b>.</li>
+          <li><b>Live listening.</b> Loudness only, on the phone, during the call. No recording, no
             transcript, no account, nothing sent anywhere.</li>
-          <li>A <b>calibration</b> step that learns your voice against the room, and that will tell
-            you honestly when it can't — rather than inventing a number.</li>
+          <li>A <b>calibration</b> step that learns your voice against the room, and says when it
+            can't rather than inventing a number.</li>
           <li><b>Typing the number yourself</b> instead, so the loop still closes with headphones on
             or the phone in a pocket.</li>
-          <li>It's <b>uploaded and in Apple's test system</b> right now.</li>
+          <li>It's <b>uploaded and in Apple's test system</b>.</li>
         </ul>
       </div>
       <div class="col not">
         <div class="h">Not yet</div>
         <ul>
-          <li><b>It crashes.</b> I hit it on my own phone and we have not found it yet — we've
-            fixed two plausible causes and neither was the one. That's the current work, and it's
-            why I haven't put it on your phone.</li>
+          <li><b>It crashes.</b> It happened on my phone and we haven't found the cause. Two
+            plausible causes are fixed and neither was it. That's why it isn't on your phone
+            yet.</li>
           <li><b>No first-run walkthrough.</b> It drops you straight in.</li>
           <li><b>Calibration forgets itself</b> between launches.</li>
-          <li><b>Reading the number out of Zoom or Granola</b> is designed for but not built —
-            their access is locked behind business plans today.</li>
+          <li><b>Reading the number out of Zoom or Granola</b> is designed for but not built. Their
+            access is locked behind business plans today.</li>
           <li><b>New store screenshots</b> still to make.</li>
         </ul>
       </div>
@@ -526,7 +514,7 @@
 
   <section>
     <div class="eyebrow">What three years in the store looked like</div>
-    <h2>Almost no one used it — and a handful of strangers still find it every month</h2>
+    <h2>Almost no one used it, and a handful of strangers still find it every month</h2>
 
     <div class="tiles">
       <div class="tile"><b>96</b><div class="t-lab">downloads, ever</div>
@@ -537,16 +525,15 @@
         <div class="t-sub">5 NEW DOWNLOADS · NO MARKETING</div></div>
     </div>
 
-    <p>I find the third number more interesting than the first two. Nobody has touched this app in
-      three years, and people are still searching their way to it and installing it. That's not
-      a business — it's five people a month — but it does say the phrase "listen better" sends
-      people looking, and that the thing they found gave them nothing to come back to. Which is
-      exactly what a measurement-only app would do.</p>
+    <p>Nobody has touched this app in three years, and people still search for it and install it.
+      Five people a month isn't a business, but it shows the phrase "listen better" sends people
+      looking, and that what they found gave them nothing to come back to. A measurement-only app
+      would do that.</p>
   </section>
 
   <section>
     <div class="eyebrow">The clock</div>
-    <h2>One hard date</h2>
+    <h2>The deadline: 24 November</h2>
     <div class="dates">
       <div class="date"><span class="d">26 Aug 2026</span>
         <span class="w">Apple's notice: OptiListen is scheduled for removal as an app that hasn't
@@ -558,78 +545,76 @@
         <span class="w"><b>Removed from the App Store</b> unless an update has been submitted and
           approved by then. The listing, the reviews and the name all go with it.</span></div>
     </div>
-    <p class="tight">Two of the three options below need an approved update before that date. One
-      doesn't need anything.</p>
+    <p class="tight">Two of the three options below need an approved update before that date. The
+      third needs nothing.</p>
   </section>
 
   <section>
     <div class="eyebrow">Three futures</div>
-    <h2>Laid out evenly, because I don't think this one is mine to decide</h2>
-    <p>These are genuinely different bets, not a ladder with a right answer at the top. I've tried
-      to write each one as its own advocate would.</p>
+    <h2>Three options</h2>
+    <p>These are different bets, not a ranking. Each is written as its advocate would write
+      it.</p>
 
     <div class="options">
 
       <div class="option">
         <div class="option-hd">
           <h3>Keep the shelf space</h3>
-          <p>Ship the smallest honest update that satisfies Apple, and leave OptiListen exactly what
-            it is. Decide the rest later, with more information and no deadline.</p>
+          <p>Ship the smallest update that satisfies Apple and leave OptiListen as it is. Decide the
+            rest later, without a deadline.</p>
         </div>
         <div class="grid">
           <div>What it means</div>
-          <div>The rebuilt app goes up because it has to be modern to be accepted at all, but we
-            don't promote it, don't extend it, and don't ask anything of it.</div>
+          <div>The rebuilt app goes up because it has to be modern to be accepted, but we don't
+            promote it or extend it.</div>
           <div>What it takes</div>
-          <div>Finishing the crash and the store paperwork. Weeks, not months, and most of it is
-            already done.</div>
+          <div>Fixing the crash and finishing the store paperwork. Weeks, not months, and most of it
+            is already done.</div>
           <div>What it wins</div>
-          <div>The listing stays alive, the name stays ours, and the five-people-a-month keeps
-            trickling. Every other option stays open indefinitely.</div>
+          <div>The listing stays alive, the name stays ours, and five people a month keep downloading
+            it. Every other option stays open.</div>
           <div>What it costs</div>
-          <div>Nothing changes. It stays a measurement app in a world that measures for free, and
-            we'll be having this same conversation whenever we next look up.</div>
+          <div>Nothing changes. It stays a measurement app while other tools measure for free, and
+            we'll have this same conversation the next time we look at it.</div>
         </div>
       </div>
 
       <div class="option">
         <div class="option-hd">
           <h3>Build the practice tool</h3>
-          <p>Treat the rebuild as the beginning rather than the compliance step, and go make the
-            thing none of the meeting tools are going to make.</p>
+          <p>Treat the rebuild as the start of a product rather than the compliance step.</p>
         </div>
         <div class="grid">
           <div>What it means</div>
-          <div>Finish the loop properly — the walkthrough, the reflection you come back to, a reason
-            to open it a second time — and put it in front of people who already want to be better
-            at this: coaches, facilitators, new managers.</div>
+          <div>Finish the loop: the walkthrough, the reflection you come back to, a reason to open it
+            a second time. Put it in front of people who already want to improve at this: coaches,
+            facilitators, new managers.</div>
           <div>What it takes</div>
-          <div>Sustained attention over months, not a push. Design, real people testing it, and
-            someone caring whether anyone comes back.</div>
+          <div>Sustained attention over months. Design, people testing it, and someone tracking
+            whether anyone comes back.</div>
           <div>What it wins</div>
-          <div>A claim nobody else is making, in a category everyone else has reduced to a
-            statistic. If practice-as-a-product works at all, it works here.</div>
+          <div>A claim nobody else is making.</div>
           <div>What it costs</div>
-          <div>The time, and a real risk: practicing is a habit, and most people don't want one.
-            Those 96 downloads are not evidence that they do.</div>
+          <div>The time, and the risk that practicing is a habit most people don't want. Those 96
+            downloads are not evidence that they do.</div>
         </div>
       </div>
 
       <div class="option">
         <div class="option-hd">
           <h3>Retire it on purpose</h3>
-          <p>Let it go deliberately, while we can still say what it was for, rather than letting
-            Apple's sweep do it for us in November.</p>
+          <p>Let it go while we can still say what it was for, rather than letting Apple's sweep do
+            it in November.</p>
         </div>
         <div class="grid">
           <div>What it means</div>
           <div>No update. On 24 November the listing comes down. We keep optilisten.com, write the
-            honest account of what we tried and what the market did, and put it up there.</div>
+            account of what we tried and what the market did, and put it up there.</div>
           <div>What it takes</div>
-          <div>An afternoon. Everything else is already built.</div>
+          <div>One piece of writing. Everything else is already built.</div>
           <div>What it wins</div>
-          <div>A clean ending and the attention back. OptiListen was three years early to something
-            that is now standard equipment, and that's a real thing to have been.</div>
+          <div>A clean ending, and the attention it takes goes elsewhere. OptiListen was three years
+            early to something that is now standard equipment.</div>
           <div>What it costs</div>
           <div>The listing and the name, permanently. Starting again later means a new record, a new
             identity, and none of the history.</div>
@@ -644,16 +629,16 @@
     <div class="close">
       <h2>Nothing needed from you right now</h2>
       <p>I wanted you to have the whole picture before there's any decision in front of you, rather
-        than a summary after I'd already made up my mind. I haven't.</p>
-      <p>Next from me: the crash, then the working app on your phone so you can hold the thing
-        rather than read about it. When you've used it a few times, we talk about which of the
-        three this should be — and I'll tell you then what I actually think.</p>
+        than a summary after I'd already made up my mind.</p>
+      <p>Next from me: the crash, then the working app on your phone so you can use it rather than
+        read about it. When you've used it a few times, we talk about which of the three this should
+        be, and I'll tell you then what I think.</p>
       <div class="sign">— Christian</div>
     </div>
   </section>
 
   <div class="foot">
-    OptiListen · a Long Sky Media app · written September 2026<br>
+    OptiListen · a Long Sky Media app · September 2026 · drafted by Claude for Christian<br>
     Download figures from App Store Connect, lifetime through September 2026. Screens drawn from the
     rebuilt app's own code.
   </div>

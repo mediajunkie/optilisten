@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-16 (rev 19) · **Deadline:** 2026-11-24 (69 days · day 21 of 90 — still carried from the 08-26 notice; nobody has read it back from App Store Connect)
+**Maintained by:** Cairn · **Updated:** 2026-09-16 (rev 20) · **Deadline:** 2026-11-24 (69 days · day 21 of 90 — still carried from the 08-26 notice; nobody has read it back from App Store Connect)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
@@ -38,8 +38,23 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| 1 | **Send me Dan's feedback on the AI writing tics** — you said you'd share it. | It's the only thing that improves the brochure, and the same tics are presumably in everything else I write for you to send. I'd rather fix the class than the instance. | ~1 min | a corrected brochure, and my prose generally |
-| 2 | **Nothing else.** Pard fetches the new crash log; the next build is a diagnostic build, not a fix. | Item 1 aside, the loop runs without you until there's something to install. | — | — |
+| — | **Nothing.** Dan's feedback arrived and is applied; Pard has the crash log fetch; the next build is a diagnostic build. | One thing to overrule if you want to: the brochure's footer now reads "drafted by Claude for Christian," and every first-person claim that wasn't your own action or decision is gone. Dan's markup flagged that as its most serious item. Change the byline if you'd rather handle the disclosure differently. | — | — |
+
+## Dan's answer
+
+**Good doc, good plan, and he volunteered to test the app** ("happy to try for the practice app if
+it's not too much of a hassle"). He also ran his own `no-ai-tropes` skill over the brochure twice and
+sent back **83 comments, 90 deletions, 20 em dashes, on about 1,400 words**, with the note that he
+gets "itchy" reading AI-speak. The content was fine. The prose nearly stopped him reading it.
+
+**Ten of the 83 are not about phrasing.** The document was agent-written, in the first person, signed
+with your name, containing claims about what you had done and thought that you had neither done nor
+said. That is the same failure as this month's others, one layer out: reporting our own output as a
+reading of the world. Written up as `mediajunkie/docs/convention-plain-language.md` and sent to
+Themis for the shared methodology, per your instruction.
+
+Brochure republished as v2 with every edit applied. Dan's skill and the full markup archived at
+`docs/reference/`.
 
 ## A live strategic option, not yet a recommendation
 

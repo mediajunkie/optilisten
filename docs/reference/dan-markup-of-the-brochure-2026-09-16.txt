@@ -1,0 +1,112 @@
+Markup notes
+Two passes are marked here as one set of tracked changes. The first removed AI-speak: em dashes, throat-clearing, announced candor, empty intensifiers, punchy fragments, claims the text could not support. The second cut the remaining wordiness and the phrases written for effect rather than for meaning. Comments starting "Plain language" are from the second pass.
+One issue is not about phrasing. The document is written in the first person and signed by Christian. Six passages state actions and opinions as his. Those are flagged where they occur.
+
+Three futures for OptiListen
+Apple «-is going to remove»«+will remove» OptiListen from the App Store on 24 November unless we update it. «-That deadline made me go back and look at the whole thing properly — what it was, what changed around it, and what it could still be. Here’s all of it, including a rebuilt version that already runs.»«+This note covers what the app was, what changed around it, and three options for what happens next. It includes a rebuilt version that already runs.»
+A note for Dan · from Christian · September 2026
+
+«-THE PICTURE THE APP IS BUILT AROUND»«+WHAT THE APP SHOWS YOU»
+«-One number, and a line you drew before the conversation started»«+The number and the ceiling»
+«-Everything below comes back to this. »Green is how much of the conversation you «-actually »took up. The brass line is the ceiling you set «-for yourself »beforehand«-, before you knew how it would go».
+24% of 30%   ·   1:1 with Marcus · 27 min · practicing: ask before answering
+
+WHERE WE STARTED
+The version you know measured how much you talked
+You set the phone beside you on a call and afterward it told you what share of the talking was yours. In 2021 «-that was a real thing to know and nothing else would tell you»«+nothing else would tell you that».
+«-Two things have happened since, and they point in opposite directions.»
+«-The thing we built is now a free feature of everything.»
+Talk-time measurement «-got absorbed»«+is now built into other tools». Zoom, Teams, Granola, Gong and Fathom all report who spoke how much, «-at higher accuracy than»«+more accurately than» a phone on a table can «-manage»«+measure», without anyone remembering to start anything. Rebuilding OptiListen as a measurement app in 2026 means competing with a checkbox «-inside»«+in» tools people already have open.
+And it never «-really »worked «-the way it promised»«+as promised». «-I went back through the old build to be sure about this. »On an iPhone, an app that isn’t playing audio gets suspended shortly after you switch away from it«- — so»«+, so» the original app stopped listening roughly thirty seconds into a call and reported a confident percentage based on that. The team raised it to fifty seconds; Apple rejected a build over the workaround in July 2023. The number people saw was a sample of the first minute, presented as the «+whole »meeting.
+
+«-WHAT NOBODY IS DOING»«+WHAT THE OTHER TOOLS DON’T DO»
+«-Every one of those tools tells you what happened. None of them helps you get better.»«+Those tools report what happened. None of them helps you practice.»
+A transcript summary arrives after the meeting, when there’s nothing left to do about it. «-That’s analytics. What no tool does is treat a conversation as something you practice — which is the only framing under which any of this changes how someone actually behaves.»«+No tool treats a conversation as something you practice.»
+BEFORE
+Commit to something
+Set a ceiling and write one line: "ask before answering." «-Ten seconds, and now there’s something to fail at.»«+It takes ten seconds.»
+DURING
+See the gap «-while it matters»«+during the call»
+One number and your own line, on the table in front of you, «-at the moment you can still do something about it»«+while you can still act on it».
+AFTER
+Say how present you were
+«-Not what the microphone heard — what you know. You can hit your number and still have been somewhere else entirely.»«+Your own judgment, not the microphone’s. You can hit your number and still not have been paying attention.»
+«-The unit stops being the number and becomes the loop. In»«+In» the rebuild, a conversation counts as practiced if you set an intention and reflected on it«- — even if there’s»«+, even with» no measurement«- at all». A perfect ratio with no reflection doesn’t count. «-That inversion is the whole product argument, and it’s the one thing none of the incumbents can copy without changing what they are.»«+The meeting tools would have to change what they are to copy it.»
+
+WHAT ALREADY EXISTS
+The four screens«-, as built»
+These are drawn from the rebuilt app’s «-actual »code«- — same words, same layout»«+, with the same words and layout». «-It’s roughly»«+The app is about» eleven hundred lines of Swift, written fresh rather than patched, and it runs on a phone today.
+Before. Pick a ceiling, write one line about what you’re working on. The line is required; naming the conversation isn’t.
+During. One number, your line, a timer. It turns amber if you cross your ceiling. With headphones on there’s no number«- at all — just the line — »«+, only the line, »because the microphone could only hear you.
+After. The reading, your own presence score, a note. "Later" saves it as unfinished and brings it back rather than letting you «-quietly »skip it.
+Home. Conversations practiced, anything left open, the trend. The dash on "Dinner" is a conversation with no reading«- — and»«+, and» it still counts.
+Example names and numbers on the Home screen are invented to show the layout. Everything else is the app’s real wording.
+
+«-HONEST STATUS»«+STATUS»
+What’s «-real»«+working», and what isn’t yet
+WORKING
+The full loop, before → during → after«-, end to end».
+Live listening. Loudness only, on the phone, «-in the moment»«+during the call»«- — no»«+. No» recording, no transcript, no account, nothing sent anywhere.
+A calibration step that learns your voice against the room, and «-that will tell you honestly when it can’t — rather than»«+says when it can’t rather than» inventing a number.
+Typing the number yourself instead, so the loop still closes with headphones on or the phone in a pocket.
+It’s uploaded and in Apple’s test system«- right now».
+NOT YET
+It crashes. «-I hit it on my own phone and we have not found it yet — we’ve fixed two plausible causes and neither was the one. That’s the current work, and it’s why I haven’t put it on your phone.»«+It happened on my phone and we haven’t found the cause. Two plausible causes are fixed and neither was it. That’s why it isn’t on your phone yet.»
+No first-run walkthrough. It drops you straight in.
+Calibration forgets itself between launches.
+Reading the number out of Zoom or Granola is designed for but not built«- — their»«+. Their» access is locked behind business plans today.
+New store screenshots still to make.
+
+WHAT THREE YEARS IN THE STORE LOOKED LIKE
+Almost no one used it«- — and»«+, and» a handful of strangers still find it every month
+96 downloads, ever (Jan 2023 – Sep 2026)  ·  ~1 session per person before they stopped  ·  548 store impressions in the last 30 days, 5 new downloads, no marketing
+«-I find the third number more interesting than the first two. »Nobody has touched this app in three years, and people «-are still searching their way to it and installing it»«+still search for it and install it». «-That’s not a business — it’s five people a month — but it does say»«+Five people a month isn’t a business, but it shows» the phrase "listen better" sends people looking, and that «-the thing they found»«+what they found» gave them nothing to come back to. «-Which is exactly what a measurement-only app would do.»«+A measurement-only app would do that.»
+
+THE CLOCK
+«-One hard date»«+The deadline: 24 November»
+26 Aug 2026. Apple’s notice: OptiListen is scheduled for removal as an app that hasn’t been updated in years. Routine housekeeping, not a complaint about the app.
+Now. Rebuilt app uploaded and in Apple’s test system. Chasing the crash.
+24 Nov 2026. Removed from the App Store unless an update has been submitted and approved by then. The listing, the reviews and the name all go with it.
+Two of the three options below need an approved update before that date. «-One doesn’t need anything.»«+The third needs nothing.»
+
+THREE FUTURES
+«-Laid out evenly, because I don’t think this one is mine to decide»«+Three options»
+These are «-genuinely »different bets, not a «-ladder with a right answer at the top»«+ranking». «-I’ve tried to write each one as its own advocate would.»«+Each is written as its advocate would write it.»
+Keep the shelf space
+Ship the smallest «-honest »update that satisfies Apple«-, and leave OptiListen exactly what it is. Decide the rest later, with more information and no deadline.»«+ and leave OptiListen as it is. Decide the rest later, without a deadline.»
+WHAT IT MEANS
+The rebuilt app goes up because it has to be modern to be accepted«- at all», but we don’t promote it«-, don’t extend it, and don’t ask anything of it»«+ or extend it».
+WHAT IT TAKES
+«-Finishing»«+Fixing» the crash and «+finishing »the store paperwork. Weeks, not months, and most of it is already done.
+WHAT IT WINS
+The listing stays alive, the name stays ours, and «-the five-people-a-month keeps trickling»«+five people a month keep downloading it». Every other option stays open«- indefinitely».
+WHAT IT COSTS
+Nothing changes. It stays a measurement app «-in a world that measures for free»«+while other tools measure for free», and we’ll «-be having»«+have» this same conversation «-whenever we next look up»«+the next time we look at it».
+Build the practice tool
+Treat the rebuild as the «-beginning»«+start of a product» rather than the compliance step«-, and go make the thing none of the meeting tools are going to make».
+WHAT IT MEANS
+Finish the loop«- properly — the»«+: the» walkthrough, the reflection you come back to, a reason to open it a second time«- — and»«+. Put it» in front of people who already want to «-be better at»«+improve at» this: coaches, facilitators, new managers.
+WHAT IT TAKES
+Sustained attention over months«-, not a push». Design, «-real »people testing it, and someone «-caring»«+tracking» whether anyone comes back.
+WHAT IT WINS
+A claim nobody else is making«-, in a category everyone else has reduced to a statistic». «-If practice-as-a-product works at all, it works here.»
+WHAT IT COSTS
+The time, and «-a real risk: practicing is a habit, and most people don’t want one»«+the risk that practicing is a habit most people don’t want». Those 96 downloads are not evidence that they do.
+Retire it on purpose
+Let it go «-deliberately, »while we can still say what it was for, rather than letting Apple’s sweep do it «-for us »in November.
+WHAT IT MEANS
+No update. On 24 November the listing comes down. We keep optilisten.com, write the «-honest »account of what we tried and what the market did, and put it up there.
+WHAT IT TAKES
+«-An afternoon»«+One piece of writing». Everything else is already built.
+WHAT IT WINS
+A clean ending«- and the attention back»«+, and the attention it takes goes elsewhere». OptiListen was three years early to something that is now standard equipment«-, and that’s a real thing to have been».
+WHAT IT COSTS
+The listing and the name, permanently. Starting again later means a new record, a new identity, and none of the history.
+
+WHERE THIS LEAVES YOU
+Nothing needed from you right now
+I wanted you to have the whole picture before there’s any decision in front of you, rather than a summary after I’d already made up my mind. «-I haven’t.»
+Next from me: the crash, then the working app on your phone so you can «-hold the thing rather than read about it»«+use it rather than read about it». When you’ve used it a few times, we talk about which of the three this should be«- — and»«+, and» I’ll tell you then what I «-actually »think.
+«-— Christian»«+[Drafted by Claude for Christian. Signature to be added only if Christian writes the first-person passages himself.]»
+
+OptiListen · a Long Sky Media app · written September 2026. Download figures from App Store Connect, lifetime through September 2026. Screens drawn from the rebuilt app’s own code.

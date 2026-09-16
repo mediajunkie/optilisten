@@ -1,30 +1,29 @@
 # For Dan
 
-Pages written *for* Dan Brodnitz, in xian's voice. No agent names, no toolchain, no compliance
-vocabulary. Dan's feedback on the first update email was that it was "thick with AI tech jargon and
-insider speak" — that's the bar these are written against.
+Pages written for Dan Brodnitz. No agent names, no toolchain, no compliance vocabulary.
 
-## `three-futures-for-optilisten.html` — **current; this is the one to send**
+## `three-futures-for-optilisten.html` — current, v2
 
 Artifact: https://claude.ai/artifact/LPGPWVbQqt9KNasevjz5mV
 
-The proposal. Three futures — keep the shelf space / build the practice tool / retire it on purpose
-— laid out at deliberately equal weight, each with the same four-row structure so the layout itself
-doesn't argue for one. **No recommendation and no ask at the end**, per xian's call on 09-14: the
-recommendation is something he'd rather give Dan in conversation, once Dan has the working app in
-his hand.
+Three futures (keep the shelf space / build the practice tool / retire it on purpose) at equal
+weight, same four-row structure each, no recommendation and no ask. xian's call on 09-14: the
+recommendation goes to Dan in conversation once he has the working app.
 
-Absorbs the explainer page below — the screens, the practice-loop argument and the honest status all
-live here now. Send this one, not both.
+**Dan's response, 09-16:** good doc, good plan, and he volunteered to test the app. He also ran his
+own `no-ai-tropes` skill over it twice and sent back 83 comments. **v2 applies every one of them.**
+The markup and his skill are archived at `docs/reference/`; the universal version of the standard is
+`mediajunkie/docs/convention-plain-language.md`.
 
-Private until shared from the artifact's own share menu. Republish that same URL; don't make a new
-one.
+Ten of the 83 were not about phrasing: the document was agent-written, in the first person, and
+signed with xian's name, making claims about what he had done and thought. v2 removes every
+first-person claim that was not xian's own action or decision, and the footer now says the page was
+drafted by Claude for Christian. **If xian wants a different byline, that line is the thing to
+change.**
 
-**Update it when a build survives use:** the "It crashes" line comes out of the Not-yet column, and
+Still to do when a build survives use: the "It crashes" line comes out of the Not-yet column, and
 the prototype goes to Dan's phone.
 
 ## `what-optilisten-does-now.html` — superseded
 
-Artifact: https://claude.ai/code/artifact/98ea8355-2747-49f0-9d9a-b64e33fe521a
-
-The first explainer, 09-12. Kept for the record. Its content is inside the brochure now.
+The first explainer, 09-12. Its content is inside the brochure. Kept for the record.
