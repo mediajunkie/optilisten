@@ -209,33 +209,38 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 14 Sep 2026, 21:40 PT · rev 17 · file and page in sync</div>
+    <div class="stamp">Updated 16 Sep 2026, 08:45 PT · rev 18 · file and page in sync</div>
   </header>
 
-  <section class="win">
-    <div class="tag">The stack — and the cause</div>
-    <p><b>Nothing is waiting on you.</b> Pard pulled the symbolicated log by API after all: his
-      <code>/crashLog</code> 404 was <b>a truncated submission ID</b>, not a missing resource — he had
-      printed <code>id[:12]</code> for readability in an earlier probe and then used the printed string
-      as the identifier. With the full ID it returns 200 and 23,762 bytes of <code>logText</code>.
-      <b>No console login, no Organizer, no signed-in Xcode — rev 16 asked you for something that was
-      never needed.</b> The crash is a <b>Swift 6 actor-isolation assert</b>
-      (<code>EXC_BREAKPOINT</code>, a deliberate runtime trap rather than memory corruption) firing on
-      AVFAudio's real-time thread inside <code>start()</code>'s tap closure:
-      <code>LiveMicSource</code> is <code>@MainActor</code>, the tap runs off it, and
-      <code>guard let self</code> touches isolated state from the audio thread — which under
-      <code>SWIFT_STRICT_CONCURRENCY: complete</code> is a hard trap. <b>Calibration's tap captures no
-      <code>self</code> at all, which is exactly why it was never the path.</b> The next move is a
-      design call, and it's mine.</p>
+    <section class="win">
+    <div class="tag">The fix is in — and it took me 58 hours</div>
+    <p><b>Still nothing waiting on you.</b> The tap closure in <code>LiveMicSource.start()</code> is
+      now <code>@Sendable</code>, which makes it <b>nonisolated</b>. The defect was never the
+      <code>guard let self</code>: a closure written inside a <code>@MainActor</code> class and
+      <b>not</b> marked <code>@Sendable</code> <b>inherits that isolation</b>, so Swift 6 compiled a
+      hard <code>_swift_task_checkIsolated</code> precondition into its entry — and that
+      precondition is the <code>dispatch_assert_queue_fail</code> at the top of Pard’s trace. It
+      fired <em style="font-style:italic;display:inline">before the first line of the body ran</em>.
+      The block now touches nothing isolated and hands a plain <code>Double</code> to the actor,
+      which is the shape calibration’s tap always had. <code>fc806dd</code>, plus
+      <code>ed10b05</code> for the same pattern in the interruption observer and <code>0ea5f9f</code>
+      bumping the build number to 3 so the upload has a number of its own.</p>
+    <p><b>One caveat worth your eyes:</b> kindbook has no SDK, so this is syntax-checked and nothing
+      more — <b>I could not compile it.</b> Amber’s build is the first real test, and a green
+      build still proves less than a phone does, because an isolation assert is a <b>runtime</b>
+      precondition. The proof is the practice loop starting on a device and not trapping.</p>
+    <p><b>And the honest part: this sat for 58 hours.</b> Rev 17 said the design call was mine, and
+      then the session ended without landing it. Pard had the elapsed figure in his 09-15 log before
+      I did. A claim in this rollup reads exactly like work in progress and is not work in progress.</p>
   </section>
 
   <section class="clock" aria-label="Grace period remaining">
     <div class="clock-top">
-      <div class="days">71<span>days left in the grace period</span></div>
+      <div class="days">69<span>days left in the grace period</span></div>
       <div class="target">removal 24 Nov 2026<br>notice served 26 Aug</div>
     </div>
-    <div class="meter" role="img" aria-label="19 of 90 days elapsed"><i style="width:21.1%"></i></div>
-    <div class="scale"><span>day 19 of 90</span><span>21% spent</span></div>
+    <div class="meter" role="img" aria-label="21 of 90 days elapsed"><i style="width:23.3%"></i></div>
+    <div class="scale"><span>day 21 of 90</span><span>23% spent</span></div>
     <div class="caveat">▲ Still the 26 Aug screenshot, never read back from Apple. <b>Two builds have
       now been accepted</b>, which often moves a removal clock — so this number may be pessimistic and
       nobody has looked. One glance in App Store Connect settles it, and item 01 puts someone there
@@ -266,26 +271,17 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>In flight</h2><span class="count">the fix, then 34 minutes</span></div>
+    <div class="sec-hd"><h2>In flight</h2><span class="count">34 minutes, and they are Pard’s</span></div>
     <div class="rows">
-      <div class="row warnrow"><div class="who">Cairn</div><div class="txt">
-        <b>Choose and push the isolation fix.</b> The trace names the closure, but there are at least
-        three defensible shapes — tap captures nothing isolated and hops to the actor with the value;
-        <code>classify</code> goes <code>nonisolated</code> over a lock; level state moves into a
-        dedicated actor as <code>Samples</code> already is.
-        <em>Picking among them is a design call about where this class's state should live, which is
-        why Pard declined to make it. Critical path.</em></div></div>
       <div class="row warnrow"><div class="who">Pard</div><div class="txt">
-        <b>Build 3 the moment the fix is pushed</b> — build, standing artifact check, binary grep,
-        upload. 34 minutes, warm, proven twice.
-        <em>Right to have refused to author the theory.</em></div></div>
-      <div class="row"><div class="who">Cairn</div><div class="txt">
-        <b>One candidate, to be tested against the log rather than instead of it.</b> Nothing in the
-        tree observes <code>scenePhase</code> or <code>didEnterBackground</code>, <code>stop()</code>
-        is only called from a view action at <code>PracticeLoopView.swift:57</code>, and the app
-        declares no <code>UIBackgroundModes</code> — so a running engine has nothing deactivating it
-        when the app backgrounds.
-        <em>A story with a code path attached, which is exactly what the last two were.</em></div></div>
+        <b>Build and ship 2.0 (3).</b> The fix is on <code>origin/main</code> at
+        <code>0ea5f9f</code> — build, standing artifact check, binary grep, upload. 34 minutes,
+        warm, proven twice.
+        <em>Also the first real compile of the change: kindbook could only parse it.</em></div></div>
+      <div class="row"><div class="who">Pard</div><div class="txt">
+        <b>Then pull the crash submission by API</b> with the standing <code>/crashLog</code>
+        capability, rather than waiting on xian to describe it.
+        <em>Three days of theorising is the price already paid for that.</em></div></div>
       <div class="row"><div class="who">Pard</div><div class="txt">
         <b>Re-check the removal date in App Store Connect</b> now that two builds have been accepted.
         <em>Natural to do in the same session as item 01.</em></div></div>
@@ -309,6 +305,30 @@
   <section class="sec">
     <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep · newest first</span></div>
     <div class="rows">
+      <div class="row done"><div class="who">Fixed</div><div class="txt">
+        <b>The isolation assert — <code>fc806dd</code>.</b> <code>start()</code>’s tap is
+        <code>@Sendable</code> and therefore nonisolated; it computes the level through the
+        <code>nonisolated static</code> and hops to the main actor carrying a <code>Double</code>.
+        <code>ed10b05</code> applies the same attribute to the interruption observer, which has the
+        identical shape and survives today only because <code>queue: .main</code> happens to land it
+        on the main queue — a separate commit so it can be dropped alone.
+        <code>0ea5f9f</code> bumps the build number to 3.
+        <em>Not compiled anywhere yet. Amber answers that.</em></div></div>
+      <div class="row done"><div class="who">Decided</div><div class="txt">
+        <b>Why <code>@Sendable</code> and not the other two shapes.</b> A <code>nonisolated</code>
+        <code>classify</code> over a lock would make every view read acquire a lock and cost
+        <code>@Observable</code> its single-threaded story. A counters actor looks symmetrical with
+        <code>Samples</code> and isn’t — <code>Samples</code> is write-only during capture and
+        read once at the end, while the live counters are read continuously by the UI, so an actor
+        forces a <code>@MainActor</code> mirror, and <b>a mirror is a second source of truth that can
+        lag.</b>
+        <em>For an app premised on a confident wrong number being worse than an honest partial one, a
+        drift-capable copy of the number does not go on the screen. State stays where it is; the
+        isolation moves.</em></div></div>
+      <div class="row done"><div class="who">Kept</div><div class="txt">
+        <b>Pard’s <code>df2997b</code> guards stay.</b> The permission gate on
+        <code>sampleLevel</code> and the 0 Hz refusal fixed a real defect that was never this one.
+        <em>Not reverted, and not wanted reverted.</em></div></div>
       <div class="row done"><div class="who">Shipped</div><div class="txt">
         <b>2.0 (2) exists</b> — 09-14 17:07, delivery <code>0702a0ea</code>, 34 minutes from Janus's
         GO. Carries the four Info.plist keys verified in the artifact, plus a real fix:
@@ -396,8 +416,12 @@
 
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Two builds shipped against two theories, and
-      nothing diagnosed.</b> Both theories were real defects; neither was the one. The pattern to break
+    <div class="risk"><span class="dot">▲</span><div><b>A claim in this rollup is not a
+      commit.</b> Rev 17 marked the isolation fix as mine and owned; it then sat unwritten for 58
+      hours while the row read — to Pard, to Janus, and to the next instance of me — exactly
+      like work in progress. <b>Ownership recorded here now has to be followed in the same fire by
+      either the work or a stated hand-off.</b></div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Two builds shipped against two theories before anything was diagnosed — build 3 is the first that ships against a stack.</b> Both theories were real defects; neither was the one. The pattern to break
       is reasoning from source to a mechanism we can <em style="font-style:italic;display:inline">see</em>
       when the reporter has already named a mechanism we'd have to go look for. Pard's own rule, adopted
       here: <b>when a report names two things and you can only explain one, the one you can't explain is
@@ -464,7 +488,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 17<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 18<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>
