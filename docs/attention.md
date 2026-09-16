@@ -1,44 +1,44 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-16 (rev 20) · **Deadline:** 2026-11-24 (69 days · day 21 of 90 — still carried from the 08-26 notice; nobody has read it back from App Store Connect)
+**Maintained by:** Cairn · **Updated:** 2026-09-16 (rev 21) · **Deadline:** 2026-11-24 (69 days · day 21 of 90 — still carried from the 08-26 notice; nobody has read it back from App Store Connect)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
 
-> **rev 19: 2.0 (3) tracks nothing and still dies — and the fourth theory is not being written.**
-> xian's report: it didn't crash immediately the way (2) did, but it never started tracking, and it
-> crashed eventually in a similar way. His read — whack-a-mole, look at the architecture or the
-> execution — is correct, and a full read of the capture path says why in one sentence.
+> **rev 21: the diagnostic build is written, pushed and handed to Pard — and there is no crash**
+> **artifact for 2.0 (3), which is the same defect one layer out.**
 >
-> **`PracticeLoopView.swift:198` is `try? await source.start()`, and `start()` has four throw
-> sites.** All four are discarded there. The view then renders `currentShare`, which is `0` when no
-> buffer ever arrives — so **a failed start is pixel-identical to a working start in a quiet room**,
-> and which of the four threw is unknowable from outside the process. `CalibrationView` does the
-> same one level worse: its `?? -20` / `?? -50` fallbacks build a `Calibration` numerically
-> identical to `.unavailable` — and **`.unavailable.isUsable` is `true`** — so a total calibration
-> failure is indistinguishable from a successful one.
+> **Pard checked twice, three hours apart: the crash feed has not moved.** Newest submission is
+> 09-15 and its `Version:` field reads 2.0 (2). **There is no 2.0 (3) artifact of any kind** — most
+> likely because a TestFlight crash submission only exists if the tester taps *Share* on a modal,
+> and this time he didn't or it didn't appear. His report stands as evidence; the artifact simply
+> isn't there. **Pard's standing check returned "nothing new," which was true and useless**, and he
+> had said on 09-14 that a quiet feed would be evidence the fix held. That inference is dead.
 >
-> **Root cause, and it implicates the process as much as the code: nothing in this loop has ever
-> required the app to report its own state.** Written without a device, verified by reading,
-> compiled on a machine that can't run it, shipped to a tester whose only instrument is "it
-> crashed." With no observability, every defect must be diagnosed by inference from source — which
-> is exactly where Pard and I have each failed three times this month. **The whack-a-mole isn't bad
-> luck; it's what this architecture plus this process necessarily produces.**
+> **Note the shape.** The app dies or does nothing and tells no one why — and our instrument for
+> watching it does the same. Both fail toward reassurance: a check that says "nothing new" when it
+> cannot see, and a view that renders a calm `0%` when nothing arrived. **Rule adopted: an
+> instrument that cannot distinguish "nothing happened" from "I could not see" is not a check, and
+> its quiet reading may not be reported as a result.**
 >
-> **So the next build should report rather than fix.** One build: every `try?` and `??` in the
-> capture path replaced by a rendered state, a `CaptureState` enum with `.failed(String)`, and a
-> rolling in-app event log xian can copy out. It converts every remaining bug from an inference
-> problem into a reading problem, once. Full writeup and five more defects found on the way:
-> `docs/architecture-review-2026-09-16.md`.
+> **So the diagnostic build shipped in the same fire that learned this** — `62feb22`, **2.0 (4)**,
+> with Pard's ask as its spine: the failure renders on screen, and the log copies with one tap, so
+> nothing depends on catching a modal. My own row had read "waiting on the crash log"; there is no
+> crash log, so that row would have waited forever. **The worst thing found while writing it:**
+> `CalibrationView` substituted `-20` and `-50` for two failed readings — which *is*
+> `Calibration.unavailable`, whose 30 dB gap passes `isUsable` — so a calibration in which **both
+> readings failed** drew a green checkmark and the word "Ready." Not silence: the opposite of the
+> truth, asserted confidently.
 ---
 
 ## Needs you
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| — | **Nothing.** Dan's feedback arrived and is applied; Pard has the crash log fetch; the next build is a diagnostic build. | One thing to overrule if you want to: the brochure's footer now reads "drafted by Claude for Christian," and every first-person claim that wasn't your own action or decision is gone. Dan's markup flagged that as its most serious item. Change the byline if you'd rather handle the disclosure differently. | — | — |
+| 1 | **Run 2.0 (4) when Pard lands it, then tap the stethoscope and paste the log.** One practice session is enough — start it, let it sit ten seconds, end it. | **This is the only step nobody else can do.** The build exists to make the app say what happened to it, and it says it to whoever is holding the phone. Three builds have now been diagnosed by reading source; this is the first one that can be diagnosed by reading the app. If (4) fails the same way and the log never leaves your phone, we are back to inference and I would rather you know that before it happens than after. | ~3 min | every remaining capture bug |
+| — | Previously here, still true: **nothing else.** Dan's feedback arrived and is applied; Pard has the crash log fetch; the next build is a diagnostic build. | One thing to overrule if you want to: the brochure's footer now reads "drafted by Claude for Christian," and every first-person claim that wasn't your own action or decision is gone. Dan's markup flagged that as its most serious item. Change the byline if you'd rather handle the disclosure differently. | — | — |
 
 ## Dan's answer
 
@@ -68,6 +68,21 @@ November.**
 
 ## Resolved this pass
 
+- **The diagnostic build is written and pushed** — `62feb22`, 2.0 (4). `CaptureState.failed(String)`
+  set before every throw so the reason survives a caller that swallows; `buffersReceived` separates
+  an engine receiving nothing from one that never started; `isCalibrated` says when a number is
+  computed against placeholder thresholds; a rolling event log copyable from the listening screen,
+  a stethoscope toolbar button, and a failed-calibration screen. `stop()` is now reachable from
+  every state (it guarded on `isRunning`, set last in `start()`, so a failed start could never be
+  torn down) and the interruption-observer token is held and removed.
+  **Syntax-checked only** — `swiftc -parse` clean on kindbook, which has no SDK, so no type
+  checking and no isolation analysis. Not compiled.
+- **The ask about the 2.0 (3) crash submission is answered: there isn't one.** Pard ran it twice
+  and re-pulled the logbody to rule out a cached list. Newest is 09-15 against 2.0 (2).
+- **One positive result survives from xian's report:** 2.0 (3) did *not* crash immediately the way
+  (2) did. That is the only evidence anyone has that the `@Sendable` fix did anything, and no
+  fourth theory has been built on it.
+
 - **The five-whys is done and the root cause is named** — `docs/architecture-review-2026-09-16.md`.
   Every defect this month (missing usage string → 0 Hz tap → isolation trap → tracks nothing)
   presents identically: the app dies or does nothing and tells no one why. One property, four
@@ -91,9 +106,9 @@ November.**
 
 | Owner | Item | Waiting on |
 |---|---|---|
-| **Pard** | **Fetch the new crash submission for 2.0 (3)** — full ID, `/v1/betaFeedbackCrashSubmissions/{id}/crashLog`, his standing capability. **And the submission text, not just the stack:** whether xian's own words name a different moment than "going to background" matters as much as the trace, and that is the half we dropped last week. | memo sent 09-16; asked explicitly not to build anything yet |
-| **Cairn** | **The diagnostic build.** Every `try?` and `??` in the capture path replaced by a rendered state; `CaptureState` enum with `.failed(String)`; a rolling in-app event log (start, permission result, sample rate, frames per buffer, buffers received, every error) xian can copy out of the app. **No crash fix in it.** | the crash log, so the instrumentation covers what actually failed |
-| **Cairn** | `calibration: Calibration?` and delete `.unavailable`; make "I don't know" representable | folds into the diagnostic build |
+| **Pard** | **Build and ship 2.0 (4) — `62feb22`.** Pipeline warm, ~30 min. Artifact-key and version-in-IPA checks either way. | memo sent 09-16; nothing blocking |
+| **Cairn** | `calibration: Calibration?` and delete `.unavailable`; make "I don't know" representable | **deliberately held out of 2.0 (4)** — it changes classification, and an observing build should not change what it observes. `isCalibrated` makes it visible meanwhile |
+| **Themis** | Carry the first-person convention to Janus as a Tier-2 candidate, in **his** framing of the recurrence, not mine | his call, taken 09-16 |
 | **Cairn** | Lifecycle state machine, one engine owner, `stop()` reachable from every non-idle state; real buffer-duration accounting | after the diagnostic build reports |
 | **Janus** | The flag-off-capture option as a decision with a date on it, rather than a November discovery | xian's call; on the table as of rev 19 |
 | **Pard** | Re-check the removal date in App Store Connect — three builds have now been accepted | a natural moment in the console |
@@ -103,7 +118,7 @@ November.**
 ## Standing risks
 
 - **Two builds shipped against two theories before anything was diagnosed; build 3 is the first that ships against a stack.** Both earlier theories were real defects; neither was the one. **The risk is not retired until a phone runs build 3** — a trace names a cause, and a cause is not yet a cure. The pattern to break is reasoning from source to a mechanism we can *see*, when the reporter has already named a mechanism we'd have to go look for. Pard's own rule, adopted here: **when a report names two things and you can only explain one, the one you can't explain is the finding.**
-- **No instrumentation.** Every crash this month was found because a human installed a build and hit it. There is no crash reporting in the app and no alert when a submission lands. xian raised this on 09-14 and today is the argument for it.
+- **No instrumentation — half-retired as of 2.0 (4).** The app can now say what happened to it, on screen and in a copyable log. What is still missing is the outer half: there is no alert when a submission lands, and **a crash that produces no submission is invisible to Pard's standing check** — which is exactly what 2.0 (3) did. xian raised this on 09-14.
 - **Compiling is not running, and running is not being used.** 2.0 has been launched on a real phone twice and died both times. Nobody has yet watched calibration, the mic tap, or the loop behave in an actual conversation.
 - **Calibration is `Codable` and nothing persists it** — recalibrates every cold launch.
 - **The fleet has one signing path and it expires Aug 2027.** The API can renew it; nothing watches for expiry.
