@@ -1,2 +1,9 @@
 node_modules/
 .DS_Store
+# Build output — untracked 2026-09-16 (Pard). These 17 files entered the repo via my own
+# `git add -A` in df2997b, two days after I wrote "stage explicit paths in other agents' repos,
+# never add -A" following the dispatch mass-deletion. They are regenerable, they dirty the tree on
+# every build (which blocked fast-forward and tripped my own clone checker), and versioning a
+# signed binary makes the diff unreadable. Previous-build controls now live outside git at
+# ~/.local/state/optilisten-builds/.
+build/
