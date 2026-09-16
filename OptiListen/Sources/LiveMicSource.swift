@@ -140,10 +140,24 @@ final class LiveMicSource: LiveTalkRatioSource {
         guard format.sampleRate > 0 else { throw TalkRatioSourceError.inputUnavailable }
         let frames = AVAudioFrameCount(format.sampleRate * bufferSeconds)
 
-        input.installTap(onBus: 0, bufferSize: frames, format: format) { [weak self] buffer, _ in
-            guard let self else { return }
+        // This block runs on AVFAudio's real-time messenger thread, and it must not
+        // inherit this class's `@MainActor` isolation. A non-`@Sendable` closure
+        // written inside an isolated context inherits that isolation, and under Swift 6
+        // with `SWIFT_STRICT_CONCURRENCY: complete` the compiler emits a hard
+        // `_swift_task_checkIsolated` precondition at closure entry. Off the main
+        // actor that precondition is a `SIGTRAP`, not a warning: it is what killed
+        // 2.0 (2) at `closure #1 in LiveMicSource.start()`, one frame below
+        // `AVAudioNodeTap::CheckEmitBuffer`.
+        //
+        // `@Sendable` makes the closure nonisolated. It then touches no isolated
+        // state at all: the level is computed by a `nonisolated static`, and the only
+        // thing that crosses to the actor is a `Double`. `sampleLevel`'s tap was
+        // always shaped this way — it captures no `self` — which is precisely why
+        // calibration never crashed while this site always would. The two tap sites
+        // now agree on the one property that matters.
+        input.installTap(onBus: 0, bufferSize: frames, format: format) { @Sendable [weak self] buffer, _ in
             let level = Self.rmsDecibels(buffer)
-            Task { @MainActor in self.classify(level) }
+            Task { @MainActor in self?.classify(level) }
         }
 
         engine.prepare()
