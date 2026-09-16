@@ -209,28 +209,32 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 16 Sep 2026 · rev 20 · file and page in sync</div>
+    <div class="stamp">Updated 16 Sep 2026 · rev 21 · file and page in sync</div>
   </header>
 
   <section class="alert">
-    <div class="tag">Stopping to look at the architecture</div>
-    <p><b>2.0 (3) tracks nothing and still dies — and the fourth theory is not being written.</b>
-      xian's read is that this is whack-a-mole and the problem is architectural or procedural. A full
-      read of the capture path says why in one sentence:
-      <code>PracticeLoopView.swift:198</code> is <code>try? await source.start()</code>, and
-      <code>start()</code> has <b>four</b> throw sites. All four are discarded there. The view then
-      renders <code>currentShare</code>, which is <code>0</code> when no buffer ever arrives — so
-      <b>a failed start is pixel-identical to a working start in a quiet room</b>, and which of the
-      four threw is unknowable from outside the process. <code>CalibrationView</code> does the same
-      one level worse: its <code>?? -20</code> / <code>?? -50</code> fallbacks build a
-      <code>Calibration</code> numerically identical to <code>.unavailable</code> — and
-      <b><code>.unavailable.isUsable</code> is <code>true</code></b> — so total calibration failure
-      is indistinguishable from success. <b>Root cause: nothing in this loop has ever required the
-      app to report its own state, so every defect has to be diagnosed by inference from source —
-      which is exactly where Pard and I have each failed three times this month. The whack-a-mole
-      isn't bad luck; it is what this architecture plus this process necessarily produces.</b>
-      Full writeup and five more defects found on the way:
-      <code>docs/architecture-review-2026-09-16.md</code>.</p>
+    <div class="tag">The instrument had the same defect as the thing it watched</div>
+    <p><b>There is no crash artifact for 2.0 (3).</b> Pard ran the check twice, three hours apart,
+      and re-pulled the logbody to rule out a cached list: the feed has not moved, and the newest
+      submission is 09-15 with <code>Version: 2.0 (2)</code>. xian's report stands as evidence — the
+      <em>artifact</em> simply was never filed, most likely because a TestFlight crash submission
+      only exists if the tester taps <b>Share</b> on a modal. <b>Pard's standing check returned
+      "nothing new," which was true and useless</b>, and on 09-14 he had said a quiet feed would be
+      evidence the fix held. That inference is dead. <b>Note the shape: a check that says "nothing
+      new" when it cannot see, and a view that renders a calm <code>0%</code> when nothing arrived,
+      both fail toward reassurance.</b> Rule adopted: <em>an instrument that cannot distinguish
+      "nothing happened" from "I could not see" is not a check, and its quiet reading may not be
+      reported as a result.</em></p>
+    <p><b>So the diagnostic build shipped in the same fire that learned this — <code>62feb22</code>,
+      2.0 (4).</b> My own row read "waiting on the crash log"; there is no crash log, so it would
+      have waited forever. Failures now render where the number renders, with one-tap
+      <b>Copy diagnostics</b>, a stethoscope in the listening toolbar, and a real error screen for a
+      failed calibration — nothing depends on catching a modal. <b>The worst thing found while
+      writing it:</b> <code>CalibrationView</code> substituted <code>-20</code> and <code>-50</code>
+      for two failed readings, which <em>is</em> <code>Calibration.unavailable</code>, whose 30 dB
+      gap passes <code>isUsable</code> — so a calibration in which <b>both readings failed</b> drew a
+      green checkmark and the word "Ready." Not silence: the opposite of the truth, asserted
+      confidently.</p>
   </section>
 
   <section class="clock" aria-label="Grace period remaining">
@@ -280,9 +284,16 @@
       <div class="item">
         <div class="rank">02</div>
         <div class="body">
-          <div class="title">Otherwise nothing</div>
-          <div class="why">Pard has the crash-log fetch. The next build is a diagnostic build, not a
-            fix.</div>
+          <div class="title">Run 2.0 (4) when Pard lands it, then tap the stethoscope and paste the log</div>
+          <div class="why"><b>This is the only step nobody else can do.</b> One practice session is
+            enough — start it, let it sit ten seconds, end it. The build exists to make the app say
+            what happened to it, and it says it to whoever is holding the phone. Three builds have
+            now been diagnosed by reading source; <b>this is the first that can be diagnosed by
+            reading the app.</b> If (4) fails the same way and the log never leaves your phone, we
+            are back to inference — and I would rather you knew that before it happened than
+            after.</div>
+          <div class="steps"><b>~3 minutes.</b> Copy diagnostics is on the failure card, in the
+            listening toolbar, and on a failed calibration screen.</div>
         </div>
       </div>
     </div>
@@ -301,26 +312,24 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>In flight</h2><span class="count">the next build reports, it doesn't fix</span></div>
+    <div class="sec-hd"><h2>In flight</h2><span class="count">the build that reports is written; the rest follows what it says</span></div>
     <div class="rows">
       <div class="row warnrow"><div class="who">Pard</div><div class="txt">
-        <b>Fetch the new crash submission for 2.0 (3)</b> — full ID,
-        <code>/v1/betaFeedbackCrashSubmissions/{id}/crashLog</code>, his standing capability.
-        <em>And the submission <b>text</b>, not just the stack: whether xian's own words name a
-        different moment than "going to background" matters as much as the trace — that is the half
-        we dropped last week. Asked explicitly not to build anything yet.</em></div></div>
-      <div class="row warnrow"><div class="who">Cairn</div><div class="txt">
-        <b>The diagnostic build.</b> Every <code>try?</code> and <code>??</code> in the capture path
-        replaced by a rendered state; a <code>CaptureState</code> enum with
-        <code>.failed(String)</code>; a rolling in-app event log — start, permission result, sample
-        rate, frames per buffer, buffers received, every error — that xian can copy out of the app.
-        <em><b>No crash fix in it.</b> It converts every remaining bug from an inference problem
-        into a reading problem, once.</em></div></div>
+        <b>Build and ship 2.0 (4) — <code>62feb22</code>.</b> Pipeline warm, ~30 minutes door to
+        door. <em>Artifact-key and version-in-IPA checks either way; the archive has been wrong
+        about its own version once already. Nothing is blocking him.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt">
         <b>Make "I don't know" representable</b> — <code>calibration: Calibration?</code>, delete
-        <code>.unavailable</code>. Then the lifecycle state machine, one engine owner,
-        <code>stop()</code> reachable from every non-idle state, and real buffer-duration accounting.
-        <em>The first folds into the diagnostic build; the rest follow what it reports.</em></div></div>
+        <code>.unavailable</code>. Then the lifecycle state machine, one engine owner and real
+        buffer-duration accounting. <em><b>Deliberately held out of 2.0 (4):</b> it changes
+        classification, and a build whose job is to observe should not also change what it observes.
+        <code>isCalibrated</code> makes the distinction visible meanwhile. <code>stop()</code> is
+        already reachable from every state as of <code>62feb22</code>.</em></div></div>
+      <div class="row"><div class="who">Themis</div><div class="txt">
+        <b>Carry the first-person convention to Janus as a Tier-2 candidate</b> — in <b>his</b>
+        framing of the recurrence, not mine. <em>He caught that my five instances are one
+        architectural tendency observed five times, not five independent discoveries. He is right,
+        and the correction belongs at the top of the case rather than in a footnote.</em></div></div>
       <div class="row"><div class="who">Pard</div><div class="txt">
         <b>Re-check the removal date in App Store Connect</b> — three builds accepted now.</div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt">
@@ -336,6 +345,26 @@
   <section class="sec">
     <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep · newest first</span></div>
     <div class="rows">
+      <div class="row done"><div class="who">Shipped</div><div class="txt">
+        <b>The diagnostic build is written and pushed — <code>62feb22</code>, 2.0 (4).</b>
+        <code>CaptureState.failed(String)</code> set before every throw, so the reason survives a
+        caller that swallows; <code>buffersReceived</code> separates an engine receiving nothing
+        from one that never started; <code>isCalibrated</code> says when a number is computed
+        against placeholder thresholds; a rolling event log, copyable from three places.
+        <code>stop()</code> is now reachable from every state — it guarded on <code>isRunning</code>,
+        which is set <em>last</em> in <code>start()</code>, so a failed start could never be torn
+        down — and the interruption-observer token is held and removed rather than discarded on
+        every <code>start()</code>. <em><b>Syntax-checked only:</b> <code>swiftc -parse</code> clean
+        on kindbook, which has no SDK, so no type checking and no isolation analysis. Not compiled.
+        Pard verifies.</em></div></div>
+      <div class="row done"><div class="who">Answered</div><div class="txt">
+        <b>The ask about the 2.0 (3) crash submission: there isn't one.</b> Checked twice, three
+        hours apart, logbody re-pulled to rule out a cached list. <em>Newest is 09-15 against
+        2.0 (2), same 23,762 bytes, same <code>closure #1 in LiveMicSource.start()</code>.</em></div></div>
+      <div class="row done"><div class="who">Kept</div><div class="txt">
+        <b>One positive result survives from xian's report: 2.0 (3) did not crash immediately the
+        way (2) did.</b> <em>That is the only evidence anyone has that the <code>@Sendable</code>
+        fix did anything — and no fourth theory has been built on it.</em></div></div>
       <div class="row done"><div class="who">Analysed</div><div class="txt">
         <b>The five-whys is done and the root cause is named.</b> Every defect this month — missing
         usage string, 0 Hz tap, isolation trap, tracks-nothing — presents identically: the app dies
@@ -478,9 +507,12 @@
     <div class="risk"><span class="dot">▲</span><div><b>Three builds, three theories, nothing
       diagnosed.</b> Each theory was a real defect; none was the bug. <b>Until the app can report its
       own state, a fourth build is a fourth guess.</b></div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>No instrumentation, and that is now the
-      finding rather than a nice-to-have.</b> Every crash this month was found because a human
-      installed a build and hit it, and every diagnosis came from reading source.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>No instrumentation — the inner half is closed as of 2.0 (4),
+      the outer half is not.</b> The app can now say what happened to it, on screen and in a
+      copyable log. What remains is the layer outside it: there is no alert when a submission
+      lands, and <b>a crash that produces no submission is invisible to the standing check</b> —
+      which is exactly what 2.0 (3) did. Every crash this month was still found because a human
+      installed a build and hit it.</div></div>
     <div class="risk"><span class="dot">▲</span><div><b>2.0 has never been observed working.</b>
       Three installs on a real phone: died, died, tracked nothing and died. Nobody has watched
       calibration or the loop behave in an actual conversation.</div></div>
@@ -551,7 +583,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 20<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 21<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>
