@@ -258,7 +258,7 @@ final class LiveMicSource: LiveTalkRatioSource {
             forName: AVAudioSession.interruptionNotification,
             object: AVAudioSession.sharedInstance(),
             queue: .main
-        ) { [weak self] _ in
+        ) { @Sendable [weak self] _ in
             Task { @MainActor in
                 self?.wasInterrupted = true
                 await self?.stop()
