@@ -1,85 +1,89 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-16 (rev 18) · **Deadline:** 2026-11-24 (69 days · day 21 of 90 — still carried from the 08-26 notice; nobody has read it back from App Store Connect)
+**Maintained by:** Cairn · **Updated:** 2026-09-16 (rev 19) · **Deadline:** 2026-11-24 (69 days · day 21 of 90 — still carried from the 08-26 notice; nobody has read it back from App Store Connect)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
 
-> **rev 18: the fix is pushed and 2.0 (3) is Pard's to build — still nothing waiting on you.** The
-> tap closure in `LiveMicSource.start()` is now `@Sendable`, which makes it *nonisolated*. The
-> defect was never the `guard let self`: a closure written inside a `@MainActor` class and **not**
-> marked `@Sendable` **inherits that isolation**, so Swift 6 compiled a hard
-> `_swift_task_checkIsolated` precondition into its entry — and that precondition is the
-> `dispatch_assert_queue_fail` at the top of Pard's trace. It fired before the first line of the
-> body ran. The block now touches nothing isolated and hands a plain `Double` to the actor, which
-> is the shape calibration's tap always had; the two sites finally agree on the only property that
-> mattered. `fc806dd`, plus `ed10b05` for the same pattern in the interruption observer and
-> `0ea5f9f` bumping the build number to 3 so the upload has a number of its own.
+> **rev 19: 2.0 (3) tracks nothing and still dies — and the fourth theory is not being written.**
+> xian's report: it didn't crash immediately the way (2) did, but it never started tracking, and it
+> crashed eventually in a similar way. His read — whack-a-mole, look at the architecture or the
+> execution — is correct, and a full read of the capture path says why in one sentence.
 >
-> **One caveat worth your eyes: I could not compile it.** kindbook has no SDK, so this is
-> syntax-checked and nothing more. Amber's build is the first real test — and a green build still
-> proves less than a phone does, because an isolation assert is a *runtime* precondition. The proof
-> is the practice loop starting on a device and not trapping.
+> **`PracticeLoopView.swift:198` is `try? await source.start()`, and `start()` has four throw
+> sites.** All four are discarded there. The view then renders `currentShare`, which is `0` when no
+> buffer ever arrives — so **a failed start is pixel-identical to a working start in a quiet room**,
+> and which of the four threw is unknowable from outside the process. `CalibrationView` does the
+> same one level worse: its `?? -20` / `?? -50` fallbacks build a `Calibration` numerically
+> identical to `.unavailable` — and **`.unavailable.isUsable` is `true`** — so a total calibration
+> failure is indistinguishable from a successful one.
 >
-> **And the honest part: this sat for 58 hours.** Rev 17 said the design call was mine, and then the
-> session ended without landing it. Pard had the elapsed figure in his 09-15 log before I did. A
-> claim in this rollup reads exactly like work in progress and is not work in progress — that is now
-> a rule I hold rather than a thing that happened.
+> **Root cause, and it implicates the process as much as the code: nothing in this loop has ever
+> required the app to report its own state.** Written without a device, verified by reading,
+> compiled on a machine that can't run it, shipped to a tester whose only instrument is "it
+> crashed." With no observability, every defect must be diagnosed by inference from source — which
+> is exactly where Pard and I have each failed three times this month. **The whack-a-mole isn't bad
+> luck; it's what this architecture plus this process necessarily produces.**
+>
+> **So the next build should report rather than fix.** One build: every `try?` and `??` in the
+> capture path replaced by a rendered state, a `CaptureState` enum with `.failed(String)`, and a
+> rolling in-app event log xian can copy out. It converts every remaining bug from an inference
+> problem into a reading problem, once. Full writeup and five more defects found on the way:
+> `docs/architecture-review-2026-09-16.md`.
 ---
 
 ## Needs you
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| 1 | **Send Dan the brochure** when you're ready — it's private until shared from the page's share menu. | Three futures laid out at equal weight, no recommendation, no ask at the end, per your call. It supersedes the earlier explainer page — send this one, not both. | ~1 min | nothing; it's FYI by design |
+| 1 | **Send me Dan's feedback on the AI writing tics** — you said you'd share it. | It's the only thing that improves the brochure, and the same tics are presumably in everything else I write for you to send. I'd rather fix the class than the instance. | ~1 min | a corrected brochure, and my prose generally |
+| 2 | **Nothing else.** Pard fetches the new crash log; the next build is a diagnostic build, not a fix. | Item 1 aside, the loop runs without you until there's something to install. | — | — |
+
+## A live strategic option, not yet a recommendation
+
+**Live capture is not required for App Store compliance and is not required for the product
+argument.** The loop closes on intention + reflection, `ManualSource` exists, and
+`Practice.isComplete` ignores measurement by design. So there is a shippable build with the
+microphone behind a flag and the manual number as the only path: Apple satisfied, capture off the
+critical path. It trades a working prototype in Dan's hands for certainty against 24 November.
+**69 days and three failed builds is the reason it's on the table now rather than discovered in
+November.**
 
 ## Resolved this pass
 
-- **The isolation fix is landed — `fc806dd`.** `start()`'s tap is `@Sendable` and therefore
-  nonisolated; it computes the level through the `nonisolated static` and hops to the main actor
-  carrying a `Double`. `ed10b05` applies the same attribute to the `NotificationCenter` interruption
-  block, which has the identical shape and survives today only because `queue: .main` happens to land
-  it on the main queue — it is a separate commit precisely so Pard can drop it alone if the SDK
-  already types that block `@Sendable`. `0ea5f9f` bumps `CURRENT_PROJECT_VERSION` to `3`: build 2 is
-  spent on the crashing upload, and that one line is what bit us last round.
-- **Why `@Sendable`, and not either of the other two shapes Pard offered.** A `nonisolated`
-  `classify` over a lock would make every view read of the counters acquire a lock and would cost
-  `@Observable` its single-threaded story — an architecture change bought to fix a one-attribute
-  defect. A counters actor looks symmetrical with `Samples` and isn't: `Samples` is write-only during
-  capture and read exactly once at the end, while the live counters are read continuously by the UI,
-  so an actor forces a `@MainActor` mirror — and **a mirror is a second source of truth that can
-  lag.** For an app whose whole premise is that a confident wrong number is worse than an honest
-  partial one, a drift-capable copy of the number does not go on the screen. **State stays where it
-  is; the isolation moves.**
-- **Pard's `df2997b` guards stay.** The permission gate on `sampleLevel` and the 0 Hz refusal fixed a
-  real defect that was never this one. Not reverted, and not wanted reverted.
-
-- **The stack, and the cause.** `EXC_BREAKPOINT (SIGTRAP)` on thread 2, version 2.0 (2). Bottom-up: AVFAudio delivers a buffer on its real-time messenger queue → calls the tap block → the block touches `self` → `swift_task_isCurrentExecutorWithFlagsImpl` → `_dispatch_assert_queue_fail`. `LiveMicSource` is `@MainActor`; the tap callback runs off it; `guard let self` touches main-actor-isolated state from the audio thread, and under `SWIFT_STRICT_CONCURRENCY: complete` on Swift 6 that check is a **hard trap, not a warning**.
-- **Why it was never `sampleLevel` — the discriminator nobody saw.** Calibration's tap captures *no* `self`: it closes over a local `Samples` actor and calls a `static`. `start()`'s tap captures `self`. **The two tap sites look almost identical and differ on the only thing that matters.** Pard's two guards went into both and touched neither — the isolation assert sits *above* his guard in the same function. They fixed a real defect that was never this one.
-- **And it explains the report exactly.** `start()` is called from `PracticeLoopView.swift:198` — *after* setup — and the first buffers arrive moments later. Not the backgrounding as such: the practice loop starting. xian's "as soon as I fill out the first screen and it tries to go to background" was one event described from the outside.
-- **"Needs the console login" was a capability limit that didn't exist.** Pard's third error of the week and the same shape as the other two: *a reading of his own output mistaken for a reading of the world.* He named it himself before anyone asked.
-- **Crash-log fetch is now a standing capability** — `/v1/betaFeedbackCrashSubmissions/{full-id}/crashLog` returns `logText` inline. Pard pulls it automatically on any future TestFlight crash for this app and puts the trace in front of whoever owns the fix.
-
-- **2.0 (2) exists and shipped** — 09-14 17:07, delivery `0702a0ea`, 34 minutes from Janus's GO. It carries the four Info.plist keys verified in the artifact, and a real fix: `sampleLevel` now sits behind the same permission gate `start()` uses, and both tap sites refuse a 0 Hz format rather than raising an uncatchable exception.
-- **The mic-usage-string theory was wrong, and Pard caught it before rebuilding.** He read the four keys out of the *accepted* IPA — all four present. 2.0 (1) was built from the already-fixed tree; `99a34bc` was the record of the fix, pushed after the upload. The commit graph read naturally and was not the artifact. My "ship regardless" instinct was correct *under my premise* and the premise was false.
-- **The `sampleLevel` theory was also wrong, and the refutation was clean.** Janus: exactly one other "completed processing" mail exists for this app in the past week (2.0 (1), 09-11), so there was no older build to confuse it with. The build xian tested is the build Pard shipped.
-- **The crash submissions were readable by API the whole time** — `GET /v1/apps/1593948410/betaFeedbackCrashSubmissions`, same key that mints profiles. Three of them, in xian's own words, the first dated **09-11 19:26: "crashed when it went to background."** Nobody fetched it for three days. It is now one of Pard's standing checks for this app.
-- **The reproduction is specific and has been all along:** it crashes on going to background after completing the setup for a call — not on first-run permission. Both halves of that sentence were in the original report on 09-11.
-- **Dan's brochure is built** — `docs/for-dan/three-futures-for-optilisten.html`. Three options at equal weight, no recommendation, no ask. Supersedes `what-optilisten-does-now.html`, which should not also be sent.
+- **The five-whys is done and the root cause is named** — `docs/architecture-review-2026-09-16.md`.
+  Every defect this month (missing usage string → 0 Hz tap → isolation trap → tracks nothing)
+  presents identically: the app dies or does nothing and tells no one why. One property, four
+  symptoms.
+- **Five more defects found by reading rather than by crashing:** `.unavailable` passes `isUsable`
+  (30 dB gap against an 8 dB threshold); `stop()` is unreachable after a failed `start()` because
+  `isRunning = true` is the last line and `stop()` guards on it; `observeInterruptions()` adds an
+  observer on every `start()` and discards the token so it can never be removed; time accounting is
+  buffer-count × 0.1s rather than elapsed seconds, which makes `evidenceCoverage` a fiction that
+  looks like a measurement; one `AVAudioEngine` has two owners and no arbitration. **None of these
+  is being proposed as the crash.**
+- **2.0 (3) built, archived and uploaded** — delivery `30256500`, `ARCHIVE SUCCEEDED`, zero new
+  warnings, artifact-checked. The `@Sendable` fix compiles clean, which was the open question I
+  couldn't answer from kindbook.
+- **Pard retracted his own binary check as vacuous before reporting it as verification** — he ran it
+  against the 2.0 (2) binary, which demonstrably crashes on that assert, and got the same `0`. The
+  rule survives; his implementation didn't discriminate. Keeping the previous IPA on disk is what
+  made the control possible, and is now standing practice.
 
 ## In flight
 
 | Owner | Item | Waiting on |
 |---|---|---|
-| **Pard** | **Build and ship 2.0 (3).** The fix is on `origin/main` at `0ea5f9f`; build, standing artifact check, binary grep, upload. 34 minutes, warm, proven twice. **This is also the first real compile of the change — kindbook could only parse it.** | nothing — it's the critical path |
-| **Pard** | Then pull the crash submission with the standing `/crashLog` capability rather than waiting on xian to describe it | a build on a phone |
-| **Pard** | Re-check the removal date in App Store Connect now that two builds have been accepted — did the grace-period notice move? | a natural moment in the console |
-| **Cairn** | Update the Dan brochure once a build survives use — the "it crashes" line comes out of the Not-yet column and the prototype goes to his phone | build 3 working |
-| **Cairn** | Deferred-reflection resume flow in `HomeView`; calibration persistence | not blocked; the crash first |
+| **Pard** | **Fetch the new crash submission for 2.0 (3)** — full ID, `/v1/betaFeedbackCrashSubmissions/{id}/crashLog`, his standing capability. **And the submission text, not just the stack:** whether xian's own words name a different moment than "going to background" matters as much as the trace, and that is the half we dropped last week. | memo sent 09-16; asked explicitly not to build anything yet |
+| **Cairn** | **The diagnostic build.** Every `try?` and `??` in the capture path replaced by a rendered state; `CaptureState` enum with `.failed(String)`; a rolling in-app event log (start, permission result, sample rate, frames per buffer, buffers received, every error) xian can copy out of the app. **No crash fix in it.** | the crash log, so the instrumentation covers what actually failed |
+| **Cairn** | `calibration: Calibration?` and delete `.unavailable`; make "I don't know" representable | folds into the diagnostic build |
+| **Cairn** | Lifecycle state machine, one engine owner, `stop()` reachable from every non-idle state; real buffer-duration accounting | after the diagnostic build reports |
+| **Janus** | The flag-off-capture option as a decision with a date on it, rather than a November discovery | xian's call; on the table as of rev 19 |
+| **Pard** | Re-check the removal date in App Store Connect — three builds have now been accepted | a natural moment in the console |
+| **Cairn** | Update Dan's brochure once a build survives use, and fix the AI writing tics he flagged | xian forwarding the feedback; a working build |
 | **Janus** | Registry: two entries — `mediajunkie/optilisten` (app) and `Design-in-Product/optilisten` (live site) | memo 09-07; unconfirmed |
-| **open** | Whether Cairn runs as Cowork or Code, and on which machine | xian; not urgent |
 
 ## Standing risks
 

@@ -209,29 +209,28 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 16 Sep 2026, 08:45 PT · rev 18 · file and page in sync</div>
+    <div class="stamp">Updated 16 Sep 2026 · rev 19 · file and page in sync</div>
   </header>
 
-    <section class="win">
-    <div class="tag">The fix is in — and it took me 58 hours</div>
-    <p><b>Still nothing waiting on you.</b> The tap closure in <code>LiveMicSource.start()</code> is
-      now <code>@Sendable</code>, which makes it <b>nonisolated</b>. The defect was never the
-      <code>guard let self</code>: a closure written inside a <code>@MainActor</code> class and
-      <b>not</b> marked <code>@Sendable</code> <b>inherits that isolation</b>, so Swift 6 compiled a
-      hard <code>_swift_task_checkIsolated</code> precondition into its entry — and that
-      precondition is the <code>dispatch_assert_queue_fail</code> at the top of Pard’s trace. It
-      fired <em style="font-style:italic;display:inline">before the first line of the body ran</em>.
-      The block now touches nothing isolated and hands a plain <code>Double</code> to the actor,
-      which is the shape calibration’s tap always had. <code>fc806dd</code>, plus
-      <code>ed10b05</code> for the same pattern in the interruption observer and <code>0ea5f9f</code>
-      bumping the build number to 3 so the upload has a number of its own.</p>
-    <p><b>One caveat worth your eyes:</b> kindbook has no SDK, so this is syntax-checked and nothing
-      more — <b>I could not compile it.</b> Amber’s build is the first real test, and a green
-      build still proves less than a phone does, because an isolation assert is a <b>runtime</b>
-      precondition. The proof is the practice loop starting on a device and not trapping.</p>
-    <p><b>And the honest part: this sat for 58 hours.</b> Rev 17 said the design call was mine, and
-      then the session ended without landing it. Pard had the elapsed figure in his 09-15 log before
-      I did. A claim in this rollup reads exactly like work in progress and is not work in progress.</p>
+  <section class="alert">
+    <div class="tag">Stopping to look at the architecture</div>
+    <p><b>2.0 (3) tracks nothing and still dies — and the fourth theory is not being written.</b>
+      xian's read is that this is whack-a-mole and the problem is architectural or procedural. A full
+      read of the capture path says why in one sentence:
+      <code>PracticeLoopView.swift:198</code> is <code>try? await source.start()</code>, and
+      <code>start()</code> has <b>four</b> throw sites. All four are discarded there. The view then
+      renders <code>currentShare</code>, which is <code>0</code> when no buffer ever arrives — so
+      <b>a failed start is pixel-identical to a working start in a quiet room</b>, and which of the
+      four threw is unknowable from outside the process. <code>CalibrationView</code> does the same
+      one level worse: its <code>?? -20</code> / <code>?? -50</code> fallbacks build a
+      <code>Calibration</code> numerically identical to <code>.unavailable</code> — and
+      <b><code>.unavailable.isUsable</code> is <code>true</code></b> — so total calibration failure
+      is indistinguishable from success. <b>Root cause: nothing in this loop has ever required the
+      app to report its own state, so every defect has to be diagnosed by inference from source —
+      which is exactly where Pard and I have each failed three times this month. The whack-a-mole
+      isn't bad luck; it is what this architecture plus this process necessarily produces.</b>
+      Full writeup and five more defects found on the way:
+      <code>docs/architecture-review-2026-09-16.md</code>.</p>
   </section>
 
   <section class="clock" aria-label="Grace period remaining">
@@ -241,70 +240,112 @@
     </div>
     <div class="meter" role="img" aria-label="21 of 90 days elapsed"><i style="width:23.3%"></i></div>
     <div class="scale"><span>day 21 of 90</span><span>23% spent</span></div>
-    <div class="caveat">▲ Still the 26 Aug screenshot, never read back from Apple. <b>Two builds have
-      now been accepted</b>, which often moves a removal clock — so this number may be pessimistic and
-      nobody has looked. One glance in App Store Connect settles it, and item 01 puts someone there
-      anyway.</div>
+    <div class="caveat">▲ Still the 26 Aug screenshot, never read back from Apple. <b>Three builds
+      have now been accepted</b>, which often moves a removal clock. One glance in App Store Connect
+      settles it and nobody has taken it.</div>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">1 item · FYI by design</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">1 item</span></div>
     <div class="items">
-
       <div class="item">
         <div class="rank">01</div>
         <div class="body">
-          <div class="title">Send Dan the brochure, whenever you're ready</div>
-          <div class="why">Three futures — keep the shelf space / build the practice tool / retire it
-            on purpose — at deliberately equal weight, with no recommendation and no ask at the end,
-            per your call. It absorbs the earlier explainer, so <b>send this one and not both</b>. It
-            is private until you share it from the page's own share menu.</div>
-          <div class="steps">
-            <b>Page:</b> "Three futures for OptiListen" · versioned at <code>docs/for-dan/three-futures-for-optilisten.html</code><br>
-            <b>Note:</b> the brochure says plainly that the test build crashes and that's why it isn't on his phone yet.
-          </div>
-          <div class="meta"><span class="pill cost">~1 min · FYI by design</span></div>
+          <div class="title">Send me Dan's feedback on the AI writing tics</div>
+          <div class="why">You said you'd share it. It's the only thing that improves the brochure —
+            and the same tics are presumably in everything else I write for you to send, so
+            <b>I'd rather fix the class than the instance.</b> Paste it raw; I don't need it
+            summarised.</div>
+          <div class="meta"><span class="pill cost">~1 min</span></div>
         </div>
       </div>
-
+      <div class="item">
+        <div class="rank">02</div>
+        <div class="body">
+          <div class="title">Nothing else</div>
+          <div class="why">Pard fetches the new crash log. The next build is a diagnostic build, not
+            a fix. The loop runs without you until there is something to install.</div>
+        </div>
+      </div>
     </div>
   </section>
 
+  <section class="risks" style="background:var(--teal-soft)">
+    <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">A live option, not yet a recommendation</h2></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">◆</span><div><b>Live capture is not
+      required for App Store compliance, and it is not required for the product argument.</b> The loop
+      closes on intention + reflection, <code>ManualSource</code> exists, and
+      <code>Practice.isComplete</code> ignores measurement by design. So there is a shippable build
+      with the microphone behind a flag and the manual number as the only path — Apple satisfied,
+      capture off the critical path. It trades a working prototype in Dan's hands for certainty
+      against 24 November. <b>69 days and three failed builds is the reason it belongs on the table
+      now rather than as a discovery in November.</b></div></div>
+  </section>
+
   <section class="sec">
-    <div class="sec-hd"><h2>In flight</h2><span class="count">34 minutes, and they are Pard’s</span></div>
+    <div class="sec-hd"><h2>In flight</h2><span class="count">the next build reports, it doesn't fix</span></div>
     <div class="rows">
       <div class="row warnrow"><div class="who">Pard</div><div class="txt">
-        <b>Build and ship 2.0 (3).</b> The fix is on <code>origin/main</code> at
-        <code>0ea5f9f</code> — build, standing artifact check, binary grep, upload. 34 minutes,
-        warm, proven twice.
-        <em>Also the first real compile of the change: kindbook could only parse it.</em></div></div>
-      <div class="row"><div class="who">Pard</div><div class="txt">
-        <b>Then pull the crash submission by API</b> with the standing <code>/crashLog</code>
-        capability, rather than waiting on xian to describe it.
-        <em>Three days of theorising is the price already paid for that.</em></div></div>
-      <div class="row"><div class="who">Pard</div><div class="txt">
-        <b>Re-check the removal date in App Store Connect</b> now that two builds have been accepted.
-        <em>Natural to do in the same session as item 01.</em></div></div>
+        <b>Fetch the new crash submission for 2.0 (3)</b> — full ID,
+        <code>/v1/betaFeedbackCrashSubmissions/{id}/crashLog</code>, his standing capability.
+        <em>And the submission <b>text</b>, not just the stack: whether xian's own words name a
+        different moment than "going to background" matters as much as the trace — that is the half
+        we dropped last week. Asked explicitly not to build anything yet.</em></div></div>
+      <div class="row warnrow"><div class="who">Cairn</div><div class="txt">
+        <b>The diagnostic build.</b> Every <code>try?</code> and <code>??</code> in the capture path
+        replaced by a rendered state; a <code>CaptureState</code> enum with
+        <code>.failed(String)</code>; a rolling in-app event log — start, permission result, sample
+        rate, frames per buffer, buffers received, every error — that xian can copy out of the app.
+        <em><b>No crash fix in it.</b> It converts every remaining bug from an inference problem
+        into a reading problem, once.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt">
-        <b>Update Dan's brochure once a build survives use</b> — the "it crashes" line comes out of the
-        Not-yet column and the prototype goes to his phone.
-        <em>Then the recommendation, which xian gives him in person rather than in a document.</em></div></div>
+        <b>Make "I don't know" representable</b> — <code>calibration: Calibration?</code>, delete
+        <code>.unavailable</code>. Then the lifecycle state machine, one engine owner,
+        <code>stop()</code> reachable from every non-idle state, and real buffer-duration accounting.
+        <em>The first folds into the diagnostic build; the rest follow what it reports.</em></div></div>
+      <div class="row"><div class="who">Pard</div><div class="txt">
+        <b>Re-check the removal date in App Store Connect</b> — three builds accepted now.</div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt">
-        <b>Deferred-reflection resume flow</b> in <code>HomeView</code>; calibration persistence.
-        <em>Not blocked; the crash comes first.</em></div></div>
+        <b>Dan's brochure: fix the AI writing tics, and drop the crash line once a build survives
+        use.</b>
+        <em>Waiting on the feedback and on a working build.</em></div></div>
       <div class="row"><div class="who">Janus</div><div class="txt">
-        <b>Registry: two entries, not one</b> — <code>mediajunkie/optilisten</code> (app) and
-        <code>Design-in-Product/optilisten</code> (live site).
-        <em>Memo 09-07; unconfirmed.</em></div></div>
-      <div class="row"><div class="who">open</div><div class="txt">
-        <b>Whether Cairn runs as Cowork or Code, and on which machine.</b>
-        <em>Yours; not urgent.</em></div></div>
+        <b>The flag-off-capture option as a decision with a date on it</b>, rather than a November
+        discovery. Plus the registry's two entries, unconfirmed since 09-07.</div></div>
     </div>
   </section>
 
   <section class="sec">
     <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep · newest first</span></div>
     <div class="rows">
+      <div class="row done"><div class="who">Analysed</div><div class="txt">
+        <b>The five-whys is done and the root cause is named.</b> Every defect this month — missing
+        usage string, 0 Hz tap, isolation trap, tracks-nothing — presents identically: the app dies
+        or does nothing and tells no one why. <b>One property, four symptoms.</b>
+        <em><code>docs/architecture-review-2026-09-16.md</code>, grounded in a full read of the four
+        source files rather than in inference.</em></div></div>
+      <div class="row done"><div class="who">Found</div><div class="txt">
+        <b>Five more defects, by reading rather than by crashing.</b> <code>.unavailable</code>
+        passes <code>isUsable</code> (30 dB gap, 8 dB threshold); <code>stop()</code> is unreachable
+        after a failed <code>start()</code> because <code>isRunning = true</code> is the last line
+        and <code>stop()</code> guards on it; <code>observeInterruptions()</code> adds an observer
+        on every <code>start()</code> and discards the token so it can never be removed; time
+        accounting is buffer-count × 0.1s rather than elapsed seconds, making
+        <code>evidenceCoverage</code> a fiction that looks like a measurement; one
+        <code>AVAudioEngine</code>, two owners, no arbitration.
+        <em>None of these is being proposed as the crash.</em></div></div>
+      <div class="row done"><div class="who">Shipped</div><div class="txt">
+        <b>2.0 (3) built, archived and uploaded</b> — delivery <code>30256500</code>,
+        <code>ARCHIVE SUCCEEDED</code>, zero new warnings, artifact-checked. The <code>@Sendable</code>
+        fix compiles clean, which was the open question I couldn't answer from kindbook.</div></div>
+      <div class="row done"><div class="who">Retracted</div><div class="txt">
+        <b>Pard killed his own binary check before reporting it as verification.</b> He ran it
+        against the 2.0 (2) binary — which demonstrably crashes on that assert — and got the same
+        <code>0</code>. The rule survives; his implementation didn't discriminate.
+        <em>Keeping the previous IPA on disk is what made the control possible, and is now standing
+        practice. <b>A check is only a check if it distinguishes the broken build from the fixed
+        one</b> — the same sentence as this rollup's root cause, with a different subject.</em></div></div>
+
       <div class="row done"><div class="who">Fixed</div><div class="txt">
         <b>The isolation assert — <code>fc806dd</code>.</b> <code>start()</code>’s tap is
         <code>@Sendable</code> and therefore nonisolated; it computes the level through the
@@ -411,43 +452,47 @@
       <div class="row done"><div class="who">Settled</div><div class="txt">
         <b>The App Store record is yours</b> — team <code>YZ4B34YGX9</code>, created Aug 2022. No
         transfer, no paperwork.</div></div>
-        </div>
+            </div>
   </section>
 
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
-    <div class="risk"><span class="dot">▲</span><div><b>A claim in this rollup is not a
-      commit.</b> Rev 17 marked the isolation fix as mine and owned; it then sat unwritten for 58
-      hours while the row read — to Pard, to Janus, and to the next instance of me — exactly
-      like work in progress. <b>Ownership recorded here now has to be followed in the same fire by
-      either the work or a stated hand-off.</b></div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Two builds shipped against two theories before anything was diagnosed — build 3 is the first that ships against a stack.</b> Both theories were real defects; neither was the one. The pattern to break
-      is reasoning from source to a mechanism we can <em style="font-style:italic;display:inline">see</em>
-      when the reporter has already named a mechanism we'd have to go look for. Pard's own rule, adopted
-      here: <b>when a report names two things and you can only explain one, the one you can't explain is
-      the finding.</b></div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>No instrumentation.</b> Every crash this month
-      was found because a human installed a build and hit it. There is no crash reporting in the app and
-      no alert when a submission lands. xian raised this on 09-14 and 09-14 is the argument for it.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Compiling is not running, and running is not
-      being used.</b> 2.0 has been launched on a real phone twice and died both times. Nobody has watched
-      calibration, the mic tap, or the loop behave in an actual conversation.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Calibration is <code>Codable</code> and nothing
-      persists it</b> — recalibrates on every cold launch.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>Three builds, three theories, nothing
+      diagnosed.</b> Each theory was a real defect; none was the bug. <b>Until the app can report its
+      own state, a fourth build is a fourth guess.</b></div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>No instrumentation, and that is now the
+      finding rather than a nice-to-have.</b> Every crash this month was found because a human
+      installed a build and hit it, and every diagnosis came from reading source.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>2.0 has never been observed working.</b>
+      Three installs on a real phone: died, died, tracked nothing and died. Nobody has watched
+      calibration or the loop behave in an actual conversation.</div></div>
     <div class="risk"><span class="dot">▲</span><div><b>Apple rejected this app once before over
-      background modes</b> (July 2023). 2.0 omits <code>UIBackgroundModes</code> deliberately — which is
-      also, possibly, the thing making it crash. <b>If the fix needs an audio background mode, that is a
-      submission-risk conversation, not just a code change.</b></div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>The 24 Nov date is still the screenshot.</b> The
-      mail forward works; nobody has looked. Two accepted builds may well have moved it.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>One signing path, expiring Aug 2027.</b> The API
-      can renew it; nothing watches for expiry. <b>Age-rating questions</b> still due at submission, ~10
-      min, answers are "no".</div></div>
+      background modes</b> (July 2023). If any eventual fix needs an audio background mode, that is a
+      submission-risk conversation, not just a code change.</div></div>
+    <div class="risk"><span class="dot">▲</span><div><b>The 24 Nov date is still the screenshot.</b>
+      Three accepted builds may well have moved it; nobody has looked. <b>One signing path</b>
+      expiring Aug 2027, nothing watching. <b>Age-rating questions</b> still due at submission.</div></div>
   </section>
 
   <section class="sec">
     <div class="sec-hd"><h2>Method notes</h2><span class="count">the week's, condensed</span></div>
     <div class="notes">
+      <div class="note"><b>A system that cannot report its own state can only be debugged by
+        inference — and inference from source is where every one of us has failed this month.</b>
+        Pard's truncated ID read as an API limit; my commit graph read as a build; both of us reading
+        half of a two-part report. The architecture and the process share one root.</div>
+      <div class="note"><b>A check is only a check if it distinguishes the broken build from the
+        fixed one</b> — Pard, on his own vacuous binary grep, found by running the control. The same
+        sentence with the subject changed: <b>an app is only debuggable if it distinguishes its own
+        failure modes.</b></div>
+      <div class="note"><b>The value named "unavailable" was the one value that could never report
+        itself unavailable.</b> A sentinel built from plausible numbers passes every check written
+        against plausible numbers. Absence needs its own type, not a magic value.</div>
+      <div class="note"><b>Care in the wrong half.</b> <code>LiveMicSource</code> carries thirty
+        lines of doc comment on what the measurement means and nine lines under
+        <code>// MARK: Session plumbing</code>. On iOS, RMS-to-percentage is the easy part and the
+        audio session lifecycle is the entire difficulty.</div>
+
       <div class="note"><b>When a report names two things and you can only find a mechanism for one, the
         one you can't explain is the finding.</b> xian's first sentence on 09-11 was "crashes as soon as
         I fill out the first screen <em style="font-style:italic;display:inline">and it tries to go to
@@ -484,11 +529,11 @@
       <div class="note"><b>Written for you, read by him.</b> The update note to Dan was accurate
         and unreadable. The audience for a page decides its vocabulary, not the author's
         week.</div>
-        </div>
+            </div>
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 18<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 19<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>
