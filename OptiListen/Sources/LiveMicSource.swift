@@ -411,7 +411,13 @@ final class LiveMicSource: LiveTalkRatioSource {
 
             let samples = Samples()
             input.installTap(onBus: 0, bufferSize: frames, format: format) { @Sendable buffer, _ in
-                Task { await samples.append(Self.rmsDecibels(buffer)) }
+                // 2026-09-16 (Pard, compile fix only): compute the level BEFORE the Task, exactly
+                // as the start() tap above already does. `@Sendable` made the compiler strict about
+                // the previous form — `AVAudioPCMBuffer` is not Sendable, so capturing it inside
+                // the Task is "passing closure as a 'sending' parameter" and fails to build. A
+                // Double crosses cleanly. Cairn's shape, mirrored; no behaviour change intended.
+                let level = Self.rmsDecibels(buffer)
+                Task { await samples.append(level) }
             }
 
             engine.prepare()
