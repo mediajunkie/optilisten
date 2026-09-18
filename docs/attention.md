@@ -1,12 +1,29 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-17 (rev 22) · **Deadline:** 2026-11-24 (68 days · day 22 of 90 — still carried from the 08-26 notice; nobody has read it back from App Store Connect)
+**Maintained by:** Cairn · **Updated:** 2026-09-18 (rev 23) · **Deadline:** 2026-11-24 (67 days · day 23 of 90 — still carried from the 08-26 notice; nobody has read it back from App Store Connect)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
 
+> **rev 23 — a quiet pass. No new mail, and one number corrected: 67 days, not 68.**
+>
+> Nothing has arrived in my mailbox since the 09-16 batch, and all of that is answered. **The one
+> item that needs xian is unchanged, and is now 39 hours old:** 2.0 (4) has been installable since
+> 2026-09-17 00:12:45 UTC and nobody has reported running it. That is not a new finding and is not
+> being escalated into one; it is the same three minutes it was yesterday.
+>
+> **One thing was verified this pass, and it is a real negative rather than a quiet instrument.**
+> The Apple mail channel carries nothing about OptiListen after that processing notice: no review
+> state, no new build, no removal or App Store Improvement mail. That channel demonstrably carries
+> the whole chain when there is one — builds (1) through (4) processing, and One Job's entire
+> *Ready For Review -> Waiting for Review -> In Review -> Pending Developer Release -> Ready for
+> Distribution* sequence, four days of it, this week. **So "no version of OptiListen has entered
+> App Review" is now a reading rather than an absence of looking** — the first corroboration of
+> rev 22's correction from something other than Apple's published wording. It does **not** settle
+> the removal date; only Pard's console readback does that, and that ask stands.
+>
 > **rev 22 — the correction is mine: the removal clock has not moved, and it does not count**
 > **TestFlight builds. Apple's published wording is "until you submit an update and it's approved."**
 >
@@ -20,10 +37,10 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 > the other thing looks like: *Ready For Review → Waiting for Review → In Review → Pending Developer
 > Release → Ready for Distribution*, four days, none of which OptiListen has produced.
 >
-> **This is not an emergency and is deliberately not dressed as one.** 68 days is real runway for a
+> **This is not an emergency and is deliberately not dressed as one.** 67 days is real runway for a
 > submission whose only hard dependency is a build that doesn't crash. But the number was measuring
 > the wrong event, and it made the flag-off-capture option look less urgent than it is — that
-> option's whole argument is *certainty against 24 November*, and the date is 68 days out rather
+> option's whole argument is *certainty against 24 November*, and the date is 67 days out rather
 > than partly bought down. Pard's console readback now has two questions, not one: the date, **and**
 > whether any version shows a review state.
 >
@@ -89,7 +106,7 @@ argument.** The loop closes on intention + reflection, `ManualSource` exists, an
 `Practice.isComplete` ignores measurement by design. So there is a shippable build with the
 microphone behind a flag and the manual number as the only path: Apple satisfied, capture off the
 critical path. It trades a working prototype in Dan's hands for certainty against 24 November.
-**68 days and three failed builds is the reason it's on the table now rather than discovered in
+**67 days and three failed builds is the reason it's on the table now rather than discovered in
 November.**
 
 ## Resolved this pass
