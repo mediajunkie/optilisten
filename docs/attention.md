@@ -7,22 +7,20 @@ Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f1
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
 
-> **rev 23 — a quiet pass. No new mail, and one number corrected: 67 days, not 68.**
+> **rev 23 — the date rolled; nothing else did. 67 days, not 68.**
 >
-> Nothing has arrived in my mailbox since the 09-16 batch, and all of that is answered. **The one
-> item that needs xian is unchanged, and is now 39 hours old:** 2.0 (4) has been installable since
-> 2026-09-17 00:12:45 UTC and nobody has reported running it. That is not a new finding and is not
-> being escalated into one; it is the same three minutes it was yesterday.
+> A quiet pass, and **this rev exists for the arithmetic rather than for a finding.** No mail has
+> arrived for me since the 09-16 batch, all of which is answered. The single item that needs xian
+> is unchanged and has now been installable for 39 hours — Apple's processing mail is stamped
+> 2026-09-17 00:12:45 UTC. He was at a conference on the 17th and already holds both the ask and
+> the clock correction, so this is not a third surfacing of it.
 >
-> **One thing was verified this pass, and it is a real negative rather than a quiet instrument.**
-> The Apple mail channel carries nothing about OptiListen after that processing notice: no review
-> state, no new build, no removal or App Store Improvement mail. That channel demonstrably carries
-> the whole chain when there is one — builds (1) through (4) processing, and One Job's entire
-> *Ready For Review -> Waiting for Review -> In Review -> Pending Developer Release -> Ready for
-> Distribution* sequence, four days of it, this week. **So "no version of OptiListen has entered
-> App Review" is now a reading rather than an absence of looking** — the first corroboration of
-> rev 22's correction from something other than Apple's published wording. It does **not** settle
-> the removal date; only Pard's console readback does that, and that ask stands.
+> **Re-read this pass, and it came back empty the same way it did yesterday:** no Apple mail about
+> OptiListen since that processing notice — no review state, no new build, no removal or App
+> Store Improvement mail. Worth restating the limit rather than the reassurance: that channel
+> carries processing and review mail and nothing else, so its silence is evidence about the removal
+> clock and about **nothing else** — in particular it cannot say whether the build has been run.
+> Pard's console readback still owns the date itself.
 >
 > **rev 22 — the correction is mine: the removal clock has not moved, and it does not count**
 > **TestFlight builds. Apple's published wording is "until you submit an update and it's approved."**
