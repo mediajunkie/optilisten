@@ -1,12 +1,46 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-18 (rev 23) · **Deadline:** 2026-11-24 (67 days · day 23 of 90 — still carried from the 08-26 notice; nobody has read it back from App Store Connect)
+**Maintained by:** Cairn · **Updated:** 2026-09-19 (rev 24) · **Deadline:** 2026-11-24 (66 days · day 24 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version is in review)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
 
+> **rev 24 — Pard's readback is in, and it closes both questions: no 2.0 version exists in App**
+> **Store review, and App Store Connect has no removal-date field to read.**
+>
+> Pard queried `/v1/apps/1593948410/appStoreVersions` on the evening of 09-18. Two versions exist:
+> **1.1 `READY_FOR_SALE`** (created 2023-07-10) and **1.0 `REPLACED_WITH_NEW_VERSION`**. Nothing from
+> the 2.0 line: no submission, no review state, nothing in progress. **That confirms the rev 22
+> correction against this app record**: the condition that stops removal (an approved App Review
+> submission) has not happened. On the date itself, **the API exposes no removal-date field on any
+> surface he could query**, so the only place 24 November exists is the 08-26 notice. That makes
+> "nobody has read it back" permanently true through the API. It is not an open task any more.
+>
+> **The fallback build now has provenance, and it has two halves.** I asked Pard on 09-18 where his
+> handoff's "prep-and-hold" came from rather than writing it in as a decision. He quoted your
+> 09-17 re-rank, item 6, verbatim: *"Let's prep the fallback build and have it ready if we run
+> short of time."* So **preparing and holding it is your ranking and Pard's work**; **shipping it is
+> still your call**. The row has moved to carry both. Nothing starts on it before 2.0 (4) reports.
+>
+> **One correction of my own, from Pard's table.** On 09-10 I recorded the 1.x version as 1.3 (6),
+> read from the source repo. **That is what the source says, not what shipped.** App Store Connect
+> and the public listing both say **1.1**, released 2023-07-19; `listenup-mobile` bumped to 1.3.6
+> on 2023-05-30. It changes nothing for 2.0, which sorts above either. But the "source of record"
+> was ahead of the shipped app, and I described it as the shipped app.
+>
+> **A precedent worth having before anyone touches background behaviour.** The 1.1 release note
+> reads: *"The app now warns you that it cannot calculate your listening score while in the
+> background."* The matching source commit is `621862f` (2023-05-30, "show an alert before app goes
+> to background"). **Inference, not verified from Apple's side:** that warning is how the July 2023
+> background-modes rejection was cleared. Apple approved an app that stops measuring and says so,
+> rather than one that keeps the microphone running. If 2.0's fix touches background, that approved
+> shape comes first.
+>
+> 2.0 (4) has been installable for about 63 hours. Apple's channel re-read empty again: nothing
+> about OptiListen since the 09-17 processing notice.
+>
 > **rev 23 — the date rolled; nothing else did. 67 days, not 68.**
 >
 > A quiet pass, and **this rev exists for the arithmetic rather than for a finding.** No mail has
@@ -104,11 +138,24 @@ argument.** The loop closes on intention + reflection, `ManualSource` exists, an
 `Practice.isComplete` ignores measurement by design. So there is a shippable build with the
 microphone behind a flag and the manual number as the only path: Apple satisfied, capture off the
 critical path. It trades a working prototype in Dan's hands for certainty against 24 November.
-**67 days and three failed builds is the reason it's on the table now rather than discovered in
+**66 days and three failed builds is the reason it's on the table now rather than discovered in
 November.**
+
+**Where it stands (rev 24):** you ranked it on 09-17, item 6: *"Let's prep the fallback build and have
+it ready if we run short of time."* Pard preps and holds it. Whether it ships is your decision, and
+nothing is asking you for it yet.
 
 ## Resolved this pass
 
+- **Pard's App Store Connect readback is closed** (09-18 evening). Versions on the record: 1.1
+  `READY_FOR_SALE`, 1.0 `REPLACED_WITH_NEW_VERSION`; **no 2.0 version exists in review**. The API has
+  no removal-date field, so the 08-26 notice is the only source for 24 November.
+- **Fallback build provenance confirmed**: xian's 09-17 re-rank, item 6, quoted verbatim by Pard.
+  Prep and hold is Pard's; shipping is xian's call. Pard fixed `mediajunkie/docs/backlog.md` at
+  source, which had carried neither.
+- **Correction: the shipped 1.x is 1.1, not 1.3 (6).** Verified against the public App Store
+  listing (1.1, 2023-07-19) and Pard's ASC table. 1.3.6 is the source repo's head, bumped
+  2023-05-30. No effect on 2.0.
 - **2.0 (4) shipped, processed, and is testable** — delivery `d3c30721`, Apple's processing mail
   2026-09-17 00:12:45 UTC, TestFlight *available to test*. **Pard's binary check discriminates this
   time and he proved it against a control** before believing it: `buffersReceived` 0→2, `sample
@@ -172,8 +219,7 @@ November.**
 | **Cairn** | `calibration: Calibration?` and delete `.unavailable`; make "I don't know" representable | **deliberately held out of 2.0 (4)** — it changes classification, and an observing build should not change what it observes. `isCalibrated` makes it visible meanwhile |
 | **Themis** | Carry the first-person convention to Janus as a Tier-2 candidate, in **his** framing of the recurrence, not mine | his call, taken 09-16 |
 | **Cairn** | Lifecycle state machine, one engine owner, `stop()` reachable from every non-idle state; real buffer-duration accounting | after the diagnostic build reports |
-| **Janus** | The flag-off-capture option as a decision with a date on it, rather than a November discovery | xian's call; on the table as of rev 19 |
-| **Pard** | **Read back two things from App Store Connect, not one: the removal date, and whether any version of OptiListen shows a review state.** My clock correction comes from the wording Apple publishes, not from the console; the console is the instrument that confirms it against this app record. If the date has moved, I am wrong about the mechanism and want to know. | amended 09-17; nothing blocking |
+| **Pard** | Prep the flag-off-capture fallback build and hold it (xian's 09-17 re-rank, item 6) | after 2.0 (4) reports; shipping it is xian's call |
 | **Cairn** | Update Dan's brochure once a build survives use, and fix the AI writing tics he flagged | xian forwarding the feedback; a working build |
 | **Janus** | Registry: two entries — `mediajunkie/optilisten` (app) and `Design-in-Product/optilisten` (live site) | memo 09-07; unconfirmed |
 
@@ -184,7 +230,7 @@ November.**
 - **Compiling is not running, and running is not being used.** 2.0 has been launched on a real phone twice and died both times. Nobody has yet watched calibration, the mic tap, or the loop behave in an actual conversation.
 - **Calibration is `Codable` and nothing persists it** — recalibrates every cold launch.
 - **The fleet has one signing path and it expires Aug 2027.** The API can renew it; nothing watches for expiry.
-- **The 24 Nov date is still the screenshot, not an ASC readback — and the hopeful half of this line is now disproved.** Accepted builds do not move it: Apple stops the removal on *"an update and it's approved,"* which means App Review, not processing. Nobody has read the date back.
+- **The 24 Nov date exists only in the 08-26 notice.** App Store Connect's API has no removal-date field (Pard, 09-18), so it cannot be read back that way. Accepted builds do not move it: Apple stops the removal on *"an update and it's approved,"* which means App Review. As of 09-18 no 2.0 version exists in review.
 - **Apple has rejected this app once before** (July 2023, background modes). 2.0 omits `UIBackgroundModes` — which is also, possibly, the thing making it crash. If the fix needs an audio background mode, that is a submission-risk conversation, not just a code change.
 - **Age-rating social-media questions** at submission; ~10 min; answers are "no."
 - **A claim in this rollup is not a commit.** Rev 17 marked the isolation fix as mine and owned; the fix then sat unwritten for 58 hours while the row read — to Pard, to Janus, and to the next instance of me — exactly like work in progress. Ownership recorded here now has to be followed in the same fire by either the work or a stated hand-off.

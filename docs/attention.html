@@ -209,9 +209,30 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 18 Sep 2026 · rev 23 · file and page in sync</div>
+    <div class="stamp">Updated 19 Sep 2026 · rev 24 · file and page in sync</div>
   </header>
 
+
+  <section class="risks" style="background:var(--teal-soft)">
+    <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">rev 24 &middot; the readback is in</h2></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>No 2.0 version exists in App Store review, and App Store Connect has no removal-date field to read.</b>
+      Pard queried the app record on the evening of 09-18: 1.1 <code>READY_FOR_SALE</code>, 1.0
+      <code>REPLACED_WITH_NEW_VERSION</code>, nothing from the 2.0 line. That confirms the rev 22
+      correction against this app: the condition that stops removal has not happened. The date lives
+      only in the 08-26 notice.</div></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>The fallback build has provenance and two halves.</b>
+      xian's 09-17 re-rank, item 6: <i>"Let's prep the fallback build and have it ready if we run
+      short of time."</i> Preparing and holding it is Pard's work. Shipping it is xian's call, and
+      nothing is asking for that call yet.</div></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Correction: the shipped 1.x is 1.1, not 1.3 (6).</b>
+      I read 1.3 from the source repo on 09-10 and described it as what shipped. The public listing
+      and App Store Connect both say 1.1 (19 Jul 2023). No effect on 2.0.</div></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>A precedent for background behaviour.</b>
+      The 1.1 release note: <i>"The app now warns you that it cannot calculate your listening score
+      while in the background."</i> Inference, not verified from Apple's side: that is how the July
+      2023 background-modes rejection was cleared. If 2.0's fix touches background, that approved
+      shape comes first.</div></div>
+  </section>
 
   <section class="risks" style="background:var(--teal-soft)">
     <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">rev 23 &middot; the date rolled</h2></div>
@@ -288,12 +309,12 @@
 
   <section class="clock" aria-label="Grace period remaining">
     <div class="clock-top">
-      <div class="days">67<span>days left in the grace period</span></div>
+      <div class="days">66<span>days left in the grace period</span></div>
       <div class="target">removal 24 Nov 2026<br>notice served 26 Aug</div>
     </div>
-    <div class="meter" role="img" aria-label="23 of 90 days elapsed"><i style="width:25.6%"></i></div>
-    <div class="scale"><span>day 23 of 90</span><span>26% spent</span></div>
-    <div class="caveat">▲ Still the 26 Aug screenshot, never read back from Apple — and <b>accepted builds do not move it.</b> Apple stops the removal on <i>"an update and it's approved,"</i> which means App Review. Four builds have cleared processing; zero have entered review. <b>This corrects a line this page carried since rev 19.</b></div>
+    <div class="meter" role="img" aria-label="24 of 90 days elapsed"><i style="width:26.7%"></i></div>
+    <div class="scale"><span>day 24 of 90</span><span>27% spent</span></div>
+    <div class="caveat">▲ The 26 Aug notice is the only source for this date; App Store Connect's API has no removal-date field. <b>Accepted builds do not move it,</b> and as of 18 Sep no 2.0 version is in review. Apple stops the removal on <i>"an update and it's approved,"</i> which means App Review. Four builds have cleared processing; zero have entered review. <b>This corrects a line this page carried since rev 19.</b></div>
   </section>
 
   <section class="sec">
@@ -347,8 +368,9 @@
       <code>Practice.isComplete</code> ignores measurement by design. So there is a shippable build
       with the microphone behind a flag and the manual number as the only path — Apple satisfied,
       capture off the critical path. It trades a working prototype in Dan's hands for certainty
-      against 24 November. <b>67 days and three failed builds is the reason it belongs on the table
-      now rather than as a discovery in November.</b></div></div>
+      against 24 November. <b>66 days and three failed builds is the reason it belongs on the table
+      now rather than as a discovery in November.</b> Status: xian ranked prep-and-hold on 09-17; Pard
+      preps it; shipping it is xian's call.</div></div>
   </section>
 
   <section class="sec">
@@ -366,21 +388,25 @@
         framing of the recurrence, not mine. <em>He caught that my five instances are one
         architectural tendency observed five times, not five independent discoveries. He is right,
         and the correction belongs at the top of the case rather than in a footnote.</em></div></div>
-      <div class="row warnrow"><div class="who">Pard</div><div class="txt">
-        <b>Read back two things from App Store Connect, not one: the removal date, and whether any version shows a review state.</b> <em>The clock correction above is from Apple's public wording; the console is the instrument that confirms it against this app record. If the date has moved, I am wrong about the mechanism.</em></div></div>
+      <div class="row"><div class="who">Pard</div><div class="txt">
+        <b>Prep the flag-off-capture fallback build and hold it</b> (xian's 09-17 re-rank, item 6).
+        <em>After 2.0 (4) reports. Shipping it is xian's call.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt">
         <b>Dan's brochure: fix the AI writing tics, and drop the crash line once a build survives
         use.</b>
         <em>Waiting on the feedback and on a working build.</em></div></div>
       <div class="row"><div class="who">Janus</div><div class="txt">
-        <b>The flag-off-capture option as a decision with a date on it</b>, rather than a November
-        discovery. Plus the registry's two entries, unconfirmed since 09-07.</div></div>
+        <b>Registry: two entries</b> (<code>mediajunkie/optilisten</code> app,
+        <code>Design-in-Product/optilisten</code> live site), unconfirmed since 09-07.</div></div>
     </div>
   </section>
 
   <section class="sec">
     <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep · newest first</span></div>
     <div class="rows">
+      <div class="row done"><div class="who">Closed</div><div class="txt">
+        <b>App Store Connect readback (Pard, 18 Sep):</b> 1.1 on sale, 1.0 replaced, no 2.0 version in
+        review; no removal-date field in the API.</div></div>
       <div class="row done"><div class="who">Shipped</div><div class="txt">
         <b>The diagnostic build is written and pushed — <code>62feb22</code>, 2.0 (4).</b>
         <code>CaptureState.failed(String)</code> set before every throw, so the reason survives a
@@ -618,7 +644,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 23<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 24<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>
