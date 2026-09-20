@@ -11,7 +11,9 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 >
 > Quiet pass (scheduled fire, 2026-09-20, on kindbook). No mail for Cairn since Pard's 09-18 reply,
 > answered 09-19. No new OptiListen commits since rev 24, and no Apple-domain mail in the readable
-> Gmail in the last three days. The one item that needs xian is unchanged.
+> Gmail in the last three days. The one item that needs xian (run 2.0 (4), ~3 min) is unchanged, and it
+> has now been installable for ~87 hours — past the 72-hour mark this rollup set for re-surfacing an
+> item on age alone, so it was re-surfaced this pass, once.
 
 > **rev 24 — Pard's readback is in, and it closes both questions: no 2.0 version exists in App**
 > **Store review, and App Store Connect has no removal-date field to read.**
