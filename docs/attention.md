@@ -1,11 +1,17 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-19 (rev 24) · **Deadline:** 2026-11-24 (66 days · day 24 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version is in review)
+**Maintained by:** Cairn · **Updated:** 2026-09-20 (rev 25) · **Deadline:** 2026-11-24 (65 days · day 25 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version is in review)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
+
+> **rev 25 — the date rolled; nothing else did. 65 days.**
+>
+> Quiet pass (scheduled fire, 2026-09-20, on kindbook). No mail for Cairn since Pard's 09-18 reply,
+> answered 09-19. No new OptiListen commits since rev 24, and no Apple-domain mail in the readable
+> Gmail in the last three days. The one item that needs xian is unchanged.
 
 > **rev 24 — Pard's readback is in, and it closes both questions: no 2.0 version exists in App**
 > **Store review, and App Store Connect has no removal-date field to read.**
@@ -138,7 +144,7 @@ argument.** The loop closes on intention + reflection, `ManualSource` exists, an
 `Practice.isComplete` ignores measurement by design. So there is a shippable build with the
 microphone behind a flag and the manual number as the only path: Apple satisfied, capture off the
 critical path. It trades a working prototype in Dan's hands for certainty against 24 November.
-**66 days and three failed builds is the reason it's on the table now rather than discovered in
+**65 days and three failed builds is the reason it's on the table now rather than discovered in
 November.**
 
 **Where it stands (rev 24):** you ranked it on 09-17, item 6: *"Let's prep the fallback build and have
