@@ -1,36 +1,35 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-20 (rev 26) · **Deadline:** 2026-11-24 (65 days · day 25 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version is in review)
+**Maintained by:** Cairn · **Updated:** 2026-09-20 (rev 27) · **Deadline:** 2026-11-24 (65 days · day 25 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version is in review)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
 
-> **rev 26: 2.0 (4) ran. Four field findings, all four fixed, 2.0 (5) is Pard's to build.**
-> xian's field test, 09-20: *"It did not crash and appeared to function as intended."* First build in
-> this train a person could use, ten screenshots in `testing/`, four findings.
+> **rev 27: 2.0 (5) is the release candidate, and it goes to Dan as well as to you.**
+> Four field fixes plus a ratified six-item design pass, all on `main`, all parse-clean, Pard's to
+> build. He had not started (5) when the design work landed, so it folds into the same build number.
 >
-> **The diagnostics panel paid for itself in one screenshot.** `IMG_5374` shows the capture log:
-> `user -32.8 / ambient -42.5 / threshold -38.1 / floor -48.5`, and
-> `heard 100.8s — user 75.7 / other 25.1 / **silence 0.0**`. A hundred seconds outdoors with no
-> silence at all is not a rounding artifact: the floor was unreachable, so every buffer scored as
-> speech and the percentage was computed over continuous noise. That is the mechanism behind
-> "it may have treated bird calls as talking." He was right and the log says why.
+> **The design reframe, recorded in `docs/design-pass-2026-09-21.md`: the app is not too plain, it
+> is undesigned.** Every control sat where SwiftUI put it, in system blue, at default weight. Plain
+> is the right answer for an instrument you set face-up and stop looking at, but it has to be a
+> decision rather than an absence. Landed: one accent pair (moss inside your intention, amber over
+> the ceiling, semantic rather than decorative) applied once at the app root; the End button off
+> filled destructive red, which was the loudest element on a screen about listening quietly; the
+> number settling on the existing one-second tick instead of redrawing every 100 ms; two haptics,
+> at the first ceiling crossing and at the loop closing, because the phone is face-up and unwatched;
+> the Home counter animating on change; and no "0" in 52-point type on first launch.
 >
-> **What was wrong.** The silence floor was derived *downward* from ambient (`ambient - 6`), but
-> ambient is measured with the user deliberately quiet, so a moment at ambient is nobody talking;
-> the "other speaking" bucket was absorbing the entire room. Now `ambient + 3`. The usability bar
-> was 8 dB, which separates two buckets and not three; his run passed at 9.7 dB and produced a
-> number he correctly disbelieved, so the bar is 12 with a marked 12-16 band. **12 and 16 are first
-> estimates from one run, not measurements, and the code and the diagnostics both say so.**
+> **Not a detour from 24 November:** the listing needs new screenshots, and screenshots of an
+> undesigned app are what a prospective user sees.
 >
-> **The readout was breaking the practice.** The live screen read `78%` / `of 25%` / `listening`,
-> unlabelled, with the practice line directly under the number. His note typed into the app at the
-> time: *"i was distracted by not understanding or trusting the readout."* It now says
-> **"of the talking is you"** and **"ceiling 25%"**. The three-way split is stored and shown
-> (`you 1:16 · others 0:25 · quiet 0:00`), so the number can be argued with rather than trusted.
-> And past sessions open: `Recent` had no `NavigationLink` while the section above it did.
+> **What the build is for, stated so the test is deliberate.** The calibration thresholds in it are
+> mine, estimated from one field run: `isUsable` 8 dB → 12, silence floor `ambient - 6` →
+> `ambient + 3`. Your 09-20 outdoor calibration measured a 9.7 dB gap, so **under this build that
+> same session produces no number at all** and says your voice and the room are too close together.
+> Intended, and the thing under test. One indoor run and one outdoor run answers it. If indoors also
+> refuses, the bar is wrong and I would rather find that out in a day than defend it.
 
 ---
 

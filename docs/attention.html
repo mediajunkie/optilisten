@@ -209,7 +209,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 21 Sep 2026 · rev 26 · file and page in sync</div>
+    <div class="stamp">Updated 21 Sep 2026 · rev 27 · file and page in sync</div>
   </header>
 
 
@@ -249,35 +249,30 @@
       the build has been run. Pard's console readback still owns the date itself.</div></div>
   </section>
   <section class="win">
-    <div class="tag">rev 26 &middot; it ran</div>
-    <p><b>2.0 (4) did not crash, and xian used the whole loop outdoors on 09-20.</b> His words:
-      <i>"It did not crash and appeared to function as intended."</i> Ten screenshots are in
-      <code>testing/</code> in the repo. Four findings, all four fixed, <b>2.0 (5) is Pard's to
-      build</b> and every changed file parses clean.</p>
-    <p><b>The diagnostics panel paid for itself in one screenshot.</b> <code>IMG_5374</code> is the
-      capture log: <code>user -32.8 / ambient -42.5 / threshold -38.1 / floor -48.5</code>, and
-      <code>heard 100.8s &mdash; user 75.7 / other 25.1 / <b>silence 0.0</b></code>. A hundred
-      seconds outdoors with no silence at all is not rounding: <b>the floor was unreachable, so every
-      buffer scored as speech and the percentage was computed over continuous noise.</b> That is the
-      mechanism behind his "it may have treated bird calls as talking." He was right and the log says
-      why. <b>The build that reports told us in one screenshot what three builds of inference could
-      not.</b></p>
-    <p><b>What was actually wrong.</b> <code>silenceFloor</code> was <code>ambient - 6.0</code>,
-      derived <em>downward</em> from a level that is by construction "nobody talking" &mdash; ambient
-      is sampled with the user deliberately quiet &mdash; so the room's own noise could never be
-      silence and the "other speaking" bucket absorbed it. Now <code>ambient + 3.0</code>. The
-      usability bar was 8 dB, which separates two buckets and not three; his run passed at
-      <b>9.7 dB</b> and produced a number he correctly disbelieved, so the bar is 12 with a marked
-      12&ndash;16 band. <b>12 and 16 are first estimates from one field run, not measurements, and
-      the code and the diagnostics both say so.</b></p>
-    <p><b>And the readout was breaking the practice it exists to support.</b> The live screen read
-      <code>78%</code> / <code>of 25%</code> / <code>listening</code>, unlabelled at 72pt with his own
-      practice line directly underneath, in an app called OptiListen. His note, typed into the app at
-      the time: <i>"i was distracted by not understanding or trusting the readout."</i> It now says
-      <b>"of the talking is you"</b> and <b>"ceiling 25%"</b>, the three-way split is stored and shown
-      (<code>you 1:16 &middot; others 0:25 &middot; quiet 0:00</code>), and past sessions open:
-      <code>Section("Recent")</code> had no <code>NavigationLink</code> while the section three lines
-      above it did.</p>
+    <div class="tag">rev 27 &middot; 2.0 (5) is the release candidate</div>
+    <p><b>Four field fixes plus a ratified six-item design pass, all on <code>main</code>, all
+      parse-clean, Pard's to build.</b> He had not started (5) when the design work landed, so it
+      folds into the same build number. <b>This one goes to Dan as well as to you</b>, and Dan has
+      been waiting since he said yes on 09-16.</p>
+    <p><b>The reframe, recorded in <code>docs/design-pass-2026-09-21.md</code>: the app is not too
+      plain, it is undesigned.</b> Every control sat where SwiftUI put it, in system blue, at default
+      weight. Plain is the right answer for an instrument you set face-up and stop looking at, but it
+      has to be a decision rather than an absence. Landed: one accent pair (moss inside your
+      intention, amber over the ceiling, semantic rather than decorative) applied once at the app
+      root; the End button off filled destructive red, which was the loudest element on a screen
+      about listening quietly; the number settling on the existing one-second tick instead of
+      redrawing every 100&nbsp;ms; two haptics, at the first ceiling crossing and at the loop
+      closing, because the phone is face-up and unwatched; the Home counter animating on change; and
+      no <code>0</code> in 52-point type on first launch. <b>Not a detour from 24 November:</b> the
+      listing needs new screenshots, and screenshots of an undesigned app are what a prospective user
+      sees.</p>
+    <p><b>What the build is for, so the test is deliberate.</b> The calibration thresholds in it are
+      mine, estimated from one field run: <code>isUsable</code> 8&nbsp;dB &rarr; 12, silence floor
+      <code>ambient - 6</code> &rarr; <code>ambient + 3</code>. Your 09-20 outdoor calibration
+      measured a <b>9.7&nbsp;dB</b> gap, so <b>under this build that same session produces no number
+      at all</b> and says your voice and the room are too close together. Intended, and the thing
+      under test. <b>One indoor run and one outdoor run answers it.</b> If indoors also refuses, the
+      bar is wrong and I would rather find that out in a day than defend it.</p>
   </section>
 
   <section class="alert">
@@ -680,7 +675,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 26<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 27<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>
