@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import UIKit
 
 /// The loop: intention → conversation → reflection.
 ///
@@ -40,6 +41,11 @@ struct PracticeLoopView: View {
                     ReflectionStep(practice: $practice) {
                         practice.reflectedAt = .now
                         context.insert(practice)
+                        // The loop closing is the product's whole payoff and it
+                        // used to feel like cancelling a form. One soft
+                        // acknowledgement, through touch, then the count moves
+                        // on Home where he can watch it.
+                        UINotificationFeedbackGenerator().notificationOccurred(.success)
                         dismiss()
                     } onDefer: {
                         context.insert(practice) // saved, unreflected, will resurface
@@ -138,9 +144,18 @@ private struct ListeningStep: View {
 
     @State private var elapsed: TimeInterval = 0
     @State private var showingDiagnostics = false
+    /// What the screen shows, which is deliberately not what the microphone
+    /// just heard. `currentShare` moves every 100 ms; a percentage twitching in
+    /// peripheral vision is agitating in exactly the way this app must not be,
+    /// and the user is supposed to be looking at a person. The reading is
+    /// unchanged, only its presentation settles.
+    @State private var shownShare: Double = 0
+    @State private var hasCrossed = false
     private let tick = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
-    private var overGoal: Bool { source.currentShare > practice.goalSpeakingShare }
+    /// Computed from the settled value so the colour and the digits never
+    /// disagree with each other for a second at a time.
+    private var overGoal: Bool { shownShare > practice.goalSpeakingShare }
 
     var body: some View {
         VStack(spacing: 28) {
@@ -172,18 +187,18 @@ private struct ListeningStep: View {
                 // So the number now says what it counts, and "of X%" is gone: it parsed
                 // as a fraction of a fraction rather than a limit.
                 VStack(spacing: 4) {
-                    Text(Practice.percent(source.currentShare))
-                        .font(.system(size: 72, weight: .thin, design: .rounded))
+                    Text(Practice.percent(shownShare))
+                        .font(Theme.numeral)
                         .monospacedDigit()
                         .contentTransition(.numericText())
-                        .foregroundStyle(overGoal ? .orange : .primary)
+                        .foregroundStyle(overGoal ? Theme.over : .primary)
                     Text("of the talking is you")
                         .font(.subheadline.weight(.medium))
                     Text(overGoal
                          ? "over your \(practice.goalPercentText) ceiling"
                          : "ceiling \(practice.goalPercentText)")
                         .font(.footnote)
-                        .foregroundStyle(overGoal ? .orange : .secondary)
+                        .foregroundStyle(overGoal ? Theme.over : .secondary)
                 }
 
                 VStack(spacing: 2) {
@@ -234,12 +249,15 @@ private struct ListeningStep: View {
                 .font(.footnote.monospacedDigit())
                 .foregroundStyle(.tertiary)
 
-            Button(role: .destructive, action: onEnd) {
+            // Was a filled destructive red: the loudest element on a screen
+            // whose subject is listening quietly. Ending a practice is not a
+            // destructive act, it is the middle of the loop.
+            Button(action: onEnd) {
                 Text("End")
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 6)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.bordered)
             .padding(.horizontal, 32)
             .padding(.bottom, 24)
         }
@@ -260,7 +278,20 @@ private struct ListeningStep: View {
             DiagnosticsSheet(log: source.eventLogText)
         }
         .persistentSystemOverlays(.hidden)
-        .onReceive(tick) { _ in elapsed += 1 }
+        .onReceive(tick) { _ in
+            elapsed += 1
+            withAnimation(.easeInOut(duration: 0.6)) {
+                shownShare = source.currentShare
+            }
+        }
+        // The one thing worth interrupting for, delivered by touch rather than
+        // by making him look at the phone. Once per session, on the crossing,
+        // not on every buffer that wobbles over the line.
+        .onChange(of: overGoal) { _, isOver in
+            guard isOver, !hasCrossed else { return }
+            hasCrossed = true
+            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+        }
         .task {
             guard !usingHeadphones else { return }
             // The error is not discarded and it is not rethrown into nothing:
@@ -292,7 +323,7 @@ private struct ReflectionStep: View {
                     HStack(alignment: .firstTextBaseline) {
                         VStack(alignment: .leading, spacing: 1) {
                             Text(measured)
-                                .font(.system(size: 34, weight: .light, design: .rounded))
+                                .font(Theme.numeralSmall)
                                 .monospacedDigit()
                             Text("of the talking was you")
                                 .font(.caption)

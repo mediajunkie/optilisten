@@ -25,10 +25,15 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             List {
+                // No "0" in 52-point type on first launch. A zero is a poor
+                // first handshake for an app whose opening screen should be
+                // inviting one conversation, and the empty-state card below
+                // already does that job.
+                if !closed.isEmpty {
                 Section {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("\(closed.count)")
-                            .font(.system(size: 52, weight: .light, design: .rounded))
+                            .font(Theme.counter)
                             .monospacedDigit()
                             .contentTransition(.numericText())
                         Text(closed.count == 1 ? "conversation practiced" : "conversations practiced")
@@ -37,6 +42,11 @@ struct HomeView: View {
                     }
                     .padding(.vertical, 8)
                     .listRowSeparator(.hidden)
+                }
+                // Closing the loop is the whole payoff of the product and it
+                // used to happen off-screen. The count now moves where he can
+                // see it move.
+                .animation(.snappy, value: closed.count)
                 }
 
                 if !unreflected.isEmpty {
@@ -91,7 +101,7 @@ struct HomeView: View {
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Set an intention before your next conversation.")
                                 .font(.headline)
-                            Text("Decide how much you mean to talk and what you're practicing. Have the conversation. Come back and say how it went. That loop is the whole thing — the microphone is optional.")
+                            Text("Decide how much you mean to talk and what you're practising. Have the conversation. Come back and say how it went. That loop is the whole thing, and the microphone is optional.")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
@@ -145,7 +155,7 @@ private struct PracticeRow: View {
                 if let measured = practice.measuredPercentText {
                     Text(measured)
                         .font(.body.monospacedDigit())
-                        .foregroundStyle(practice.metGoal == true ? .green : .orange)
+                        .foregroundStyle(practice.metGoal == true ? Theme.within : Theme.over)
                     Text("you talking")
                         .font(.caption2)
                         .foregroundStyle(.tertiary)
@@ -176,7 +186,7 @@ private struct PracticeDetail: View {
                     HStack(alignment: .firstTextBaseline) {
                         VStack(alignment: .leading, spacing: 1) {
                             Text(measured)
-                                .font(.system(size: 34, weight: .light, design: .rounded))
+                                .font(Theme.numeralSmall)
                                 .monospacedDigit()
                             Text("of the talking was you")
                                 .font(.caption)
