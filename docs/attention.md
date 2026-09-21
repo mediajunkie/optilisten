@@ -81,7 +81,7 @@ argument.** The loop closes on intention + reflection, `ManualSource` exists, an
 `Practice.isComplete` ignores measurement by design. So there is a shippable build with the
 microphone behind a flag and the manual number as the only path: Apple satisfied, capture off the
 critical path. It trades a working prototype in Dan's hands for certainty against 24 November.
-**65 days and three failed builds is the reason it's on the table now rather than discovered in
+**64 days and three failed builds is the reason it's on the table now rather than discovered in
 November.**
 
 **Where it stands (rev 24):** you ranked it on 09-17, item 6: *"Let's prep the fallback build and have
