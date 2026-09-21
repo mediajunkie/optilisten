@@ -1,11 +1,34 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-21 (rev 28) · **Deadline:** 2026-11-24 (64 days · day 26 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version is in review)
+**Maintained by:** Cairn · **Updated:** 2026-09-21 (rev 29) · **Deadline:** 2026-11-24 (64 days · day 26 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version is in review)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
+
+> **rev 29: you said go, Pard built it, and Apple says it is on your phone.**
+> **2.0 (5) is testable.** Pard uploaded at 08:35 PT — delivery `3d55569b`, built from `main` at
+> `de7f997`, version and bundle ID read back out of the archive and the IPA rather than off an exit
+> code, no validator warnings. **Apple's own mail closes the loop 82 seconds later:** *"Version 2.0
+> (5) for OptiListen has completed processing"* and *"OptiListen 2.0 (5) for iOS is now available to
+> test"*, both stamped 2026-09-21 15:36 UTC. It has been installable for about seven and a half
+> hours. That is verified from Apple, not from a report of Apple.
+>
+> **Rev 28's one item is closed.** "Written, unbuilt, waiting on one word" lasted about eleven
+> hours. Nothing on this page is now waiting on Pard, on me, or on a build — every live item is
+> either the field test or a decision only you can make.
+>
+> **The thing five builds have not touched is the date.** 2.0 (1) through (5) have all cleared
+> *processing*; none has ever entered *App Review*, and App Review is the only event Apple's notice
+> says stops the removal. That is not news — it has been the standing correction since rev 22 — but
+> with the build finally in hand it is the only item left with a deadline attached, and it has never
+> had a date of its own. Hence item 3, which asks you for a date rather than for an action.
+>
+> **Apple mail re-read this pass:** the 2.0 (5) processing pair is the newest OptiListen mail that
+> exists. No review state, no removal or App Store Improvement mail. Same limit as always — that
+> channel speaks to the clock and to nothing else, and in particular it cannot tell anyone whether
+> the build has been run.
 
 > **rev 28: the release candidate is written, unbuilt, and waiting on one word from you.**
 > Pard read both of last night's memos in order, acted on the second only, and **built nothing from
@@ -54,9 +77,10 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| 1 | **Say go on building 2.0 (5).** One line to Pard — he builds from current `main`, build number 5, and uploads. | He has held since 21:12 PT on the 20th because he read the scheduling as yours, and he is right that it is. **Nothing technical is pending:** the four field fixes and the ratified design pass are both on `main`, both parse-clean, and he confirmed nothing was built from the superseded tree, so there is nothing to redo. The only cost of the wait is the wait. | ~1 min | the field test, Dan's first look, and the listing screenshots behind both |
-| 2 | **Then run it twice — once indoors, once outdoors — and say whether it goes to Dan in the same pass.** | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your outdoor session would produce no number at all under it** — intended, and exactly the thing under test. One run each way settles whether the bar is right. Dan said yes on 09-16, has waited five days, and has never seen the app at all. | ~10 min | whether the thresholds hold, and Dan's first contact with the product |
-| — | **Done, and previously item 1: you ran 2.0 (4)** on the 20th. The report was the most useful artifact of the month — four findings, all four fixed, and the diagnostics panel turned "it may have treated bird calls as talking" into `silence 0.0` over 100.8 seconds, which is a measurement rather than an impression. | One thing still open to overrule if you want to: the brochure's footer now reads "drafted by Claude for Christian," and every first-person claim that wasn't your own action or decision is gone. Dan's markup flagged that as its most serious item. Change the byline if you'd rather handle the disclosure differently. | — | — |
+| 1 | **Run 2.0 (5) — once indoors, once outdoors.** It is in TestFlight on your phone now. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. | ~10 min | the thresholds, the listing screenshots, and Dan |
+| 2 | **Say whether Dan gets this build — and check that he is actually on the tester list.** | Dan said yes on 09-16 and has now waited five days without ever seeing the app. The second half is the part that quietly bites: **whether he is a TestFlight tester is an App Store Connect setting, and nobody has read it.** I have asked Pard to query the beta-tester list with the API key rather than leave it an assumption. If Dan is not on it, adding him is a two-minute job you do once, and it is better found tonight than after you have told him it is waiting. | ~2 min | Dan's first contact with the product |
+| 3 | **Name the date you intend to submit 2.0 for App Review.** A date, not an action — nothing needs doing today. | **This is the only step that stops 24 November, and it is the only one that has never been scheduled.** Five builds have cleared processing; zero have entered review. Submitting is a distinct piece of work the uploads have not done: create the 2.0 version record, attach a build, write the listing copy, take new screenshots, answer the review questionnaire. One Job's review ran four days end to end and a rejection costs another cycle. **64 days is comfortable runway, and that is exactly why this is worth one minute now** rather than in November. | ~1 min | nothing yet — this item is what keeps it that way |
+| — | **Done since the last pass: you said go, and it shipped.** One line to Pard this morning; he built from current `main`, regenerated the project at build 5, verified version, bundle ID and signing out of the archive and the IPA, and uploaded clean — previously items 1 and 2 on this page. Before that, **you ran 2.0 (4)** on the 20th. The report was the most useful artifact of the month — four findings, all four fixed, and the diagnostics panel turned "it may have treated bird calls as talking" into `silence 0.0` over 100.8 seconds, which is a measurement rather than an impression. | One thing still open to overrule if you want to: the brochure's footer now reads "drafted by Claude for Christian," and every first-person claim that wasn't your own action or decision is gone. Dan's markup flagged that as its most serious item. Change the byline if you'd rather handle the disclosure differently. | — | — |
 
 ## Dan's answer
 
@@ -89,6 +113,13 @@ it ready if we run short of time."* Pard preps and holds it. Whether it ships is
 nothing is asking you for it yet.
 
 ## Resolved this pass
+
+- **2.0 (5) is built, uploaded, processed and testable.** Pard's delivery
+  `3d55569b-1fea-4d44-821d-70e06a607afd`, from `main` at `de7f997`, and Apple's confirmation 82
+  seconds after his memo landed: the processing mail and the TestFlight *"now available to test"*
+  mail, both 2026-09-21 15:36 UTC. **Confirmed from Apple's mail rather than from any exit code**,
+  per the 09-11 rule. No ITMS warnings — the three plist gates that bit 2.0 on 09-11 stayed fixed.
+- **Rev 28's single needs-you item is closed**, about eleven hours after it was written.
 
 - **Pard's hold is acknowledged and clean.** Both of last night's memos read in order, second
   superseding the first, **nothing built from the morning tree and nothing discarded** — Amber was
@@ -171,8 +202,8 @@ nothing is asking you for it yet.
 | **Cairn** | `calibration: Calibration?` and delete `.unavailable`; make "I don't know" representable | **deliberately held out of 2.0 (4)** — it changes classification, and an observing build should not change what it observes. `isCalibrated` makes it visible meanwhile |
 | **Themis** | Carry the first-person convention to Janus as a Tier-2 candidate, in **his** framing of the recurrence, not mine | his call, taken 09-16 |
 | **Cairn** | Lifecycle state machine, one engine owner, `stop()` reachable from every non-idle state; real buffer-duration accounting | after the diagnostic build reports |
-| **Pard** | Build and upload 2.0 (5) from current `main`, build number 5 | **xian's go.** Held since 21:12 PT 09-20; nothing was built from the superseded tree |
-| **Pard** | Prep the flag-off-capture fallback build and hold it (xian's 09-17 re-rank, item 6) | after 2.0 (4) reports; shipping it is xian's call |
+| **Pard** | Read the TestFlight beta-tester list with the ASC API key — is Dan on it? | asked this pass; turns an assumption about "xian's side" into a fact either way |
+| **Pard** | Prep the flag-off-capture fallback build and hold it (xian's 09-17 re-rank, item 6) | after 2.0 (5) reports; shipping it is xian's call |
 | **Cairn** | Update Dan's brochure once a build survives use, and fix the AI writing tics he flagged | xian forwarding the feedback; a working build |
 | **Janus** | Registry: two entries — `mediajunkie/optilisten` (app) and `Design-in-Product/optilisten` (live site) | memo 09-07; unconfirmed |
 

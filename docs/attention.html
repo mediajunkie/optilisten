@@ -209,7 +209,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 21 Sep 2026 · rev 28 · file and page in sync</div>
+    <div class="stamp">Updated 21 Sep 2026 · rev 29 · file and page in sync</div>
   </header>
 
 
@@ -249,6 +249,25 @@
       the build has been run. Pard's console readback still owns the date itself.</div></div>
   </section>
   <section class="win">
+    <div class="tag">rev 29 &middot; it is on the phone, confirmed by Apple</div>
+    <p><b>2.0 (5) is testable.</b> Pard uploaded at 08:35&nbsp;PT &mdash; delivery
+      <code>3d55569b</code>, built from <code>main</code> at <code>de7f997</code>, version and bundle
+      ID read back out of the archive and the IPA rather than off an exit code, no validator
+      warnings. <b>Apple's own mail closes the loop 82 seconds later:</b>
+      <i>"Version 2.0 (5) for OptiListen has completed processing"</i> and <i>"OptiListen 2.0 (5) for
+      iOS is now available to test"</i>, both stamped 21&nbsp;Sep 15:36&nbsp;UTC. Installable for
+      about seven and a half hours. <b>Verified from Apple, not from a report of Apple.</b></p>
+    <p><b>Rev 28's one item is closed</b> &mdash; "written, unbuilt, waiting on one word" lasted
+      about eleven hours. Nothing here is waiting on Pard, on me, or on a build any more; every live
+      item is the field test or a decision only xian can make.</p>
+    <p><b>What five builds have not touched is the date.</b> 2.0&nbsp;(1) through (5) have all
+      cleared <em>processing</em>; none has entered <em>App Review</em>, which is the only event
+      Apple's notice says stops the removal. Not news &mdash; the standing correction since rev 22
+      &mdash; but with the build finally in hand it is the only item left carrying a deadline, and it
+      has never had a date of its own.</p>
+  </section>
+
+  <section class="win">
     <div class="tag">rev 28 &middot; written, unbuilt, waiting on one word</div>
     <p><b>Pard built nothing from the superseded tree, so there is nothing to discard.</b> He read
       both of last night's memos in order and acted on the second only; Amber was rebooting through
@@ -258,7 +277,7 @@
       21:12&nbsp;PT on the 20th.</p>
     <p><b>Nothing else moved overnight.</b> No Apple mail about OptiListen since the 2.0&nbsp;(4)
       processing notice of 17&nbsp;Sep 00:12&nbsp;UTC: no review state, no new build, no removal or
-      App Store Improvement mail. Four builds have cleared processing; zero have entered review.</p>
+      App Store Improvement mail. Five builds have cleared processing; zero have entered review.</p>
   </section>
   <section class="win">
     <div class="tag">rev 27 &middot; 2.0 (5) is the release candidate</div>
@@ -353,7 +372,59 @@
     </div>
     <div class="meter" role="img" aria-label="26 of 90 days elapsed"><i style="width:28.9%"></i></div>
     <div class="scale"><span>day 26 of 90</span><span>29% spent</span></div>
-    <div class="caveat">▲ The 26 Aug notice is the only source for this date; App Store Connect's API has no removal-date field. <b>Accepted builds do not move it,</b> and as of 18 Sep no 2.0 version is in review. Apple stops the removal on <i>"an update and it's approved,"</i> which means App Review. Four builds have cleared processing; zero have entered review. <b>This corrects a line this page carried since rev 19.</b></div>
+    <div class="caveat">▲ The 26 Aug notice is the only source for this date; App Store Connect's API has no removal-date field. <b>Accepted builds do not move it,</b> and as of 18 Sep no 2.0 version is in review. Apple stops the removal on <i>"an update and it's approved,"</i> which means App Review. Five builds have cleared processing; zero have entered review. <b>This corrects a line this page carried since rev 19.</b></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">the build is in your hand · 3 items · ~13 min</span></div>
+    <div class="items">
+
+      <div class="item blocking">
+        <div class="rank">1</div>
+        <div class="body">
+          <div class="title">Run 2.0 (5) &mdash; once indoors, once outdoors</div>
+          <div class="why"><b>It is in TestFlight on your phone now.</b> The calibration bar in this
+            build is mine, estimated from your single 09-20 run: <code>isUsable</code> 8&nbsp;dB
+            &rarr; 12, floor <code>ambient - 6</code> &rarr; <code>ambient + 3</code>.
+            <b>Your 09-20 outdoor session measured a 9.7&nbsp;dB gap, so under this build it produces
+            no number at all</b> and tells you your voice and the room are too close together.
+            Intended, and exactly the thing under test. If <em>indoors</em> also refuses, the bar is
+            wrong and I would rather learn that in a day than defend it.</div>
+          <div class="meta"><span class="pill cost">~10 min</span><span class="pill stop">blocks the thresholds, the screenshots and Dan</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="rank">2</div>
+        <div class="body">
+          <div class="title">Say whether Dan gets this build &mdash; and check he is actually on the tester list</div>
+          <div class="why">Dan said yes on 09-16 and has waited five days without ever seeing the
+            app. The second half is the part that quietly bites: <b>whether he is a TestFlight tester
+            is an App Store Connect setting, and nobody has read it.</b> I have asked Pard to query
+            the beta-tester list with the API key rather than leave it an assumption. If Dan is not
+            on it, adding him is a two-minute job done once &mdash; better found tonight than after
+            you have told him it is waiting.</div>
+          <div class="meta"><span class="pill cost">~2 min</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="rank">3</div>
+        <div class="body">
+          <div class="title">Name the date you intend to submit 2.0 for App Review</div>
+          <div class="why"><b>A date, not an action &mdash; nothing needs doing today.</b> This is
+            the only step that stops 24&nbsp;November, and the only one that has never been
+            scheduled. Five builds have cleared processing; zero have entered review. Submitting is
+            distinct work the uploads have not done: create the 2.0 version record, attach a build,
+            write the listing copy, take new screenshots, answer the review questionnaire. One Job's
+            review ran four days end to end and a rejection costs another cycle. <b>64 days is
+            comfortable runway, and that is exactly why it is worth one minute now</b> rather than in
+            November.</div>
+          <div class="meta"><span class="pill cost">~1 min</span></div>
+        </div>
+      </div>
+
+    </div>
   </section>
 
   <section class="sec">
@@ -386,18 +457,6 @@
             <b>One thing to overrule if you want to:</b> the footer now reads "drafted by Claude for Christian."<br>
             Every first-person claim that wasn't your own action or decision is gone. Change the byline if you'd rather disclose it differently.
           </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="rank">!</div>
-        <div class="body">
-          <div class="title">Say go on 2.0 (5) — it is written, unbuilt, and Pard is holding for your word</div>
-          <div class="why"><b>Nothing technical is pending.</b> Four findings triaged against the code and
-            the screenshots, all four fixed, <b>2.0 (5) is Pard's to build, and he has held it since 21:12&nbsp;PT on the 20th because he read the scheduling as yours.</b> The one thing worth
-            knowing: the diagnostics panel turned "it may have treated bird calls as talking" into
-            <code>silence 0.0</code> over 100.8 seconds, which is a measurement rather than an
-            impression, and it named the actual defect in one line.</div>
-          <div class="steps"><b>Next from you:</b> one line to Pard &mdash; build 2.0 (5) from current <code>main</code>.<br>Then run it once indoors and once outdoors, and say whether it goes to Dan in the same pass. Dan said yes on 09-16 and has never seen the app.</div>
         </div>
       </div>
     </div>
@@ -687,7 +746,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 28<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 29<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>
