@@ -43,7 +43,10 @@ struct HomeView: View {
                     Section {
                         ForEach(unreflected) { practice in
                             NavigationLink {
-                                Text("Reflection for \(practice.label)")  // wired in next pass
+                                // Resuming the reflection itself is still to build;
+                                // until then this opens the record rather than a
+                                // debug string, which is what shipped in 2.0 (4).
+                                PracticeDetail(practice: practice)
                             } label: {
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text(practice.label.isEmpty ? "Untitled conversation" : practice.label)
@@ -70,8 +73,15 @@ struct HomeView: View {
 
                 if !closed.isEmpty {
                     Section("Recent") {
+                        // 2026-09-20 field test: "There is no way to review past
+                        // sessions. Touching a past session doesn't open it to show
+                        // the notes as expected." The row already looked tappable.
                         ForEach(closed.prefix(12)) { practice in
-                            PracticeRow(practice: practice)
+                            NavigationLink {
+                                PracticeDetail(practice: practice)
+                            } label: {
+                                PracticeRow(practice: practice)
+                            }
                         }
                     }
                 }
@@ -136,6 +146,9 @@ private struct PracticeRow: View {
                     Text(measured)
                         .font(.body.monospacedDigit())
                         .foregroundStyle(practice.metGoal == true ? .green : .orange)
+                    Text("you talking")
+                        .font(.caption2)
+                        .foregroundStyle(.tertiary)
                 } else {
                     Text("—")
                         .font(.body)
@@ -148,6 +161,82 @@ private struct PracticeRow: View {
                 }
             }
         }
+    }
+}
+
+// MARK: - One past conversation
+
+private struct PracticeDetail: View {
+    let practice: Practice
+
+    var body: some View {
+        List {
+            Section {
+                if let measured = practice.measuredPercentText {
+                    HStack(alignment: .firstTextBaseline) {
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text(measured)
+                                .font(.system(size: 34, weight: .light, design: .rounded))
+                                .monospacedDigit()
+                            Text("of the talking was you")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        Text("ceiling \(practice.goalPercentText)")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                    if let breakdown = practice.breakdownText {
+                        Text(breakdown)
+                            .font(.footnote.monospacedDigit())
+                            .foregroundStyle(.secondary)
+                    }
+                    if practice.heardNoSilence {
+                        Label(
+                            "Nothing was ever quiet, so every moment was counted as someone speaking. This reading is not meaningful.",
+                            systemImage: "exclamationmark.triangle"
+                        )
+                        .font(.footnote)
+                        .foregroundStyle(.orange)
+                    }
+                } else {
+                    Text("No reading for this one. The loop still counts.")
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            Section("What you were practising") {
+                if practice.focus.isEmpty {
+                    Text("Nothing written down.").foregroundStyle(.secondary)
+                } else {
+                    Text(practice.focus)
+                }
+            }
+
+            if let presence = practice.presence {
+                Section("How present you were") {
+                    Text("\(presence) out of 5")
+                }
+            }
+
+            Section("Notes") {
+                if practice.note.isEmpty {
+                    Text("No notes.").foregroundStyle(.secondary)
+                } else {
+                    Text(practice.note)
+                }
+            }
+
+            Section {
+                LabeledContent("Started", value: practice.createdAt.formatted(date: .abbreviated, time: .shortened))
+                if let reflected = practice.reflectedAt {
+                    LabeledContent("Reflected", value: reflected.formatted(date: .abbreviated, time: .shortened))
+                }
+            }
+        }
+        .navigationTitle(practice.label.isEmpty ? "Untitled conversation" : practice.label)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

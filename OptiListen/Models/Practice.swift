@@ -48,6 +48,19 @@ final class Practice {
     /// and the UI must never pretend otherwise.
     var evidenceDuration: TimeInterval = 0
 
+    /// The three-way classification the reading was computed from, in seconds.
+    /// Stored so a past reading can be *inspected* rather than trusted.
+    ///
+    /// 2026-09-20 field test, outdoors: `user 75.7 / other 25.1 / silence 0.0`
+    /// over 100.8s. The zero is the tell. A hundred seconds outdoors with no
+    /// silence at all means the floor never fired and every buffer was
+    /// attributed to somebody speaking, which is how a 74% reading appeared
+    /// that the tester could not trust. A number whose parts are visible can be
+    /// argued with; one that arrives alone cannot.
+    var userSpeakingSeconds: TimeInterval?
+    var otherSpeakingSeconds: TimeInterval?
+    var silenceSeconds: TimeInterval?
+
     /// Length of the conversation as the user reports it, when known. Lets the
     /// UI say "we heard 8 of your 45 minutes" instead of implying full coverage.
     var conversationDuration: TimeInterval?
@@ -97,6 +110,26 @@ extension Practice {
     var goalDelta: Double? {
         guard let measured = measuredSpeakingShare else { return nil }
         return measured - goalSpeakingShare
+    }
+
+    /// "you 1:16 · others 0:25 · quiet 0:00" — the parts behind the percentage.
+    var breakdownText: String? {
+        guard let user = userSpeakingSeconds,
+              let other = otherSpeakingSeconds,
+              let silence = silenceSeconds else { return nil }
+        return "you \(Self.clock(user)) · others \(Self.clock(other)) · quiet \(Self.clock(silence))"
+    }
+
+    /// Nothing was ever quiet, so everything was counted as speech. Outdoors or
+    /// in a loud room this is the state that makes the percentage meaningless.
+    var heardNoSilence: Bool {
+        guard let silence = silenceSeconds, evidenceDuration > 30 else { return false }
+        return silence == 0
+    }
+
+    static func clock(_ seconds: TimeInterval) -> String {
+        let total = Int(seconds.rounded())
+        return String(format: "%d:%02d", total / 60, total % 60)
     }
 
     var metGoal: Bool? {

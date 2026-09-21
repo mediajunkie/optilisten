@@ -73,11 +73,39 @@ final class LiveMicSource: LiveTalkRatioSource {
         }
 
         /// Floor below which a moment is silence rather than anyone speaking.
-        var silenceFloor: Double { ambientLevel - 6.0 }
+        ///
+        /// This used to be `ambientLevel - 6.0`, which is backwards. `ambientLevel`
+        /// is measured with the user deliberately quiet, so by construction a moment
+        /// *at* ambient is nobody talking. Putting the floor 6 dB below it meant the
+        /// room's own noise could never be silence, and the "other speaking" bucket
+        /// absorbed the entire noise floor instead.
+        ///
+        /// 2026-09-20, outdoors: 100.8 seconds of capture produced `silence 0.0`.
+        /// Not a rounding artifact — the floor was unreachable, so every buffer was
+        /// scored as speech and the percentage was computed over continuous noise.
+        var silenceFloor: Double { ambientLevel + 3.0 }
 
-        /// Calibration is meaningless if the two readings are too close —
-        /// headphones, a very loud room, a phone across the desk.
-        var isUsable: Bool { userLevel - ambientLevel >= 8.0 }
+        /// Calibration is meaningless if the two readings are too close:
+        /// headphones, a loud room, a phone across the desk.
+        ///
+        /// The bar was 8 dB, which is enough to separate two buckets and not enough
+        /// for three. With the floor at ambient+3 and the threshold at 45% of the
+        /// gap, "other speaking" only exists above a gap of about 6.7 dB, and it is
+        /// a usable width only well past that. The 2026-09-20 field run passed at
+        /// 9.7 dB and produced a number the tester correctly did not believe.
+        ///
+        /// 12 and 16 are first estimates from that single run, not measurements.
+        /// The next field test is what validates or moves them, and the numbers are
+        /// in the diagnostics log so the next run can argue with them.
+        var isUsable: Bool { userLevel - ambientLevel >= 12.0 }
+
+        /// Separated, but not by much. The reading is shown and marked rather than
+        /// withheld, because refusing a number the user can sanity-check themselves
+        /// is its own kind of dishonesty.
+        var isMarginal: Bool {
+            let gap = userLevel - ambientLevel
+            return gap >= 12.0 && gap < 16.0
+        }
 
         /// The value held before anyone has calibrated.
         ///

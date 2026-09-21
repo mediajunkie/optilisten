@@ -62,6 +62,9 @@ struct PracticeLoopView: View {
             practice.measuredSpeakingShare = source.currentShare
             practice.evidenceDuration = source.observedDuration
             practice.evidenceSourceID = source.id
+            practice.userSpeakingSeconds = source.userSpeakingSeconds
+            practice.otherSpeakingSeconds = source.otherSpeakingSeconds
+            practice.silenceSeconds = source.silenceSeconds
         }
     }
 }
@@ -161,21 +164,39 @@ private struct ListeningStep: View {
                 }
                 .padding(.horizontal, 32)
             } else {
-                VStack(spacing: 6) {
+                // The number is the share of speech that is YOU, measured against a
+                // ceiling you set. Unlabelled, in an app called OptiListen, with the
+                // practice line sitting directly underneath, a rising number reads as
+                // success when it means the opposite: 2026-09-20 field note, verbatim,
+                // "i was distracted by not understanding or trusting the readout."
+                // So the number now says what it counts, and "of X%" is gone: it parsed
+                // as a fraction of a fraction rather than a limit.
+                VStack(spacing: 4) {
                     Text(Practice.percent(source.currentShare))
                         .font(.system(size: 72, weight: .thin, design: .rounded))
                         .monospacedDigit()
                         .contentTransition(.numericText())
                         .foregroundStyle(overGoal ? .orange : .primary)
-                    Text("of \(practice.goalPercentText)")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                    Text("of the talking is you")
+                        .font(.subheadline.weight(.medium))
+                    Text(overGoal
+                         ? "over your \(practice.goalPercentText) ceiling"
+                         : "ceiling \(practice.goalPercentText)")
+                        .font(.footnote)
+                        .foregroundStyle(overGoal ? .orange : .secondary)
                 }
 
-                Text(practice.focus)
-                    .font(.title3)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 32)
+                VStack(spacing: 2) {
+                    Text("practising")
+                        .font(.caption)
+                        .textCase(.uppercase)
+                        .foregroundStyle(.tertiary)
+                    Text(practice.focus)
+                        .font(.title3)
+                        .multilineTextAlignment(.center)
+                }
+                .padding(.horizontal, 32)
+                .padding(.top, 18)
 
                 // Two things that were previously invisible and both of which
                 // render as a confident 0%: an engine that started and is
@@ -188,9 +209,21 @@ private struct ListeningStep: View {
                         .padding(.horizontal, 32)
                 }
                 if !source.isCalibrated {
-                    Text("Not calibrated — this number is against placeholder thresholds.")
+                    Text("Not calibrated, so this number is against placeholder thresholds.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
+                        .padding(.horizontal, 32)
+                }
+                if source.calibration.isMarginal {
+                    Text("Your voice and the room are close together. Treat the split between you and others as rough.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 32)
+                }
+                if source.silenceSeconds == 0 && source.observedDuration > 30 {
+                    Label("Nothing has been quiet yet, so everything is counting as speech.", systemImage: "exclamationmark.triangle")
+                        .font(.footnote)
+                        .foregroundStyle(.orange)
                         .padding(.horizontal, 32)
                 }
             }
@@ -256,14 +289,32 @@ private struct ReflectionStep: View {
         Form {
             if practice.hasEvidence, let measured = practice.measuredPercentText {
                 Section {
-                    HStack {
-                        Text(measured)
-                            .font(.system(size: 34, weight: .light, design: .rounded))
-                            .monospacedDigit()
+                    HStack(alignment: .firstTextBaseline) {
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text(measured)
+                                .font(.system(size: 34, weight: .light, design: .rounded))
+                                .monospacedDigit()
+                            Text("of the talking was you")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                         Spacer()
-                        Text("aimed at \(practice.goalPercentText)")
+                        Text("ceiling \(practice.goalPercentText)")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
+                    }
+                    if let breakdown = practice.breakdownText {
+                        Text(breakdown)
+                            .font(.footnote.monospacedDigit())
+                            .foregroundStyle(.secondary)
+                    }
+                    if practice.heardNoSilence {
+                        Label(
+                            "Nothing was ever quiet, so every moment was counted as someone speaking. In a noisy place, or outdoors, this reading is not meaningful.",
+                            systemImage: "exclamationmark.triangle"
+                        )
+                        .font(.footnote)
+                        .foregroundStyle(.orange)
                     }
                 } footer: {
                     if practice.evidenceIsPartial {

@@ -1,119 +1,37 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-20 (rev 25) · **Deadline:** 2026-11-24 (65 days · day 25 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version is in review)
+**Maintained by:** Cairn · **Updated:** 2026-09-20 (rev 26) · **Deadline:** 2026-11-24 (65 days · day 25 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version is in review)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
 
-> **rev 25 — the date rolled; nothing else did. 65 days.**
+> **rev 26: 2.0 (4) ran. Four field findings, all four fixed, 2.0 (5) is Pard's to build.**
+> xian's field test, 09-20: *"It did not crash and appeared to function as intended."* First build in
+> this train a person could use, ten screenshots in `testing/`, four findings.
 >
-> Quiet pass (scheduled fire, 2026-09-20, on kindbook). No mail for Cairn since Pard's 09-18 reply,
-> answered 09-19. No new OptiListen commits since rev 24, and no Apple-domain mail in the readable
-> Gmail in the last three days. The one item that needs xian (run 2.0 (4), ~3 min) is unchanged, and it
-> has now been installable for ~87 hours — past the 72-hour mark this rollup set for re-surfacing an
-> item on age alone, so it was re-surfaced this pass, once.
+> **The diagnostics panel paid for itself in one screenshot.** `IMG_5374` shows the capture log:
+> `user -32.8 / ambient -42.5 / threshold -38.1 / floor -48.5`, and
+> `heard 100.8s — user 75.7 / other 25.1 / **silence 0.0**`. A hundred seconds outdoors with no
+> silence at all is not a rounding artifact: the floor was unreachable, so every buffer scored as
+> speech and the percentage was computed over continuous noise. That is the mechanism behind
+> "it may have treated bird calls as talking." He was right and the log says why.
+>
+> **What was wrong.** The silence floor was derived *downward* from ambient (`ambient - 6`), but
+> ambient is measured with the user deliberately quiet, so a moment at ambient is nobody talking;
+> the "other speaking" bucket was absorbing the entire room. Now `ambient + 3`. The usability bar
+> was 8 dB, which separates two buckets and not three; his run passed at 9.7 dB and produced a
+> number he correctly disbelieved, so the bar is 12 with a marked 12-16 band. **12 and 16 are first
+> estimates from one run, not measurements, and the code and the diagnostics both say so.**
+>
+> **The readout was breaking the practice.** The live screen read `78%` / `of 25%` / `listening`,
+> unlabelled, with the practice line directly under the number. His note typed into the app at the
+> time: *"i was distracted by not understanding or trusting the readout."* It now says
+> **"of the talking is you"** and **"ceiling 25%"**. The three-way split is stored and shown
+> (`you 1:16 · others 0:25 · quiet 0:00`), so the number can be argued with rather than trusted.
+> And past sessions open: `Recent` had no `NavigationLink` while the section above it did.
 
-> **rev 24 — Pard's readback is in, and it closes both questions: no 2.0 version exists in App**
-> **Store review, and App Store Connect has no removal-date field to read.**
->
-> Pard queried `/v1/apps/1593948410/appStoreVersions` on the evening of 09-18. Two versions exist:
-> **1.1 `READY_FOR_SALE`** (created 2023-07-10) and **1.0 `REPLACED_WITH_NEW_VERSION`**. Nothing from
-> the 2.0 line: no submission, no review state, nothing in progress. **That confirms the rev 22
-> correction against this app record**: the condition that stops removal (an approved App Review
-> submission) has not happened. On the date itself, **the API exposes no removal-date field on any
-> surface he could query**, so the only place 24 November exists is the 08-26 notice. That makes
-> "nobody has read it back" permanently true through the API. It is not an open task any more.
->
-> **The fallback build now has provenance, and it has two halves.** I asked Pard on 09-18 where his
-> handoff's "prep-and-hold" came from rather than writing it in as a decision. He quoted your
-> 09-17 re-rank, item 6, verbatim: *"Let's prep the fallback build and have it ready if we run
-> short of time."* So **preparing and holding it is your ranking and Pard's work**; **shipping it is
-> still your call**. The row has moved to carry both. Nothing starts on it before 2.0 (4) reports.
->
-> **One correction of my own, from Pard's table.** On 09-10 I recorded the 1.x version as 1.3 (6),
-> read from the source repo. **That is what the source says, not what shipped.** App Store Connect
-> and the public listing both say **1.1**, released 2023-07-19; `listenup-mobile` bumped to 1.3.6
-> on 2023-05-30. It changes nothing for 2.0, which sorts above either. But the "source of record"
-> was ahead of the shipped app, and I described it as the shipped app.
->
-> **A precedent worth having before anyone touches background behaviour.** The 1.1 release note
-> reads: *"The app now warns you that it cannot calculate your listening score while in the
-> background."* The matching source commit is `621862f` (2023-05-30, "show an alert before app goes
-> to background"). **Inference, not verified from Apple's side:** that warning is how the July 2023
-> background-modes rejection was cleared. Apple approved an app that stops measuring and says so,
-> rather than one that keeps the microphone running. If 2.0's fix touches background, that approved
-> shape comes first.
->
-> 2.0 (4) has been installable for about 63 hours. Apple's channel re-read empty again: nothing
-> about OptiListen since the 09-17 processing notice.
->
-> **rev 23 — the date rolled; nothing else did. 67 days, not 68.**
->
-> A quiet pass, and **this rev exists for the arithmetic rather than for a finding.** No mail has
-> arrived for me since the 09-16 batch, all of which is answered. The single item that needs xian
-> is unchanged and has now been installable for 39 hours — Apple's processing mail is stamped
-> 2026-09-17 00:12:45 UTC. He was at a conference on the 17th and already holds both the ask and
-> the clock correction, so this is not a third surfacing of it.
->
-> **Re-read this pass, and it came back empty the same way it did yesterday:** no Apple mail about
-> OptiListen since that processing notice — no review state, no new build, no removal or App
-> Store Improvement mail. Worth restating the limit rather than the reassurance: that channel
-> carries processing and review mail and nothing else, so its silence is evidence about the removal
-> clock and about **nothing else** — in particular it cannot say whether the build has been run.
-> Pard's console readback still owns the date itself.
->
-> **rev 22 — the correction is mine: the removal clock has not moved, and it does not count**
-> **TestFlight builds. Apple's published wording is "until you submit an update and it's approved."**
->
-> This rollup has carried since rev 19 the line *"three accepted builds may well have moved it."*
-> **I wrote that, and it is wrong.** Verified this pass against Apple's own App Store Improvements
-> page: *"You'll be asked to submit an update within 90 days to keep your app on the App Store. If
-> you're unable to make the changes within this time frame, your app will be removed from the App
-> Store until you submit an update and it's approved."* **An upload to App Store Connect is not a
-> submission; a TestFlight build is not an update.** Four builds have cleared *processing* — a
-> notarization and format check. Zero have entered App Review. One Job's mail this week shows what
-> the other thing looks like: *Ready For Review → Waiting for Review → In Review → Pending Developer
-> Release → Ready for Distribution*, four days, none of which OptiListen has produced.
->
-> **This is not an emergency and is deliberately not dressed as one.** 67 days is real runway for a
-> submission whose only hard dependency is a build that doesn't crash. But the number was measuring
-> the wrong event, and it made the flag-off-capture option look less urgent than it is — that
-> option's whole argument is *certainty against 24 November*, and the date is 67 days out rather
-> than partly bought down. Pard's console readback now has two questions, not one: the date, **and**
-> whether any version shows a review state.
->
-> **2.0 (4) is not just uploaded — it is on his phone.** Apple's processing mail landed
-> 2026-09-17 00:12:45 UTC, ~73 seconds after Pard's memo, and TestFlight says *available to test*.
-> Pard's `buffersReceived 0 → 2` check, controlled against the preserved 2.0 (3) IPA, is the first
-> binary check this month that earned the word verified. **The diagnostic surface is provably in the
-> bits xian is holding.**
-
-> **rev 21: the diagnostic build is written, pushed and handed to Pard — and there is no crash**
-> **artifact for 2.0 (3), which is the same defect one layer out.**
->
-> **Pard checked twice, three hours apart: the crash feed has not moved.** Newest submission is
-> 09-15 and its `Version:` field reads 2.0 (2). **There is no 2.0 (3) artifact of any kind** — most
-> likely because a TestFlight crash submission only exists if the tester taps *Share* on a modal,
-> and this time he didn't or it didn't appear. His report stands as evidence; the artifact simply
-> isn't there. **Pard's standing check returned "nothing new," which was true and useless**, and he
-> had said on 09-14 that a quiet feed would be evidence the fix held. That inference is dead.
->
-> **Note the shape.** The app dies or does nothing and tells no one why — and our instrument for
-> watching it does the same. Both fail toward reassurance: a check that says "nothing new" when it
-> cannot see, and a view that renders a calm `0%` when nothing arrived. **Rule adopted: an
-> instrument that cannot distinguish "nothing happened" from "I could not see" is not a check, and
-> its quiet reading may not be reported as a result.**
->
-> **So the diagnostic build shipped in the same fire that learned this** — `62feb22`, **2.0 (4)**,
-> with Pard's ask as its spine: the failure renders on screen, and the log copies with one tap, so
-> nothing depends on catching a modal. My own row had read "waiting on the crash log"; there is no
-> crash log, so that row would have waited forever. **The worst thing found while writing it:**
-> `CalibrationView` substituted `-20` and `-50` for two failed readings — which *is*
-> `Calibration.unavailable`, whose 30 dB gap passes `isUsable` — so a calibration in which **both
-> readings failed** drew a green checkmark and the word "Ready." Not silence: the opposite of the
-> truth, asserted confidently.
 ---
 
 ## Needs you
