@@ -209,7 +209,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 20 Sep 2026 · rev 25 · file and page in sync</div>
+    <div class="stamp">Updated 21 Sep 2026 · rev 26 · file and page in sync</div>
   </header>
 
 
@@ -248,6 +248,38 @@
       about the removal clock and <b>about nothing else</b> &mdash; in particular it cannot say whether
       the build has been run. Pard's console readback still owns the date itself.</div></div>
   </section>
+  <section class="win">
+    <div class="tag">rev 26 &middot; it ran</div>
+    <p><b>2.0 (4) did not crash, and xian used the whole loop outdoors on 09-20.</b> His words:
+      <i>"It did not crash and appeared to function as intended."</i> Ten screenshots are in
+      <code>testing/</code> in the repo. Four findings, all four fixed, <b>2.0 (5) is Pard's to
+      build</b> and every changed file parses clean.</p>
+    <p><b>The diagnostics panel paid for itself in one screenshot.</b> <code>IMG_5374</code> is the
+      capture log: <code>user -32.8 / ambient -42.5 / threshold -38.1 / floor -48.5</code>, and
+      <code>heard 100.8s &mdash; user 75.7 / other 25.1 / <b>silence 0.0</b></code>. A hundred
+      seconds outdoors with no silence at all is not rounding: <b>the floor was unreachable, so every
+      buffer scored as speech and the percentage was computed over continuous noise.</b> That is the
+      mechanism behind his "it may have treated bird calls as talking." He was right and the log says
+      why. <b>The build that reports told us in one screenshot what three builds of inference could
+      not.</b></p>
+    <p><b>What was actually wrong.</b> <code>silenceFloor</code> was <code>ambient - 6.0</code>,
+      derived <em>downward</em> from a level that is by construction "nobody talking" &mdash; ambient
+      is sampled with the user deliberately quiet &mdash; so the room's own noise could never be
+      silence and the "other speaking" bucket absorbed it. Now <code>ambient + 3.0</code>. The
+      usability bar was 8 dB, which separates two buckets and not three; his run passed at
+      <b>9.7 dB</b> and produced a number he correctly disbelieved, so the bar is 12 with a marked
+      12&ndash;16 band. <b>12 and 16 are first estimates from one field run, not measurements, and
+      the code and the diagnostics both say so.</b></p>
+    <p><b>And the readout was breaking the practice it exists to support.</b> The live screen read
+      <code>78%</code> / <code>of 25%</code> / <code>listening</code>, unlabelled at 72pt with his own
+      practice line directly underneath, in an app called OptiListen. His note, typed into the app at
+      the time: <i>"i was distracted by not understanding or trusting the readout."</i> It now says
+      <b>"of the talking is you"</b> and <b>"ceiling 25%"</b>, the three-way split is stored and shown
+      (<code>you 1:16 &middot; others 0:25 &middot; quiet 0:00</code>), and past sessions open:
+      <code>Section("Recent")</code> had no <code>NavigationLink</code> while the section three lines
+      above it did.</p>
+  </section>
+
   <section class="alert">
     <div class="tag">Correcting my own line — the clock has not moved</div>
     <p><b>This page has said since rev 19 that three accepted builds "may well have moved" the
@@ -350,11 +382,15 @@
         </div>
       </div>
       <div class="item">
-        <div class="rank">01</div>
+        <div class="rank">✓</div>
         <div class="body">
-          <div class="title">Run 2.0 (4) — it is in your TestFlight right now</div>
-          <div class="why"><b>This is the only step nobody else can do, and it is no longer waiting on anyone.</b> Apple finished processing at 17:12 PT yesterday. One practice session is enough — start it, let it sit ten seconds, end it. The build exists to make the app say what happened to it, and it says it to whoever is holding the phone. Three builds have been diagnosed by reading source; <b>this is the first that can be diagnosed by reading the app.</b> Pard's binary check confirms the diagnostic strings are in the shipped bits — so if it renders and says nothing useful, that is still a finding.</div>
-          <div class="steps"><b>~3 minutes.</b> TestFlight → OptiListen → Update → start a session → <b>stethoscope</b> in the listening toolbar → <b>Copy diagnostics</b>.<br>Also on the failure card and on a failed-calibration screen.</div>
+          <div class="title">Done — you ran it, and the report was the most useful artifact of the month</div>
+          <div class="why"><b>Nothing is waiting on you.</b> Four findings triaged against the code and
+            the screenshots, all four fixed, <b>2.0 (5) is Pard's to build.</b> The one thing worth
+            knowing: the diagnostics panel turned "it may have treated bird calls as talking" into
+            <code>silence 0.0</code> over 100.8 seconds, which is a measurement rather than an
+            impression, and it named the actual defect in one line.</div>
+          <div class="steps"><b>Next from you:</b> run 2.0 (5) when Pard ships it, ideally once indoors and once outdoors.<br>The calibration numbers are provisional and the next field run is what validates them.</div>
         </div>
       </div>
     </div>
@@ -644,7 +680,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 25<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 26<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>
