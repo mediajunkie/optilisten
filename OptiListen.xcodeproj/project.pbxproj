@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		06F2B47C7DEAEEEAE9C09BAE /* TalkRatioSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7BBCF3D4B74D165D703A3 /* TalkRatioSource.swift */; };
+		145AF6961B1D42FF7D8F9548 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6E42B95414484A32F7C10E /* Theme.swift */; };
 		2CB205F2D9137C238D503735 /* LiveMicSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714BF625C3A73DB132F5F991 /* LiveMicSource.swift */; };
 		A07F071B287653E864AE9B55 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F29F8D55098D1C62643032E0 /* PrivacyInfo.xcprivacy */; };
 		AEF220B5E8C6DBB83CDF0B8D /* Practice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64264BF7FBF275DD3825A4A9 /* Practice.swift */; };
@@ -32,6 +33,7 @@
 		AFA7BBCF3D4B74D165D703A3 /* TalkRatioSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkRatioSource.swift; sourceTree = "<group>"; };
 		BAB3AD7BCF7A7499B0997541 /* PracticeLoopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeLoopView.swift; sourceTree = "<group>"; };
 		F29F8D55098D1C62643032E0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		FF6E42B95414484A32F7C10E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -48,6 +50,7 @@
 			children = (
 				3AE21D29DF59CF383E7AA922 /* Info.plist */,
 				F29F8D55098D1C62643032E0 /* PrivacyInfo.xcprivacy */,
+				FF6E42B95414484A32F7C10E /* Theme.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				DCD9A77D35D44CBC9E09B08B /* PracticeLoopView.swift in Sources */,
 				DC43673ECF52A599429BC2BE /* RetrospectiveSources.swift in Sources */,
 				06F2B47C7DEAEEEAE9C09BAE /* TalkRatioSource.swift in Sources */,
+				145AF6961B1D42FF7D8F9548 /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,7 +226,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = YZ4B34YGX9;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -308,7 +312,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = YZ4B34YGX9;
 				ENABLE_NS_ASSERTIONS = NO;
