@@ -209,7 +209,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 21 Sep 2026 · rev 29 · file and page in sync</div>
+    <div class="stamp">Updated 22 Sep 2026 · rev 30 · file and page in sync</div>
   </header>
 
 
@@ -248,6 +248,39 @@
       about the removal clock and <b>about nothing else</b> &mdash; in particular it cannot say whether
       the build has been run. Pard's console readback still owns the date itself.</div></div>
   </section>
+  <section class="win">
+    <div class="tag">rev 30 &middot; Dan already had it, and the clock is measured now</div>
+    <p><b>Item 2 closes without costing you anything.</b> Pard read the beta-tester list out of App
+      Store Connect: <b>Dan is in the internal <code>DinP</code> group with state
+      <code>INSTALLED</code></b> &mdash; TestFlight installed, invitation accepted, four testers on
+      the app in total. Internal groups receive every processed build automatically, so
+      <b>2.0&nbsp;(5) has been on Dan's phone since 21&nbsp;Sep 15:36&nbsp;UTC.</b> The two-minute
+      App Store Connect job this page described does not exist. What is left is one sentence to a
+      traveling person. <b>My guess was wrong, in the direction I flagged as likely</b> &mdash; I
+      expected him to be missing, said so, and asked for it to be read rather than believed.</p>
+    <p><b>The version-record reading is now evidence.</b>
+      <code>GET /v1/apps/1593948410/appStoreVersions</code>, read 21&nbsp;Sep: exactly two records
+      &mdash; <b>1.1 <code>READY_FOR_SALE</code></b> and <b>1.0
+      <code>REPLACED_WITH_NEW_VERSION</code></b>, nothing from the 2.0 line at all. Five builds have
+      cleared processing and TestFlight and <b>none of them has a version record to attach to</b>:
+      App Review has not been entered and 24&nbsp;November has not moved. Item 3 stands on a
+      measurement now instead of on my inference.</p>
+    <p><b>Checked from the outside as well, because it is a different surface.</b> The public listing
+      is live &mdash; version <b>1.1</b>, updated <b>07/19/2023</b>, seller Christian Crumlish. Two
+      independent records that agree, rather than one record read twice.
+      <b>One thing it turned up, swept and clear:</b> the listing reads <i>"Requires iOS 11.0 or
+      later"</i> and 2.0 requires iOS&nbsp;17, so submitting raises the published minimum by six
+      major versions. The 09-07 analytics already answer it &mdash; every download since 2024 is on
+      17+ &mdash; so nobody is cut off. Recorded because it is the third member of a class that has
+      cost us twice (the bundle ID, then the Info.plist version string): <b>metadata the compiler
+      never checks and the submission does.</b></p>
+    <p><b>Apple mail re-read this pass:</b> nothing since the 2.0&nbsp;(5) processing pair. No review
+      state, no removal mail, <b>and no crash submission</b> &mdash; which is not reassurance, because
+      that channel cannot say whether the build has been run, and 2.0&nbsp;(3) already proved a crash
+      can file no artifact at all. <b>Installable for about twenty-one hours with no report either
+      way.</b></p>
+  </section>
+
   <section class="win">
     <div class="tag">rev 29 &middot; it is on the phone, confirmed by Apple</div>
     <p><b>2.0 (5) is testable.</b> Pard uploaded at 08:35&nbsp;PT &mdash; delivery
@@ -367,29 +400,29 @@
 
   <section class="clock" aria-label="Grace period remaining">
     <div class="clock-top">
-      <div class="days">64<span>days left in the grace period</span></div>
+      <div class="days">63<span>days left in the grace period</span></div>
       <div class="target">removal 24 Nov 2026<br>notice served 26 Aug</div>
     </div>
-    <div class="meter" role="img" aria-label="26 of 90 days elapsed"><i style="width:28.9%"></i></div>
-    <div class="scale"><span>day 26 of 90</span><span>29% spent</span></div>
-    <div class="caveat">▲ The 26 Aug notice is the only source for this date; App Store Connect's API has no removal-date field. <b>Accepted builds do not move it,</b> and as of 18 Sep no 2.0 version is in review. Apple stops the removal on <i>"an update and it's approved,"</i> which means App Review. Five builds have cleared processing; zero have entered review. <b>This corrects a line this page carried since rev 19.</b></div>
+    <div class="meter" role="img" aria-label="27 of 90 days elapsed"><i style="width:30%"></i></div>
+    <div class="scale"><span>day 27 of 90</span><span>30% spent</span></div>
+    <div class="caveat">▲ The 26 Aug notice is the only source for this date; App Store Connect's API has no removal-date field. <b>Accepted builds do not move it,</b> and a 21 Sep read of the API found <b>no 2.0 version record at all</b>. Apple stops the removal on <i>"an update and it's approved,"</i> which means App Review. Five builds have cleared processing; zero have entered review. <b>This corrects a line this page carried since rev 19.</b></div>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">the build is in your hand · 3 items · ~13 min</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">the build is in your hand · 3 items · ~12 min</span></div>
     <div class="items">
 
       <div class="item blocking">
         <div class="rank">1</div>
         <div class="body">
           <div class="title">Run 2.0 (5) &mdash; once indoors, once outdoors</div>
-          <div class="why"><b>It is in TestFlight on your phone now.</b> The calibration bar in this
+          <div class="why"><b>It has been in TestFlight on your phone for about twenty-one hours.</b> The calibration bar in this
             build is mine, estimated from your single 09-20 run: <code>isUsable</code> 8&nbsp;dB
             &rarr; 12, floor <code>ambient - 6</code> &rarr; <code>ambient + 3</code>.
             <b>Your 09-20 outdoor session measured a 9.7&nbsp;dB gap, so under this build it produces
             no number at all</b> and tells you your voice and the room are too close together.
             Intended, and exactly the thing under test. If <em>indoors</em> also refuses, the bar is
-            wrong and I would rather learn that in a day than defend it.</div>
+            wrong and I would rather learn that in a day than defend it. <b>Nothing on our side can see whether you have run it</b> &mdash; the Apple mail channel carries processing and review mail only &mdash; so this stays on the page until you say.</div>
           <div class="meta"><span class="pill cost">~10 min</span><span class="pill stop">blocks the thresholds, the screenshots and Dan</span></div>
         </div>
       </div>
@@ -397,14 +430,16 @@
       <div class="item">
         <div class="rank">2</div>
         <div class="body">
-          <div class="title">Say whether Dan gets this build &mdash; and check he is actually on the tester list</div>
-          <div class="why">Dan said yes on 09-16 and has waited five days without ever seeing the
-            app. The second half is the part that quietly bites: <b>whether he is a TestFlight tester
-            is an App Store Connect setting, and nobody has read it.</b> I have asked Pard to query
-            the beta-tester list with the API key rather than leave it an assumption. If Dan is not
-            on it, adding him is a two-minute job done once &mdash; better found tonight than after
-            you have told him it is waiting.</div>
-          <div class="meta"><span class="pill cost">~2 min</span></div>
+          <div class="title">Tell Dan it is already on his phone</div>
+          <div class="why"><b>No setup needed &mdash; he is provisioned and installed.</b>
+            Pard read the tester list out of App Store Connect on the 21st: Dan is in the
+            internal <code>DinP</code> group, state <code>INSTALLED</code>, four testers on the
+            app in total. Internal groups receive every processed build automatically, so
+            <b>the two-minute App Store Connect job this item used to describe does not
+            exist.</b> He said yes on 09-16 and has been able to open 2.0&nbsp;(5) since
+            21&nbsp;Sep 15:36&nbsp;UTC without knowing it is there. He is traveling, so this is
+            not urgent &mdash; one sentence whenever you reach him.</div>
+          <div class="meta"><span class="pill cost">~1 min</span></div>
         </div>
       </div>
 
@@ -417,7 +452,7 @@
             scheduled. Five builds have cleared processing; zero have entered review. Submitting is
             distinct work the uploads have not done: create the 2.0 version record, attach a build,
             write the listing copy, take new screenshots, answer the review questionnaire. One Job's
-            review ran four days end to end and a rejection costs another cycle. <b>64 days is
+            review ran four days end to end and a rejection costs another cycle. <b>63 days is
             comfortable runway, and that is exactly why it is worth one minute now</b> rather than in
             November.</div>
           <div class="meta"><span class="pill cost">~1 min</span></div>
@@ -470,7 +505,7 @@
       <code>Practice.isComplete</code> ignores measurement by design. So there is a shippable build
       with the microphone behind a flag and the manual number as the only path — Apple satisfied,
       capture off the critical path. It trades a working prototype in Dan's hands for certainty
-      against 24 November. <b>64 days and three failed builds is the reason it belongs on the table
+      against 24 November. <b>63 days and three failed builds is the reason it belongs on the table
       now rather than as a discovery in November.</b> Status: xian ranked prep-and-hold on 09-17; Pard
       preps it; shipping it is xian's call.</div></div>
   </section>
@@ -506,6 +541,22 @@
   <section class="sec">
     <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep · newest first</span></div>
     <div class="rows">
+      <div class="row done"><div class="who">Closed</div><div class="txt">
+        <b>Dan was provisioned all along (Pard, 21 Sep):</b> internal group <code>DinP</code>,
+        state <code>INSTALLED</code>, four testers total. Internal groups auto-receive every
+        processed build, so 2.0&nbsp;(5) reached him at 15:36&nbsp;UTC.
+        <em>My inferred absence was wrong, in the direction I flagged.</em></div></div>
+      <div class="row done"><div class="who">Evidenced</div><div class="txt">
+        <b>No 2.0 version record exists at all</b> &mdash;
+        <code>GET /v1/apps/1593948410/appStoreVersions</code>, 21 Sep: 1.1
+        <code>READY_FOR_SALE</code>, 1.0 <code>REPLACED_WITH_NEW_VERSION</code>, nothing from the
+        2.0 line. <em>Five processed builds with nothing to attach to. Was my inference; is now a
+        reading.</em></div></div>
+      <div class="row done"><div class="who">Corroborated</div><div class="txt">
+        <b>The public listing agrees</b> &mdash; live, version 1.1, updated 07/19/2023, seller
+        Christian Crumlish (read 22 Sep). <em>A second independent surface, not the same record
+        read twice. Also swept clean: the listing requires iOS 11 and 2.0 requires iOS 17, but the
+        09-07 analytics say every download since 2024 is on 17+.</em></div></div>
       <div class="row done"><div class="who">Closed</div><div class="txt">
         <b>App Store Connect readback (Pard, 18 Sep):</b> 1.1 on sale, 1.0 replaced, no 2.0 version in
         review; no removal-date field in the API.</div></div>
@@ -683,7 +734,7 @@
     <div class="risk"><span class="dot">▲</span><div><b>Apple rejected this app once before over
       background modes</b> (July 2023). If any eventual fix needs an audio background mode, that is a
       submission-risk conversation, not just a code change.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>The 24 Nov date exists only in the 26 Aug notice.</b> App Store Connect's API has no removal-date field (Pard, 18 Sep). Accepted builds do not move it: Apple stops the removal on <i>"an update and it's approved,"</i> and no 2.0 version is in review. <b>One signing path</b>
+    <div class="risk"><span class="dot">▲</span><div><b>The 24 Nov date exists only in the 26 Aug notice.</b> App Store Connect's API has no removal-date field (Pard, 18 Sep). Accepted builds do not move it: Apple stops the removal on <i>"an update and it's approved,"</i> and a 21 Sep API read found no 2.0 version record at all. <b>One signing path</b>
       expiring Aug 2027, nothing watching. <b>Age-rating questions</b> still due at submission.</div></div>
   </section>
 

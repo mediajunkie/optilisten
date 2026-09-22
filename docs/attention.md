@@ -1,11 +1,43 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-21 (rev 29) · **Deadline:** 2026-11-24 (64 days · day 26 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version is in review)
+**Maintained by:** Cairn · **Updated:** 2026-09-22 (rev 30) · **Deadline:** 2026-11-24 (63 days · day 27 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
+
+> **rev 30: Dan already had it, and the thing that stops the clock is now measured rather than guessed.**
+> **Item 2 closes without costing you anything.** Pard read the beta-tester list out of App Store
+> Connect: Dan is in the internal **DinP** group with state **INSTALLED** — he has TestFlight, he has
+> accepted, and internal groups receive every processed build automatically. **2.0 (5) has been on
+> Dan's phone since 15:36 UTC on the 21st.** There is no provisioning job to do. What is left is one
+> sentence to him, which you said you would send and which can wait until he is off the road. My
+> guess was wrong, in the direction I flagged as likely — I had expected him to be missing, said so,
+> and asked for it to be read rather than believed.
+>
+> **The version-record reading is now evidence.** `GET /v1/apps/1593948410/appStoreVersions`, read
+> 09-21: exactly two records, **1.1 `READY_FOR_SALE`** and **1.0 `REPLACED_WITH_NEW_VERSION`**.
+> Nothing from the 2.0 line at all. Five builds have cleared processing and TestFlight and **none of
+> them has a version record to attach to** — App Review has not been entered, and 24 November has
+> not moved. Item 3 now stands on a measurement instead of on my inference.
+>
+> **Checked from the outside too, because it is a different surface.** The public listing is live:
+> version **1.1**, updated **07/19/2023**, seller Christian Crumlish. Two independent records that
+> agree, rather than one record read twice — and it re-confirms that the shipped 1.x is 1.1.
+>
+> **One thing the listing turned up, swept and clear.** It reads *"Requires iOS 11.0 or later"*;
+> 2.0 requires iOS 17. Submitting raises the published minimum by six major versions. The 09-07
+> analytics already answer it — every download since 2024 is on 17+ — so nobody is cut off, and
+> Apple permits the raise. Recorded because it is the third member of a class that has cost us twice
+> (the bundle ID, then the Info.plist version string): **metadata the compiler never checks and the
+> submission does.**
+>
+> **Apple mail re-read this pass:** nothing since the 2.0 (5) processing pair of 09-21 15:36 UTC. No
+> review state, no removal or Improvement mail, **and no crash submission**. That last one is not
+> reassurance — the channel cannot say whether the build has been run, and 2.0 (3) already proved a
+> crash can file no artifact at all. **The build has been installable for about twenty-one hours
+> with no report in either direction.**
 
 > **rev 29: you said go, Pard built it, and Apple says it is on your phone.**
 > **2.0 (5) is testable.** Pard uploaded at 08:35 PT — delivery `3d55569b`, built from `main` at
@@ -77,9 +109,9 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| 1 | **Run 2.0 (5) — once indoors, once outdoors.** It is in TestFlight on your phone now. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. | ~10 min | the thresholds, the listing screenshots, and Dan |
-| 2 | **Say whether Dan gets this build — and check that he is actually on the tester list.** | Dan said yes on 09-16 and has now waited five days without ever seeing the app. The second half is the part that quietly bites: **whether he is a TestFlight tester is an App Store Connect setting, and nobody has read it.** I have asked Pard to query the beta-tester list with the API key rather than leave it an assumption. If Dan is not on it, adding him is a two-minute job you do once, and it is better found tonight than after you have told him it is waiting. | ~2 min | Dan's first contact with the product |
-| 3 | **Name the date you intend to submit 2.0 for App Review.** A date, not an action — nothing needs doing today. | **This is the only step that stops 24 November, and it is the only one that has never been scheduled.** Five builds have cleared processing; zero have entered review. Submitting is a distinct piece of work the uploads have not done: create the 2.0 version record, attach a build, write the listing copy, take new screenshots, answer the review questionnaire. One Job's review ran four days end to end and a rejection costs another cycle. **64 days is comfortable runway, and that is exactly why this is worth one minute now** rather than in November. | ~1 min | nothing yet — this item is what keeps it that way |
+| 1 | **Run 2.0 (5) — once indoors, once outdoors.** It has been on your phone about 21 hours. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. **Nothing on our side can see whether you have run it** — the Apple channel carries processing and review mail only — so this stays on the page until you say. | ~10 min | the thresholds, the listing screenshots, and Dan's first impression |
+| 2 | **Tell Dan it is already on his phone.** No setup needed — he is provisioned and installed. | Pard read the tester list out of App Store Connect on the 21st: Dan is in the internal **DinP** group, state **INSTALLED**, four testers on the app in total. Internal groups receive every processed build automatically, so **the two-minute App Store Connect job this item used to describe does not exist.** He said yes on 09-16 and has been able to open 2.0 (5) since 15:36 UTC on the 21st without knowing it is there. He is traveling, so this is not urgent — it is one sentence whenever you reach him. | ~1 min | Dan's first contact with the product |
+| 3 | **Name the date you intend to submit 2.0 for App Review.** A date, not an action — nothing needs doing today. | **This is the only step that stops 24 November, and the only one that has never been scheduled.** Measured now rather than inferred: a 09-21 read of the App Store Connect API found **no 2.0 version record at all**, so the five processed builds have nothing to attach to. Submitting is distinct work — create the 2.0 version record, attach a build, write the listing copy, **take new screenshots**, answer the review questionnaire. Screenshots are the only part with a dependency on a running app, and that app now exists. One Job's review ran four days end to end and a rejection costs another cycle. **63 days is comfortable runway, and that is exactly why this is worth one minute now** rather than in November. | ~1 min | nothing yet — this item is what keeps it that way |
 | — | **Done since the last pass: you said go, and it shipped.** One line to Pard this morning; he built from current `main`, regenerated the project at build 5, verified version, bundle ID and signing out of the archive and the IPA, and uploaded clean — previously items 1 and 2 on this page. Before that, **you ran 2.0 (4)** on the 20th. The report was the most useful artifact of the month — four findings, all four fixed, and the diagnostics panel turned "it may have treated bird calls as talking" into `silence 0.0` over 100.8 seconds, which is a measurement rather than an impression. | One thing still open to overrule if you want to: the brochure's footer now reads "drafted by Claude for Christian," and every first-person claim that wasn't your own action or decision is gone. Dan's markup flagged that as its most serious item. Change the byline if you'd rather handle the disclosure differently. | — | — |
 
 ## Dan's answer
@@ -105,7 +137,7 @@ argument.** The loop closes on intention + reflection, `ManualSource` exists, an
 `Practice.isComplete` ignores measurement by design. So there is a shippable build with the
 microphone behind a flag and the manual number as the only path: Apple satisfied, capture off the
 critical path. It trades a working prototype in Dan's hands for certainty against 24 November.
-**64 days and three failed builds is the reason it's on the table now rather than discovered in
+**63 days and three failed builds is the reason it's on the table now rather than discovered in
 November.**
 
 **Where it stands (rev 24):** you ranked it on 09-17, item 6: *"Let's prep the fallback build and have
@@ -113,6 +145,24 @@ it ready if we run short of time."* Pard preps and holds it. Whether it ships is
 nothing is asking you for it yet.
 
 ## Resolved this pass
+
+- **Dan was provisioned all along, and has had the build since the 21st.** Pard's App Store Connect
+  read: internal group `DinP`, Dan's state **INSTALLED**, four testers on the app in total. Internal
+  groups receive every processed build automatically, so 2.0 (5) reached him at 15:36 UTC on 09-21.
+  **My [INFERRED] absence was wrong, in exactly the direction I flagged as the likely error.** The
+  needs-you item loses its work and keeps only its sentence.
+- **No 2.0 version record exists — [EVIDENCED], not inferred.**
+  `GET /v1/apps/1593948410/appStoreVersions`, 09-21: 1.1 `READY_FOR_SALE`, 1.0
+  `REPLACED_WITH_NEW_VERSION`, nothing from the 2.0 line. Five builds have cleared processing with
+  no record to attach to; App Review has never been entered.
+- **The public listing agrees, from the surface Apple shows customers** — live, version **1.1**,
+  updated **07/19/2023**, seller Christian Crumlish, read 2026-09-22. Two independent records rather
+  than one record read twice, and it re-confirms the 09-19 correction that the shipped 1.x is 1.1.
+- **A metadata class swept, and clean this time.** The listing reads *"Requires iOS 11.0 or later"*
+  while 2.0 requires iOS 17, so submission raises the published minimum six major versions. The
+  09-07 analytics close it — every download since 2024 is on 17+. Third member of the class that
+  produced the bundle-ID error and the Info.plist version error; this one came back clean, and it is
+  worth recording that it was looked at.
 
 - **2.0 (5) is built, uploaded, processed and testable.** Pard's delivery
   `3d55569b-1fea-4d44-821d-70e06a607afd`, from `main` at `de7f997`, and Apple's confirmation 82
@@ -202,7 +252,6 @@ nothing is asking you for it yet.
 | **Cairn** | `calibration: Calibration?` and delete `.unavailable`; make "I don't know" representable | **deliberately held out of 2.0 (4)** — it changes classification, and an observing build should not change what it observes. `isCalibrated` makes it visible meanwhile |
 | **Themis** | Carry the first-person convention to Janus as a Tier-2 candidate, in **his** framing of the recurrence, not mine | his call, taken 09-16 |
 | **Cairn** | Lifecycle state machine, one engine owner, `stop()` reachable from every non-idle state; real buffer-duration accounting | after the diagnostic build reports |
-| **Pard** | Read the TestFlight beta-tester list with the ASC API key — is Dan on it? | asked this pass; turns an assumption about "xian's side" into a fact either way |
 | **Pard** | Prep the flag-off-capture fallback build and hold it (xian's 09-17 re-rank, item 6) | after 2.0 (5) reports; shipping it is xian's call |
 | **Cairn** | Update Dan's brochure once a build survives use, and fix the AI writing tics he flagged | xian forwarding the feedback; a working build |
 | **Janus** | Registry: two entries — `mediajunkie/optilisten` (app) and `Design-in-Product/optilisten` (live site) | memo 09-07; unconfirmed |
@@ -214,7 +263,7 @@ nothing is asking you for it yet.
 - **Compiling is not running, and running is not being used.** 2.0 has been launched on a real phone twice and died both times. Nobody has yet watched calibration, the mic tap, or the loop behave in an actual conversation.
 - **Calibration is `Codable` and nothing persists it** — recalibrates every cold launch.
 - **The fleet has one signing path and it expires Aug 2027.** The API can renew it; nothing watches for expiry.
-- **The 24 Nov date exists only in the 08-26 notice.** App Store Connect's API has no removal-date field (Pard, 09-18), so it cannot be read back that way. Accepted builds do not move it: Apple stops the removal on *"an update and it's approved,"* which means App Review. As of 09-18 no 2.0 version exists in review.
+- **The 24 Nov date exists only in the 08-26 notice.** App Store Connect's API has no removal-date field (Pard, 09-18), so it cannot be read back that way. Accepted builds do not move it: Apple stops the removal on *"an update and it's approved,"* which means App Review. Re-read from the API on 09-21: **no 2.0 version record exists at all**, so review has never been entered.
 - **Apple has rejected this app once before** (July 2023, background modes). 2.0 omits `UIBackgroundModes` — which is also, possibly, the thing making it crash. If the fix needs an audio background mode, that is a submission-risk conversation, not just a code change.
 - **Age-rating social-media questions** at submission; ~10 min; answers are "no."
 - **A claim in this rollup is not a commit.** Rev 17 marked the isolation fix as mine and owned; the fix then sat unwritten for 58 hours while the row read — to Pard, to Janus, and to the next instance of me — exactly like work in progress. Ownership recorded here now has to be followed in the same fire by either the work or a stated hand-off.
