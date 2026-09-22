@@ -209,7 +209,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 22 Sep 2026 · rev 30 · file and page in sync</div>
+    <div class="stamp">Updated 22 Sep 2026 · rev 31 · file and page in sync</div>
   </header>
 
 
@@ -248,6 +248,43 @@
       about the removal clock and <b>about nothing else</b> &mdash; in particular it cannot say whether
       the build has been run. Pard's console readback still owns the date itself.</div></div>
   </section>
+  <section class="win">
+    <div class="tag">rev 31 &middot; the date closes on your own words, and the content pass is done</div>
+    <p><b>You answered item 3 rather than scheduling it, and the answer is better than the question.</b>
+      Relayed verbatim by Pard: <i>"We didn't have a release candidate till the latest build, build 5.
+      All earlier builds crashed or were unusably buggy. This build may be the one we submit."</i>
+      I had the submission step written as the only item carrying a deadline and no date of its own.
+      It is not a scheduling gap &mdash; <b>the five earlier uploads were the road to the first
+      candidate, and Dan's test is the gate.</b> No date is named before that, and that is a
+      decision. The item closes here, in your framing rather than my inference.</p>
+    <p><b>The content pass you asked for in the meantime is done in this pass, not scheduled.</b>
+      <code>docs/store-content-2.0.md</code> on <code>main</code>: subtitle, description,
+      promotional text, keywords and what's-new drafts with character counts computed against App
+      Store Connect's limits; the App Review notes, covering the microphone, the calibration
+      refusal, the diagnostics panel and the 2023 background-mode rejection; the age-rating and
+      privacy answers; and a six-shot screenshot storyboard with required pixel sizes.
+      <b>Nothing is published</b> &mdash; App Store Connect is behind <code>xian@pobox.com</code>,
+      so every field is a draft for you.</p>
+    <p><b>One finding is worse than a copy problem.</b> The live listing opens <i>"Put your
+      headphones on, start a session, set a goal, and see how you do."</i> 2.0 refuses to produce a
+      number when headphones are in use &mdash; <code>PracticeLoopView.swift:66</code> guards on it,
+      because headphones mean the microphone only ever heard you. <b>The shipped description
+      instructs the exact configuration under which the app declines to measure</b>, and a reviewer
+      following it would watch it decline. Fourth member of the class that produced the bundle-ID
+      error and the <code>Info.plist</code> version error; the iOS&nbsp;11&rarr;17 sweep came back
+      clean and this one did not.</p>
+    <p><b>Two decisions surfaced that are cheap now and expensive on submission day</b> &mdash;
+      item 3 below. The app is universal (<code>TARGETED_DEVICE_FAMILY = "1,2"</code>, read from the
+      generated project today) and Apple requires an iPad&nbsp;13" screenshot set from any app that
+      runs on iPad. And the keyword field, the secondary category and the privacy policy at
+      <code>optilisten.com/privacy/</code> are all submission surfaces I cannot see from here.</p>
+    <p><b>Apple mail re-read this pass:</b> nothing new. The 2.0&nbsp;(5) processing pair of
+      21&nbsp;Sep 15:36&nbsp;UTC is still the newest OptiListen mail &mdash; no review state, no
+      removal or Improvement mail, and <b>still no crash submission</b>. The build has now been
+      installable for about thirty-three hours with no report in either direction, which the channel
+      cannot interpret for us.</p>
+  </section>
+
   <section class="win">
     <div class="tag">rev 30 &middot; Dan already had it, and the clock is measured now</div>
     <p><b>Item 2 closes without costing you anything.</b> Pard read the beta-tester list out of App
@@ -409,7 +446,7 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">the build is in your hand · 3 items · ~12 min</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">the build is in your hand · 3 items · ~26 min</span></div>
     <div class="items">
 
       <div class="item blocking">
@@ -446,16 +483,21 @@
       <div class="item">
         <div class="rank">3</div>
         <div class="body">
-          <div class="title">Name the date you intend to submit 2.0 for App Review</div>
-          <div class="why"><b>A date, not an action &mdash; nothing needs doing today.</b> This is
-            the only step that stops 24&nbsp;November, and the only one that has never been
-            scheduled. Five builds have cleared processing; zero have entered review. Submitting is
-            distinct work the uploads have not done: create the 2.0 version record, attach a build,
-            write the listing copy, take new screenshots, answer the review questionnaire. One Job's
-            review ran four days end to end and a rejection costs another cycle. <b>63 days is
-            comfortable runway, and that is exactly why it is worth one minute now</b> rather than in
-            November.</div>
-          <div class="meta"><span class="pill cost">~1 min</span></div>
+          <div class="title">Three reads and one decision the store-content draft cannot make from here</div>
+          <div class="why"><b><code>docs/store-content-2.0.md</code> is drafted and waiting on four
+            things only you can see or settle.</b>
+            <b>(a) The app is universal</b> &mdash; <code>TARGETED_DEVICE_FAMILY = "1,2"</code>,
+            read from the generated project today, and Apple's spec requires an iPad&nbsp;13"
+            screenshot set <i>"if app runs on iPad."</i> Either we shoot a set for a layout that has
+            never run on an iPad, or we drop to iPhone-only; I have asked Pard whether Amber's 1.x
+            clone can say which way 1.1 shipped before I recommend one.
+            <b>(b) The keyword field and the secondary category</b> are not public and must be read
+            before being overwritten.
+            <b>(c) <code>optilisten.com/privacy/</code></b> has not been touched since February 2023,
+            is what both listing URL fields point at, and is a submission surface.
+            <b>(d) Sign off on the subtitle and description</b>, or redirect them &mdash; the current
+            description's first sentence has to go either way.</div>
+          <div class="meta"><span class="pill cost">~15 min</span></div>
         </div>
       </div>
 
@@ -541,6 +583,20 @@
   <section class="sec">
     <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep · newest first</span></div>
     <div class="rows">
+      <div class="row done"><div class="who">Closed</div><div class="txt">
+        <b>The submission date is answered, and as a decision rather than a gap (xian, 22 Sep).</b>
+        <i>"We didn't have a release candidate till the latest build, build 5."</i> Dan's test is the
+        gate, no sooner than this weekend.
+        <em>Five uploads were the road to the first candidate, not five missed chances to submit. My
+        rev 29/30 framing was the wrong shape; the correction is his wording.</em></div></div>
+      <div class="row done"><div class="who">Drafted</div><div class="txt">
+        <b>The App Store content pass</b> &mdash; <code>docs/store-content-2.0.md</code>: listing
+        metadata with computed character counts, what's-new, App Review notes, age-rating and privacy
+        answers, and a six-shot screenshot storyboard with required sizes. Nothing published.
+        <em>It found a fourth metadata defect &mdash; the live description instructs headphones and
+        2.0 refuses to measure them &mdash; and a code dependency: the listening screen takes a
+        <code>LiveTalkRatioSource</code> and the Simulator has no microphone, so two of the six shots
+        need a <code>#if DEBUG</code> fixture before anyone can take them.</em></div></div>
       <div class="row done"><div class="who">Closed</div><div class="txt">
         <b>Dan was provisioned all along (Pard, 21 Sep):</b> internal group <code>DinP</code>,
         state <code>INSTALLED</code>, four testers total. Internal groups auto-receive every
@@ -797,7 +853,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 30<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 31<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>
