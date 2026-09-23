@@ -12,6 +12,7 @@
 		2CB205F2D9137C238D503735 /* LiveMicSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714BF625C3A73DB132F5F991 /* LiveMicSource.swift */; };
 		A07F071B287653E864AE9B55 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F29F8D55098D1C62643032E0 /* PrivacyInfo.xcprivacy */; };
 		AEF220B5E8C6DBB83CDF0B8D /* Practice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64264BF7FBF275DD3825A4A9 /* Practice.swift */; };
+		C0A7F23805B64F671E088C56 /* ScreenshotFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CF532CAAE5AC233192FCC7 /* ScreenshotFixture.swift */; };
 		C0B793ECE6B5E344CBE3FD65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 614105462814B915EFDC3301 /* Assets.xcassets */; };
 		CD04E4B2742C0BA3D1E136FD /* OptiListenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81576208D0337B9360A7F676 /* OptiListenApp.swift */; };
 		DB5E299BFBBF1E999FC4852F /* CalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580D5C20E42F420AEF3DED9 /* CalibrationView.swift */; };
@@ -33,6 +34,7 @@
 		AFA7BBCF3D4B74D165D703A3 /* TalkRatioSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkRatioSource.swift; sourceTree = "<group>"; };
 		BAB3AD7BCF7A7499B0997541 /* PracticeLoopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeLoopView.swift; sourceTree = "<group>"; };
 		F29F8D55098D1C62643032E0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		F7CF532CAAE5AC233192FCC7 /* ScreenshotFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotFixture.swift; sourceTree = "<group>"; };
 		FF6E42B95414484A32F7C10E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,11 +67,20 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		9812E3FE7F6DA107C84B693E /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				F7CF532CAAE5AC233192FCC7 /* ScreenshotFixture.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
 		D50B9F5480D998F6819EDF28 /* OptiListen */ = {
 			isa = PBXGroup;
 			children = (
 				614105462814B915EFDC3301 /* Assets.xcassets */,
 				81576208D0337B9360A7F676 /* OptiListenApp.swift */,
+				9812E3FE7F6DA107C84B693E /* Debug */,
 				166D3E83071765498FE826F1 /* Models */,
 				4146E9C02A4A38B10D3E8FE5 /* Sources */,
 				3B753A21DE355B5E82A15602 /* Support */,
@@ -183,6 +194,7 @@
 				AEF220B5E8C6DBB83CDF0B8D /* Practice.swift in Sources */,
 				DCD9A77D35D44CBC9E09B08B /* PracticeLoopView.swift in Sources */,
 				DC43673ECF52A599429BC2BE /* RetrospectiveSources.swift in Sources */,
+				C0A7F23805B64F671E088C56 /* ScreenshotFixture.swift in Sources */,
 				06F2B47C7DEAEEEAE9C09BAE /* TalkRatioSource.swift in Sources */,
 				145AF6961B1D42FF7D8F9548 /* Theme.swift in Sources */,
 			);
@@ -273,7 +285,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.longskymedia.optilisten;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -352,7 +364,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.longskymedia.optilisten;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};

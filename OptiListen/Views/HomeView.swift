@@ -14,7 +14,11 @@ struct HomeView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \Practice.createdAt, order: .reverse) private var practices: [Practice]
 
+#if DEBUG
+    @State private var source = ScreenshotFixture.source()
+#else
     @State private var source = LiveMicSource()
+#endif
     @State private var showingLoop = false
     @State private var showingCalibration = false
 
@@ -110,6 +114,12 @@ struct HomeView: View {
                 }
             }
             .navigationTitle("OptiListen")
+#if DEBUG
+            .task {
+                ScreenshotFixture.seedIfRequested(into: context, existing: practices.count)
+                if ScreenshotFixture.initialStep != nil { showingLoop = true }
+            }
+#endif
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {

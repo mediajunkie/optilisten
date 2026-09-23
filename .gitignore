@@ -7,3 +7,7 @@ node_modules/
 # signed binary makes the diff unreadable. Previous-build controls now live outside git at
 # ~/.local/state/optilisten-builds/.
 build/
+
+# screenshot capture scaffolding (scripts/screenshots.sh)
+.build-screenshots/
+Screenshots/

@@ -32,6 +32,12 @@ targets:
       - path: OptiListen
     settings:
       base:
+        TARGETED_DEVICE_FAMILY: "1"   # iPhone only. Unset, XcodeGen defaulted to "1,2" and made
+                                      # 2.0 universal — which 1.1 never was (no iPad in the
+                                      # store's Compatibility block, zero iPad screenshots;
+                                      # Cairn, 2026-09-23). Universal would require an iPad
+                                      # 13" screenshot set for a layout never run on an iPad.
+                                      # Build-settings change: lands in the next build, not (5).
         PRODUCT_BUNDLE_IDENTIFIER: com.longskymedia.optilisten   # matches the existing
                                                         # App Store record — do
                                                         # not change, the listing

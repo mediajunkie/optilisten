@@ -16,7 +16,11 @@ struct PracticeLoopView: View {
     let source: LiveMicSource
 
     @State private var step: Step = .intention
+#if DEBUG
+    @State private var practice = ScreenshotFixture.prefilledPractice()
+#else
     @State private var practice = Practice()
+#endif
     @State private var usingHeadphones = false
 
     var body: some View {
@@ -56,6 +60,22 @@ struct PracticeLoopView: View {
             .animation(.snappy, value: step)
         }
         .interactiveDismissDisabled(step == .reflection)
+#if DEBUG
+        .onAppear {
+            // Jump to the requested step the same way the buttons would have.
+            switch ScreenshotFixture.initialStep {
+            case "listening":
+                practice.intentionSetAt = .now
+                step = .listening
+            case "reflection":
+                practice.intentionSetAt = .now
+                captureEvidence()
+                step = .reflection
+            default:
+                break
+            }
+        }
+#endif
     }
 
     private func captureEvidence() {
@@ -294,6 +314,13 @@ private struct ListeningStep: View {
         }
         .task {
             guard !usingHeadphones else { return }
+#if DEBUG
+            // A scripted reading arrives mid-conversation; the clock should say so.
+            if source.isScreenshotFixture {
+                elapsed = source.observedDuration
+                shownShare = source.currentShare
+            }
+#endif
             // The error is not discarded and it is not rethrown into nothing:
             // `start()` has already written the reason into `source.state`,
             // and `body` renders it. This was `try? await source.start()`,
