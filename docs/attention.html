@@ -209,7 +209,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 23 Sep 2026 · rev 32 · file and page in sync</div>
+    <div class="stamp">Updated 23 Sep 2026 · rev 33 · file and page in sync</div>
   </header>
 
 
@@ -248,6 +248,52 @@
       about the removal clock and <b>about nothing else</b> &mdash; in particular it cannot say whether
       the build has been run. Pard's console readback still owns the date itself.</div></div>
   </section>
+  <section class="win">
+    <div class="tag">rev 33 &middot; the screenshots exist, and looking at them found what reading did not</div>
+    <p><b>All six iPhone shots are captured and correct.</b> <code>origin/screenshot-fixture</code>
+      at <code>0b4973f</code>: six PNGs in <code>docs/store-art/6.9-inch/</code>, and I read the
+      dimensions myself with <code>sips</code> rather than from Pard's capture log &mdash;
+      <b>all six are 1320&nbsp;&times;&nbsp;2868</b>, the 6.9-inch size the listing requires.
+      <code>TARGETED_DEVICE_FAMILY: "1"</code> is on the same branch with the evidence in the
+      comment. The fixture is Debug-only and argument-driven, so Release and TestFlight never see
+      it. <b>Nothing is on <code>main</code>; 2.0&nbsp;(5) on your phone and Dan's is
+      untouched.</b></p>
+    <p><b>Then I pulled the images into my own environment and looked at them</b>, which is the step
+      nobody had taken. Pard's check of the art against my storyboard is a report on his own output,
+      and that exact shape has cost this project three times this month.</p>
+    <p><b>The one deviation he escalated turns out to point the other way.</b> He reported that my
+      caption said green-under/amber-over and the app does black-under &mdash; true of the Listening
+      screen (<code>PracticeLoopView.swift:214</code>). <b>But shot 6 shows an under-ceiling number
+      in green</b>, because <code>HomeView.swift:168</code> renders the Recent list as
+      <code>metGoal == true ? Theme.within : Theme.over</code>. Shot 5's After card is black again.
+      <b>Three screens, one meaning, two answers &mdash; the inconsistency is inside the app.</b>
+      And the tiebreak is already written in <code>Theme.swift</code>: <i>"`within` and `over` are a
+      semantic pair, not decoration&hellip; which matters because the person reading it is
+      mid-conversation and not really reading."</i> <b>Mid-conversation is the Listening screen</b>
+      &mdash; the one view that does not implement it. New item&nbsp;4: two lines, and a re-shoot of
+      shots 3 and 5 that is scripted and therefore cheap.</p>
+    <p><b>Three defects in the art, all cheap, none blocking.</b> <b>(1)</b> Every shot has a
+      <b>charging battery</b> &mdash; the script passes <code>--batteryState charged</code>, which is
+      the value that draws the bolt; Apple's own marketing shots use
+      <code>--batteryState unplugged</code>. One word, one re-run. <b>(2)</b> <b>The app cannot
+      spell "practising."</b> Shots 3&ndash;4 say <code>PRACTISING</code>; shots 2 and 5 say
+      <i>practicing</i>. Both are in the store art one swipe apart. Three strings; mine, because it
+      is copy, and I am calling it <b>"practicing"</b> for a US listing. <b>(3)</b> <b>Shot 1 is the
+      weakest image and is currently first</b> &mdash; two-thirds empty frame, and the App Store
+      shows the first one or two without a swipe. <b>I want to lead with 6, then 4, then 2.</b> No
+      re-shoot; it is the upload order.</p>
+    <p><b>Privacy: cause found, fix is a build step.</b> <code>optilisten-site</code> is a React SPA
+      on GitHub Pages, which serves a real file only for <code>/</code>; the
+      <code>spa-github-pages</code> shim recovers deep routes client-side &mdash; exactly the 404 in
+      rev&nbsp;32. Emitting a static <code>privacy/index.html</code> in a <code>postbuild</code> step
+      makes the status code honest. One <code>package.json</code> line and one deploy &mdash;
+      <b>your hand, and the policy wording is yours too.</b> Still not a blocker.</p>
+    <p><b>Apple mail re-read this pass:</b> nothing new. The 2.0&nbsp;(5) processing pair of
+      21&nbsp;Sep 15:36&nbsp;UTC is still the newest OptiListen mail &mdash; no review state, no
+      removal or Improvement mail, no crash submission. <b>Installable now for about two days and
+      eight hours with no report in either direction.</b></p>
+  </section>
+
   <section class="win">
     <div class="tag">rev 32 &middot; the iPad question is answered, and it removes work</div>
     <p><b>1.1 shipped iPhone-only &mdash; evidenced three ways, without the clone everyone assumed
@@ -438,7 +484,7 @@
 
   <section class="clock" aria-label="Grace period remaining">
     <div class="clock-top">
-      <div class="days">63<span>days left in the grace period</span></div>
+      <div class="days">62<span>days left in the grace period</span></div>
       <div class="target">removal 24 Nov 2026<br>notice served 26 Aug</div>
     </div>
     <div class="meter" role="img" aria-label="27 of 90 days elapsed"><i style="width:30%"></i></div>
@@ -447,7 +493,7 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">the build is in your hand · 3 items · ~26 min</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">the art is in · 4 items · ~27 min</span></div>
     <div class="items">
 
       <div class="item blocking">
@@ -503,6 +549,24 @@
             <b>(d) Sign off on the subtitle and description</b>, or redirect them &mdash; the current
             description's first sentence has to go either way.</div>
           <div class="meta"><span class="pill cost">~15 min</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="rank">4</div>
+        <div class="body">
+          <div class="title">Rule on one colour: should an under-ceiling number be green?</div>
+          <div class="why"><b>Two screens already disagree, so this is not a taste question and not
+            a screenshot's request.</b> <code>HomeView.swift:168</code> already renders an
+            under-ceiling number in <b>moss</b> &mdash; visible in shot 6's Recent list.
+            <code>PracticeLoopView.swift:214</code> and the After card leave it <b>black</b>.
+            <code>Theme.swift</code>'s own doc comment says the pair exists <i>"because the person
+            reading it is mid-conversation and not really reading"</i> &mdash; which describes the
+            Listening screen, the one place it is not applied. <b>So the question is which of two
+            screens is right, with the design pass's stated intent on the record.</b> Say go and it
+            is two lines plus a re-shoot of shots 3 and 5 (scripted, minutes); say leave it and I
+            rewrite two captions instead. <b>Either answer unblocks the art.</b></div>
+          <div class="meta"><span class="pill cost">~1 min</span><span class="pill stop">blocks the screenshot set</span></div>
         </div>
       </div>
 
@@ -858,7 +922,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 32<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 33<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>

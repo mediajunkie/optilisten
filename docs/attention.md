@@ -1,11 +1,63 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-23 (rev 32) · **Deadline:** 2026-11-24 (62 days · day 28 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
+**Maintained by:** Cairn · **Updated:** 2026-09-23 (rev 33) · **Deadline:** 2026-11-24 (62 days · day 28 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
+
+> **rev 33: the screenshots exist, and looking at them found something reading the code did not.**
+> **Pard delivered all six iPhone shots today and they are correct.** `origin/screenshot-fixture`
+> at `0b4973f`: six PNGs in `docs/store-art/6.9-inch/`, and I read the dimensions myself with
+> `sips` rather than from his capture log — **all six are 1320 x 2868**, portrait, which is the
+> 6.9-inch size the listing requires. `TARGETED_DEVICE_FAMILY: "1"` is on the same branch with the
+> evidence in the comment. The fixture is Debug-only and argument-driven, so a Release build and
+> TestFlight never see it. Nothing is on `main`; 2.0 (5) on your phone and Dan's is untouched.
+>
+> **Then I pulled the six images into my own environment and looked at them, which is the step
+> nobody had taken.** Pard's check of the art against my storyboard is a report on his own output,
+> and that exact shape has cost this project three times this month. It was worth twenty minutes.
+>
+> **The one deviation Pard escalated turns out to go the other way, and it is now a decision for
+> you.** He reported that my caption said green-under/amber-over and the app does black-under. True
+> of the Listening screen — `PracticeLoopView.swift:214`, `overGoal ? Theme.over : .primary`. **But
+> shot 6 shows an under-ceiling number in green**, because `HomeView.swift:168` renders the Recent
+> list as `practice.metGoal == true ? Theme.within : Theme.over`. Shot 5's After card is black
+> again. **Three screens, one meaning, two different answers — the inconsistency is inside the app,
+> not between the app and my caption.** And the tiebreak is already written down in `Theme.swift`,
+> in the design pass's own words: *"`within` and `over` are a semantic pair, not decoration. Green
+> below your ceiling and amber above it says which side of your own intention you are on without
+> needing a label, which matters because the person reading it is mid-conversation and not really
+> reading."* **Mid-conversation is the Listening screen** — the one view that does not implement it.
+> So this is not a tint invented to flatter a screenshot; it is the design pass not having landed in
+> its own primary target. New item 4. Two lines of code, and it forces a re-shoot of shots 3 and 5,
+> which is scripted and therefore cheap.
+>
+> **Three defects in the art, found by looking, all cheap and none of them blocking.** (1) **Every
+> one of the six shots has a charging battery** — green cell, lightning bolt. Pard's script passes
+> `--batteryState charged`, which is the value that draws the bolt; the quiet full battery Apple's
+> own marketing shots use is `--batteryState unplugged --batteryLevel 100`. One word, one re-run.
+> (2) **The app cannot spell "practising."** Shots 3 and 4 say `PRACTISING`; shot 2 asks *"What are
+> you practicing?"* and shot 5 says *"You were practicing:"*. Both spellings are in the store art
+> one swipe apart, where a reviewer sees them. Three strings. **Mine, it is copy, and I am calling
+> it "practicing"** — US spelling, US listing, US seller. (3) **Shot 1 is the weakest image in the
+> set and is currently first.** Two-thirds empty frame — an honest picture of the empty state, but
+> the App Store shows the first one or two without a swipe and this one sells nothing. Shot 6
+> carries the whole argument in one frame. **I want to lead with 6, then 4, then 2.** Content call,
+> so mine, but flagged rather than done quietly. No re-shoot — it is the upload order.
+>
+> **Privacy: Pard found the cause and the fix is a build step.** `optilisten-site` is a React SPA on
+> GitHub Pages, which serves a real file only for `/`; the `spa-github-pages` shim in `404.html`
+> recovers every deep route client-side, which is exactly the 404 rev 32 recorded. Emitting a static
+> `privacy/index.html` in a `postbuild` step makes the status code honest while the router still
+> renders the page. One `package.json` line and one `npm run deploy` — **your hand, and the policy's
+> wording is yours too.** Still not a blocker.
+>
+> **Apple mail re-read this pass:** nothing new. The 2.0 (5) processing pair of 2026-09-21 15:36 UTC
+> is still the newest OptiListen mail — no review state, no removal or App Store Improvement mail,
+> no crash submission. **The build has now been installable for about two days and eight hours with
+> no report in either direction**, and that channel still cannot say whether anyone has opened it.
 
 > **rev 32: the iPad question is answered, and the answer removes work rather than adding it.**
 > **1.1 shipped iPhone-only — evidenced three ways, without the clone everyone assumed was needed.**
@@ -145,6 +197,7 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 | 1 | **Run 2.0 (5) — once indoors, once outdoors.** It has been on your phone about two days. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. **Nothing on our side can see whether you have run it** — the Apple channel carries processing and review mail only — so this stays on the page until you say. | ~10 min | the thresholds, the listing screenshots, and Dan's first impression |
 | 2 | **Tell Dan it is already on his phone.** No setup needed — he is provisioned and installed. | Pard read the tester list out of App Store Connect on the 21st: Dan is in the internal **DinP** group, state **INSTALLED**, four testers on the app in total. Internal groups receive every processed build automatically, so **the two-minute App Store Connect job this item used to describe does not exist.** He said yes on 09-16 and has been able to open 2.0 (5) since 15:36 UTC on the 21st without knowing it is there. He is traveling, so this is not urgent — it is one sentence whenever you reach him. | ~1 min | Dan's first contact with the product |
 | 3 | **Two reads and two decisions the store-content draft cannot make from here.** All in App Store Connect or on the marketing site. | `docs/store-content-2.0.md` is drafted and waiting. **The iPad question that used to be (a) is closed, and it closed as "drop it"** — 1.1 shipped iPhone-only, evidenced three ways on 09-23, so dropping iPad costs no existing customer anything. That recommendation is in Pard's inbox and the edit is his. What is left for you: **(a) Uncheck — or deliberately keep — Mac and Apple Vision.** The live Compatibility block lists 1.1 as available on both. [INFERRED] that is a per-app availability setting 2.0 inherits; 2.0 is portrait-only, opens the microphone on launch, and has run on one iPhone. **(b) The keyword field and the secondary category** are not public and must be read before being overwritten. **(c) The privacy URL returns HTTP 404** behind a JavaScript shim — the policy renders for a browser and is dated 4 July 2022, but the link in the listing is a 404 to anything reading status codes, and the policy never mentions the microphone. Not a blocker: 1.x cleared review twice on this site. **(d) Sign off on the subtitle and description**, or redirect them — the current description's first sentence has to go either way. | ~15 min | the screenshot shoot, and nothing else yet |
+| 4 | **Rule on one colour: should an under-ceiling number be green?** Two screens already disagree. | Not a taste question and not a screenshot's request. `HomeView.swift:168` already renders an under-ceiling number in **moss** (visible in shot 6's Recent list); `PracticeLoopView.swift:214` and the After card leave it **black**. `Theme.swift`'s own doc comment says the green/amber pair exists *"because the person reading it is mid-conversation and not really reading"* — which describes the Listening screen, the one place it is not applied. **So the question is which of two screens is right, with the design pass's stated intent on the record.** Say go and it is two lines plus a re-shoot of shots 3 and 5 (scripted, minutes); say leave it and I rewrite two captions instead. Either answer unblocks the art. | ~1 min | the screenshot set, and the shot-3/5 re-shoot |
 | — | **Done since the last pass: you said go, and it shipped.** One line to Pard this morning; he built from current `main`, regenerated the project at build 5, verified version, bundle ID and signing out of the archive and the IPA, and uploaded clean — previously items 1 and 2 on this page. Before that, **you ran 2.0 (4)** on the 20th. The report was the most useful artifact of the month — four findings, all four fixed, and the diagnostics panel turned "it may have treated bird calls as talking" into `silence 0.0` over 100.8 seconds, which is a measurement rather than an impression. | One thing still open to overrule if you want to: the brochure's footer now reads "drafted by Claude for Christian," and every first-person claim that wasn't your own action or decision is gone. Dan's markup flagged that as its most serious item. Change the byline if you'd rather handle the disclosure differently. | — | — |
 
 ## Dan's answer
@@ -178,6 +231,21 @@ it ready if we run short of time."* Pard preps and holds it. Whether it ships is
 nothing is asking you for it yet.
 
 ## Resolved this pass
+- **The six 6.9-inch screenshots exist and are the right size.** [EVIDENCED] `sips` on all six PNGs
+  on `origin/screenshot-fixture@0b4973f`: 1320 x 2868 each, byte sizes matching `git diff --stat`.
+  Read by me rather than taken from Pard's capture log.
+- **Looking at an artifact beats reading a report of it, again.** Pard checked the art against my
+  storyboard and reported one deviation. Opening the images found that the deviation pointed the
+  other way, plus a charging battery in all six, a spelling the app cannot keep straight, and a weak
+  lead image. **None of that was visible in a capture log, and none of it was Pard's to catch.**
+  The standing rule keeps earning its place: *an agent's report of its own output is not evidence
+  about the output.*
+- **The device-family edit is on a branch, not on `main`** — so 2.0 (5), which is on your phone and
+  Dan's, is untouched by today's work. It lands when you merge and (6) is cut.
+- **The privacy 404 has a cause and a one-line fix**, both Pard's: GitHub Pages plus a
+  `spa-github-pages` shim, fixed by emitting a static `privacy/index.html` at build. Site repo,
+  your deploy.
+
 
 - **The iPad question is closed, and it closes as "drop it".** [EVIDENCED] three ways on 09-23: the
   1.x `project.pbxproj` — read with one `gh api` call, no clone — sets no `TARGETED_DEVICE_FAMILY`
