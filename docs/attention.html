@@ -209,7 +209,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 22 Sep 2026 · rev 31 · file and page in sync</div>
+    <div class="stamp">Updated 23 Sep 2026 · rev 32 · file and page in sync</div>
   </header>
 
 
@@ -249,39 +249,40 @@
       the build has been run. Pard's console readback still owns the date itself.</div></div>
   </section>
   <section class="win">
-    <div class="tag">rev 31 &middot; the date closes on your own words, and the content pass is done</div>
-    <p><b>You answered item 3 rather than scheduling it, and the answer is better than the question.</b>
-      Relayed verbatim by Pard: <i>"We didn't have a release candidate till the latest build, build 5.
-      All earlier builds crashed or were unusably buggy. This build may be the one we submit."</i>
-      I had the submission step written as the only item carrying a deadline and no date of its own.
-      It is not a scheduling gap &mdash; <b>the five earlier uploads were the road to the first
-      candidate, and Dan's test is the gate.</b> No date is named before that, and that is a
-      decision. The item closes here, in your framing rather than my inference.</p>
-    <p><b>The content pass you asked for in the meantime is done in this pass, not scheduled.</b>
-      <code>docs/store-content-2.0.md</code> on <code>main</code>: subtitle, description,
-      promotional text, keywords and what's-new drafts with character counts computed against App
-      Store Connect's limits; the App Review notes, covering the microphone, the calibration
-      refusal, the diagnostics panel and the 2023 background-mode rejection; the age-rating and
-      privacy answers; and a six-shot screenshot storyboard with required pixel sizes.
-      <b>Nothing is published</b> &mdash; App Store Connect is behind <code>xian@pobox.com</code>,
-      so every field is a draft for you.</p>
-    <p><b>One finding is worse than a copy problem.</b> The live listing opens <i>"Put your
-      headphones on, start a session, set a goal, and see how you do."</i> 2.0 refuses to produce a
-      number when headphones are in use &mdash; <code>PracticeLoopView.swift:66</code> guards on it,
-      because headphones mean the microphone only ever heard you. <b>The shipped description
-      instructs the exact configuration under which the app declines to measure</b>, and a reviewer
-      following it would watch it decline. Fourth member of the class that produced the bundle-ID
-      error and the <code>Info.plist</code> version error; the iOS&nbsp;11&rarr;17 sweep came back
-      clean and this one did not.</p>
-    <p><b>Two decisions surfaced that are cheap now and expensive on submission day</b> &mdash;
-      item 3 below. The app is universal (<code>TARGETED_DEVICE_FAMILY = "1,2"</code>, read from the
-      generated project today) and Apple requires an iPad&nbsp;13" screenshot set from any app that
-      runs on iPad. And the keyword field, the secondary category and the privacy policy at
-      <code>optilisten.com/privacy/</code> are all submission surfaces I cannot see from here.</p>
+    <div class="tag">rev 32 &middot; the iPad question is answered, and it removes work</div>
+    <p><b>1.1 shipped iPhone-only &mdash; evidenced three ways, without the clone everyone assumed
+      was needed.</b> Pard checked Amber and reported honestly that <code>AustinWood/listenup-mobile</code>
+      is not cloned there. It did not need to be: <code>gh</code> on kindbook already has read access,
+      and one API call returns one file. The 1.x <code>project.pbxproj</code> sets <b>no
+      <code>TARGETED_DEVICE_FAMILY</code> at all</b> and its <code>Info.plist</code> carries no
+      <code>UIDeviceFamily</code>. The live App Store Compatibility block, read today, lists
+      <b>iPhone, iPod touch, Mac and Apple Vision &mdash; and no iPad.</b> The iTunes lookup returns
+      <b>four iPhone screenshots and zero iPad screenshots</b>, which App Store Connect would not
+      have accepted from an iPad-capable app.</p>
+    <p><b>So nobody owns OptiListen on an iPad, and dropping iPad takes nothing from anyone</b>
+      &mdash; the one thing I said I had to establish before recommending it. 2.0 goes to
+      <code>TARGETED_DEVICE_FAMILY: "1"</code>, the required iPad&nbsp;13" set disappears, and an
+      untested device family comes off an app that has already been rejected once. Sent to Pard this
+      morning ahead of his fixture cycle, so today's screenshot work is scoped to six iPhone shots
+      rather than two sets. The evidence is mine; the edit and the build sequencing are his.</p>
+    <p><b>One new surface, and it is not one we chose.</b> The same Compatibility block lists the app
+      as available on <b>Mac (Apple silicon)</b> and <b>Apple Vision</b>. [INFERRED] that is the App
+      Store Connect availability setting, per-app rather than per-build, so 2.0 inherits it unless
+      somebody unchecks it. 2.0 is portrait-only, opens the microphone on launch, and has been run on
+      exactly one iPhone. New item&nbsp;3(a), and it is a checkbox.</p>
+    <p><b>The privacy page is both better and worse than this page has been saying.</b> It renders,
+      it is substantive, and its own date line reads <i>"This policy is effective as of 4 July 2022.
+      Last updated: 4 July 2022"</i> &mdash; so "not touched since February 2023" was the repo's
+      commit date rather than the document's, and that was my error, carried here for two revisions.
+      But <code>optilisten.com/privacy</code> and <code>/privacy/</code> both return <b>HTTP 404</b>:
+      GitHub Pages serves the <code>spa-github-pages</code> redirect shim in the body, so a browser
+      with JavaScript recovers and renders the policy, while anything reading the status code sees a
+      dead link. <b>Not a blocker</b> &mdash; 1.x cleared review twice on this exact site. The policy
+      also never mentions the microphone.</p>
     <p><b>Apple mail re-read this pass:</b> nothing new. The 2.0&nbsp;(5) processing pair of
       21&nbsp;Sep 15:36&nbsp;UTC is still the newest OptiListen mail &mdash; no review state, no
       removal or Improvement mail, and <b>still no crash submission</b>. The build has now been
-      installable for about thirty-three hours with no report in either direction, which the channel
+      installable for about two days with no report in either direction, which the channel
       cannot interpret for us.</p>
   </section>
 
@@ -441,7 +442,7 @@
       <div class="target">removal 24 Nov 2026<br>notice served 26 Aug</div>
     </div>
     <div class="meter" role="img" aria-label="27 of 90 days elapsed"><i style="width:30%"></i></div>
-    <div class="scale"><span>day 27 of 90</span><span>30% spent</span></div>
+    <div class="scale"><span>day 28 of 90</span><span>31% spent</span></div>
     <div class="caveat">▲ The 26 Aug notice is the only source for this date; App Store Connect's API has no removal-date field. <b>Accepted builds do not move it,</b> and a 21 Sep read of the API found <b>no 2.0 version record at all</b>. Apple stops the removal on <i>"an update and it's approved,"</i> which means App Review. Five builds have cleared processing; zero have entered review. <b>This corrects a line this page carried since rev 19.</b></div>
   </section>
 
@@ -483,18 +484,22 @@
       <div class="item">
         <div class="rank">3</div>
         <div class="body">
-          <div class="title">Three reads and one decision the store-content draft cannot make from here</div>
-          <div class="why"><b><code>docs/store-content-2.0.md</code> is drafted and waiting on four
-            things only you can see or settle.</b>
-            <b>(a) The app is universal</b> &mdash; <code>TARGETED_DEVICE_FAMILY = "1,2"</code>,
-            read from the generated project today, and Apple's spec requires an iPad&nbsp;13"
-            screenshot set <i>"if app runs on iPad."</i> Either we shoot a set for a layout that has
-            never run on an iPad, or we drop to iPhone-only; I have asked Pard whether Amber's 1.x
-            clone can say which way 1.1 shipped before I recommend one.
+          <div class="title">Two reads and two decisions the store-content draft cannot make from here</div>
+          <div class="why"><b><code>docs/store-content-2.0.md</code> is drafted and waiting.</b>
+            <b>The iPad question that used to be (a) is closed, and it closed as "drop it"</b> &mdash;
+            1.1 shipped iPhone-only, evidenced three ways on 09-23, so dropping iPad costs no
+            existing customer anything. That recommendation is in Pard's inbox and the edit is his.
+            What is left for you:
+            <b>(a) Uncheck &mdash; or deliberately keep &mdash; Mac and Apple Vision.</b> The live
+            Compatibility block lists 1.1 as available on both. [INFERRED] that is a per-app
+            availability setting 2.0 inherits; 2.0 is portrait-only, opens the microphone on launch,
+            and has run on one iPhone.
             <b>(b) The keyword field and the secondary category</b> are not public and must be read
             before being overwritten.
-            <b>(c) <code>optilisten.com/privacy/</code></b> has not been touched since February 2023,
-            is what both listing URL fields point at, and is a submission surface.
+            <b>(c) The privacy URL returns HTTP&nbsp;404</b> behind a JavaScript shim &mdash; the
+            policy renders for a browser and is dated 4 July 2022, but the link in the listing is a
+            404 to anything reading status codes, and the policy never mentions the microphone. Not
+            a blocker: 1.x cleared review twice on this site.
             <b>(d) Sign off on the subtitle and description</b>, or redirect them &mdash; the current
             description's first sentence has to go either way.</div>
           <div class="meta"><span class="pill cost">~15 min</span></div>
@@ -547,7 +552,7 @@
       <code>Practice.isComplete</code> ignores measurement by design. So there is a shippable build
       with the microphone behind a flag and the manual number as the only path — Apple satisfied,
       capture off the critical path. It trades a working prototype in Dan's hands for certainty
-      against 24 November. <b>63 days and three failed builds is the reason it belongs on the table
+      against 24 November. <b>62 days and three failed builds is the reason it belongs on the table
       now rather than as a discovery in November.</b> Status: xian ranked prep-and-hold on 09-17; Pard
       preps it; shipping it is xian's call.</div></div>
   </section>
@@ -853,7 +858,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 31<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 32<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>

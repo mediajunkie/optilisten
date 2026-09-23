@@ -1,47 +1,44 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-22 (rev 31) · **Deadline:** 2026-11-24 (63 days · day 27 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
+**Maintained by:** Cairn · **Updated:** 2026-09-23 (rev 32) · **Deadline:** 2026-11-24 (62 days · day 28 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
 
-> **rev 31: the date item closes on your own words, and the work it was blocking is drafted.**
-> **You answered item 3 rather than scheduling it, and the answer is better than the question.**
-> Relayed verbatim by Pard: *"We didn't have a release candidate till the latest build, build 5. All
-> earlier builds crashed or were unusably buggy. This build may be the one we submit."* I had the
-> submission step written as the only item with a deadline attached and no date of its own. It is
-> not a scheduling gap — **the five earlier uploads were the road to the first candidate, and Dan's
-> test is the gate.** No date is named before that, and that is a decision. The item is closed on
-> this page, and it closes as your framing, not as my inference.
+> **rev 32: the iPad question is answered, and the answer removes work rather than adding it.**
+> **1.1 shipped iPhone-only — evidenced three ways, without the clone everyone assumed was needed.**
+> Pard checked Amber and reported honestly that `AustinWood/listenup-mobile` is not cloned there. It
+> did not need to be: `gh` on kindbook already has read access to it, and one API call returns one
+> file. The 1.x `project.pbxproj` sets **no `TARGETED_DEVICE_FAMILY` at all**, and its `Info.plist`
+> carries no `UIDeviceFamily`. The live App Store page's Compatibility block, read today, lists
+> **iPhone, iPod touch, Mac and Apple Vision — and no iPad.** The iTunes lookup returns **four
+> iPhone screenshots and zero iPad screenshots**, which App Store Connect would not have accepted
+> from an iPad-capable app.
 >
-> **The content pass you asked for in the meantime is done, in this pass, not scheduled.**
-> `docs/store-content-2.0.md` on `main`: subtitle, description, promotional text, keywords and
-> what's-new drafts with character counts computed against App Store Connect's limits; the App
-> Review notes, covering the microphone, the calibration refusal, the diagnostics panel and the
-> 2023 background-mode rejection; the age-rating and privacy answers; and a six-shot screenshot
-> storyboard with required pixel sizes. **Nothing is published** — App Store Connect is behind
-> `xian@pobox.com`, so every field is a draft for you.
+> **So nobody owns OptiListen on an iPad, and dropping iPad takes nothing from anyone** — which was
+> the one thing I said I had to establish before recommending it. 2.0 goes to
+> `TARGETED_DEVICE_FAMILY: "1"`, the required iPad 13" screenshot set disappears, and an untested
+> device family comes off an app that has already been rejected once. Sent to Pard this morning
+> ahead of his fixture cycle, so today's screenshot work is scoped to six iPhone shots rather than
+> two sets. The evidence is mine; the edit and the build sequencing are his.
 >
-> **One finding is worse than a copy problem.** The live listing opens *"Put your headphones on,
-> start a session, set a goal, and see how you do."* 2.0 refuses to produce a number when
-> headphones are in use — `PracticeLoopView.swift:66` guards on it, because headphones mean the
-> microphone only ever heard you. **The shipped description instructs the exact configuration under
-> which the app declines to measure**, and a reviewer following it would watch it decline. Fourth
-> member of the class that produced the bundle-ID error and the `Info.plist` version error; the
-> iOS 11→17 sweep came back clean, and this one did not.
+> **One new surface, and it is not one we chose.** The same Compatibility block lists the app as
+> available on **Mac (Apple silicon)** and **Apple Vision**. [INFERRED] that is the App Store
+> Connect availability setting, which is per-app rather than per-build, so 2.0 inherits it unless
+> somebody unchecks it. 2.0 is portrait-only, opens the microphone on launch, and has been run on
+> exactly one iPhone. That is the new item 3(a), and it is a checkbox.
 >
-> **Two decisions surfaced that are cheap now and expensive on submission day** — item 3 below.
-> The app is universal (`TARGETED_DEVICE_FAMILY = "1,2"`, read from the generated project today),
-> and Apple requires an iPad 13" screenshot set from any app that runs on iPad. And the keyword
-> field, the secondary category and the privacy policy at `optilisten.com/privacy/` are all
-> submission surfaces I cannot see from here.
->
-> **Apple mail re-read this pass:** nothing new. The 2.0 (5) processing pair of 09-21 15:36 UTC is
-> still the newest OptiListen mail — no review state, no removal or Improvement mail, and **still
-> no crash submission**. The build has now been installable for about thirty-three hours with no
-> report in either direction, which the channel cannot interpret for us.
+> **And the privacy page is both better and worse than this page has been saying.** It renders, it
+> is substantive, and its own date line reads *"This policy is effective as of 4 July 2022. Last
+> updated: 4 July 2022"* — so "not touched since February 2023" was the repo's commit date rather
+> than the document's, and that was my error, carried here for two revisions. But
+> `optilisten.com/privacy` and `/privacy/` both return **HTTP 404**: GitHub Pages serves the
+> `spa-github-pages` redirect shim in the body, so a browser with JavaScript recovers and renders
+> the policy, while anything reading the status code sees a dead link. **I am not calling it a
+> blocker** — 1.x cleared review twice on this exact site. The policy also never mentions the
+> microphone.
 
 > **rev 30: Dan already had it, and the thing that stops the clock is now measured rather than guessed.**
 > **Item 2 closes without costing you anything.** Pard read the beta-tester list out of App Store
@@ -145,9 +142,9 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| 1 | **Run 2.0 (5) — once indoors, once outdoors.** It has been on your phone about 21 hours. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. **Nothing on our side can see whether you have run it** — the Apple channel carries processing and review mail only — so this stays on the page until you say. | ~10 min | the thresholds, the listing screenshots, and Dan's first impression |
+| 1 | **Run 2.0 (5) — once indoors, once outdoors.** It has been on your phone about two days. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. **Nothing on our side can see whether you have run it** — the Apple channel carries processing and review mail only — so this stays on the page until you say. | ~10 min | the thresholds, the listing screenshots, and Dan's first impression |
 | 2 | **Tell Dan it is already on his phone.** No setup needed — he is provisioned and installed. | Pard read the tester list out of App Store Connect on the 21st: Dan is in the internal **DinP** group, state **INSTALLED**, four testers on the app in total. Internal groups receive every processed build automatically, so **the two-minute App Store Connect job this item used to describe does not exist.** He said yes on 09-16 and has been able to open 2.0 (5) since 15:36 UTC on the 21st without knowing it is there. He is traveling, so this is not urgent — it is one sentence whenever you reach him. | ~1 min | Dan's first contact with the product |
-| 3 | **Three reads and one decision the store-content draft cannot make from here.** All in App Store Connect or on the marketing site. | `docs/store-content-2.0.md` is drafted and waiting on four things only you can see or settle. **(a) The app is universal** — `TARGETED_DEVICE_FAMILY = "1,2"`, read from the generated project today, and Apple's spec requires an iPad 13" screenshot set *"if app runs on iPad."* Either we shoot a set for a layout that has never run on an iPad, or we drop to iPhone-only; I have asked Pard whether Amber's 1.x clone can say which way 1.1 shipped before I recommend one. **(b) The keyword field and secondary category** are not public and must be read before being overwritten. **(c) `optilisten.com/privacy/`** has not been touched since February 2023, is what both listing URL fields point at, and is a submission surface. **(d) Sign off on the subtitle and description**, or redirect them — the current description's first sentence has to go either way. | ~15 min | the screenshot shoot, and nothing else yet |
+| 3 | **Two reads and two decisions the store-content draft cannot make from here.** All in App Store Connect or on the marketing site. | `docs/store-content-2.0.md` is drafted and waiting. **The iPad question that used to be (a) is closed, and it closed as "drop it"** — 1.1 shipped iPhone-only, evidenced three ways on 09-23, so dropping iPad costs no existing customer anything. That recommendation is in Pard's inbox and the edit is his. What is left for you: **(a) Uncheck — or deliberately keep — Mac and Apple Vision.** The live Compatibility block lists 1.1 as available on both. [INFERRED] that is a per-app availability setting 2.0 inherits; 2.0 is portrait-only, opens the microphone on launch, and has run on one iPhone. **(b) The keyword field and the secondary category** are not public and must be read before being overwritten. **(c) The privacy URL returns HTTP 404** behind a JavaScript shim — the policy renders for a browser and is dated 4 July 2022, but the link in the listing is a 404 to anything reading status codes, and the policy never mentions the microphone. Not a blocker: 1.x cleared review twice on this site. **(d) Sign off on the subtitle and description**, or redirect them — the current description's first sentence has to go either way. | ~15 min | the screenshot shoot, and nothing else yet |
 | — | **Done since the last pass: you said go, and it shipped.** One line to Pard this morning; he built from current `main`, regenerated the project at build 5, verified version, bundle ID and signing out of the archive and the IPA, and uploaded clean — previously items 1 and 2 on this page. Before that, **you ran 2.0 (4)** on the 20th. The report was the most useful artifact of the month — four findings, all four fixed, and the diagnostics panel turned "it may have treated bird calls as talking" into `silence 0.0` over 100.8 seconds, which is a measurement rather than an impression. | One thing still open to overrule if you want to: the brochure's footer now reads "drafted by Claude for Christian," and every first-person claim that wasn't your own action or decision is gone. Dan's markup flagged that as its most serious item. Change the byline if you'd rather handle the disclosure differently. | — | — |
 
 ## Dan's answer
@@ -181,6 +178,23 @@ it ready if we run short of time."* Pard preps and holds it. Whether it ships is
 nothing is asking you for it yet.
 
 ## Resolved this pass
+
+- **The iPad question is closed, and it closes as "drop it".** [EVIDENCED] three ways on 09-23: the
+  1.x `project.pbxproj` — read with one `gh api` call, no clone — sets no `TARGETED_DEVICE_FAMILY`
+  and its `Info.plist` no `UIDeviceFamily`; the live Compatibility block lists iPhone, iPod touch,
+  Mac and Apple Vision but **not iPad**; the iTunes lookup returns 4 iPhone and **0 iPad**
+  screenshots, a set App Store Connect would have required. The `[OPEN]` in store-content Finding 2
+  was the only thing holding the recommendation back, and the answer makes the shoot smaller.
+- **A clone is not the only way to read a private repo.** Pard reported truthfully that
+  `listenup-mobile` is not on Amber, and the question was one file away on the machine this rollup
+  is written from. Worth keeping as a rule: **before accepting "not available here", ask whether the
+  question needs the whole repo or one file.**
+- **A fifth metadata surface, and nobody has looked at it: Mac and Apple Vision.** Same class as the
+  bundle ID, the `Info.plist` version string, the iOS minimum and the headphones sentence — metadata
+  the compiler never checks and the submission does. This one is a checkbox.
+- **The privacy URL is a 404 with a JavaScript parachute**, and the policy is dated 4 July 2022 —
+  correcting this page's own "not touched since February 2023", which was the repo's commit date
+  rather than the document's. Mine to correct, and corrected here.
 
 - **The submission date is answered, and the item is closed as a decision rather than a gap.**
   xian, relayed by Pard 09-22: *"We didn't have a release candidate till the latest build, build 5.
