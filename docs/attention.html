@@ -209,7 +209,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 24 Sep 2026 · rev 35 · file and page in sync</div>
+    <div class="stamp">Updated 24 Sep 2026 · rev 36 · file and page in sync</div>
   </header>
 
 
@@ -248,6 +248,71 @@
       about the removal clock and <b>about nothing else</b> &mdash; in particular it cannot say whether
       the build has been run. Pard's console readback still owns the date itself.</div></div>
   </section>
+  <section class="alert">
+    <div class="tag">rev 36 &middot; the merge landed, and <code>main</code> now answers &ldquo;does it compile&rdquo; by itself</div>
+    <p><b>Everything rev 35 raised is closed, and I checked each against the thing rather than
+      against Pard's report of it.</b> <code>git merge-base --is-ancestor 30881a4 HEAD</code>
+      returns <b>YES</b>; <code>TARGETED_DEVICE_FAMILY</code> present, <code>practising</code>
+      <b>0</b>, <code>build.yml</code> / <code>screenshots.sh</code> /
+      <code>ScreenshotFixture.swift</code> all resolve, register unbroken <b>D-001 &hellip; D-019</b>.
+      <b>All six store-art PNGs are blob-identical between <code>main</code> and
+      <code>screenshot-fixture</code></b> &mdash; the generation that came home is the generation
+      that was shot, not a fourth copy. The branch is retired (D-019) and D-018 gives the art one
+      home. <b>A (6) cut from <code>main</code> today is the real thing.</b></p>
+    <p><b>The CI runner is green on <code>main</code>, and that retires the project's oldest
+      standing risk.</b> Run <code>36025726212</code>, <b>success</b>, 1m20s, push to
+      <code>main</code>, 16:12 UTC &mdash; Pard's merge commit &mdash; with the previous
+      <code>startup_failure</code> directly above it in the same list. For eleven days &ldquo;does
+      this compile&rdquo; was a question only one machine could answer and only while it was awake.
+      It now answers itself on every push, for both agents, whether or not Amber is on.
+      <b>This project has shipped uncompiled changes twice; it cannot do so silently again.</b></p>
+    <p><b>The CI failure cause is worth more than the fix.</b> Every run had been dying at
+      <code>startup_failure</code> before a step executed. <code>yaml.safe_load</code> said OK,
+      <code>actionlint</code> said OK, <b>and both were right &mdash; the file is valid.</b> This
+      repo's Actions policy is <code>allowed_actions: local_only</code>, so
+      <code>actions/checkout@v4</code> is refused at startup, and <b>neither validator reads a
+      policy.</b> Pard fixed it by dropping the dependency rather than widening the policy, on the
+      grounds that the policy is somebody's deliberate choice on a public repo. <b>Fourth member of
+      the class that has now cost this project four times</b> &mdash; the bundle ID, the
+      <code>Info.plist</code> version string, the iOS minimum, and now a repo policy: things no
+      checker in the loop looks at and the runtime does.</p>
+    <p><b>The &ldquo;level below D-010&rdquo; is bounded, and the answer is that there is no sweep
+      to run.</b> [EVIDENCED] <code>main</code> carries <b>31 bare hierarchical styles</b> &mdash;
+      <code>.secondary</code> &times;27, <code>.tertiary</code> &times;4, across
+      <code>CalibrationView</code> 7 / <code>HomeView</code> 13 / <code>PracticeLoopView</code> 11
+      &mdash; every one in the syntactic position that bit the chart. [EVIDENCED] there is
+      <b>exactly one <code>Chart</code></b> in the app, and it is the one already fixed; [EVIDENCED]
+      every <code>.foregroundStyle(Theme.*)</code> sits on a <b>leaf</b> that is a <i>sibling</i> of
+      the <code>.secondary</code> ones rather than a container wrapping them, so nothing rebases the
+      hierarchy anywhere else. [INFERRED, and marked because I cannot run a compiler]
+      <code>.tint</code> becomes the current foreground style <b>inside the Chart plot and not for
+      ordinary <code>Text</code></b>.</p>
+    <p><b>And the art corroborates it, which is the part that isn't inference.</b> I sampled all six
+      shipped PNGs pixel-wise: <b>chromatic-green pixels 217&ndash;1,639 per shot against
+      4,998&ndash;42,391 near-achromatic text pixels.</b> If <code>.secondary</code> were inheriting
+      the tint those columns would be reversed. Dominant green is <b>(61,107,84)</b> &mdash;
+      <code>Theme.within</code> light, to the integer. Three things fall out of the bounding boxes
+      and all three are good news: <b>D-009 renders correctly</b> (shot-3 numeral and caption green
+      at (472,1106)&ndash;(856,1260) and (556,1398)&ndash;(762,1432) with <i>zero</i> amber in the
+      shot; shot-4 the same two boxes in amber with no green near them &mdash; same geometry,
+      opposite tokens, one meaning); <b>D-011's fix is visible in the shipped bytes</b> (shot-6's
+      only chart green is a 24&times;24 <i>point</i> at (1140,1466), no green stroke anywhere in the
+      plot); and the rest of the green is <b>controls</b>, identical in shots 3 and 4 regardless of
+      state, which is what <code>.tint</code> is for. <b>Not covered, stated rather than glossed:</b>
+      <code>CalibrationView</code> is on no screen in the store art, so its 7 sites have the
+      structural argument and no pixel corroboration.</p>
+    <p><b>One loose end, trivial and exactly on theme.</b> <code>build.yml</code> still triggers on
+      <code>branches: [main, screenshot-fixture]</code> &mdash; a branch retired this morning.
+      Harmless, one line, Pard's. Noted because <b>a name outliving its referent</b> is the subject
+      of both of yesterday's findings.</p>
+    <p><b>Apple mail re-read this pass:</b> nothing new on OptiListen. Newest is still the 2.0 (5)
+      processing pair of 2026-09-21 15:36 UTC &mdash; no review state, no removal or App Store
+      Improvement mail, no crash submission. <b>The build has now been installable for three days
+      and eight hours with no report in either direction</b>, and that channel cannot say whether
+      anyone has opened it. <b>The 2026-11-24 date is still the 08-26 screenshot and has never been
+      re-read from Apple.</b></p>
+  </section>
+
   <section class="alert">
     <div class="tag">rev 35 &middot; the compile and the grep were true &mdash; of a branch <code>main</code> has none of</div>
     <p><b>Pard delivered all three asks and I checked each rather than taking it.</b>
@@ -1009,7 +1074,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 35<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 36<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>

@@ -1,11 +1,71 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-24 (rev 35) · **Deadline:** 2026-11-24 (61 days · day 29 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
+**Maintained by:** Cairn · **Updated:** 2026-09-24 (rev 36) · **Deadline:** 2026-11-24 (61 days · day 29 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
+
+> **rev 36: the merge landed, and `main` now answers "does it compile" by itself.**
+> **Everything rev 35 raised is closed, and I checked each against the thing rather than against
+> Pard's report of it.** `git merge-base --is-ancestor 30881a4 HEAD` returns **YES**;
+> `TARGETED_DEVICE_FAMILY` present, `practising` **0**, `build.yml` / `screenshots.sh` /
+> `ScreenshotFixture.swift` all resolve, register unbroken **D-001 … D-019**. **All six store-art
+> PNGs are blob-identical between `main` and `screenshot-fixture`** — the generation that came home
+> is the generation that was shot, not a fourth copy. `screenshot-fixture` is retired (D-019) and
+> D-018 gives the art one home. **A (6) cut from `main` today is the real thing.**
+>
+> **The CI runner is green on `main` and that retires the project's oldest standing risk.**
+> `gh run list`: run `36025726212`, **success**, 1m20s, push to `main`, 16:12 UTC — Pard's merge
+> commit — with the previous `startup_failure` sitting directly above it in the same list. For
+> eleven days "does this compile" was a question only one machine could answer and only while it
+> was awake. It now answers itself on every push, for both agents, whether or not Amber is on.
+> **This project has shipped uncompiled changes twice; it cannot do so silently again.**
+>
+> **The CI failure cause is worth more than the fix.** Every run had been dying at
+> `startup_failure` before a step executed. `yaml.safe_load` said OK, `actionlint` said OK, **and
+> both were right — the file is valid.** This repo's Actions policy is `allowed_actions:
+> local_only`, so `actions/checkout@v4` is refused at startup, and **neither validator reads a
+> policy.** Pard fixed it by dropping the dependency rather than widening the policy, on the
+> grounds that the policy is somebody's deliberate choice on a public repo and a build convenience
+> is a poor reason to widen what may execute. **Fourth member of the class that has now cost this
+> project four times: the bundle ID, the `Info.plist` version string, the iOS minimum, and now a
+> repo policy — things no checker in the loop looks at and the runtime does.**
+>
+> **The "level below D-010" is bounded, and the answer is that there is no sweep to run.** Pard
+> closed yesterday's chart bug by noting the palette has a level my raw-colour grep cannot reach.
+> [EVIDENCED] `main` carries **31 bare hierarchical styles** — `.secondary` ×27, `.tertiary` ×4,
+> across `CalibrationView` 7 / `HomeView` 13 / `PracticeLoopView` 11 — every one in the syntactic
+> position that bit the chart. [EVIDENCED] there is **exactly one `Chart`** in the app, and it is
+> the one already fixed; [EVIDENCED] every `.foregroundStyle(Theme.*)` sits on a **leaf** that is a
+> *sibling* of the `.secondary` ones rather than a container wrapping them, so nothing rebases the
+> hierarchy anywhere else. [INFERRED, and marked because I cannot run a compiler] `.tint` becomes
+> the current foreground style **inside the Chart plot and not for ordinary `Text`**.
+>
+> **And the art corroborates it, which is the part that isn't inference.** I sampled all six
+> shipped PNGs pixel-wise: **chromatic-green pixels 217–1,639 per shot against 4,998–42,391
+> near-achromatic text pixels.** If `.secondary` were inheriting the tint those columns would be
+> reversed. Dominant green is **(61,107,84)** — `Theme.within` light, to the integer. Three things
+> fall out of the bounding boxes and all three are good news: **D-009 renders correctly** (shot-3
+> numeral and caption green at (472,1106)–(856,1260) and (556,1398)–(762,1432) with *zero* amber in
+> the shot; shot-4 the same two boxes in amber with no green near them — same geometry, opposite
+> tokens, one meaning); **D-011's fix is visible in the shipped bytes** (shot-6's only chart green
+> is a 24×24 *point* at (1140,1466), no green stroke anywhere in the plot); and the rest of the
+> green is **controls**, identical in shots 3 and 4 regardless of state, which is what `.tint` is
+> for. **Not covered, stated rather than glossed:** `CalibrationView` is on no screen in the store
+> art, so its 7 sites have the structural argument and no pixel corroboration.
+>
+> **One loose end, trivial and exactly on theme.** `build.yml` still triggers on
+> `branches: [main, screenshot-fixture]` — a branch retired this morning. Harmless, one line,
+> Pard's. Noted because **a name outliving its referent** is the subject of both of yesterday's
+> findings.
+>
+> **Apple mail re-read this pass:** nothing new on OptiListen. Newest is still the 2.0 (5)
+> processing pair of 2026-09-21 15:36 UTC — no review state, no removal or App Store Improvement
+> mail, no crash submission. **The build has now been installable for three days and eight hours
+> with no report in either direction**, and that channel cannot say whether anyone has opened it.
+> **The 2026-11-24 date is still the 08-26 screenshot and has never been re-read from Apple.**
 
 > **rev 35: the compile and the grep were true — of a branch `main` has none of.**
 > **Pard delivered all three asks and I checked each rather than taking it.** `6cccc56` BUILD
@@ -297,7 +357,7 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| 1 | **Run 2.0 (5) — once indoors, once outdoors.** It has been on your phone three days. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. **Nothing on our side can see whether you have run it** — the Apple channel carries processing and review mail only — so this stays on the page until you say. | ~10 min | the thresholds, the listing screenshots, and Dan's first impression |
+| 1 | **Run 2.0 (5) — once indoors, once outdoors.** It has been on your phone three days and eight hours. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. **Nothing on our side can see whether you have run it** — the Apple channel carries processing and review mail only — so this stays on the page until you say. | ~10 min | the thresholds, the listing screenshots, and Dan's first impression |
 | 2 | **Tell Dan it is already on his phone.** No setup needed — he is provisioned and installed. | Pard read the tester list out of App Store Connect on the 21st: Dan is in the internal **DinP** group, state **INSTALLED**, four testers on the app in total. Internal groups receive every processed build automatically, so **the two-minute App Store Connect job this item used to describe does not exist.** He said yes on 09-16 and has been able to open 2.0 (5) since 15:36 UTC on the 21st without knowing it is there. He is traveling, so this is not urgent — it is one sentence whenever you reach him. | ~1 min | Dan's first contact with the product |
 | 3 | **Two reads and two decisions the store-content draft cannot make from here.** All in App Store Connect or on the marketing site. | `docs/store-content-2.0.md` is drafted and waiting. **The iPad question that used to be (a) is closed, and it closed as "drop it"** — 1.1 shipped iPhone-only, evidenced three ways on 09-23, so dropping iPad costs no existing customer anything. That recommendation is in Pard's inbox and the edit is his. What is left for you: **(a) Uncheck — or deliberately keep — Mac and Apple Vision.** The live Compatibility block lists 1.1 as available on both. [INFERRED] that is a per-app availability setting 2.0 inherits; 2.0 is portrait-only, opens the microphone on launch, and has run on one iPhone. **(b) The keyword field and the secondary category** are not public and must be read before being overwritten. **(c) The privacy URL returns HTTP 404** behind a JavaScript shim — the policy renders for a browser and is dated 4 July 2022, but the link in the listing is a 404 to anything reading status codes, and the policy never mentions the microphone. Not a blocker: 1.x cleared review twice on this site. **(d) Sign off on the subtitle and description**, or redirect them — the current description's first sentence has to go either way. | ~15 min | the screenshot shoot, and nothing else yet |
 | ~ | **[CLOSED 09-24 — you ruled green.]** Was: rule on one colour. Two screens already disagree. | Not a taste question and not a screenshot's request. `HomeView.swift:168` already renders an under-ceiling number in **moss** (visible in shot 6's Recent list); `PracticeLoopView.swift:214` and the After card leave it **black**. `Theme.swift`'s own doc comment says the green/amber pair exists *"because the person reading it is mid-conversation and not really reading"* — which describes the Listening screen, the one place it is not applied. **So the question is which of two screens is right, with the design pass's stated intent on the record.** Say go and it is two lines plus a re-shoot of shots 3 and 5 (scripted, minutes); say leave it and I rewrite two captions instead. Either answer unblocks the art. | ~1 min | the screenshot set, and the shot-3/5 re-shoot |
@@ -334,6 +394,34 @@ it ready if we run short of time."* Pard preps and holds it. Whether it ships is
 nothing is asking you for it yet.
 
 ## Resolved this pass
+
+- **The merge is done and every rev-35 alarm closes with it.** [EVIDENCED] `30881a4` is an
+  ancestor of `main`; device family, spelling, scaffolding, CI and D-011 all present on `main`;
+  register unbroken D-001…D-019. **All six art PNGs blob-identical between `main` and the retired
+  branch** — checked by SHA, not by path, which is the check that caught the drift in the first
+  place.
+- **`main` now compiles on every push, and nobody has to be awake for it.** Run `36025726212`,
+  success, 1m20s. The oldest standing risk on this page — a compile answer that lived on one
+  machine — is retired. The runner does not sign, archive or upload, deliberately; a green check
+  here is not "ready to submit."
+- **The CI cause was a repo Actions policy, not the file.** `allowed_actions: local_only` refuses
+  `actions/checkout@v4` at startup; `yaml.safe_load` and `actionlint` both passed and both were
+  correct. Fixed by removing the dependency rather than loosening the policy. **Fourth member of
+  the metadata/policy class** after the bundle ID, the `Info.plist` version string and the iOS
+  minimum.
+- **D-018 and D-019 are in the register** — one home for the art, and the merge itself recorded as
+  a step rather than left as a shared assumption. Both were raised on this page yesterday as things
+  nothing was writing down.
+- **The "level below D-010" is answered and it needs no sweep.** 31 bare hierarchical styles on
+  `main`, one `Chart`, no container-level `.foregroundStyle` anywhere — so the exposure is the one
+  site already fixed. Corroborated from the shipped art pixel-wise rather than by eye: green
+  217–1,639 px per shot against 4,998–42,391 neutral text px, dominant green exactly
+  `Theme.within`. **The same sampling confirms D-009 and D-011 render correctly in the art**, which
+  is the first time this page has been able to say that about the images rather than about the
+  source.
+- **A bounded answer beats a chore list.** The useful output of a sweep was "30 of 31 are provably
+  fine and here is the class that isn't", not thirty edits. The class reopens if a second `Chart`
+  lands or anything acquires a container-level foreground style, and that belongs in D-011.
 - **The colour ruling is made and swept, not patched.** [DECIDED] xian, 09-24: green, with
   consistency and no corner-cutting as the standard. Landed as **D-009** (the pair on every screen
   that names a side), **D-010** (eleven raw system colours retired; two tokens are the whole
