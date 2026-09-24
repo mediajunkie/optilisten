@@ -18,7 +18,10 @@ name: Build
 # COST NOTE: macOS runners bill at 10x the Linux rate. This build takes a few minutes, so budget
 # roughly 20–40 billable minutes per run and keep the triggers narrow.
 
-on:
+# Quoted, because YAML 1.1 reads a bare `on` as the boolean true. GitHub tolerates it; a local
+# `yaml.safe_load` check does NOT complain and hands back a dict keyed by `True`, which is how a
+# "yaml OK" line can be printed about a file whose trigger key is not the word anyone typed.
+"on":
   push:
     branches: [main, screenshot-fixture]
     paths: ['OptiListen/**', 'project.yml', '.github/workflows/build.yml']
@@ -35,7 +38,25 @@ jobs:
     runs-on: macos-15
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      # Checked out by hand, with git, deliberately.
+      #
+      # This repository's Actions policy is `allowed_actions: local_only` — "only local actions
+      # and workflows are allowed." A first version of this file used `actions/checkout@v4` and
+      # every run died at `startup_failure` before a single step ran. The fix is NOT to loosen the
+      # policy: it is somebody's deliberate posture on a public repo, and a build convenience is a
+      # poor reason to widen what may execute here. A workflow whose every step is `run:` has no
+      # external dependency to trust in the first place.
+      #
+      # Worth recording how long this took to see: `yaml.safe_load` said OK, `actionlint` said OK,
+      # and both were right — the file is valid. Neither can see a policy. The answer was in
+      # `GET /repos/:owner/:repo/actions/permissions`, which is not a thing a linter reads.
+      - name: Checkout
+        run: |
+          git init -q .
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          git -c protocol.version=2 fetch -q --depth=1 origin "${{ github.sha }}"
+          git checkout -q FETCH_HEAD
+          git --no-pager log --oneline -1
 
       # State the toolchain in the log. A build that passes on an Xcode nobody recorded is a
       # result that cannot be compared with the next one.
