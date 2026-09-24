@@ -1,0 +1,96 @@
+name: Build
+
+# WHY THIS EXISTS
+# Cairn works on kindbook, which has no iOS SDK: `swiftc -parse` catches syntax and nothing else.
+# So until 2026-09-24 nobody knew whether a change compiled until it reached Amber, and this
+# project has shipped uncompiled changes twice. The alternative considered was installing Xcode on
+# kindbook — rejected: it is a ~15 GB duplicate of a capability Amber already has, and it would
+# still not cover simulator capture or signing. A runner answers "does it build" for everyone,
+# costs nothing to install, and is the only copy that keeps answering when neither machine is on.
+#
+# WHAT IT DOES NOT DO, deliberately
+# No signing, no archive, no upload. A simulator build proves the code compiles and links; it does
+# not prove the thing Apple's validator checks, which has caught real defects here (bundle ID,
+# Info.plist version string, orientations, launch screen — all metadata a compiler never sees).
+# Do not let a green check here be read as "ready to submit"; the submission path stays manual and
+# on Amber.
+#
+# COST NOTE: macOS runners bill at 10x the Linux rate. This build takes a few minutes, so budget
+# roughly 20–40 billable minutes per run and keep the triggers narrow.
+
+on:
+  push:
+    branches: [main, screenshot-fixture]
+    paths: ['OptiListen/**', 'project.yml', '.github/workflows/build.yml']
+  pull_request:
+    paths: ['OptiListen/**', 'project.yml', '.github/workflows/build.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      # State the toolchain in the log. A build that passes on an Xcode nobody recorded is a
+      # result that cannot be compared with the next one.
+      - name: Toolchain
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphonesimulator --show-sdk-version
+          swift --version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      # The .pbxproj is generated from project.yml. Regenerating rather than trusting the
+      # committed copy means a project.yml change that nobody regenerated locally fails HERE,
+      # which is the whole point — INFOPLIST_KEY settings silently not landing is a defect class
+      # this project has already paid for twice.
+      - name: Generate project
+        run: xcodegen generate
+
+      - name: Build (Debug, iOS Simulator)
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project OptiListen.xcodeproj \
+            -scheme OptiListen \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath .build-ci \
+            CODE_SIGNING_ALLOWED=NO \
+            build 2>&1 | tail -40
+
+      # Cheap guards for the two defect classes that compile fine and fail at submission.
+      # They read the GENERATED project, not project.yml, because the generated file is what the
+      # build consumes — reading the source would be checking our intent against itself.
+      - name: Assert the settings that a compiler never checks
+        run: |
+          fail=0
+          grep -q 'TARGETED_DEVICE_FAMILY = 1;' OptiListen.xcodeproj/project.pbxproj \
+            || { echo "::error::TARGETED_DEVICE_FAMILY is not 1 (iPhone only) — see decisions.md D-008"; fail=1; }
+          grep -q 'PRODUCT_BUNDLE_IDENTIFIER = com.longskymedia.optilisten;' OptiListen.xcodeproj/project.pbxproj \
+            || { echo "::error::PRODUCT_BUNDLE_IDENTIFIER no longer matches the App Store record"; fail=1; }
+          plutil -extract CFBundleShortVersionString raw OptiListen/Support/Info.plist \
+            | grep -q 'MARKETING_VERSION' \
+            || { echo "::error::Info.plist CFBundleShortVersionString is not wired to MARKETING_VERSION — the 1.0-vs-2.0 upload rejection of 2026-09-10"; fail=1; }
+          if ! grep -rEq 'NSMicrophoneUsageDescription' OptiListen/Support/Info.plist; then
+            echo "::error::NSMicrophoneUsageDescription is missing — a first-launch crash on any device without it"; fail=1
+          fi
+          exit $fail
+
+      # D-010: the palette is two tokens. A raw system colour compiles perfectly and means
+      # something slightly different on screen, which is how the app ended up rendering two ambers.
+      - name: Assert the palette is tokens only
+        run: |
+          if grep -rEn 'foregroundStyle\(\.(orange|green|red|blue|yellow|purple|pink)\)' OptiListen/; then
+            echo "::error::raw system colour in a foregroundStyle — use Theme.within / Theme.over (decisions.md D-010)"
+            exit 1
+          fi
+          echo "no raw system colours"
