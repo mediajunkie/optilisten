@@ -254,6 +254,60 @@ final class LiveMicSource: LiveTalkRatioSource {
         userSpeakingSeconds + otherSpeakingSeconds + silenceSeconds
     }
 
+#if DEBUG
+    // MARK: Screenshot fixture (Debug builds only)
+
+    // The Simulator has no microphone, so the listening and reflection screens can
+    // never show a number there — and those are the screens the App Store art
+    // exists to show. `ScreenshotFixture.source()` builds one of these when the app
+    // is launched with `-screenshot-fixture <share>`: calibration set to a usable
+    // gap, the three buckets pre-filled so `currentShare` is the requested share
+    // and `observedDuration` the requested elapsed time, and a one-second clock
+    // that keeps the split moving so the screen reads as live. The audio session
+    // is never touched. It lives in this file because the counters are
+    // `private(set)`; nothing in this block compiles into a Release build.
+    private var fixtureShare: Double?
+    private var fixtureClock: Task<Void, Never>?
+
+    var isScreenshotFixture: Bool { fixtureShare != nil }
+
+    static func screenshotFixture(share: Double, elapsed: TimeInterval) -> LiveMicSource {
+        let source = LiveMicSource()
+        source.fixtureShare = share
+        source.applyCalibration(userLevel: -18, ambientLevel: -46)
+        let speech = elapsed * 0.85
+        source.userSpeakingSeconds = speech * share
+        source.otherSpeakingSeconds = speech * (1 - share)
+        source.silenceSeconds = elapsed - speech
+        source.buffersReceived = Int(elapsed / source.bufferSeconds)
+        source.note("SCREENSHOT FIXTURE — scripted reading; the microphone is not in use")
+        return source
+    }
+
+    private func fixtureStart() {
+        guard let share = fixtureShare, !isRunning else { return }
+        isRunning = true
+        state = .running
+        fixtureClock = Task { [weak self] in
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(1))
+                guard let self, !Task.isCancelled else { return }
+                self.userSpeakingSeconds += 0.85 * share
+                self.otherSpeakingSeconds += 0.85 * (1 - share)
+                self.silenceSeconds += 0.15
+                self.buffersReceived += 10
+            }
+        }
+    }
+
+    private func fixtureStop() {
+        fixtureClock?.cancel()
+        fixtureClock = nil
+        isRunning = false
+        state = .idle
+    }
+#endif
+
     // MARK: Engine
 
     private let engine = AVAudioEngine()
@@ -279,6 +333,9 @@ final class LiveMicSource: LiveTalkRatioSource {
     }
 
     func start() async throws {
+#if DEBUG
+        if isScreenshotFixture { fixtureStart(); return }
+#endif
         guard !isRunning else {
             note("start() ignored — already running")
             return
@@ -339,6 +396,9 @@ final class LiveMicSource: LiveTalkRatioSource {
     }
 
     func stop() async {
+#if DEBUG
+        if isScreenshotFixture { fixtureStop(); return }
+#endif
         note("stop() requested — state was \(state.label)")
         await teardown()
         // A failure outlives the stop that follows it: the reflection screen

@@ -14,7 +14,11 @@ struct HomeView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \Practice.createdAt, order: .reverse) private var practices: [Practice]
 
+#if DEBUG
+    @State private var source = ScreenshotFixture.source()
+#else
     @State private var source = LiveMicSource()
+#endif
     @State private var showingLoop = false
     @State private var showingCalibration = false
 
@@ -101,7 +105,7 @@ struct HomeView: View {
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Set an intention before your next conversation.")
                                 .font(.headline)
-                            Text("Decide how much you mean to talk and what you're practising. Have the conversation. Come back and say how it went. That loop is the whole thing, and the microphone is optional.")
+                            Text("Decide how much you mean to talk and what you're practicing. Have the conversation. Come back and say how it went. That loop is the whole thing, and the microphone is optional.")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
@@ -110,6 +114,12 @@ struct HomeView: View {
                 }
             }
             .navigationTitle("OptiListen")
+#if DEBUG
+            .task {
+                ScreenshotFixture.seedIfRequested(into: context, existing: practices.count)
+                if ScreenshotFixture.initialStep != nil { showingLoop = true }
+            }
+#endif
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
@@ -208,7 +218,7 @@ private struct PracticeDetail: View {
                             systemImage: "exclamationmark.triangle"
                         )
                         .font(.footnote)
-                        .foregroundStyle(.orange)
+                        .foregroundStyle(Theme.over)
                     }
                 } else {
                     Text("No reading for this one. The loop still counts.")
@@ -216,7 +226,7 @@ private struct PracticeDetail: View {
                 }
             }
 
-            Section("What you were practising") {
+            Section("What you were practicing") {
                 if practice.focus.isEmpty {
                     Text("Nothing written down.").foregroundStyle(.secondary)
                 } else {
@@ -264,15 +274,47 @@ private struct GoalChart: View {
                         y: .value("Spoke", measured * 100),
                         series: .value("Series", "actual")
                     )
-                    .foregroundStyle(.orange)
-                    .symbol(.circle)
+                    // The LINE stays neutral. A series that crosses the ceiling has
+                    // no single correct colour, and tinting the whole stroke by
+                    // either token — including by the most recent point's side,
+                    // which was the tempting shortcut — asserts that side for every
+                    // point behind it, including the ones where it was false.
+                    // Neutral here is not indecision; it is the only honest thing
+                    // one stroke can say about both sides at once.
+                    //
+                    // `Color.primary`, NOT `.primary`. Bare `.primary` in a
+                    // ShapeStyle position is `HierarchicalShapeStyle.primary` —
+                    // "the primary level of the *current* foreground style" — and
+                    // `OptiListenApp` sets `.tint(Theme.within)`, so it resolved to
+                    // moss and drew this line green: a series crossing the ceiling
+                    // asserting "within" for every point, which is the exact thing
+                    // D-011 exists to prevent, arrived at by inheritance rather than
+                    // by anyone choosing it. Caught 2026-09-24 by opening the image
+                    // (D-017); it compiles clean either way and no grep for raw
+                    // colours would ever have found it.
+                    .foregroundStyle(Color.primary)
+
+                    // The POINTS carry the semantic, each about itself, using the
+                    // same pair as every numeral in the app (D-009). The most recent
+                    // practice is the rightmost mark, where the eye lands first, so
+                    // "how am I doing now" is answered at a glance without the line
+                    // lying about last month. D-011.
+                    PointMark(
+                        x: .value("When", practice.createdAt),
+                        y: .value("Spoke", measured * 100)
+                    )
+                    .foregroundStyle(practice.metGoal == true ? Theme.within : Theme.over)
+                    .symbolSize(60)
                 }
                 LineMark(
                     x: .value("When", practice.createdAt),
                     y: .value("Goal", practice.goalSpeakingShare * 100),
                     series: .value("Series", "goal")
                 )
-                .foregroundStyle(.secondary)
+                // `Color.secondary` for the same reason as the line above: bare
+                // `.secondary` inherits the app tint and drew the ceiling in moss,
+                // quietly colour-coding the reference line as "within".
+                .foregroundStyle(Color.secondary)
                 .lineStyle(StrokeStyle(dash: [4, 4]))
             }
         }
