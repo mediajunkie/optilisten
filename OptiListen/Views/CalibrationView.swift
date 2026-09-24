@@ -53,7 +53,7 @@ struct CalibrationView: View {
         case .speaking:
             Image(systemName: "mic.fill")
                 .font(.system(size: 44))
-                .foregroundStyle(.orange)
+                .foregroundStyle(Theme.within)
                 .symbolEffect(.pulse)
             Text("Talk normally.")
                 .font(.title2)
@@ -64,7 +64,7 @@ struct CalibrationView: View {
         case .quiet:
             Image(systemName: "speaker.wave.2")
                 .font(.system(size: 44, weight: .light))
-                .foregroundStyle(.blue)
+                .foregroundStyle(Theme.within)
             Text("Now stay quiet.")
                 .font(.title2)
             Text("Leave the room as it'll be during a call — laptop audio on if that's how you work.")
@@ -74,7 +74,7 @@ struct CalibrationView: View {
         case .result:
             Image(systemName: "checkmark.circle")
                 .font(.system(size: 44, weight: .light))
-                .foregroundStyle(.green)
+                .foregroundStyle(Theme.within)
             Text("Ready.")
                 .font(.title2)
             Text("Your voice reads about \(Int(userLevel - ambientLevel)) dB above the room, which is a clean enough gap to tell you apart from everyone else.")
@@ -84,7 +84,7 @@ struct CalibrationView: View {
         case .failed(let message):
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 44, weight: .light))
-                .foregroundStyle(.red)
+                .foregroundStyle(Theme.over)
             Text("Calibration didn't run.")
                 .font(.title2)
             Text(message)
@@ -94,7 +94,7 @@ struct CalibrationView: View {
         case .tooClose:
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 44, weight: .light))
-                .foregroundStyle(.orange)
+                .foregroundStyle(Theme.over)
             Text("This room won't give a reliable reading.")
                 .font(.title2)
             Text("Your voice and the background are too close together — usually headphones, a loud room, or the phone too far away. You can still practice; you just won't get a percentage, and that's a fine way to use this.")

@@ -211,18 +211,18 @@ private struct ListeningStep: View {
                         .font(Theme.numeral)
                         .monospacedDigit()
                         .contentTransition(.numericText())
-                        .foregroundStyle(overGoal ? Theme.over : .primary)
+                        .foregroundStyle(overGoal ? Theme.over : Theme.within)
                     Text("of the talking is you")
                         .font(.subheadline.weight(.medium))
                     Text(overGoal
                          ? "over your \(practice.goalPercentText) ceiling"
                          : "ceiling \(practice.goalPercentText)")
                         .font(.footnote)
-                        .foregroundStyle(overGoal ? Theme.over : .secondary)
+                        .foregroundStyle(overGoal ? Theme.over : Theme.within)
                 }
 
                 VStack(spacing: 2) {
-                    Text("practising")
+                    Text("practicing")
                         .font(.caption)
                         .textCase(.uppercase)
                         .foregroundStyle(.tertiary)
@@ -240,7 +240,7 @@ private struct ListeningStep: View {
                 if source.isRunning && source.buffersReceived == 0 && elapsed >= 3 {
                     Label("No audio is arriving from the microphone.", systemImage: "exclamationmark.triangle")
                         .font(.footnote)
-                        .foregroundStyle(.orange)
+                        .foregroundStyle(Theme.over)
                         .padding(.horizontal, 32)
                 }
                 if !source.isCalibrated {
@@ -258,7 +258,7 @@ private struct ListeningStep: View {
                 if source.silenceSeconds == 0 && source.observedDuration > 30 {
                     Label("Nothing has been quiet yet, so everything is counting as speech.", systemImage: "exclamationmark.triangle")
                         .font(.footnote)
-                        .foregroundStyle(.orange)
+                        .foregroundStyle(Theme.over)
                         .padding(.horizontal, 32)
                 }
             }
@@ -352,6 +352,7 @@ private struct ReflectionStep: View {
                             Text(measured)
                                 .font(Theme.numeralSmall)
                                 .monospacedDigit()
+                                .foregroundStyle(practice.metGoal == true ? Theme.within : Theme.over)
                             Text("of the talking was you")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
@@ -359,7 +360,7 @@ private struct ReflectionStep: View {
                         Spacer()
                         Text("ceiling \(practice.goalPercentText)")
                             .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(practice.metGoal == true ? Theme.within : Theme.over)
                     }
                     if let breakdown = practice.breakdownText {
                         Text(breakdown)
@@ -372,7 +373,7 @@ private struct ReflectionStep: View {
                             systemImage: "exclamationmark.triangle"
                         )
                         .font(.footnote)
-                        .foregroundStyle(.orange)
+                        .foregroundStyle(Theme.over)
                     }
                 } footer: {
                     if practice.evidenceIsPartial {
@@ -438,7 +439,7 @@ private struct CaptureFailureCard: View {
         VStack(spacing: 14) {
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 40, weight: .light))
-                .foregroundStyle(.orange)
+                .foregroundStyle(Theme.over)
             Text("Listening didn't start.")
                 .font(.title3)
             Text(message)

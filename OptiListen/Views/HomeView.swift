@@ -105,7 +105,7 @@ struct HomeView: View {
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Set an intention before your next conversation.")
                                 .font(.headline)
-                            Text("Decide how much you mean to talk and what you're practising. Have the conversation. Come back and say how it went. That loop is the whole thing, and the microphone is optional.")
+                            Text("Decide how much you mean to talk and what you're practicing. Have the conversation. Come back and say how it went. That loop is the whole thing, and the microphone is optional.")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
@@ -218,7 +218,7 @@ private struct PracticeDetail: View {
                             systemImage: "exclamationmark.triangle"
                         )
                         .font(.footnote)
-                        .foregroundStyle(.orange)
+                        .foregroundStyle(Theme.over)
                     }
                 } else {
                     Text("No reading for this one. The loop still counts.")
@@ -226,7 +226,7 @@ private struct PracticeDetail: View {
                 }
             }
 
-            Section("What you were practising") {
+            Section("What you were practicing") {
                 if practice.focus.isEmpty {
                     Text("Nothing written down.").foregroundStyle(.secondary)
                 } else {
@@ -274,7 +274,11 @@ private struct GoalChart: View {
                         y: .value("Spoke", measured * 100),
                         series: .value("Series", "actual")
                     )
-                    .foregroundStyle(.orange)
+                    // Neutral on purpose: one line cannot be both sides of the
+                    // ceiling, and colouring the whole series with either token
+                    // would assert a side for every point. Per-point colour is
+                    // D-011, open.
+                    .foregroundStyle(.primary)
                     .symbol(.circle)
                 }
                 LineMark(

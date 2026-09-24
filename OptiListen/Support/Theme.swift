@@ -13,6 +13,19 @@ import UIKit
 /// without needing a label, which matters because the person reading it is
 /// mid-conversation and not really reading.
 ///
+/// That pair is the app's WHOLE palette. There is no raw `.orange`, `.green`,
+/// `.red` or `.blue` anywhere in the views, because an untokenised colour that
+/// happens to resemble a token is how two screens end up disagreeing about the
+/// same fact — which is exactly what happened before 2026-09-24 (see D-009 in
+/// `docs/decisions.md`): Home coloured an under-ceiling number green while the
+/// Listening screen and the After card left it black.
+///
+/// `over` carries two meanings and that is deliberate: "you are over your
+/// ceiling" and "this reading is not trustworthy." Both say *the number needs
+/// your attention*, and giving the second its own colour would have made the
+/// pair a trio for no gain. Failures included — there is no red in this app,
+/// because a calibration that did not run is not an emergency either.
+///
 /// Deliberately not system blue, and deliberately not red: the app is about
 /// restraint, and an alarm colour for "you are talking more than you meant to"
 /// overstates a thing the user is supposed to notice calmly and adjust.
