@@ -199,8 +199,8 @@ returns nothing, and that is the check.
 
 ---
 
-## D-011 · Chart points should carry the ceiling colour — OPEN
-**2026-09-24 · Cairn raised · OPEN, needs a compiler**
+## D-011 · Chart points carry the ceiling colour; the line stays neutral
+**2026-09-24 · Cairn raised, xian ruled, Pard built · DECIDED**
 
 The Home chart's trend line runs through points on both sides of the ceiling, so
 **no single colour for the series can be right.** It was raw `.orange`; tokenising
@@ -212,10 +212,31 @@ dashed and secondary as before.
 `metGoal ? Theme.within : Theme.over`, so the chart says the same thing the
 numerals say.
 
-**Why it is open rather than done:** it needs per-point marks in the Chart body
+**Why it was open rather than done:** it needs per-point marks in the Chart body
 rather than a colour literal, and kindbook has no SDK — `swiftc -parse` catches
 syntax and nothing else. This project has twice shipped uncompiled changes.
 **Pard's, on Amber, with a compiler.**
+
+**DECIDED and built 2026-09-24 (Pard, `129dd20`).** xian's instinct was to colour
+the whole line by the *most recent* status; the proposal above won on the same
+ground the original finding stood on — the latest point's side is still a claim
+about every point behind it. The rightmost mark is where the eye lands anyway, so
+"how am I doing now" is answered without the line asserting it about last month.
+
+**What building it exposed, which is the part worth keeping:** the neutral line
+rendered **moss green**. Bare `.primary` in a `ShapeStyle` position is
+`HierarchicalShapeStyle.primary` — "the primary level of the *current* foreground
+style" — and `OptiListenApp` sets `.tint(Theme.within)`, so it inherited the tint
+and drew a ceiling-crossing series entirely "within": exactly the falsehood this
+entry exists to prevent, arrived at by inheritance rather than by anyone choosing
+it. Same for the goal line's `.secondary`, quietly tinting the ceiling reference.
+Now `Color.primary` / `Color.secondary`, explicitly.
+
+**It compiles clean either way, and D-010's raw-colour grep cannot see it** — the
+token discipline has a level below the one that sweep reached. Found only by
+opening the image (D-017), the day after that entry was written against myself.
+
+**Shows up in:** `HomeView.swift` `GoalChart`, with the reasoning in the comments.
 
 ---
 
@@ -308,3 +329,56 @@ about twenty minutes; the cost of not looking was a wrong statement to xian and 
 design decision framed as a caption dispute.
 
 **Shows up in:** practice, not code. The check is: open the PNGs.
+
+---
+
+## D-018 · The store art has one home, and it is `main`
+**2026-09-24 · Cairn proposed, Pard decided · DECIDED**
+
+`docs/store-art/6.9-inch/` on `main` is the only copy. No second copy anywhere,
+and anything that points at the art points at a **ref**, not a bare path.
+
+**Why:** the art was copied onto `main` on 09-23 so the rollup could link it, and
+then re-shot three times on the branch — quiet battery, green pair and spelling,
+the chart. `main` never followed. By this morning it was serving **generation 1 of
+4**: the charging battery this page had already reported closed, the black numerals
+D-009 retired, and `PRACTISING`. Anyone uploading from a `main` checkout would have
+shipped every defect fixed since Tuesday, from the path that looks canonical.
+Cairn caught it by comparing blob SHAs and synced at `0990e61`.
+
+**The sync closed the window; one copy closes the cause.** Two copies of a binary
+artifact drift again on the next re-shoot, and a stale binary gives no sign of
+being stale — a `.png` has no version string to disagree with.
+
+**Shows up in:** `docs/store-art/6.9-inch/` on `main`; `scripts/screenshots.sh`
+writes working captures to `Screenshots/<date>/`, which is gitignored, and copying
+them into `docs/store-art/` is the deliberate publish step.
+
+---
+
+## D-019 · `screenshot-fixture` merges to `main` today; the branch is retired
+**2026-09-24 · Pard · DECIDED**
+
+The design pass, the scaffolding, the CI workflow and the art are on `main` as of
+`30881a4`. The branch is not the place any of it lives any more.
+
+**Why now rather than at submission:** `main` and the branch had diverged 8/9 with
+a split clean enough to be alarming — every `main`-only commit touched `docs/`,
+every branch-only commit touched code, art or build config. So `main` carried
+eleven raw system colours, three `practising` strings, an uncoloured After card,
+and **no `TARGETED_DEVICE_FAMILY` line at all**, which means XcodeGen defaults it
+back to `1,2` and the iPad set D-008 dropped comes back. **A build cut from `main`
+this morning would have been (5) plus nothing.** Two heads where one is silently
+wrong is a worse risk than merging work that is already reviewed, compiled and shot.
+
+**What made it findable:** Cairn checked my grep-zero *against the ref* instead of
+taking it. My claim was true — and true about the branch. That is the same shape as
+every other defect this week: a correct statement about the wrong surface.
+
+**The conflict, recorded because a merge resolution is a decision:** `docs/decisions.md`,
+add/add, both sides having created it independently. Resolved to `main`'s copy after
+diffing the common portion — zero differing lines across D-001…D-014, and `main`
+additionally carried D-015/016/017. Nothing of Cairn's was lost.
+
+**Shows up in:** merge commit `30881a4`; CI now runs on `main`, which it could not
+do while the workflow lived only on a branch.
