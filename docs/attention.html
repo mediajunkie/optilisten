@@ -209,7 +209,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 23 Sep 2026 · rev 33 · file and page in sync</div>
+    <div class="stamp">Updated 24 Sep 2026 · rev 34 · file and page in sync</div>
   </header>
 
 
@@ -248,6 +248,51 @@
       about the removal clock and <b>about nothing else</b> &mdash; in particular it cannot say whether
       the build has been run. Pard's console readback still owns the date itself.</div></div>
   </section>
+  <section class="win">
+    <div class="tag">rev 34 &middot; green &mdash; and the standard turned it into a sweep</div>
+    <p><b>You ruled on item&nbsp;4 and attached a bar:</b> <i>"yes green and yes it's critical for
+      things to be consistent and for us not to cut corners. design decisions need to be called and
+      tracked too."</i> Both halves are done in this pass.</p>
+    <p><b>D-009, the ruling.</b> The <code>within</code>/<code>over</code> pair now applies on every
+      screen that says which side of the ceiling you are on &mdash; the live numeral and its
+      caption, <b>the After card's numeral and caption, which carried no colour at all</b> and which
+      nobody had looked at, alongside the Home list that already did it. <b>One fact, one
+      rendering.</b> That is the smaller half.</p>
+    <p><b>D-010, what the sweep turned up: eleven raw system colours, retired.</b> Six
+      <code>.orange</code> warnings, a <code>.green</code> checkmark, a <code>.red</code> failure, a
+      <code>.blue</code> step prompt. <b>SwiftUI's <code>.orange</code> is visibly brighter than
+      <code>Theme.over</code></b> &mdash; (1.0, 0.58, 0.0) against (0.72, 0.42, 0.16) &mdash; so the
+      app was already showing <i>two different ambers meaning two different things</i>, and the
+      difference was an accident of which colour someone reached for. Two calls inside it:
+      <code>Theme.over</code> now deliberately carries both "over your ceiling" and "this reading is
+      not trustworthy", because both say <i>the number needs your attention</i>; and <b>there is no
+      red in this app any more</b>, since a calibration that did not run is not an emergency either.
+      <code>Theme.swift</code>'s doc comment says all of it now, so <b>the spec matches the
+      code</b> &mdash; this episode's whole lesson.</p>
+    <p><b>Not done, and recorded as open rather than quietly decided.</b> The Home chart's trend
+      line runs through points on <i>both</i> sides of the ceiling, so no single series colour can
+      be right. My global swap tokenised it to <code>Theme.over</code> and <b>I backed that out</b>
+      &mdash; it would have asserted "over ceiling" for every point including the ones under it, a
+      new inconsistency introduced while fixing one. Per-point colour needs the Chart body and a
+      compiler, and kindbook has no SDK. <b>D-011, Pard's, no hurry.</b></p>
+    <p><b><code>docs/decisions.md</code> is new, and it is the second half of what you asked for.</b>
+      Design decisions were living only in commit messages, memos and this page's prose.
+      <b>D-004 is the proof: the colour pair was decided on 09-21 and written into
+      <code>Theme.swift</code>, and only one of the three screens that needed it ever got it, with
+      nothing recording that it was meant to be universal. The decision existed; the tracking did
+      not.</b> Fourteen entries backfilled to D-001, each with the decider, the why, where it shows
+      up so it can be checked rather than believed, and a status. <b>This page says what is
+      happening; that one says what was decided.</b></p>
+    <p><b>Parse-clean on kindbook, and that is all it means</b> &mdash; syntax only, no SDK, no type
+      checking. Everything changed is a colour literal or a string, so I expect it clean, but Amber
+      is the check and I would rather say that than imply otherwise. <b>Shots 3 and 5 need
+      re-shooting for the green</b>; Pard had already re-shot all six with the quiet battery before
+      this pass, so that defect is closed.</p>
+    <p><b>Apple mail re-read this pass:</b> nothing new since the 2.0&nbsp;(5) processing pair of
+      21&nbsp;Sep 15:36&nbsp;UTC. No review state, no removal or Improvement mail, no crash
+      submission.</p>
+  </section>
+
   <section class="win">
     <div class="tag">rev 33 &middot; the screenshots exist, and looking at them found what reading did not</div>
     <p><b>All six iPhone shots are captured and correct.</b> <code>origin/screenshot-fixture</code>
@@ -484,16 +529,16 @@
 
   <section class="clock" aria-label="Grace period remaining">
     <div class="clock-top">
-      <div class="days">62<span>days left in the grace period</span></div>
+      <div class="days">61<span>days left in the grace period</span></div>
       <div class="target">removal 24 Nov 2026<br>notice served 26 Aug</div>
     </div>
     <div class="meter" role="img" aria-label="27 of 90 days elapsed"><i style="width:30%"></i></div>
-    <div class="scale"><span>day 28 of 90</span><span>31% spent</span></div>
+    <div class="scale"><span>day 29 of 90</span><span>32% spent</span></div>
     <div class="caveat">▲ The 26 Aug notice is the only source for this date; App Store Connect's API has no removal-date field. <b>Accepted builds do not move it,</b> and a 21 Sep read of the API found <b>no 2.0 version record at all</b>. Apple stops the removal on <i>"an update and it's approved,"</i> which means App Review. Five builds have cleared processing; zero have entered review. <b>This corrects a line this page carried since rev 19.</b></div>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">the art is in · 4 items · ~27 min</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">the colour call is made · 3 items · ~26 min</span></div>
     <div class="items">
 
       <div class="item blocking">
@@ -552,22 +597,6 @@
         </div>
       </div>
 
-      <div class="item">
-        <div class="rank">4</div>
-        <div class="body">
-          <div class="title">Rule on one colour: should an under-ceiling number be green?</div>
-          <div class="why"><b>Two screens already disagree, so this is not a taste question and not
-            a screenshot's request.</b> <code>HomeView.swift:168</code> already renders an
-            under-ceiling number in <b>moss</b> &mdash; visible in shot 6's Recent list.
-            <code>PracticeLoopView.swift:214</code> and the After card leave it <b>black</b>.
-            <code>Theme.swift</code>'s own doc comment says the pair exists <i>"because the person
-            reading it is mid-conversation and not really reading"</i> &mdash; which describes the
-            Listening screen, the one place it is not applied. <b>So the question is which of two
-            screens is right, with the design pass's stated intent on the record.</b> Say go and it
-            is two lines plus a re-shoot of shots 3 and 5 (scripted, minutes); say leave it and I
-            rewrite two captions instead. <b>Either answer unblocks the art.</b></div>
-          <div class="meta"><span class="pill cost">~1 min</span><span class="pill stop">blocks the screenshot set</span></div>
-        </div>
       </div>
 
     </div>
@@ -922,7 +951,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 33<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 34<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>

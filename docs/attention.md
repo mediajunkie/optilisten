@@ -1,11 +1,59 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-23 (rev 33) · **Deadline:** 2026-11-24 (62 days · day 28 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
+**Maintained by:** Cairn · **Updated:** 2026-09-24 (rev 34) · **Deadline:** 2026-11-24 (61 days · day 29 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
+
+> **rev 34: green, and the ruling came with a standard that made it a sweep rather than two lines.**
+> **xian ruled on item 4 and attached a bar:** *"yes green and yes it's critical for things to be
+> consistent and for us not to cut corners. design decisions need to be called and tracked too."*
+> Both halves acted on in the same pass.
+>
+> **D-009, the ruling itself.** The `within`/`over` pair now applies on every screen that says
+> which side of the ceiling you are on — the live numeral and its caption, **the After card's
+> numeral and caption, which carried no colour at all** and which nobody had looked at, alongside
+> the Home list that already did it. One fact, one rendering. That is the smaller half.
+>
+> **D-010, what the sweep turned up: eleven raw system colours, now retired.** Six `.orange`
+> warnings, a `.green` checkmark, a `.red` failure, a `.blue` step prompt. **SwiftUI's `.orange`
+> is visibly brighter than `Theme.over`** — (1.0, 0.58, 0.0) against (0.72, 0.42, 0.16) — so the
+> app was already showing *two different ambers meaning two different things*, and the difference
+> was an accident of which colour someone reached for. Two calls inside that: `Theme.over` now
+> deliberately carries both "over your ceiling" and "this reading is not trustworthy," because
+> both say *the number needs your attention*; and **there is no red in this app any more**, since
+> a calibration that did not run is not an emergency either. `Theme.swift`'s doc comment now says
+> all of it, so the spec matches the code — which is this whole episode's lesson.
+>
+> **D-012 landed too:** `practising` → `practicing`, three strings. I called it yesterday and had
+> not shipped it; "don't cut corners" is the same instruction.
+>
+> **One thing deliberately NOT done, and recorded as open rather than quietly decided.** The Home
+> chart's trend line runs through points on both sides of the ceiling, so **no single colour for
+> that series can be right.** My global swap tokenised it to `Theme.over` and I backed that out —
+> it would have asserted "over ceiling" for every point including the ones under it, a *new*
+> inconsistency introduced while fixing one. Neutral for now. The right answer is per-point
+> colour, which needs the Chart body and a compiler rather than a colour literal, and kindbook has
+> no SDK. **D-011, Pard's, no hurry.**
+>
+> **`docs/decisions.md` is new, and it is the second half of what you asked for.** Design
+> decisions were being made and then living only in commit messages, memos and this page's prose.
+> **D-004 is the proof: the colour pair was decided on 09-21 and written into `Theme.swift`, and
+> only one of the three screens that needed it ever got it, with nothing recording that it was
+> meant to be universal. The decision existed; the tracking did not.** Fourteen entries,
+> backfilled to D-001, each with the decider, the why, where it shows up so it can be checked
+> rather than believed, and a status. **This page says what is happening; that one says what was
+> decided.**
+>
+> **Parse-clean on kindbook and that is all it means** — `swiftc -parse`, syntax only, no SDK, no
+> type checking. Everything changed is a colour literal or a string so I expect it clean, but
+> Amber is the check. Shots 3 and 5 need re-shooting for the green; Pard had already re-shot all
+> six with the quiet battery before I got here, so that defect is closed.
+>
+> **Apple mail re-read this pass:** nothing new since the 2.0 (5) processing pair of 2026-09-21
+> 15:36 UTC. No review state, no removal or App Store Improvement mail, no crash submission.
 
 > **rev 33: the screenshots exist, and looking at them found something reading the code did not.**
 > **Pard delivered all six iPhone shots today and they are correct.** `origin/screenshot-fixture`
@@ -197,7 +245,7 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 | 1 | **Run 2.0 (5) — once indoors, once outdoors.** It has been on your phone about two days. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. **Nothing on our side can see whether you have run it** — the Apple channel carries processing and review mail only — so this stays on the page until you say. | ~10 min | the thresholds, the listing screenshots, and Dan's first impression |
 | 2 | **Tell Dan it is already on his phone.** No setup needed — he is provisioned and installed. | Pard read the tester list out of App Store Connect on the 21st: Dan is in the internal **DinP** group, state **INSTALLED**, four testers on the app in total. Internal groups receive every processed build automatically, so **the two-minute App Store Connect job this item used to describe does not exist.** He said yes on 09-16 and has been able to open 2.0 (5) since 15:36 UTC on the 21st without knowing it is there. He is traveling, so this is not urgent — it is one sentence whenever you reach him. | ~1 min | Dan's first contact with the product |
 | 3 | **Two reads and two decisions the store-content draft cannot make from here.** All in App Store Connect or on the marketing site. | `docs/store-content-2.0.md` is drafted and waiting. **The iPad question that used to be (a) is closed, and it closed as "drop it"** — 1.1 shipped iPhone-only, evidenced three ways on 09-23, so dropping iPad costs no existing customer anything. That recommendation is in Pard's inbox and the edit is his. What is left for you: **(a) Uncheck — or deliberately keep — Mac and Apple Vision.** The live Compatibility block lists 1.1 as available on both. [INFERRED] that is a per-app availability setting 2.0 inherits; 2.0 is portrait-only, opens the microphone on launch, and has run on one iPhone. **(b) The keyword field and the secondary category** are not public and must be read before being overwritten. **(c) The privacy URL returns HTTP 404** behind a JavaScript shim — the policy renders for a browser and is dated 4 July 2022, but the link in the listing is a 404 to anything reading status codes, and the policy never mentions the microphone. Not a blocker: 1.x cleared review twice on this site. **(d) Sign off on the subtitle and description**, or redirect them — the current description's first sentence has to go either way. | ~15 min | the screenshot shoot, and nothing else yet |
-| 4 | **Rule on one colour: should an under-ceiling number be green?** Two screens already disagree. | Not a taste question and not a screenshot's request. `HomeView.swift:168` already renders an under-ceiling number in **moss** (visible in shot 6's Recent list); `PracticeLoopView.swift:214` and the After card leave it **black**. `Theme.swift`'s own doc comment says the green/amber pair exists *"because the person reading it is mid-conversation and not really reading"* — which describes the Listening screen, the one place it is not applied. **So the question is which of two screens is right, with the design pass's stated intent on the record.** Say go and it is two lines plus a re-shoot of shots 3 and 5 (scripted, minutes); say leave it and I rewrite two captions instead. Either answer unblocks the art. | ~1 min | the screenshot set, and the shot-3/5 re-shoot |
+| ~ | **[CLOSED 09-24 — you ruled green.]** Was: rule on one colour. Two screens already disagree. | Not a taste question and not a screenshot's request. `HomeView.swift:168` already renders an under-ceiling number in **moss** (visible in shot 6's Recent list); `PracticeLoopView.swift:214` and the After card leave it **black**. `Theme.swift`'s own doc comment says the green/amber pair exists *"because the person reading it is mid-conversation and not really reading"* — which describes the Listening screen, the one place it is not applied. **So the question is which of two screens is right, with the design pass's stated intent on the record.** Say go and it is two lines plus a re-shoot of shots 3 and 5 (scripted, minutes); say leave it and I rewrite two captions instead. Either answer unblocks the art. | ~1 min | the screenshot set, and the shot-3/5 re-shoot |
 | — | **Done since the last pass: you said go, and it shipped.** One line to Pard this morning; he built from current `main`, regenerated the project at build 5, verified version, bundle ID and signing out of the archive and the IPA, and uploaded clean — previously items 1 and 2 on this page. Before that, **you ran 2.0 (4)** on the 20th. The report was the most useful artifact of the month — four findings, all four fixed, and the diagnostics panel turned "it may have treated bird calls as talking" into `silence 0.0` over 100.8 seconds, which is a measurement rather than an impression. | One thing still open to overrule if you want to: the brochure's footer now reads "drafted by Claude for Christian," and every first-person claim that wasn't your own action or decision is gone. Dan's markup flagged that as its most serious item. Change the byline if you'd rather handle the disclosure differently. | — | — |
 
 ## Dan's answer
@@ -231,6 +279,20 @@ it ready if we run short of time."* Pard preps and holds it. Whether it ships is
 nothing is asking you for it yet.
 
 ## Resolved this pass
+- **The colour ruling is made and swept, not patched.** [DECIDED] xian, 09-24: green, with
+  consistency and no corner-cutting as the standard. Landed as **D-009** (the pair on every screen
+  that names a side), **D-010** (eleven raw system colours retired; two tokens are the whole
+  palette; no red) and **D-012** (the spelling). `6cccc56` on `screenshot-fixture`.
+- **The check anyone can run:** `grep -rn 'foregroundStyle(\.\(orange\|green\|red\|blue\)' OptiListen`
+  returns nothing, and `grep -rn practising OptiListen` returns nothing. **Stated as a command
+  rather than as a claim,** because that is the difference this month keeps teaching.
+- **A decision register now exists — `docs/decisions.md`.** Fourteen entries backfilled to D-001.
+  It exists because D-004 proved the gap: a decision can be made, written into the code's own doc
+  comment, and still reach only one of the three screens it was meant for, with nothing anywhere
+  recording the intent.
+- **Pard closed the battery defect before this pass started** (`e64a977`) — all six re-shot with
+  `--batteryState unplugged`. Shots 3 and 5 need one more pass for the green.
+
 - **The six 6.9-inch screenshots exist and are the right size.** [EVIDENCED] `sips` on all six PNGs
   on `origin/screenshot-fixture@0b4973f`: 1320 x 2868 each, byte sizes matching `git diff --stat`.
   Read by me rather than taken from Pard's capture log.
