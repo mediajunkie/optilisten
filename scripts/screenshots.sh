@@ -66,6 +66,11 @@ shot 5 after             4 -screenshot-step reflection -screenshot-focus "$FOCUS
 shot 6 home-history      3 -screenshot-seed
 
 xcrun simctl status_bar "$UDID" clear 2>/dev/null || true
+# Shut the Simulator down. It boots one and, before 2026-09-24, never put it back: the device from
+# the previous evening's run was still booted the next morning, two CoreSimulator processes at ~22%
+# CPU each, showing up as host load on a machine that runs 25 agent sessions. A capture tool that
+# leaves a device running is charging its convenience to everything else on the box.
+xcrun simctl shutdown "$UDID" 2>/dev/null || true
 echo "== files =="
 ls -la "$OUT"
 echo "Expected for the 6.9\" set: 1320 2868 (portrait). Anything else means the wrong simulator or a scale mismatch — check before uploading."
