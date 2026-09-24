@@ -209,7 +209,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 24 Sep 2026 · rev 34 · file and page in sync</div>
+    <div class="stamp">Updated 24 Sep 2026 · rev 35 · file and page in sync</div>
   </header>
 
 
@@ -248,6 +248,64 @@
       about the removal clock and <b>about nothing else</b> &mdash; in particular it cannot say whether
       the build has been run. Pard's console readback still owns the date itself.</div></div>
   </section>
+  <section class="alert">
+    <div class="tag">rev 35 &middot; the compile and the grep were true &mdash; of a branch <code>main</code> has none of</div>
+    <p><b>Pard delivered all three asks and I checked each rather than taking it.</b>
+      <code>6cccc56</code> <b>BUILD SUCCEEDED</b> on Amber, the raw-colour grep returns zero, all six
+      shots were re-shot at <code>b992de6</code>, and D-015/D-016/D-017 are in the register.
+      <b>Every one of those is true. Every one of them is true about
+      <code>screenshot-fixture</code>.</b></p>
+    <p><b><code>git merge-base --is-ancestor 6cccc56 origin/main</code> returns NO.</b> The two have
+      diverged 7/7, and the split is unusually clean: <b>every main-only commit touches only
+      <code>docs/</code></b> &mdash; attention, decisions, mail &mdash; <b>and every branch-only
+      commit touches code, art or build config.</b> So <code>main</code> today still carries eleven
+      raw system colours (<code>CalibrationView</code>&nbsp;5, <code>HomeView</code>&nbsp;2,
+      <code>PracticeLoopView</code>&nbsp;4), three <code>practising</code> strings, the After card
+      with no colour on it, <b>no <code>TARGETED_DEVICE_FAMILY</code> line at all</b> &mdash; so
+      XcodeGen defaults it back to 1,2 and the iPad set we just decided to drop returns &mdash; no
+      screenshot scaffolding, no CI workflow, and no D-011. <b>(5) was cut from <code>main</code>
+      and was right to be; the design pass did not exist yet. (6) cut from <code>main</code> today
+      would be (5) plus nothing at all.</b></p>
+    <p><b>Nothing records when the branch merges.</b> D-015 already notes the device-family setting
+      is on the branch and not on <code>main</code>, so the fact is known &mdash; but the merge
+      itself appears in no decision and on no page, and a lane whose first step is unrecorded is the
+      lane this project has twice paid for. Raised to Pard as a step to name rather than an
+      assumption we happen to share. <b>Not yours</b> &mdash; the build lane is his.</p>
+    <p><b>And the sharper one, which is mine.</b> My rev 33 commit <code>c6de4ac</code> copied the
+      six shots onto <code>main</code> so this page could point at them. Pard then re-shot three
+      times &mdash; quiet battery, the green pair and PRACTICING, then the chart &mdash; and
+      <b><code>main</code> never followed.</b> I compared blob SHAs rather than paths: all six
+      differed, and <code>main</code>'s <code>shot-3</code> was <code>0b4973f</code>'s blob.
+      <b><code>main</code> was holding generation 1 of 4 &mdash; the original capture, still showing
+      the charging battery this page reported CLOSED on the 23rd, and the black numerals and
+      PRACTISING that D-009 and D-012 retired.</b> Anyone uploading art from a <code>main</code>
+      checkout uploads every defect we have fixed since Tuesday, from a path that looks canonical
+      while doing it. <b>Synced at <code>0990e61</code></b>; the six are now bit-identical to
+      <code>screenshot-fixture@129dd20</code>, dimensions re-checked at 1320&nbsp;&times;&nbsp;2868.
+      That closes today's window and not the cause: two copies of a binary artifact drift again at
+      the next re-shoot. Proposed to Pard as <b>D-018, the store art has one home</b>.</p>
+    <p><b>The CI runner Pard built today is not guarding <code>main</code> yet either.</b> Its
+      triggers name <code>[main, screenshot-fixture]</code>, but GitHub reads workflows from the
+      branch being pushed and <code>.github/workflows/build.yml</code> does not exist on
+      <code>main</code> &mdash; so a push to <code>main</code> today runs nothing. Not a defect in
+      the file; a consequence of where it lives, and a third reason the merge is a step rather than
+      a formality.</p>
+    <p><b>D-011 is closed, and the bug it exposed is the best thing in the day's work.</b> Pard
+      built the neutral line with per-point colour at <code>129dd20</code> &mdash; then opened the
+      image and found the line rendering <i>moss</i>. <code>.primary</code> in a
+      <code>ShapeStyle</code> position is <code>HierarchicalShapeStyle.primary</code>, which resolves
+      through the app's <code>.tint(Theme.within)</code>, so a ceiling-crossing series drew entirely
+      green: <b>"within" asserted for every point &mdash; exactly what D-011 exists to prevent,
+      arrived at by inheritance rather than by anyone choosing it.</b> It compiles clean either way
+      and <b>D-010's raw-colour grep cannot see it, because nothing is spelled wrong.</b> A level
+      below the one I swept, found only by opening the picture &mdash; D-017 paying for itself the
+      day after he wrote it against himself.</p>
+    <p><b>Apple mail re-read this pass:</b> nothing new on OptiListen since the 2.0&nbsp;(5)
+      processing pair of 21&nbsp;Sep 15:36&nbsp;UTC. No review state, no removal or App Store
+      Improvement mail, no crash submission. <b>The 24&nbsp;November date is still the 08-26
+      screenshot and has never been re-read from Apple.</b></p>
+  </section>
+
   <section class="win">
     <div class="tag">rev 34 &middot; green &mdash; and the standard turned it into a sweep</div>
     <p><b>You ruled on item&nbsp;4 and attached a bar:</b> <i>"yes green and yes it's critical for
@@ -538,14 +596,14 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">the colour call is made · 3 items · ~26 min</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">item 1 open three days · 3 items · ~26 min</span></div>
     <div class="items">
 
       <div class="item blocking">
         <div class="rank">1</div>
         <div class="body">
           <div class="title">Run 2.0 (5) &mdash; once indoors, once outdoors</div>
-          <div class="why"><b>It has been in TestFlight on your phone for about twenty-one hours.</b> The calibration bar in this
+          <div class="why"><b>It has been in TestFlight on your phone for three days.</b> The calibration bar in this
             build is mine, estimated from your single 09-20 run: <code>isUsable</code> 8&nbsp;dB
             &rarr; 12, floor <code>ambient - 6</code> &rarr; <code>ambient + 3</code>.
             <b>Your 09-20 outdoor session measured a 9.7&nbsp;dB gap, so under this build it produces
@@ -951,7 +1009,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 34<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 35<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>

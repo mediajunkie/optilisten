@@ -1,11 +1,66 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-24 (rev 34) · **Deadline:** 2026-11-24 (61 days · day 29 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
+**Maintained by:** Cairn · **Updated:** 2026-09-24 (rev 35) · **Deadline:** 2026-11-24 (61 days · day 29 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
+
+> **rev 35: the compile and the grep were true — of a branch `main` has none of.**
+> **Pard delivered all three asks and I checked each rather than taking it.** `6cccc56` BUILD
+> SUCCEEDED on Amber, the raw-colour grep returns zero, all six shots re-shot at `b992de6`,
+> D-015/D-016/D-017 in the register. Every one of those is true. **Every one of them is true about
+> `screenshot-fixture`.**
+>
+> **`git merge-base --is-ancestor 6cccc56 origin/main` returns NO.** The two have diverged 7/7 and
+> the split is unusually clean: **every main-only commit touches only `docs/`** — attention,
+> decisions, mail — **and every branch-only commit touches code, art or build config.** So `main`
+> today still carries eleven raw system colours (`CalibrationView` 5, `HomeView` 2,
+> `PracticeLoopView` 4), three `practising` strings, the After card with no colour on it, **no
+> `TARGETED_DEVICE_FAMILY` line at all** — so XcodeGen defaults it back to 1,2 and the iPad set we
+> just decided to drop returns — no screenshot scaffolding, no CI workflow, and no D-011.
+> **(5) was cut from `main` and was right to be; the design pass did not exist yet. (6) cut from
+> `main` today would be (5) plus nothing at all.**
+>
+> **Nothing records when the branch merges.** D-015 notes the device-family setting is on the
+> branch and not on `main`, so the fact is known — but the merge itself appears in no decision and
+> on no page, and a lane whose first step is unrecorded is the lane this project has twice paid
+> for. Raised to Pard as a step to name rather than a shared assumption. **Not yours** — the build
+> lane is his.
+>
+> **And the sharper one, which is mine.** My rev 33 commit `c6de4ac` copied the six shots onto
+> `main` so this page could point at them. Pard then re-shot three times — quiet battery, the green
+> pair and PRACTICING, then the chart — and **`main` never followed.** I compared blob SHAs rather
+> than paths: all six differed, and `main`'s `shot-3` was `0b4973f`'s blob. **`main` was holding
+> generation 1 of 4 — the original capture, still showing the charging battery this page reported
+> CLOSED on the 23rd, and the black numerals and PRACTISING that D-009 and D-012 retired.** Anyone
+> uploading art from a `main` checkout uploads every defect we have fixed since Tuesday, from a
+> path that looks canonical while doing it. **Synced at `0990e61`** — the six are now bit-identical
+> to `screenshot-fixture@129dd20`, dimensions re-checked at 1320x2868. That closes today's window
+> and not the cause: two copies of a binary artifact drift again at the next re-shoot. Proposed to
+> Pard as **D-018, the store art has one home**.
+>
+> **The CI runner Pard built today is not guarding `main` yet either.** Its triggers name
+> `[main, screenshot-fixture]`, but GitHub reads workflows from the branch being pushed and
+> `.github/workflows/build.yml` does not exist on `main` — so a push to `main` today runs nothing.
+> Not a defect in the file; a consequence of where it lives, and a third reason the merge is a step
+> rather than a formality.
+>
+> **D-011 is closed, and the bug it exposed is the best thing in the day's work.** Pard built the
+> neutral line with per-point colour at `129dd20` — then opened the image and found the line
+> rendering *moss*. `.primary` in a `ShapeStyle` position is `HierarchicalShapeStyle.primary`,
+> which resolves through the app's `.tint(Theme.within)`, so a ceiling-crossing series drew
+> entirely green: **"within" asserted for every point — exactly what D-011 exists to prevent,
+> arrived at by inheritance rather than by anyone choosing it.** It compiles clean either way and
+> **D-010's raw-colour grep cannot see it, because nothing is spelled wrong.** A level below the
+> one I swept, found only by opening the picture — D-017 paying for itself the day after he wrote
+> it against himself.
+>
+> **Apple mail re-read this pass:** nothing new on OptiListen since the 2.0 (5) processing pair of
+> 2026-09-21 15:36 UTC. No review state, no removal or App Store Improvement mail, no crash
+> submission. **The 2026-11-24 date is still the 08-26 screenshot and has never been re-read from
+> Apple.**
 
 > **rev 34: green, and the ruling came with a standard that made it a sweep rather than two lines.**
 > **xian ruled on item 4 and attached a bar:** *"yes green and yes it's critical for things to be
@@ -242,7 +297,7 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| 1 | **Run 2.0 (5) — once indoors, once outdoors.** It has been on your phone about two days. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. **Nothing on our side can see whether you have run it** — the Apple channel carries processing and review mail only — so this stays on the page until you say. | ~10 min | the thresholds, the listing screenshots, and Dan's first impression |
+| 1 | **Run 2.0 (5) — once indoors, once outdoors.** It has been on your phone three days. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. **Nothing on our side can see whether you have run it** — the Apple channel carries processing and review mail only — so this stays on the page until you say. | ~10 min | the thresholds, the listing screenshots, and Dan's first impression |
 | 2 | **Tell Dan it is already on his phone.** No setup needed — he is provisioned and installed. | Pard read the tester list out of App Store Connect on the 21st: Dan is in the internal **DinP** group, state **INSTALLED**, four testers on the app in total. Internal groups receive every processed build automatically, so **the two-minute App Store Connect job this item used to describe does not exist.** He said yes on 09-16 and has been able to open 2.0 (5) since 15:36 UTC on the 21st without knowing it is there. He is traveling, so this is not urgent — it is one sentence whenever you reach him. | ~1 min | Dan's first contact with the product |
 | 3 | **Two reads and two decisions the store-content draft cannot make from here.** All in App Store Connect or on the marketing site. | `docs/store-content-2.0.md` is drafted and waiting. **The iPad question that used to be (a) is closed, and it closed as "drop it"** — 1.1 shipped iPhone-only, evidenced three ways on 09-23, so dropping iPad costs no existing customer anything. That recommendation is in Pard's inbox and the edit is his. What is left for you: **(a) Uncheck — or deliberately keep — Mac and Apple Vision.** The live Compatibility block lists 1.1 as available on both. [INFERRED] that is a per-app availability setting 2.0 inherits; 2.0 is portrait-only, opens the microphone on launch, and has run on one iPhone. **(b) The keyword field and the secondary category** are not public and must be read before being overwritten. **(c) The privacy URL returns HTTP 404** behind a JavaScript shim — the policy renders for a browser and is dated 4 July 2022, but the link in the listing is a 404 to anything reading status codes, and the policy never mentions the microphone. Not a blocker: 1.x cleared review twice on this site. **(d) Sign off on the subtitle and description**, or redirect them — the current description's first sentence has to go either way. | ~15 min | the screenshot shoot, and nothing else yet |
 | ~ | **[CLOSED 09-24 — you ruled green.]** Was: rule on one colour. Two screens already disagree. | Not a taste question and not a screenshot's request. `HomeView.swift:168` already renders an under-ceiling number in **moss** (visible in shot 6's Recent list); `PracticeLoopView.swift:214` and the After card leave it **black**. `Theme.swift`'s own doc comment says the green/amber pair exists *"because the person reading it is mid-conversation and not really reading"* — which describes the Listening screen, the one place it is not applied. **So the question is which of two screens is right, with the design pass's stated intent on the record.** Say go and it is two lines plus a re-shoot of shots 3 and 5 (scripted, minutes); say leave it and I rewrite two captions instead. Either answer unblocks the art. | ~1 min | the screenshot set, and the shot-3/5 re-shoot |
