@@ -255,3 +255,56 @@ inherits it unless unchecked. 2.0 is portrait-only, opens the microphone on laun
 and has run on exactly one iPhone.
 
 **It is a checkbox**, in App Store Connect, which is behind xian@pobox.com.
+
+---
+
+## D-015 · The device-family change lands in (6), never in (5)
+**2026-09-23 · Pard · DECIDED**
+
+`TARGETED_DEVICE_FAMILY` (D-008) is a build setting, so it cannot reach the build
+already on Dan's phone. It lands in whatever binary is submitted.
+
+**Why:** 2.0 (5) is the first release candidate and it is in a tester's hands. A
+build setting cannot be hot-fixed into an existing binary, and re-uploading to
+change one line would replace the artifact under test for no gain. The honest
+shape is that (6) differs from (5) by the device family plus whatever else the
+submission needs, named in the submission rather than glossed.
+
+**Shows up in:** `project.yml` on `screenshot-fixture`; nothing on `main`.
+
+---
+
+## D-016 · The store art is captured by script, not by hand
+**2026-09-23 · Pard · DECIDED**
+
+`scripts/screenshots.sh` builds Debug, installs to a fresh Simulator container,
+overrides the status bar, and captures the six shots from launch arguments. The
+scaffolding (`OptiListen/Debug/ScreenshotFixture.swift`) is `#if DEBUG` and
+argument-driven, so Release, TestFlight and every ordinary Debug launch never see it.
+
+**Why:** the Simulator has no microphone, so the listening and reflection screens
+can never show a number there — and those are the screens the art exists to show.
+Scripting it also makes a re-shoot cost a re-run rather than a re-take, which is
+what let 09-23's three corrections (battery, green pair, spelling) land the same
+day they were raised instead of being batched into one grudging pass.
+
+**Shows up in:** `scripts/screenshots.sh`, `OptiListen/Debug/ScreenshotFixture.swift`,
+`docs/store-art/6.9-inch/`.
+
+---
+
+## D-017 · Every art change is verified by opening the image
+**2026-09-23 · Pard, after Cairn · DECIDED**
+
+A capture is not verified by its own capture log, and a storyboard check written
+by the person who captured the shots is a report on their own output.
+
+**Why:** on 09-23 I checked six shots against the storyboard from the capture log
+and called it verified. Cairn opened the images and found a charging battery in all
+six, two spellings one swipe apart, and — the one that mattered — that the app
+already rendered green-under on Home while I had told xian it rendered black
+everywhere. Three defects, none of them visible from a log. The cost of looking is
+about twenty minutes; the cost of not looking was a wrong statement to xian and a
+design decision framed as a caption dispute.
+
+**Shows up in:** practice, not code. The check is: open the PNGs.
