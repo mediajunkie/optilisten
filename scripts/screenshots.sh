@@ -41,7 +41,10 @@ xcrun simctl bootstatus "$UDID" -b >/dev/null
 xcrun simctl uninstall "$UDID" "$BUNDLE" 2>/dev/null || true
 xcrun simctl install "$UDID" "$APP"
 # Status bar the reviewers expect: 9:41, full signal, full battery.
-xcrun simctl status_bar "$UDID" override --time "9:41" --batteryState charged --batteryLevel 100 --cellularBars 4 --wifiBars 3 2>/dev/null || true
+# `unplugged`, not `charged`: `charged` draws the green cell and the lightning bolt, which put a
+# charging battery in all six of the first 09-23 shots — caught by Cairn, who opened the images
+# rather than reading my capture log. Apple's own marketing shots use the quiet full battery.
+xcrun simctl status_bar "$UDID" override --time "9:41" --batteryState unplugged --batteryLevel 100 --cellularBars 4 --wifiBars 3 2>/dev/null || true
 
 shot() {  # shot <n> <name> <settle-seconds> <launch args…>
   local n="$1" name="$2" settle="$3"; shift 3
