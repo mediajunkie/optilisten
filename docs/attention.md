@@ -1,11 +1,44 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-25 (rev 37) · **Deadline:** 2026-11-24 (60 days · day 30 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
+**Maintained by:** Cairn · **Updated:** 2026-09-26 (rev 38) · **Deadline:** 2026-11-24 (59 days · day 31 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
+
+> **rev 38: quiet again — and one finding about the record, not about the app.**
+> **No mail for Cairn since Pard's 09-24 memo**, answered at rev 36 with the memo and the commit in
+> the same fire. Nothing new in either mailbox, **no CI run since `36025726212`**, working tree clean
+> at `624ceef`. **Apple mail re-read: still nothing on OptiListen** — newest is the same 2.0 (5)
+> processing pair of 2026-09-21 15:36 UTC. **The channel itself is provably live:** Apple-domain mail
+> reached the readable inbox on 09-23 (a receipt and a subscription renewal), so the silence about
+> OptiListen is Apple's silence and not a broken forward. That distinction is the whole reason to
+> re-read it rather than assume it.
+>
+> **Clocks: 59 days, day 31 of 90, and 2.0 (5) has now been installable for five days** — exactly
+> five at 15:36 UTC today — on xian's phone and on Dan's, with no report in either direction.
+> **Items 1 and 2 are unchanged and are not being re-raised**; they stay because only xian closes them.
+>
+> **New this pass: 50 commits in this repo are authored as xian, and every one of them is Pard's.**
+> [EVIDENCED] `git log --author=attlocal.net` returns 50 commits spanning **2026-09-07 to 09-24** —
+> exactly the 2.0 agent era, earliest is his own first Amber memo delivery, latest is the merge — all
+> carrying Amber's hostname-default identity `xian <xian@*.attlocal.net>`, and I read all 50 subjects:
+> memo deliveries from Pard, builds, uploads, the screenshot shoot, the CI fix, D-011, the merge. Not
+> one is plausibly xian's own hand. This repo had no local git identity on Amber, so his commits took
+> the machine default, which reads as the human. **Nothing is ambiguous once you know** — xian's own
+> commits are a different identity, `Christian Crumlish <…@users.noreply.github.com>` — but `git log`
+> here shows his name on work he did not do. **Pard found it himself on 09-25 and fixed the config**
+> (`Pard (Mediajunkie)` in four repos, global left unset deliberately so he cannot silently relabel
+> another seat's work); **history deliberately not rewritten, on the grounds that a rewrite is the
+> larger harm.** Agreed, and **nothing in this is xian's to do.** It is recorded because this page's
+> own standing rule is that the record has to be readable by the next instance of me, and because
+> Pard's lesson generalises past git: he had read that log many times a day for six days and **never
+> once read the author column.** An instrument you consult constantly can still have a field you have
+> never looked at.
+>
+> **Still open and still Pard's:** `build.yml` triggers on `branches: [main, screenshot-fixture]`, a
+> branch retired on the 24th. Flagged at rev 36; this line is the whole re-raise.
 
 > **rev 37: a quiet pass — the clocks rolled and nothing else did.**
 > **No mail for Cairn since Pard's 09-24 memo, which rev 36 answered**, and nothing new in either
@@ -373,7 +406,7 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| 1 | **Run 2.0 (5) — once indoors, once outdoors.** It has been on your phone four days. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. **Nothing on our side can see whether you have run it** — the Apple channel carries processing and review mail only — so this stays on the page until you say. | ~10 min | the thresholds, the listing screenshots, and Dan's first impression |
+| 1 | **Run 2.0 (5) — once indoors, once outdoors.** It has been on your phone five days. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. **Nothing on our side can see whether you have run it** — the Apple channel carries processing and review mail only — so this stays on the page until you say. | ~10 min | the thresholds, the listing screenshots, and Dan's first impression |
 | 2 | **Tell Dan it is already on his phone.** No setup needed — he is provisioned and installed. | Pard read the tester list out of App Store Connect on the 21st: Dan is in the internal **DinP** group, state **INSTALLED**, four testers on the app in total. Internal groups receive every processed build automatically, so **the two-minute App Store Connect job this item used to describe does not exist.** He said yes on 09-16 and has been able to open 2.0 (5) since 15:36 UTC on the 21st without knowing it is there. He is traveling, so this is not urgent — it is one sentence whenever you reach him. | ~1 min | Dan's first contact with the product |
 | 3 | **Two reads and two decisions the store-content draft cannot make from here.** All in App Store Connect or on the marketing site. | `docs/store-content-2.0.md` is drafted and waiting. **The iPad question that used to be (a) is closed, and it closed as "drop it"** — 1.1 shipped iPhone-only, evidenced three ways on 09-23, so dropping iPad costs no existing customer anything. That recommendation is in Pard's inbox and the edit is his. What is left for you: **(a) Uncheck — or deliberately keep — Mac and Apple Vision.** The live Compatibility block lists 1.1 as available on both. [INFERRED] that is a per-app availability setting 2.0 inherits; 2.0 is portrait-only, opens the microphone on launch, and has run on one iPhone. **(b) The keyword field and the secondary category** are not public and must be read before being overwritten. **(c) The privacy URL returns HTTP 404** behind a JavaScript shim — the policy renders for a browser and is dated 4 July 2022, but the link in the listing is a 404 to anything reading status codes, and the policy never mentions the microphone. Not a blocker: 1.x cleared review twice on this site. **(d) Sign off on the subtitle and description**, or redirect them — the current description's first sentence has to go either way. | ~15 min | the screenshot shoot, and nothing else yet |
 | ~ | **[CLOSED 09-24 — you ruled green.]** Was: rule on one colour. Two screens already disagree. | Not a taste question and not a screenshot's request. `HomeView.swift:168` already renders an under-ceiling number in **moss** (visible in shot 6's Recent list); `PracticeLoopView.swift:214` and the After card leave it **black**. `Theme.swift`'s own doc comment says the green/amber pair exists *"because the person reading it is mid-conversation and not really reading"* — which describes the Listening screen, the one place it is not applied. **So the question is which of two screens is right, with the design pass's stated intent on the record.** Say go and it is two lines plus a re-shoot of shots 3 and 5 (scripted, minutes); say leave it and I rewrite two captions instead. Either answer unblocks the art. | ~1 min | the screenshot set, and the shot-3/5 re-shoot |

@@ -209,7 +209,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 25 Sep 2026 · rev 37 · file and page in sync</div>
+    <div class="stamp">Updated 26 Sep 2026 · rev 38 · file and page in sync</div>
   </header>
 
 
@@ -248,6 +248,15 @@
       about the removal clock and <b>about nothing else</b> &mdash; in particular it cannot say whether
       the build has been run. Pard's console readback still owns the date itself.</div></div>
   </section>
+  <section class="risks" style="background:var(--teal-soft)">
+    <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">rev 38 &middot; quiet again &mdash; and one finding about the record</h2></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>No mail for Cairn since Pard's 09-24 memo</b>, answered at rev 36 with the memo and the commit in the same fire. Nothing new in either mailbox, <b>no CI run since <code>36025726212</code></b>, working tree clean at <code>624ceef</code>.</div></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Apple mail re-read: still nothing on OptiListen</b> &mdash; newest is the same 2.0&nbsp;(5) processing pair of 21&nbsp;Sep 15:36&nbsp;UTC. <b>The channel itself is provably live:</b> Apple-domain mail reached the readable inbox on 09-23 (a receipt and a subscription renewal), so the silence about OptiListen is <i>Apple's</i> silence and not a broken forward &mdash; which is the whole reason to re-read it rather than assume it.</div></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Clocks: 59 days, day 31 of 90, and 2.0&nbsp;(5) has now been installable for five days</b> &mdash; exactly five at 15:36&nbsp;UTC today &mdash; on xian's phone and on Dan's, with no report in either direction. <b>Items&nbsp;1 and&nbsp;2 are unchanged and are not being re-raised</b>; they stay because only xian closes them.</div></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>New this pass: 50 commits in this repo are authored as &ldquo;xian,&rdquo; and every one of them is Pard's.</b> [EVIDENCED] <code>git log --author=attlocal.net</code> returns 50 commits spanning <b>2026-09-07 to 09-24</b> &mdash; exactly the 2.0 agent era, earliest his own first Amber memo delivery, latest the merge &mdash; all carrying Amber's hostname-default identity <code>xian &lt;xian@*.attlocal.net&gt;</code>. I read all 50 subjects: memo deliveries, builds, uploads, the shoot, the CI fix, D-011, the merge. <b>Not one is plausibly xian's own hand.</b> This repo had no local git identity on Amber, so the commits took the machine default, which reads as the human. Nothing is ambiguous once you know &mdash; xian's own commits are a different identity, <code>Christian Crumlish</code> &mdash; but <code>git log</code> here shows his name on work he did not do. <b>Pard found it himself on 09-25 and fixed the config</b> (four repos; global left unset deliberately so he cannot silently relabel another seat's work); <b>history deliberately not rewritten, a rewrite being the larger harm.</b> Agreed, and <b>none of it is xian's to do.</b> Recorded because Pard's lesson generalises past git: he had read that log many times a day for six days and <b>never once read the author column.</b></div></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Still open and still Pard's:</b> <code>build.yml</code> triggers on <code>branches: [main, screenshot-fixture]</code>, a branch retired on the 24th. Flagged at rev 36; this line is the whole re-raise.</div></div>
+  </section>
+
   <section class="risks" style="background:var(--teal-soft)">
     <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">rev 37 &middot; a quiet pass &mdash; the clocks rolled and nothing else did</h2></div>
     <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>No mail for Cairn since Pard's 09-24 memo, which rev 36 answered</b>, and nothing new in either mailbox this morning. This rev exists for the arithmetic rather than for a finding.</div></div>
@@ -660,23 +669,23 @@
 
   <section class="clock" aria-label="Grace period remaining">
     <div class="clock-top">
-      <div class="days">60<span>days left in the grace period</span></div>
+      <div class="days">59<span>days left in the grace period</span></div>
       <div class="target">removal 24 Nov 2026<br>notice served 26 Aug</div>
     </div>
-    <div class="meter" role="img" aria-label="30 of 90 days elapsed"><i style="width:33%"></i></div>
-    <div class="scale"><span>day 30 of 90</span><span>33% spent</span></div>
+    <div class="meter" role="img" aria-label="31 of 90 days elapsed"><i style="width:34%"></i></div>
+    <div class="scale"><span>day 31 of 90</span><span>34% spent</span></div>
     <div class="caveat">▲ The 26 Aug notice is the only source for this date; App Store Connect's API has no removal-date field. <b>Accepted builds do not move it,</b> and a 21 Sep read of the API found <b>no 2.0 version record at all</b>. Apple stops the removal on <i>"an update and it's approved,"</i> which means App Review. Five builds have cleared processing; zero have entered review. <b>This corrects a line this page carried since rev 19.</b></div>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">item 1 open four days · 3 items · ~26 min</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">item 1 open five days · 3 items · ~26 min</span></div>
     <div class="items">
 
       <div class="item blocking">
         <div class="rank">1</div>
         <div class="body">
           <div class="title">Run 2.0 (5) &mdash; once indoors, once outdoors</div>
-          <div class="why"><b>It has been in TestFlight on your phone for four days.</b> The calibration bar in this
+          <div class="why"><b>It has been in TestFlight on your phone for five days.</b> The calibration bar in this
             build is mine, estimated from your single 09-20 run: <code>isUsable</code> 8&nbsp;dB
             &rarr; 12, floor <code>ambient - 6</code> &rarr; <code>ambient + 3</code>.
             <b>Your 09-20 outdoor session measured a 9.7&nbsp;dB gap, so under this build it produces
@@ -1082,7 +1091,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 37<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 38<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>
