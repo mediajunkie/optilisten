@@ -382,3 +382,41 @@ additionally carried D-015/016/017. Nothing of Cairn's was lost.
 
 **Shows up in:** merge commit `30881a4`; CI now runs on `main`, which it could not
 do while the workflow lived only on a branch.
+
+---
+
+## D-020 · The percentage stays speech-only; the screens that show it say so
+**2026-09-27 · Cairn proposed · DECIDED**
+
+xian field-tested 2.0(5) on 2026-09-26 and reported "a bug in the percentage math":
+a conversation with `user 7.2s / other 6.1s / silence 64.1s` displayed **54%**, and
+his own note did the arithmetic a reader would do — "7 seconds out of 72 is it
+54%?" It reads as a bug. It is not one, and changing the formula would have been
+the wrong fix.
+
+**Why it isn't a math bug.** `LiveMicSource.currentShare` was already deliberate,
+already commented, and unchanged this session: `userSpeakingSeconds /
+(userSpeakingSeconds + otherSpeakingSeconds)`, silence excluded on purpose so a
+conversation with long pauses doesn't read as good listening. 7.2 / (7.2 + 6.1) is
+54%, correctly. Nobody decided to divide by 72; the number was never claiming to.
+
+**What's actually wrong.** `Practice.breakdownText`, added during the 09-20 field
+fix, sits directly under that percentage and shows *all three* buckets — "you 0:07
+· others 0:06 · quiet 1:12" — inviting exactly the division xian did by hand. Two
+true, reviewed pieces of the same screen imply two different denominators. That's
+the same shape this register keeps finding: not a single wrong fact, but a correct
+one sitting next to another correct one that reads as its explanation.
+
+**The fix:** `Practice.breakdownCaption` — "Percentage counts speaking time only —
+the quiet time above isn't part of it." — shown wherever the breakdown is shown
+(`ReflectionStep` in `PracticeLoopView.swift`, `PracticeDetail` in `HomeView.swift`).
+The formula is untouched. Considered and rejected: changing the denominator to
+include silence (would have thrown away the reason it's excluded, on the word of
+one confused reading rather than a re-litigation of the original call); showing
+two percentages (adds a number to justify a number).
+
+**Shows up in:** `OptiListen/Models/Practice.swift` (`breakdownCaption`, and a note
+on `LiveMicSource.currentShare` pointing here); both display sites named above.
+Verified with `xcrun swiftc -parse` on kindbook against all four changed files —
+clean. Not yet on a device; needs a TestFlight build to confirm the caption reads
+right at actual list-row width before this is closed rather than just decided.

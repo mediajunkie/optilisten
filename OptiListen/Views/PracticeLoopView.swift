@@ -367,6 +367,11 @@ private struct ReflectionStep: View {
                             .font(.footnote.monospacedDigit())
                             .foregroundStyle(.secondary)
                     }
+                    if let caption = practice.breakdownCaption {
+                        Text(caption)
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
                     if practice.heardNoSilence {
                         Label(
                             "Nothing was ever quiet, so every moment was counted as someone speaking. In a noisy place, or outdoors, this reading is not meaningful.",

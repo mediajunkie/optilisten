@@ -120,6 +120,20 @@ extension Practice {
         return "you \(Self.clock(user)) · others \(Self.clock(other)) · quiet \(Self.clock(silence))"
     }
 
+    /// 2026-09-26 field note, verbatim: "extended silence never reduced my
+    /// percentage. 7 seconds out of 72 is it 54%." It isn't a math bug — the
+    /// percentage is `LiveMicSource.currentShare`, share of *speech*
+    /// (`userSpeakingSeconds / (userSpeakingSeconds + otherSpeakingSeconds)`),
+    /// which excludes silence on purpose (see that property's comment). The
+    /// bug is that `breakdownText` sits right next to the percentage showing
+    /// all three buckets including quiet, which invites the reader to divide
+    /// against the wrong total. Rather than change a reviewed, deliberate
+    /// formula, say what it counts wherever the breakdown is shown.
+    var breakdownCaption: String? {
+        guard breakdownText != nil else { return nil }
+        return "Percentage counts speaking time only — the quiet time above isn't part of it."
+    }
+
     /// Nothing was ever quiet, so everything was counted as speech. Outdoors or
     /// in a loud room this is the state that makes the percentage meaningless.
     var heardNoSilence: Bool {

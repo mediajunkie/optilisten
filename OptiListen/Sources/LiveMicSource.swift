@@ -244,6 +244,12 @@ final class LiveMicSource: LiveTalkRatioSource {
     /// Share of *speaking* time that was the user. Silence is excluded
     /// deliberately: a conversation with long pauses shouldn't read as
     /// listening well. The practice is about the split between voices.
+    ///
+    /// 2026-09-26 field report read as a math bug and wasn't one: this
+    /// formula is unchanged, but `Practice.breakdownText` shows all three
+    /// buckets (including quiet) next to a percentage computed from only
+    /// two of them. `Practice.breakdownCaption` says so at both display
+    /// sites rather than this property changing what it measures.
     var currentShare: Double {
         let speech = userSpeakingSeconds + otherSpeakingSeconds
         guard speech > 0 else { return 0 }
