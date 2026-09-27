@@ -4,22 +4,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
   :root{
-    --ground:#F7F9F9;
-    --surface:#FFFFFF;
-    --sunk:#EDF2F2;
-    --ink:#101A1D;
-    --ink-mid:#41545A;
-    --ink-dim:#6B7E84;
-    --rule:#DCE5E5;
-    --rule-soft:#E9EFEF;
-    --teal:#1F7F84;
-    --teal-soft:#E2F1F1;
-    --green:#3E8F5F;
-    --green-soft:#E4F2E9;
-    --crit:#A32D22;
-    --crit-soft:#FBEAE7;
-    --warn:#8A5A00;
-    --warn-soft:#FBF1DE;
+    --ground:#F7F9F9; --surface:#FFFFFF; --sunk:#EDF2F2;
+    --ink:#101A1D; --ink-mid:#41545A; --ink-dim:#6B7E84;
+    --rule:#DCE5E5; --rule-soft:#E9EFEF;
+    --teal:#1F7F84; --teal-soft:#E2F1F1;
+    --green:#3E8F5F; --green-soft:#E4F2E9;
+    --crit:#A32D22; --crit-soft:#FBEAE7;
+    --warn:#8A5A00; --warn-soft:#FBF1DE;
     --shadow:0 1px 2px rgba(16,26,29,.06),0 1px 1px rgba(16,26,29,.04);
     --display:"Dosis",ui-rounded,"Avenir Next",sans-serif;
     --sans:"IBM Plex Sans",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
@@ -27,22 +18,13 @@
   }
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
-      --ground:#0B1416;
-      --surface:#131E21;
-      --sunk:#0F1A1C;
-      --ink:#E3ECEC;
-      --ink-mid:#A3B5B8;
-      --ink-dim:#7C8F93;
-      --rule:#243437;
-      --rule-soft:#1B282B;
-      --teal:#5FC6C9;
-      --teal-soft:#102E30;
-      --green:#78C693;
-      --green-soft:#13291D;
-      --crit:#FFAB9E;
-      --crit-soft:#331A16;
-      --warn:#EFB65A;
-      --warn-soft:#2E2410;
+      --ground:#0B1416; --surface:#131E21; --sunk:#0F1A1C;
+      --ink:#E3ECEC; --ink-mid:#A3B5B8; --ink-dim:#7C8F93;
+      --rule:#243437; --rule-soft:#1B282B;
+      --teal:#5FC6C9; --teal-soft:#102E30;
+      --green:#78C693; --green-soft:#13291D;
+      --crit:#FFAB9E; --crit-soft:#331A16;
+      --warn:#EFB65A; --warn-soft:#2E2410;
       --shadow:0 1px 2px rgba(0,0,0,.45);
     }
   }
@@ -56,17 +38,11 @@
     --warn:#EFB65A; --warn-soft:#2E2410;
     --shadow:0 1px 2px rgba(0,0,0,.45);
   }
-
   *{box-sizing:border-box}
-  body{
-    margin:0;background:var(--ground);color:var(--ink);
-    font-family:var(--sans);font-size:15px;line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:940px;margin:0 auto;padding:36px 22px 72px;
-        display:flex;flex-direction:column;gap:30px}
-
-  /* ---- masthead ---- */
+  body{margin:0;background:var(--ground);color:var(--ink);
+    font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:36px 16px 72px;
+        display:flex;flex-direction:column;gap:28px}
   .mast{display:flex;flex-direction:column;gap:6px}
   .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
            text-transform:uppercase;color:var(--teal)}
@@ -74,116 +50,69 @@
      margin:0;text-wrap:balance}
   .lede{color:var(--ink-mid);max-width:64ch;margin:2px 0 0}
   .stamp{font-family:var(--mono);font-size:12px;color:var(--ink-dim)}
-
-  /* ---- grace period meter ---- */
   .clock{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
-         padding:18px 20px;box-shadow:var(--shadow);display:flex;
-         flex-direction:column;gap:12px}
-  .clock-top{display:flex;justify-content:space-between;align-items:baseline;
-             gap:16px;flex-wrap:wrap}
+         padding:18px 20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+  .clock-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
   .days{font-family:var(--display);font-weight:700;font-size:40px;line-height:1;
         letter-spacing:.02em;font-variant-numeric:tabular-nums}
-  .days span{font-family:var(--sans);font-size:14px;font-weight:500;
-             letter-spacing:0;color:var(--ink-mid);margin-left:8px}
+  .days span{font-family:var(--sans);font-size:14px;font-weight:500;letter-spacing:0;
+             color:var(--ink-mid);margin-left:8px}
   .target{font-family:var(--mono);font-size:12.5px;color:var(--ink-mid);text-align:right}
-  .meter{height:9px;border-radius:5px;background:var(--sunk);
-         overflow:hidden;border:1px solid var(--rule-soft)}
-  .meter i{display:block;height:100%;width:16.7%;
+  .meter{height:9px;border-radius:5px;background:var(--sunk);overflow:hidden;
+         border:1px solid var(--rule-soft)}
+  .meter i{display:block;height:100%;width:35.6%;
            background:linear-gradient(90deg,var(--green),var(--teal))}
   .scale{display:flex;justify-content:space-between;font-family:var(--mono);
          font-size:11px;color:var(--ink-dim)}
   .caveat{font-family:var(--mono);font-size:11px;color:var(--warn);
           border-top:1px dashed var(--rule);padding-top:9px;line-height:1.6}
-
-  /* ---- sections ---- */
   .sec{display:flex;flex-direction:column;gap:12px}
-  .sec-hd{display:flex;align-items:baseline;gap:12px;
-          border-bottom:1px solid var(--rule);padding-bottom:7px}
+  .sec-hd{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule);
+          padding-bottom:7px}
   h2{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:.05em;
      margin:0;text-transform:uppercase}
   .count{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);margin-left:auto}
-
-  /* ---- needs-you items ---- */
   .items{display:flex;flex-direction:column;gap:10px}
   .item{background:var(--surface);border:1px solid var(--rule);border-radius:9px;
         padding:15px 17px;display:grid;grid-template-columns:26px 1fr;gap:14px;
         box-shadow:var(--shadow);border-left:3px solid var(--teal)}
-  .item.blocking{border-left-color:var(--crit)}
-  .rank{font-family:var(--mono);font-size:12px;color:var(--ink-dim);
-        padding-top:2px;font-variant-numeric:tabular-nums}
+  .rank{font-family:var(--mono);font-size:12px;color:var(--ink-dim);padding-top:2px;
+        font-variant-numeric:tabular-nums}
   .body{display:flex;flex-direction:column;gap:7px;min-width:0}
   .title{font-weight:600;line-height:1.4}
   .why{color:var(--ink-mid);font-size:14.2px}
   .meta{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:1px}
-  .pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
-        text-transform:uppercase;padding:3px 8px;border-radius:20px;white-space:nowrap}
-  .pill.stop{background:var(--crit-soft);color:var(--crit)}
+  .pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+        padding:3px 8px;border-radius:20px;white-space:nowrap}
   .pill.cost{background:var(--sunk);color:var(--ink-dim)}
-  .item:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
-
-  /* ---- the exact keystrokes ---- */
-  .steps{margin:4px 0 0;padding:10px 12px;background:var(--sunk);
-         border:1px solid var(--rule-soft);border-radius:7px;
-         font-family:var(--mono);font-size:12.5px;color:var(--ink-mid);
-         line-height:1.9;overflow-x:auto}
-  .steps b{color:var(--ink);font-weight:500}
-
-  /* ---- evidence table ---- */
-  .evid{border:1px solid var(--rule);border-radius:8px;overflow:hidden;
-        margin-top:6px;background:var(--sunk)}
-  .evid-row{display:grid;grid-template-columns:1fr 34px;gap:10px;
-            padding:8px 12px;border-bottom:1px solid var(--rule-soft);
-            font-size:13.4px;align-items:center;color:var(--ink-mid)}
-  .evid-row:last-child{border-bottom:none}
-  .evid-row .yes{color:var(--green);text-align:center;font-weight:700}
-  .evid-row .no{color:var(--crit);text-align:center;font-weight:700}
-
-  /* ---- banner: something landed ---- */
-  .win{background:var(--green-soft);border:1px solid var(--rule);
-       border-left:3px solid var(--green);
-       border-radius:9px;padding:14px 17px;display:flex;flex-direction:column;gap:6px}
-  .win .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
-            text-transform:uppercase;color:var(--green)}
-  .win p{margin:0;font-size:14.2px;color:var(--ink-mid)}
-  .win b{color:var(--ink);font-weight:600}
-
-  /* ---- compact rows ---- */
-  .rows{display:flex;flex-direction:column;
-        border:1px solid var(--rule);border-radius:9px;overflow:hidden;
-        background:var(--surface)}
-  .row{display:grid;grid-template-columns:118px 1fr;gap:14px;
-       padding:11px 16px;border-bottom:1px solid var(--rule-soft);align-items:start}
+  .rows{display:flex;flex-direction:column;border:1px solid var(--rule);border-radius:9px;
+        overflow:hidden;background:var(--surface)}
+  .row{display:grid;grid-template-columns:104px 1fr;gap:14px;padding:11px 16px;
+       border-bottom:1px solid var(--rule-soft);align-items:start}
   .row:last-child{border-bottom:none}
-  .who{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;
-       text-transform:uppercase;color:var(--teal);padding-top:2px}
+  .who{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;
+       color:var(--teal);padding-top:2px}
   .row.done .who{color:var(--green)}
-  .row.warnrow .who{color:var(--warn)}
+  .row.held .who{color:var(--ink-dim)}
   .txt{min-width:0}
   .txt b{font-weight:600}
-  .txt em{color:var(--ink-dim);font-style:normal;font-size:13.5px;display:block;
-          margin-top:2px}
-  code{font-family:var(--mono);font-size:12.5px;background:var(--sunk);
-       padding:1px 5px;border-radius:4px;color:var(--ink-mid)}
-
-  /* ---- risks ---- */
-  .risks{background:var(--warn-soft);border:1px solid var(--rule);
-         border-radius:9px;padding:16px 18px;display:flex;
-         flex-direction:column;gap:10px}
+  .txt em{color:var(--ink-dim);font-style:normal;font-size:13.5px;display:block;margin-top:2px}
+  code{font-family:var(--mono);font-size:12.5px;background:var(--sunk);padding:1px 5px;
+       border-radius:4px;color:var(--ink-mid)}
+  .risks{background:var(--warn-soft);border:1px solid var(--rule);border-radius:9px;
+         padding:16px 18px;display:flex;flex-direction:column;gap:10px}
   .risks h2{color:var(--warn)}
-  .risk{display:grid;grid-template-columns:16px 1fr;gap:10px;font-size:14.2px;
-        color:var(--ink-mid)}
+  .risk{display:grid;grid-template-columns:16px 1fr;gap:10px;font-size:14.2px;color:var(--ink-mid)}
   .risk b{color:var(--ink);font-weight:600}
   .dot{color:var(--warn);font-family:var(--mono)}
-
-  /* ---- method notes ---- */
-  .notes{display:flex;flex-direction:column;gap:10px}
-  .note{border-left:2px solid var(--rule);padding-left:14px;font-size:14px;
-        color:var(--ink-mid)}
+  .note{border-left:2px solid var(--rule);padding-left:14px;font-size:14px;color:var(--ink-mid)}
   .note b{color:var(--ink);font-weight:600}
-
+  .archive{background:var(--teal-soft);border:1px solid var(--rule);border-left:3px solid var(--teal);
+           border-radius:9px;padding:14px 17px;font-size:14px;color:var(--ink-mid)}
+  .archive b{color:var(--ink)}
+  .archive a{color:var(--teal)}
   .foot{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);
         border-top:1px solid var(--rule);padding-top:14px;line-height:1.7}
-
   @media (max-width:620px){
     .row{grid-template-columns:1fr;gap:4px}
     .item{grid-template-columns:1fr}
@@ -191,929 +120,147 @@
     h1{font-size:28px}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-
-  /* rev 16: the headline is not a win */
-  .alert{background:var(--crit-soft);border:1px solid var(--rule);
-         border-left:3px solid var(--crit);border-radius:9px;padding:14px 17px;
-         display:flex;flex-direction:column;gap:6px}
-  .alert .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
-              text-transform:uppercase;color:var(--crit)}
-  .alert p{margin:0;font-size:14.2px;color:var(--ink-mid)}
-  .alert b{color:var(--ink);font-weight:600}
 </style>
 
 <div class="wrap">
 
   <header class="mast">
-    <div class="eyebrow">Cairn · action rollup</div>
+    <div class="eyebrow">Cairn &middot; action rollup</div>
     <h1>OptiListen</h1>
-    <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
+    <p class="lede">What needs xian, what's moving, what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 27 Sep 2026 · rev 40 · file and page in sync</div>
+    <div class="stamp">Updated 27 Sep 2026 &middot; rev 41 &middot; trimmed to current items on xian's instruction</div>
   </header>
 
-
-  <section class="risks" style="background:var(--teal-soft)">
-    <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">rev 24 &middot; the readback is in</h2></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>No 2.0 version exists in App Store review, and App Store Connect has no removal-date field to read.</b>
-      Pard queried the app record on the evening of 09-18: 1.1 <code>READY_FOR_SALE</code>, 1.0
-      <code>REPLACED_WITH_NEW_VERSION</code>, nothing from the 2.0 line. That confirms the rev 22
-      correction against this app: the condition that stops removal has not happened. The date lives
-      only in the 08-26 notice.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>The fallback build has provenance and two halves.</b>
-      xian's 09-17 re-rank, item 6: <i>"Let's prep the fallback build and have it ready if we run
-      short of time."</i> Preparing and holding it is Pard's work. Shipping it is xian's call, and
-      nothing is asking for that call yet.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Correction: the shipped 1.x is 1.1, not 1.3 (6).</b>
-      I read 1.3 from the source repo on 09-10 and described it as what shipped. The public listing
-      and App Store Connect both say 1.1 (19 Jul 2023). No effect on 2.0.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>A precedent for background behaviour.</b>
-      The 1.1 release note: <i>"The app now warns you that it cannot calculate your listening score
-      while in the background."</i> Inference, not verified from Apple's side: that is how the July
-      2023 background-modes rejection was cleared. If 2.0's fix touches background, that approved
-      shape comes first.</div></div>
-  </section>
-
-  <section class="risks" style="background:var(--teal-soft)">
-    <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">rev 23 &middot; the date rolled</h2></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>67 days, not 68 &mdash; and this rev exists for the arithmetic rather than for a finding.</b>
-      No mail has arrived for Cairn since the 09-16 batch, all of which is answered. The single item
-      that needs xian is unchanged and has now been installable for <b>39 hours</b> (Apple's processing
-      mail is stamped 2026-09-17 00:12:45 UTC). He was at a conference on the 17th and already holds
-      both the ask and the clock correction, so this is not a third surfacing of it.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Re-read this pass, and it came back empty the same way it did yesterday.</b>
-      No Apple mail about OptiListen since that processing notice &mdash; no review state, no new build,
-      no removal or App Store Improvement mail. Worth restating the limit rather than the reassurance:
-      that channel carries processing and review mail and nothing else, so its silence is evidence
-      about the removal clock and <b>about nothing else</b> &mdash; in particular it cannot say whether
-      the build has been run. Pard's console readback still owns the date itself.</div></div>
-  </section>
-  <section class="risks" style="background:var(--teal-soft)">
-    <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">rev 40 &middot; a second, real gap found and closed &mdash; and the site work is done</h2></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>xian read the 09-26 breakdown again and noticed what rev 39 missed: no second person was actually speaking during that test.</b> <code>other 0:06</code> had nowhere honest to come from except ambient sound. He also asked the architecture question directly &mdash; video call only, or would a concurrent phone call on the same device work? Reading <code>LiveMicSource</code> answers both: the mic is always the phone's own built-in mic, never a call tap, and <code>observeInterruptions()</code> stops capture the instant a real phone call starts (a same-device video/VoIP call, which stays foregrounded, is untested). <b>Not a display defect, as he concluded &mdash; a genuine classification gap, distinct from rev 39's.</b></div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Fixed: &ldquo;other&rdquo; now needs a minimum run, not just a moment.</b> <code>classify(_:)</code> never did voice detection and still doesn't &mdash; that's a different, larger feature. What changed: a moderate-volume stretch must hold for three buffers (0.3s) before it counts as <code>otherSpeakingSeconds</code>; shorter stretches fold into silence instead, via a new <code>resolvePendingOtherRun()</code>, so a door, a cough, or a page turn no longer reads as a second voice while a real &ldquo;mm-hmm&rdquo; still does. Two diagnostics counters (<code>discardedOtherRuns/Seconds</code>) surface what got folded. The &ldquo;user&rdquo; bucket is untouched &mdash; no evidence it has the same problem. Full writeup, rejected alternatives, and the epistemic status of &ldquo;0.3s&rdquo; (a first estimate, same as the 12/16&nbsp;dB bars) are <b>D-021</b> in <code>docs/decisions.md</code>. <code>CURRENT_PROJECT_VERSION</code> bumped <b>6 &rarr; 7</b>. Pushed as <code>92fc1e9</code>. Verified with <code>xcrun swiftc -parse</code> on kindbook; not yet on a device with a real second speaker.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Site work xian asked for, finished the same pass.</b> Tier 2 from <code>docs/site-audit-2026-09-27.md</code> is now complete: the Privacy page got a &ldquo;How the Microphone Is Used&rdquo; section (on-device loudness classification only, nothing recorded/transcribed/transmitted, no network code) and both its stale 2022 dates updated, approved by xian and pushed/deployed as <code>687b760</code> on the site repo. Along the way xian also confirmed 1.x genuinely was headphone-dependent &mdash; so the Tier&nbsp;1 copy patch is, briefly, wrong about the app the site's download button actually ships &mdash; and explicitly said to leave it, since there are no active or new 1.x users right now (<b>D-022</b>). <b>Tier 3 (visual refresh toward moss/amber, FAQ tone, site structure) is written up as a ready checklist</b> &mdash; exact hex values pulled from <code>Theme.swift</code>, exact FAQ lines named &mdash; <b>but deliberately not started</b>, same screenshot-sequencing logic as the rest of this project: it waits for a 2.0 submission date.</div></div>
-  </section>
-
-  <section class="risks" style="background:var(--teal-soft)">
-    <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">rev 39 &middot; xian ran it, and it worked &mdash; with one confusing number, now explained</h2></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Item 1 is answered, at least in part: a run happened.</b> xian tested 2.0&nbsp;(5) on 2026-09-26 (&ldquo;test convo b5,&rdquo; 6:03&ndash;6:07&nbsp;PM) and the diagnostics log shows exactly what a working run looks like: <code>calibrated: true usable: true</code>, gap <b>14.8&nbsp;dB</b> &mdash; comfortably clear of the 12&nbsp;dB bar this build raised on my estimate from his single 09-20 run &mdash; and a real reading, <code>heard 77.4s &mdash; user 7.2 / other 6.1 / silence 64.1</code>. <b>The calibration bar held on at least one real conversation.</b> What the report doesn't say is whether this run was indoors or outdoors, so the original ask &mdash; one of each &mdash; is not fully closed; item&nbsp;1 stays open, updated rather than repeated.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>He also found something real, and named it precisely: &ldquo;there is a bug in the percentage math.&rdquo;</b> The screen showed <b>54%</b>, right next to a breakdown reading &ldquo;you 0:07 &middot; others 0:06 &middot; quiet 1:12,&rdquo; and his own note did the arithmetic a reader would do &mdash; <i>&ldquo;7 seconds out of 72 is it 54%?&rdquo;</i> <b>It reads as a bug and isn't one.</b> <code>LiveMicSource.currentShare</code> is unchanged this session and was already deliberate: share of <i>speech</i>, silence excluded on purpose, documented in its own comment since before this build. 7.2&nbsp;/&nbsp;(7.2&nbsp;+&nbsp;6.1) is correctly 54%. <b>What's actually wrong is mine, from the 09-20 fix:</b> <code>Practice.breakdownText</code>, the transparency addition that shows all three buckets, sits right next to a percentage computed from only two of them. Two true, reviewed facts on one screen, implying two different denominators &mdash; the same shape this project keeps finding, except this time both halves are something I built.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Fixed by explaining the number rather than changing it.</b> <code>Practice.breakdownCaption</code> now says, wherever the breakdown shows, that the percentage counts speaking time only. The formula is untouched &mdash; changing it would have thrown away a real, considered design call on the strength of one confusing screen. Full reasoning and the rejected alternatives (widen the denominator; show two percentages) are <b>D-020</b> in <code>docs/decisions.md</code>. Pushed to <code>main</code> as <code>86213d5</code>, six files, <code>CURRENT_PROJECT_VERSION</code> bumped to <b>6</b>. Verified with <code>xcrun swiftc -parse</code> on kindbook against all four changed Swift files &mdash; clean, but syntax only; no SDK here for a real build or a look at the screen. Memo sent to Pard (cc Janus, xian) proposing 2.0&nbsp;(6) as the next TestFlight candidate.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Method note, mine to own:</b> getting this fix from kindbook to the real checkout on Amber took three tries. A multi-file tarball moved through a shell heredoc came out with one file's tail silently scrambled &mdash; parsed clean as one file, garbled as several, a corruption in the transfer mechanism, not the code. Caught it by re-parsing after transfer instead of trusting the first green result, isolated it to a single file, and switched to a slower method &mdash; one file at a time, md5-verified at each hop &mdash; for the rest. Nothing that reached <code>main</code> was unverified; the two false starts never left kindbook.</div></div>
-  </section>
-
-  <section class="risks" style="background:var(--teal-soft)">
-    <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">rev 38 &middot; quiet again &mdash; and one finding about the record</h2></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>No mail for Cairn since Pard's 09-24 memo</b>, answered at rev 36 with the memo and the commit in the same fire. Nothing new in either mailbox, <b>no CI run since <code>36025726212</code></b>, working tree clean at <code>624ceef</code>.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Apple mail re-read: still nothing on OptiListen</b> &mdash; newest is the same 2.0&nbsp;(5) processing pair of 21&nbsp;Sep 15:36&nbsp;UTC. <b>The channel itself is provably live:</b> Apple-domain mail reached the readable inbox on 09-23 (a receipt and a subscription renewal), so the silence about OptiListen is <i>Apple's</i> silence and not a broken forward &mdash; which is the whole reason to re-read it rather than assume it.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Clocks: 59 days, day 31 of 90, and 2.0&nbsp;(5) has now been installable for five days</b> &mdash; exactly five at 15:36&nbsp;UTC today &mdash; on xian's phone and on Dan's, with no report in either direction. <b>Items&nbsp;1 and&nbsp;2 are unchanged and are not being re-raised</b>; they stay because only xian closes them.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>New this pass: 50 commits in this repo are authored as &ldquo;xian,&rdquo; and every one of them is Pard's.</b> [EVIDENCED] <code>git log --author=attlocal.net</code> returns 50 commits spanning <b>2026-09-07 to 09-24</b> &mdash; exactly the 2.0 agent era, earliest his own first Amber memo delivery, latest the merge &mdash; all carrying Amber's hostname-default identity <code>xian &lt;xian@*.attlocal.net&gt;</code>. I read all 50 subjects: memo deliveries, builds, uploads, the shoot, the CI fix, D-011, the merge. <b>Not one is plausibly xian's own hand.</b> This repo had no local git identity on Amber, so the commits took the machine default, which reads as the human. Nothing is ambiguous once you know &mdash; xian's own commits are a different identity, <code>Christian Crumlish</code> &mdash; but <code>git log</code> here shows his name on work he did not do. <b>Pard found it himself on 09-25 and fixed the config</b> (four repos; global left unset deliberately so he cannot silently relabel another seat's work); <b>history deliberately not rewritten, a rewrite being the larger harm.</b> Agreed, and <b>none of it is xian's to do.</b> Recorded because Pard's lesson generalises past git: he had read that log many times a day for six days and <b>never once read the author column.</b></div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Still open and still Pard's:</b> <code>build.yml</code> triggers on <code>branches: [main, screenshot-fixture]</code>, a branch retired on the 24th. Flagged at rev 36; this line is the whole re-raise.</div></div>
-  </section>
-
-  <section class="risks" style="background:var(--teal-soft)">
-    <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">rev 37 &middot; a quiet pass &mdash; the clocks rolled and nothing else did</h2></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>No mail for Cairn since Pard's 09-24 memo, which rev 36 answered</b>, and nothing new in either mailbox this morning. This rev exists for the arithmetic rather than for a finding.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Apple mail re-read this pass: still nothing on OptiListen.</b> The newest is the same 2.0&nbsp;(5) processing pair of 21&nbsp;Sep 15:36&nbsp;UTC &mdash; no review state, no removal or App Store Improvement mail, no crash submission. <b>24&nbsp;November is now day 30 of 90 and 60 days out</b>, and it is still the 08-26 screenshot, never re-read from Apple.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>The one number that moved is the one nobody wants moving.</b> 2.0&nbsp;(5) has been installable on xian's phone and on Dan's for <b>four days</b> with no report in either direction, and that channel cannot say whether either of them has opened it. <b>Item&nbsp;1 is unchanged and is not being re-raised</b> &mdash; it stays on the page because only xian can close it.</div></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Still open and still Pard's:</b> <code>build.yml</code> triggers on <code>branches: [main, screenshot-fixture]</code>, a branch retired on the 24th. No CI run since <code>36025726212</code> (success, on <code>main</code>); working tree clean at <code>dbb944c</code>.</div></div>
-  </section>
-
-  <section class="alert">
-    <div class="tag">rev 36 &middot; the merge landed, and <code>main</code> now answers &ldquo;does it compile&rdquo; by itself</div>
-    <p><b>Everything rev 35 raised is closed, and I checked each against the thing rather than
-      against Pard's report of it.</b> <code>git merge-base --is-ancestor 30881a4 HEAD</code>
-      returns <b>YES</b>; <code>TARGETED_DEVICE_FAMILY</code> present, <code>practising</code>
-      <b>0</b>, <code>build.yml</code> / <code>screenshots.sh</code> /
-      <code>ScreenshotFixture.swift</code> all resolve, register unbroken <b>D-001 &hellip; D-019</b>.
-      <b>All six store-art PNGs are blob-identical between <code>main</code> and
-      <code>screenshot-fixture</code></b> &mdash; the generation that came home is the generation
-      that was shot, not a fourth copy. The branch is retired (D-019) and D-018 gives the art one
-      home. <b>A (6) cut from <code>main</code> today is the real thing.</b></p>
-    <p><b>The CI runner is green on <code>main</code>, and that retires the project's oldest
-      standing risk.</b> Run <code>36025726212</code>, <b>success</b>, 1m20s, push to
-      <code>main</code>, 16:12 UTC &mdash; Pard's merge commit &mdash; with the previous
-      <code>startup_failure</code> directly above it in the same list. For eleven days &ldquo;does
-      this compile&rdquo; was a question only one machine could answer and only while it was awake.
-      It now answers itself on every push, for both agents, whether or not Amber is on.
-      <b>This project has shipped uncompiled changes twice; it cannot do so silently again.</b></p>
-    <p><b>The CI failure cause is worth more than the fix.</b> Every run had been dying at
-      <code>startup_failure</code> before a step executed. <code>yaml.safe_load</code> said OK,
-      <code>actionlint</code> said OK, <b>and both were right &mdash; the file is valid.</b> This
-      repo's Actions policy is <code>allowed_actions: local_only</code>, so
-      <code>actions/checkout@v4</code> is refused at startup, and <b>neither validator reads a
-      policy.</b> Pard fixed it by dropping the dependency rather than widening the policy, on the
-      grounds that the policy is somebody's deliberate choice on a public repo. <b>Fourth member of
-      the class that has now cost this project four times</b> &mdash; the bundle ID, the
-      <code>Info.plist</code> version string, the iOS minimum, and now a repo policy: things no
-      checker in the loop looks at and the runtime does.</p>
-    <p><b>The &ldquo;level below D-010&rdquo; is bounded, and the answer is that there is no sweep
-      to run.</b> [EVIDENCED] <code>main</code> carries <b>31 bare hierarchical styles</b> &mdash;
-      <code>.secondary</code> &times;27, <code>.tertiary</code> &times;4, across
-      <code>CalibrationView</code> 7 / <code>HomeView</code> 13 / <code>PracticeLoopView</code> 11
-      &mdash; every one in the syntactic position that bit the chart. [EVIDENCED] there is
-      <b>exactly one <code>Chart</code></b> in the app, and it is the one already fixed; [EVIDENCED]
-      every <code>.foregroundStyle(Theme.*)</code> sits on a <b>leaf</b> that is a <i>sibling</i> of
-      the <code>.secondary</code> ones rather than a container wrapping them, so nothing rebases the
-      hierarchy anywhere else. [INFERRED, and marked because I cannot run a compiler]
-      <code>.tint</code> becomes the current foreground style <b>inside the Chart plot and not for
-      ordinary <code>Text</code></b>.</p>
-    <p><b>And the art corroborates it, which is the part that isn't inference.</b> I sampled all six
-      shipped PNGs pixel-wise: <b>chromatic-green pixels 217&ndash;1,639 per shot against
-      4,998&ndash;42,391 near-achromatic text pixels.</b> If <code>.secondary</code> were inheriting
-      the tint those columns would be reversed. Dominant green is <b>(61,107,84)</b> &mdash;
-      <code>Theme.within</code> light, to the integer. Three things fall out of the bounding boxes
-      and all three are good news: <b>D-009 renders correctly</b> (shot-3 numeral and caption green
-      at (472,1106)&ndash;(856,1260) and (556,1398)&ndash;(762,1432) with <i>zero</i> amber in the
-      shot; shot-4 the same two boxes in amber with no green near them &mdash; same geometry,
-      opposite tokens, one meaning); <b>D-011's fix is visible in the shipped bytes</b> (shot-6's
-      only chart green is a 24&times;24 <i>point</i> at (1140,1466), no green stroke anywhere in the
-      plot); and the rest of the green is <b>controls</b>, identical in shots 3 and 4 regardless of
-      state, which is what <code>.tint</code> is for. <b>Not covered, stated rather than glossed:</b>
-      <code>CalibrationView</code> is on no screen in the store art, so its 7 sites have the
-      structural argument and no pixel corroboration.</p>
-    <p><b>One loose end, trivial and exactly on theme.</b> <code>build.yml</code> still triggers on
-      <code>branches: [main, screenshot-fixture]</code> &mdash; a branch retired this morning.
-      Harmless, one line, Pard's. Noted because <b>a name outliving its referent</b> is the subject
-      of both of yesterday's findings.</p>
-    <p><b>Apple mail re-read this pass:</b> nothing new on OptiListen. Newest is still the 2.0 (5)
-      processing pair of 2026-09-21 15:36 UTC &mdash; no review state, no removal or App Store
-      Improvement mail, no crash submission. <b>The build has now been installable for three days
-      and eight hours with no report in either direction</b>, and that channel cannot say whether
-      anyone has opened it. <b>The 2026-11-24 date is still the 08-26 screenshot and has never been
-      re-read from Apple.</b></p>
-  </section>
-
-  <section class="alert">
-    <div class="tag">rev 35 &middot; the compile and the grep were true &mdash; of a branch <code>main</code> has none of</div>
-    <p><b>Pard delivered all three asks and I checked each rather than taking it.</b>
-      <code>6cccc56</code> <b>BUILD SUCCEEDED</b> on Amber, the raw-colour grep returns zero, all six
-      shots were re-shot at <code>b992de6</code>, and D-015/D-016/D-017 are in the register.
-      <b>Every one of those is true. Every one of them is true about
-      <code>screenshot-fixture</code>.</b></p>
-    <p><b><code>git merge-base --is-ancestor 6cccc56 origin/main</code> returns NO.</b> The two have
-      diverged 7/7, and the split is unusually clean: <b>every main-only commit touches only
-      <code>docs/</code></b> &mdash; attention, decisions, mail &mdash; <b>and every branch-only
-      commit touches code, art or build config.</b> So <code>main</code> today still carries eleven
-      raw system colours (<code>CalibrationView</code>&nbsp;5, <code>HomeView</code>&nbsp;2,
-      <code>PracticeLoopView</code>&nbsp;4), three <code>practising</code> strings, the After card
-      with no colour on it, <b>no <code>TARGETED_DEVICE_FAMILY</code> line at all</b> &mdash; so
-      XcodeGen defaults it back to 1,2 and the iPad set we just decided to drop returns &mdash; no
-      screenshot scaffolding, no CI workflow, and no D-011. <b>(5) was cut from <code>main</code>
-      and was right to be; the design pass did not exist yet. (6) cut from <code>main</code> today
-      would be (5) plus nothing at all.</b></p>
-    <p><b>Nothing records when the branch merges.</b> D-015 already notes the device-family setting
-      is on the branch and not on <code>main</code>, so the fact is known &mdash; but the merge
-      itself appears in no decision and on no page, and a lane whose first step is unrecorded is the
-      lane this project has twice paid for. Raised to Pard as a step to name rather than an
-      assumption we happen to share. <b>Not yours</b> &mdash; the build lane is his.</p>
-    <p><b>And the sharper one, which is mine.</b> My rev 33 commit <code>c6de4ac</code> copied the
-      six shots onto <code>main</code> so this page could point at them. Pard then re-shot three
-      times &mdash; quiet battery, the green pair and PRACTICING, then the chart &mdash; and
-      <b><code>main</code> never followed.</b> I compared blob SHAs rather than paths: all six
-      differed, and <code>main</code>'s <code>shot-3</code> was <code>0b4973f</code>'s blob.
-      <b><code>main</code> was holding generation 1 of 4 &mdash; the original capture, still showing
-      the charging battery this page reported CLOSED on the 23rd, and the black numerals and
-      PRACTISING that D-009 and D-012 retired.</b> Anyone uploading art from a <code>main</code>
-      checkout uploads every defect we have fixed since Tuesday, from a path that looks canonical
-      while doing it. <b>Synced at <code>0990e61</code></b>; the six are now bit-identical to
-      <code>screenshot-fixture@129dd20</code>, dimensions re-checked at 1320&nbsp;&times;&nbsp;2868.
-      That closes today's window and not the cause: two copies of a binary artifact drift again at
-      the next re-shoot. Proposed to Pard as <b>D-018, the store art has one home</b>.</p>
-    <p><b>The CI runner Pard built today is not guarding <code>main</code> yet either.</b> Its
-      triggers name <code>[main, screenshot-fixture]</code>, but GitHub reads workflows from the
-      branch being pushed and <code>.github/workflows/build.yml</code> does not exist on
-      <code>main</code> &mdash; so a push to <code>main</code> today runs nothing. Not a defect in
-      the file; a consequence of where it lives, and a third reason the merge is a step rather than
-      a formality.</p>
-    <p><b>D-011 is closed, and the bug it exposed is the best thing in the day's work.</b> Pard
-      built the neutral line with per-point colour at <code>129dd20</code> &mdash; then opened the
-      image and found the line rendering <i>moss</i>. <code>.primary</code> in a
-      <code>ShapeStyle</code> position is <code>HierarchicalShapeStyle.primary</code>, which resolves
-      through the app's <code>.tint(Theme.within)</code>, so a ceiling-crossing series drew entirely
-      green: <b>"within" asserted for every point &mdash; exactly what D-011 exists to prevent,
-      arrived at by inheritance rather than by anyone choosing it.</b> It compiles clean either way
-      and <b>D-010's raw-colour grep cannot see it, because nothing is spelled wrong.</b> A level
-      below the one I swept, found only by opening the picture &mdash; D-017 paying for itself the
-      day after he wrote it against himself.</p>
-    <p><b>Apple mail re-read this pass:</b> nothing new on OptiListen since the 2.0&nbsp;(5)
-      processing pair of 21&nbsp;Sep 15:36&nbsp;UTC. No review state, no removal or App Store
-      Improvement mail, no crash submission. <b>The 24&nbsp;November date is still the 08-26
-      screenshot and has never been re-read from Apple.</b></p>
-  </section>
-
-  <section class="win">
-    <div class="tag">rev 34 &middot; green &mdash; and the standard turned it into a sweep</div>
-    <p><b>You ruled on item&nbsp;4 and attached a bar:</b> <i>"yes green and yes it's critical for
-      things to be consistent and for us not to cut corners. design decisions need to be called and
-      tracked too."</i> Both halves are done in this pass.</p>
-    <p><b>D-009, the ruling.</b> The <code>within</code>/<code>over</code> pair now applies on every
-      screen that says which side of the ceiling you are on &mdash; the live numeral and its
-      caption, <b>the After card's numeral and caption, which carried no colour at all</b> and which
-      nobody had looked at, alongside the Home list that already did it. <b>One fact, one
-      rendering.</b> That is the smaller half.</p>
-    <p><b>D-010, what the sweep turned up: eleven raw system colours, retired.</b> Six
-      <code>.orange</code> warnings, a <code>.green</code> checkmark, a <code>.red</code> failure, a
-      <code>.blue</code> step prompt. <b>SwiftUI's <code>.orange</code> is visibly brighter than
-      <code>Theme.over</code></b> &mdash; (1.0, 0.58, 0.0) against (0.72, 0.42, 0.16) &mdash; so the
-      app was already showing <i>two different ambers meaning two different things</i>, and the
-      difference was an accident of which colour someone reached for. Two calls inside it:
-      <code>Theme.over</code> now deliberately carries both "over your ceiling" and "this reading is
-      not trustworthy", because both say <i>the number needs your attention</i>; and <b>there is no
-      red in this app any more</b>, since a calibration that did not run is not an emergency either.
-      <code>Theme.swift</code>'s doc comment says all of it now, so <b>the spec matches the
-      code</b> &mdash; this episode's whole lesson.</p>
-    <p><b>Not done, and recorded as open rather than quietly decided.</b> The Home chart's trend
-      line runs through points on <i>both</i> sides of the ceiling, so no single series colour can
-      be right. My global swap tokenised it to <code>Theme.over</code> and <b>I backed that out</b>
-      &mdash; it would have asserted "over ceiling" for every point including the ones under it, a
-      new inconsistency introduced while fixing one. Per-point colour needs the Chart body and a
-      compiler, and kindbook has no SDK. <b>D-011, Pard's, no hurry.</b></p>
-    <p><b><code>docs/decisions.md</code> is new, and it is the second half of what you asked for.</b>
-      Design decisions were living only in commit messages, memos and this page's prose.
-      <b>D-004 is the proof: the colour pair was decided on 09-21 and written into
-      <code>Theme.swift</code>, and only one of the three screens that needed it ever got it, with
-      nothing recording that it was meant to be universal. The decision existed; the tracking did
-      not.</b> Fourteen entries backfilled to D-001, each with the decider, the why, where it shows
-      up so it can be checked rather than believed, and a status. <b>This page says what is
-      happening; that one says what was decided.</b></p>
-    <p><b>Parse-clean on kindbook, and that is all it means</b> &mdash; syntax only, no SDK, no type
-      checking. Everything changed is a colour literal or a string, so I expect it clean, but Amber
-      is the check and I would rather say that than imply otherwise. <b>Shots 3 and 5 need
-      re-shooting for the green</b>; Pard had already re-shot all six with the quiet battery before
-      this pass, so that defect is closed.</p>
-    <p><b>Apple mail re-read this pass:</b> nothing new since the 2.0&nbsp;(5) processing pair of
-      21&nbsp;Sep 15:36&nbsp;UTC. No review state, no removal or Improvement mail, no crash
-      submission.</p>
-  </section>
-
-  <section class="win">
-    <div class="tag">rev 33 &middot; the screenshots exist, and looking at them found what reading did not</div>
-    <p><b>All six iPhone shots are captured and correct.</b> <code>origin/screenshot-fixture</code>
-      at <code>0b4973f</code>: six PNGs in <code>docs/store-art/6.9-inch/</code>, and I read the
-      dimensions myself with <code>sips</code> rather than from Pard's capture log &mdash;
-      <b>all six are 1320&nbsp;&times;&nbsp;2868</b>, the 6.9-inch size the listing requires.
-      <code>TARGETED_DEVICE_FAMILY: "1"</code> is on the same branch with the evidence in the
-      comment. The fixture is Debug-only and argument-driven, so Release and TestFlight never see
-      it. <b>Nothing is on <code>main</code>; 2.0&nbsp;(5) on your phone and Dan's is
-      untouched.</b></p>
-    <p><b>Then I pulled the images into my own environment and looked at them</b>, which is the step
-      nobody had taken. Pard's check of the art against my storyboard is a report on his own output,
-      and that exact shape has cost this project three times this month.</p>
-    <p><b>The one deviation he escalated turns out to point the other way.</b> He reported that my
-      caption said green-under/amber-over and the app does black-under &mdash; true of the Listening
-      screen (<code>PracticeLoopView.swift:214</code>). <b>But shot 6 shows an under-ceiling number
-      in green</b>, because <code>HomeView.swift:168</code> renders the Recent list as
-      <code>metGoal == true ? Theme.within : Theme.over</code>. Shot 5's After card is black again.
-      <b>Three screens, one meaning, two answers &mdash; the inconsistency is inside the app.</b>
-      And the tiebreak is already written in <code>Theme.swift</code>: <i>"`within` and `over` are a
-      semantic pair, not decoration&hellip; which matters because the person reading it is
-      mid-conversation and not really reading."</i> <b>Mid-conversation is the Listening screen</b>
-      &mdash; the one view that does not implement it. New item&nbsp;4: two lines, and a re-shoot of
-      shots 3 and 5 that is scripted and therefore cheap.</p>
-    <p><b>Three defects in the art, all cheap, none blocking.</b> <b>(1)</b> Every shot has a
-      <b>charging battery</b> &mdash; the script passes <code>--batteryState charged</code>, which is
-      the value that draws the bolt; Apple's own marketing shots use
-      <code>--batteryState unplugged</code>. One word, one re-run. <b>(2)</b> <b>The app cannot
-      spell "practising."</b> Shots 3&ndash;4 say <code>PRACTISING</code>; shots 2 and 5 say
-      <i>practicing</i>. Both are in the store art one swipe apart. Three strings; mine, because it
-      is copy, and I am calling it <b>"practicing"</b> for a US listing. <b>(3)</b> <b>Shot 1 is the
-      weakest image and is currently first</b> &mdash; two-thirds empty frame, and the App Store
-      shows the first one or two without a swipe. <b>I want to lead with 6, then 4, then 2.</b> No
-      re-shoot; it is the upload order.</p>
-    <p><b>Privacy: cause found, fix is a build step.</b> <code>optilisten-site</code> is a React SPA
-      on GitHub Pages, which serves a real file only for <code>/</code>; the
-      <code>spa-github-pages</code> shim recovers deep routes client-side &mdash; exactly the 404 in
-      rev&nbsp;32. Emitting a static <code>privacy/index.html</code> in a <code>postbuild</code> step
-      makes the status code honest. One <code>package.json</code> line and one deploy &mdash;
-      <b>your hand, and the policy wording is yours too.</b> Still not a blocker.</p>
-    <p><b>Apple mail re-read this pass:</b> nothing new. The 2.0&nbsp;(5) processing pair of
-      21&nbsp;Sep 15:36&nbsp;UTC is still the newest OptiListen mail &mdash; no review state, no
-      removal or Improvement mail, no crash submission. <b>Installable now for about two days and
-      eight hours with no report in either direction.</b></p>
-  </section>
-
-  <section class="win">
-    <div class="tag">rev 32 &middot; the iPad question is answered, and it removes work</div>
-    <p><b>1.1 shipped iPhone-only &mdash; evidenced three ways, without the clone everyone assumed
-      was needed.</b> Pard checked Amber and reported honestly that <code>AustinWood/listenup-mobile</code>
-      is not cloned there. It did not need to be: <code>gh</code> on kindbook already has read access,
-      and one API call returns one file. The 1.x <code>project.pbxproj</code> sets <b>no
-      <code>TARGETED_DEVICE_FAMILY</code> at all</b> and its <code>Info.plist</code> carries no
-      <code>UIDeviceFamily</code>. The live App Store Compatibility block, read today, lists
-      <b>iPhone, iPod touch, Mac and Apple Vision &mdash; and no iPad.</b> The iTunes lookup returns
-      <b>four iPhone screenshots and zero iPad screenshots</b>, which App Store Connect would not
-      have accepted from an iPad-capable app.</p>
-    <p><b>So nobody owns OptiListen on an iPad, and dropping iPad takes nothing from anyone</b>
-      &mdash; the one thing I said I had to establish before recommending it. 2.0 goes to
-      <code>TARGETED_DEVICE_FAMILY: "1"</code>, the required iPad&nbsp;13" set disappears, and an
-      untested device family comes off an app that has already been rejected once. Sent to Pard this
-      morning ahead of his fixture cycle, so today's screenshot work is scoped to six iPhone shots
-      rather than two sets. The evidence is mine; the edit and the build sequencing are his.</p>
-    <p><b>One new surface, and it is not one we chose.</b> The same Compatibility block lists the app
-      as available on <b>Mac (Apple silicon)</b> and <b>Apple Vision</b>. [INFERRED] that is the App
-      Store Connect availability setting, per-app rather than per-build, so 2.0 inherits it unless
-      somebody unchecks it. 2.0 is portrait-only, opens the microphone on launch, and has been run on
-      exactly one iPhone. New item&nbsp;3(a), and it is a checkbox.</p>
-    <p><b>The privacy page is both better and worse than this page has been saying.</b> It renders,
-      it is substantive, and its own date line reads <i>"This policy is effective as of 4 July 2022.
-      Last updated: 4 July 2022"</i> &mdash; so "not touched since February 2023" was the repo's
-      commit date rather than the document's, and that was my error, carried here for two revisions.
-      But <code>optilisten.com/privacy</code> and <code>/privacy/</code> both return <b>HTTP 404</b>:
-      GitHub Pages serves the <code>spa-github-pages</code> redirect shim in the body, so a browser
-      with JavaScript recovers and renders the policy, while anything reading the status code sees a
-      dead link. <b>Not a blocker</b> &mdash; 1.x cleared review twice on this exact site. The policy
-      also never mentions the microphone.</p>
-    <p><b>Apple mail re-read this pass:</b> nothing new. The 2.0&nbsp;(5) processing pair of
-      21&nbsp;Sep 15:36&nbsp;UTC is still the newest OptiListen mail &mdash; no review state, no
-      removal or Improvement mail, and <b>still no crash submission</b>. The build has now been
-      installable for about two days with no report in either direction, which the channel
-      cannot interpret for us.</p>
-  </section>
-
-  <section class="win">
-    <div class="tag">rev 30 &middot; Dan already had it, and the clock is measured now</div>
-    <p><b>Item 2 closes without costing you anything.</b> Pard read the beta-tester list out of App
-      Store Connect: <b>Dan is in the internal <code>DinP</code> group with state
-      <code>INSTALLED</code></b> &mdash; TestFlight installed, invitation accepted, four testers on
-      the app in total. Internal groups receive every processed build automatically, so
-      <b>2.0&nbsp;(5) has been on Dan's phone since 21&nbsp;Sep 15:36&nbsp;UTC.</b> The two-minute
-      App Store Connect job this page described does not exist. What is left is one sentence to a
-      traveling person. <b>My guess was wrong, in the direction I flagged as likely</b> &mdash; I
-      expected him to be missing, said so, and asked for it to be read rather than believed.</p>
-    <p><b>The version-record reading is now evidence.</b>
-      <code>GET /v1/apps/1593948410/appStoreVersions</code>, read 21&nbsp;Sep: exactly two records
-      &mdash; <b>1.1 <code>READY_FOR_SALE</code></b> and <b>1.0
-      <code>REPLACED_WITH_NEW_VERSION</code></b>, nothing from the 2.0 line at all. Five builds have
-      cleared processing and TestFlight and <b>none of them has a version record to attach to</b>:
-      App Review has not been entered and 24&nbsp;November has not moved. Item 3 stands on a
-      measurement now instead of on my inference.</p>
-    <p><b>Checked from the outside as well, because it is a different surface.</b> The public listing
-      is live &mdash; version <b>1.1</b>, updated <b>07/19/2023</b>, seller Christian Crumlish. Two
-      independent records that agree, rather than one record read twice.
-      <b>One thing it turned up, swept and clear:</b> the listing reads <i>"Requires iOS 11.0 or
-      later"</i> and 2.0 requires iOS&nbsp;17, so submitting raises the published minimum by six
-      major versions. The 09-07 analytics already answer it &mdash; every download since 2024 is on
-      17+ &mdash; so nobody is cut off. Recorded because it is the third member of a class that has
-      cost us twice (the bundle ID, then the Info.plist version string): <b>metadata the compiler
-      never checks and the submission does.</b></p>
-    <p><b>Apple mail re-read this pass:</b> nothing since the 2.0&nbsp;(5) processing pair. No review
-      state, no removal mail, <b>and no crash submission</b> &mdash; which is not reassurance, because
-      that channel cannot say whether the build has been run, and 2.0&nbsp;(3) already proved a crash
-      can file no artifact at all. <b>Installable for about twenty-one hours with no report either
-      way.</b></p>
-  </section>
-
-  <section class="win">
-    <div class="tag">rev 29 &middot; it is on the phone, confirmed by Apple</div>
-    <p><b>2.0 (5) is testable.</b> Pard uploaded at 08:35&nbsp;PT &mdash; delivery
-      <code>3d55569b</code>, built from <code>main</code> at <code>de7f997</code>, version and bundle
-      ID read back out of the archive and the IPA rather than off an exit code, no validator
-      warnings. <b>Apple's own mail closes the loop 82 seconds later:</b>
-      <i>"Version 2.0 (5) for OptiListen has completed processing"</i> and <i>"OptiListen 2.0 (5) for
-      iOS is now available to test"</i>, both stamped 21&nbsp;Sep 15:36&nbsp;UTC. Installable for
-      about seven and a half hours. <b>Verified from Apple, not from a report of Apple.</b></p>
-    <p><b>Rev 28's one item is closed</b> &mdash; "written, unbuilt, waiting on one word" lasted
-      about eleven hours. Nothing here is waiting on Pard, on me, or on a build any more; every live
-      item is the field test or a decision only xian can make.</p>
-    <p><b>What five builds have not touched is the date.</b> 2.0&nbsp;(1) through (5) have all
-      cleared <em>processing</em>; none has entered <em>App Review</em>, which is the only event
-      Apple's notice says stops the removal. Not news &mdash; the standing correction since rev 22
-      &mdash; but with the build finally in hand it is the only item left carrying a deadline, and it
-      has never had a date of its own.</p>
-  </section>
-
-  <section class="win">
-    <div class="tag">rev 28 &middot; written, unbuilt, waiting on one word</div>
-    <p><b>Pard built nothing from the superseded tree, so there is nothing to discard.</b> He read
-      both of last night's memos in order and acted on the second only; Amber was rebooting through
-      that window (macOS 26.7, fleet resume). His condition for building: current <code>main</code>,
-      same build number 5, the design pass included, the spec read first. <b>He is holding because he
-      read the scheduling as yours</b> &mdash; <i>"xian's call, not tonight"</i> &mdash; and that was
-      21:12&nbsp;PT on the 20th.</p>
-    <p><b>Nothing else moved overnight.</b> No Apple mail about OptiListen since the 2.0&nbsp;(4)
-      processing notice of 17&nbsp;Sep 00:12&nbsp;UTC: no review state, no new build, no removal or
-      App Store Improvement mail. Five builds have cleared processing; zero have entered review.</p>
-  </section>
-  <section class="win">
-    <div class="tag">rev 27 &middot; 2.0 (5) is the release candidate</div>
-    <p><b>Four field fixes plus a ratified six-item design pass, all on <code>main</code>, all
-      parse-clean, Pard's to build.</b> He had not started (5) when the design work landed, so it
-      folds into the same build number. <b>This one goes to Dan as well as to you</b>, and Dan has
-      been waiting since he said yes on 09-16.</p>
-    <p><b>The reframe, recorded in <code>docs/design-pass-2026-09-21.md</code>: the app is not too
-      plain, it is undesigned.</b> Every control sat where SwiftUI put it, in system blue, at default
-      weight. Plain is the right answer for an instrument you set face-up and stop looking at, but it
-      has to be a decision rather than an absence. Landed: one accent pair (moss inside your
-      intention, amber over the ceiling, semantic rather than decorative) applied once at the app
-      root; the End button off filled destructive red, which was the loudest element on a screen
-      about listening quietly; the number settling on the existing one-second tick instead of
-      redrawing every 100&nbsp;ms; two haptics, at the first ceiling crossing and at the loop
-      closing, because the phone is face-up and unwatched; the Home counter animating on change; and
-      no <code>0</code> in 52-point type on first launch. <b>Not a detour from 24 November:</b> the
-      listing needs new screenshots, and screenshots of an undesigned app are what a prospective user
-      sees.</p>
-    <p><b>What the build is for, so the test is deliberate.</b> The calibration thresholds in it are
-      mine, estimated from one field run: <code>isUsable</code> 8&nbsp;dB &rarr; 12, silence floor
-      <code>ambient - 6</code> &rarr; <code>ambient + 3</code>. Your 09-20 outdoor calibration
-      measured a <b>9.7&nbsp;dB</b> gap, so <b>under this build that same session produces no number
-      at all</b> and says your voice and the room are too close together. Intended, and the thing
-      under test. <b>One indoor run and one outdoor run answers it.</b> If indoors also refuses, the
-      bar is wrong and I would rather find that out in a day than defend it.</p>
-  </section>
-
-  <section class="alert">
-    <div class="tag">Correcting my own line — the clock has not moved</div>
-    <p><b>This page has said since rev 19 that three accepted builds "may well have moved" the
-      24 November date. That is wrong, and I wrote it.</b> Verified this pass against Apple's
-      published App Store Improvements page: <i>"You'll be asked to submit an update within 90 days
-      to keep your app on the App Store. If you're unable to make the changes within this time
-      frame, your app will be removed from the App Store until you submit an update and it's
-      approved."</i> <b>An upload to App Store Connect is not a submission, and a TestFlight build
-      is not an update.</b> Four builds have cleared <em>processing</em> — a notarization and format
-      check. <b>Zero have entered App Review.</b> One Job's mail this week shows what the other
-      thing looks like: <code>Ready For Review → Waiting for Review → In Review → Pending Developer
-      Release → Ready for Distribution</code>, four days, none of which OptiListen has produced.</p>
-    <p><b>Not an emergency, and deliberately not dressed as one.</b> 67 days is real runway for a
-      submission whose only hard dependency is a build that doesn't crash. But the number was
-      measuring the wrong event — and it made the flag-off-capture option look less urgent than it
-      is, because that option's entire argument is <em>certainty against 24 November</em>.
-      <b>Pard's console readback now carries two questions:</b> the date, <b>and</b> whether any
-      version shows a review state. If the console says the date moved, I am wrong about the
-      mechanism and want to know that more than I want to be right.</p>
-  </section>
-
-  <section class="win">
-    <div class="tag">And it is on his phone, not just uploaded</div>
-    <p><b>2.0 (4) cleared processing at 00:12:45 UTC — about 73 seconds after Pard's memo — and
-      TestFlight says <em>available to test</em>.</b> Pard's binary check discriminates this time
-      and he proved it against a control before believing it: <code>buffersReceived</code> 0→2,
-      <code>sample input format</code> 0→1, <code>tap installed</code> 0→1, measured against the
-      preserved 2.0 (3) IPA. <b>The diagnostic surface is provably in the bits xian is holding.</b>
-      Separately: <code>62feb22</code> did not compile — my <code>@Sendable</code> made the compiler
-      strict about a capture I didn't follow it to — and <b>Pard repaired it in one line using the
-      file's own pattern rather than round-tripping it through me.</b> Right call; he keeps that
-      authority.</p>
-  </section>
-
-  <section class="alert">
-    <div class="tag">The instrument had the same defect as the thing it watched</div>
-    <p><b>There is no crash artifact for 2.0 (3).</b> Pard ran the check twice, three hours apart,
-      and re-pulled the logbody to rule out a cached list: the feed has not moved, and the newest
-      submission is 09-15 with <code>Version: 2.0 (2)</code>. xian's report stands as evidence — the
-      <em>artifact</em> simply was never filed, most likely because a TestFlight crash submission
-      only exists if the tester taps <b>Share</b> on a modal. <b>Pard's standing check returned
-      "nothing new," which was true and useless</b>, and on 09-14 he had said a quiet feed would be
-      evidence the fix held. That inference is dead. <b>Note the shape: a check that says "nothing
-      new" when it cannot see, and a view that renders a calm <code>0%</code> when nothing arrived,
-      both fail toward reassurance.</b> Rule adopted: <em>an instrument that cannot distinguish
-      "nothing happened" from "I could not see" is not a check, and its quiet reading may not be
-      reported as a result.</em></p>
-    <p><b>So the diagnostic build shipped in the same fire that learned this — <code>62feb22</code>,
-      2.0 (4).</b> My own row read "waiting on the crash log"; there is no crash log, so it would
-      have waited forever. Failures now render where the number renders, with one-tap
-      <b>Copy diagnostics</b>, a stethoscope in the listening toolbar, and a real error screen for a
-      failed calibration — nothing depends on catching a modal. <b>The worst thing found while
-      writing it:</b> <code>CalibrationView</code> substituted <code>-20</code> and <code>-50</code>
-      for two failed readings, which <em>is</em> <code>Calibration.unavailable</code>, whose 30 dB
-      gap passes <code>isUsable</code> — so a calibration in which <b>both readings failed</b> drew a
-      green checkmark and the word "Ready." Not silence: the opposite of the truth, asserted
-      confidently.</p>
-  </section>
-
-  <section class="clock" aria-label="Grace period remaining">
+  <section class="clock">
     <div class="clock-top">
-      <div class="days">58<span>days left in the grace period</span></div>
-      <div class="target">removal 24 Nov 2026<br>notice served 26 Aug</div>
+      <div class="days">58 <span>days to 24 November</span></div>
+      <div class="target">day 32 of 90<br>grace period from the 08-26 notice</div>
     </div>
-    <div class="meter" role="img" aria-label="32 of 90 days elapsed"><i style="width:36%"></i></div>
-    <div class="scale"><span>day 32 of 90</span><span>36% spent</span></div>
-    <div class="caveat">▲ The 26 Aug notice is the only source for this date; App Store Connect's API has no removal-date field. <b>Accepted builds do not move it,</b> and a 21 Sep read of the API found <b>no 2.0 version record at all</b>. Apple stops the removal on <i>"an update and it's approved,"</i> which means App Review. Five builds have cleared processing; zero have entered review. <b>This corrects a line this page carried since rev 19.</b></div>
+    <div class="meter"><i></i></div>
+    <div class="scale"><span>26 Aug</span><span>today</span><span>24 Nov</span></div>
+    <div class="caveat">The date exists only in the 08-26 App Store Improvement Notice. App Store Connect's
+      API has no removal-date field, and as of the 09-21 API read there is no 2.0 version record at all &mdash;
+      App Review has never been entered. Apple's mail re-read today: nothing about removal; newest OptiListen
+      mail is still the 2.0 (5) processing pair of 21 Sep 15:36 UTC. Nothing has moved, and nothing confirms it.</div>
+  </section>
+
+  <section class="archive">
+    <b>This board was 728 lines this morning and is now 80.</b> xian's instruction, relayed by Janus on 27 Sep:
+    stale information out, narrative to the logs, only current items that actually need him. Nothing was cut
+    before it was stored &mdash; the 13 rev narratives (rev 27&hellip;40), Dan's feedback, the resolved items and
+    the retired risks are preserved verbatim in
+    <a href="https://github.com/mediajunkie/optilisten/blob/main/docs/attention-archive-through-rev40.md">docs/attention-archive-through-rev40.md</a>.
+    Decisions D-001&hellip;D-022 are in <code>docs/decisions.md</code>; session narrative is in <code>logs/</code>.
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">item 1 partly answered · 3 items · ~18 min</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">3 items &middot; ~18 min total</span></div>
     <div class="items">
 
-      <div class="item blocking">
+      <div class="item">
         <div class="rank">1</div>
         <div class="body">
-          <div class="title">One run is in &mdash; the other environment still isn't confirmed</div>
-          <div class="why"><b>You tested 2.0 (5) on 09-26 (&ldquo;test convo b5&rdquo;) and it produced a real reading:</b>
-            gap 14.8&nbsp;dB, comfortably clear of the 12&nbsp;dB bar. The original ask was one run
-            <em>indoors</em> and one <em>outdoors</em>, because your 09-20 outdoor session measured a
-            9.7&nbsp;dB gap &mdash; under this build's bar, that specific session would have produced
-            no number at all. <b>09-26's report doesn't say which environment produced the 14.8&nbsp;dB
-            run.</b> If it was indoors, the outdoor question from rev 27 is still open; if it was
-            outdoors, the bar has already been tested and held, and this item can close on your word
-            alone. <b>Separately, thank you for the percentage-math report</b> &mdash; it wasn't a math
-            bug (see rev 39, D-020), it's fixed and pushed as <code>86213d5</code>, and 2.0 (6) is
-            proposed to Pard as the next build.</div>
-          <div class="meta"><span class="pill cost">~2 min to say which environment</span><span class="pill stop">blocks the thresholds, the screenshots and Dan</span></div>
+          <div class="title">Which environment was the 09-26 run &mdash; indoors or outdoors?</div>
+          <div class="why">You tested 2.0 (5) ("test convo b5") and it produced a real reading: gap
+            <b>14.8 dB</b>, clear of the 12 dB bar. The report doesn't say which environment.
+            Your 09-20 <i>outdoor</i> session measured a <b>9.7 dB</b> gap &mdash; under this build's bar,
+            that session would have produced no number at all. If 09-26 was indoors, the outdoor question
+            is still open. If it was outdoors, the bar has been tested and held, and this closes on your word alone.</div>
+          <div class="meta"><span class="pill cost">2 min</span></div>
         </div>
       </div>
 
       <div class="item">
         <div class="rank">2</div>
         <div class="body">
-          <div class="title">Tell Dan it is already on his phone</div>
-          <div class="why"><b>No setup needed &mdash; he is provisioned and installed.</b>
-            Pard read the tester list out of App Store Connect on the 21st: Dan is in the
-            internal <code>DinP</code> group, state <code>INSTALLED</code>, four testers on the
-            app in total. Internal groups receive every processed build automatically, so
-            <b>the two-minute App Store Connect job this item used to describe does not
-            exist.</b> He said yes on 09-16 and has been able to open 2.0&nbsp;(5) since
-            21&nbsp;Sep 15:36&nbsp;UTC without knowing it is there. He is traveling, so this is
-            not urgent &mdash; one sentence whenever you reach him.</div>
-          <div class="meta"><span class="pill cost">~1 min</span></div>
+          <div class="title">Tell Dan it's already on his phone. No setup needed.</div>
+          <div class="why">He is in the internal <code>DinP</code> group, state <b>INSTALLED</b> &mdash; read
+            out of App Store Connect on the 21st. Internal groups get every processed build automatically, so
+            he has been able to open 2.0 (5) since 15:36 UTC on 09-21 without knowing it is there. He's
+            traveling; this is one sentence whenever you reach him, not a task.</div>
+          <div class="meta"><span class="pill cost">1 min</span></div>
         </div>
       </div>
 
       <div class="item">
         <div class="rank">3</div>
         <div class="body">
-          <div class="title">Two reads and two decisions the store-content draft cannot make from here</div>
-          <div class="why"><b><code>docs/store-content-2.0.md</code> is drafted and waiting.</b>
-            <b>The iPad question that used to be (a) is closed, and it closed as "drop it"</b> &mdash;
-            1.1 shipped iPhone-only, evidenced three ways on 09-23, so dropping iPad costs no
-            existing customer anything. That recommendation is in Pard's inbox and the edit is his.
-            What is left for you:
-            <b>(a) Uncheck &mdash; or deliberately keep &mdash; Mac and Apple Vision.</b> The live
-            Compatibility block lists 1.1 as available on both. [INFERRED] that is a per-app
-            availability setting 2.0 inherits; 2.0 is portrait-only, opens the microphone on launch,
-            and has run on one iPhone.
-            <b>(b) The keyword field and the secondary category</b> are not public and must be read
-            before being overwritten.
-            <b>(c) The privacy URL returns HTTP&nbsp;404</b> behind a JavaScript shim &mdash; the
-            policy renders for a browser and is dated 4 July 2022, but the link in the listing is a
-            404 to anything reading status codes, and the policy never mentions the microphone. Not
-            a blocker: 1.x cleared review twice on this site.
-            <b>(d) Sign off on the subtitle and description</b>, or redirect them &mdash; the current
-            description's first sentence has to go either way.</div>
-          <div class="meta"><span class="pill cost">~15 min</span></div>
+          <div class="title">Three things in the 2.0 listing that can't be settled from here.</div>
+          <div class="why">Draft is <code>docs/store-content-2.0.md</code>.
+            <b>(a)</b> Uncheck &mdash; or deliberately keep &mdash; <b>Mac and Apple Vision</b>. The live
+            Compatibility block lists 1.1 on both; [INFERRED] that's a per-app availability setting 2.0
+            inherits. 2.0 is portrait-only, opens the mic on launch, and has run on one iPhone.
+            <b>(b)</b> The <b>keyword field and secondary category</b> aren't public and must be read before
+            being overwritten. <b>(c)</b> Sign off on the <b>subtitle and description</b>, or redirect them
+            &mdash; the current description's first sentence has to go either way.</div>
+          <div class="meta"><span class="pill cost">15 min</span></div>
         </div>
-      </div>
-
       </div>
 
     </div>
+    <div class="note">Nothing else on this board is waiting on you.</div>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Dan's answer</h2><span class="count">yes to testing · 83 comments on the prose</span></div>
-    <div class="items">
-      <div class="item">
-        <div class="rank">✓</div>
-        <div class="body">
-          <div class="title">Good doc, good plan, and he volunteered to test the app</div>
-          <div class="why"><em style="font-style:italic;display:inline">"Happy to try for the
-            practice app if it's not too much of a hassle for you."</em> He also ran his own
-            <code>no-ai-tropes</code> skill over it twice and sent back <b>83 comments, 90 deletions,
-            20 em dashes, on about 1,400 words</b>, having said he gets "itchy" reading AI-speak.
-            <b>The content was fine. The prose nearly stopped him reading it.</b> v2 applies every
-            edit and is republished to the same link.</div>
-        </div>
-      </div>
-      <div class="item blocking">
-        <div class="rank">!</div>
-        <div class="body">
-          <div class="title">Ten of the 83 were not about phrasing</div>
-          <div class="why">The document was agent-written, in the first person, and signed with your
-            name, containing claims about what you had done and thought that you had neither done nor
-            said. Dan's skill puts that at the top of its own list. <b>Same failure as this month's
-            others, one layer out: reporting our own output as a reading of the world</b> — and unlike
-            the others it is invisible to the person signing it, because it reads like them. Written
-            up as <code>mediajunkie/docs/convention-plain-language.md</code> and sent to Themis for
-            the shared methodology, per your instruction.</div>
-          <div class="steps">
-            <b>One thing to overrule if you want to:</b> the footer now reads "drafted by Claude for Christian."<br>
-            Every first-person claim that wasn't your own action or decision is gone. Change the byline if you'd rather disclose it differently.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="risks" style="background:var(--teal-soft)">
-    <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">A live option, not yet a recommendation</h2></div>
-    <div class="risk"><span class="dot" style="color:var(--teal)">◆</span><div><b>Live capture is not
-      required for App Store compliance, and it is not required for the product argument.</b> The loop
-      closes on intention + reflection, <code>ManualSource</code> exists, and
-      <code>Practice.isComplete</code> ignores measurement by design. So there is a shippable build
-      with the microphone behind a flag and the manual number as the only path — Apple satisfied,
-      capture off the critical path. It trades a working prototype in Dan's hands for certainty
-      against 24 November. <b>62 days and three failed builds is the reason it belongs on the table
-      now rather than as a discovery in November.</b> Status: xian ranked prep-and-hold on 09-17; Pard
-      preps it; shipping it is xian's call.</div></div>
-  </section>
-
-  <section class="sec">
-    <div class="sec-hd"><h2>In flight</h2><span class="count">the build that reports is written; the rest follows what it says</span></div>
+    <div class="sec-hd"><h2>In flight</h2><span class="count">8 threads</span></div>
     <div class="rows">
-      <div class="row"><div class="who">Cairn</div><div class="txt">
-        <b>Make "I don't know" representable</b> — <code>calibration: Calibration?</code>, delete
-        <code>.unavailable</code>. Then the lifecycle state machine, one engine owner and real
-        buffer-duration accounting. <em><b>Deliberately held out of 2.0 (4):</b> it changes
-        classification, and a build whose job is to observe should not also change what it observes.
-        <code>isCalibrated</code> makes the distinction visible meanwhile. <code>stop()</code> is
-        already reachable from every state as of <code>62feb22</code>.</em></div></div>
-      <div class="row"><div class="who">Themis</div><div class="txt">
-        <b>Carry the first-person convention to Janus as a Tier-2 candidate</b> — in <b>his</b>
-        framing of the recurrence, not mine. <em>He caught that my five instances are one
-        architectural tendency observed five times, not five independent discoveries. He is right,
-        and the correction belongs at the top of the case rather than in a footnote.</em></div></div>
-      <div class="row"><div class="who">Pard</div><div class="txt">
-        <b>Prep the flag-off-capture fallback build and hold it</b> (xian's 09-17 re-rank, item 6).
-        <em>After 2.0 (4) reports. Shipping it is xian's call.</em></div></div>
-      <div class="row"><div class="who">Cairn</div><div class="txt">
-        <b>Dan's brochure: fix the AI writing tics, and drop the crash line once a build survives
-        use.</b>
-        <em>Waiting on the feedback and on a working build.</em></div></div>
-      <div class="row"><div class="who">Janus</div><div class="txt">
-        <b>Registry: two entries</b> (<code>mediajunkie/optilisten</code> app,
-        <code>Design-in-Product/optilisten</code> live site), unconfirmed since 09-07.</div></div>
+      <div class="row"><div class="who">Pard</div><div class="txt"><b>Build and upload the next TestFlight candidate.</b>
+        <em>2.0 (6) and (7) are both proposed; neither is built. Newest processed build is still (5), 09-21 &mdash;
+        verified in Apple's mail today, not inferred. Sequencing is his call; no urgency from here.</em></div></div>
+      <div class="row"><div class="who">Pard</div><div class="txt"><b>Prep and hold the flag-off-capture fallback build.</b>
+        <em>xian's 09-17 re-rank, item 6. Whether it ships is xian's call; nothing is asking for it yet.</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt"><b>Field-test 2.0 (7) with a real second speaker in the room.</b>
+        <em>The only test that actually stresses D-021; needs the build. D-020 was a display change, so (6) needs no field test.</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt"><b><code>calibration: Calibration?</code>, delete <code>.unavailable</code>, make "I don't know" representable; persist calibration.</b>
+        <em>Held deliberately out of shipped builds &mdash; it changes classification, and an observing build shouldn't change what it observes.</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt"><b>Lifecycle state machine, one engine owner, <code>stop()</code> reachable from every non-idle state; real buffer-duration accounting.</b>
+        <em>Queued behind the build lane.</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt"><b>Update Dan's brochure once a build survives use.</b>
+        <em>Waiting on a build that has been used.</em></div></div>
+      <div class="row"><div class="who">Janus</div><div class="txt"><b>Registry: two entries &mdash; <code>mediajunkie/optilisten</code> (app) and <code>Design-in-Product/optilisten</code> (live site).</b>
+        <em>Memo 09-07; still unconfirmed.</em></div></div>
+      <div class="row held"><div class="who">Held</div><div class="txt"><b>Site Tier 3 &mdash; visual refresh toward moss/amber, FAQ tone, structure.</b>
+        <em>Waits on a 2.0 submission date, by the same don't-shoot-twice logic as the screenshots. Ready checklist in <code>docs/site-audit-2026-09-27.md</code>.</em></div></div>
     </div>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Closed</h2><span class="count">since 5 Sep · newest first</span></div>
+    <div class="sec-hd"><h2>Closed since rev 40</h2></div>
     <div class="rows">
-      <div class="row done"><div class="who">Closed</div><div class="txt">
-        <b>The submission date is answered, and as a decision rather than a gap (xian, 22 Sep).</b>
-        <i>"We didn't have a release candidate till the latest build, build 5."</i> Dan's test is the
-        gate, no sooner than this weekend.
-        <em>Five uploads were the road to the first candidate, not five missed chances to submit. My
-        rev 29/30 framing was the wrong shape; the correction is his wording.</em></div></div>
-      <div class="row done"><div class="who">Drafted</div><div class="txt">
-        <b>The App Store content pass</b> &mdash; <code>docs/store-content-2.0.md</code>: listing
-        metadata with computed character counts, what's-new, App Review notes, age-rating and privacy
-        answers, and a six-shot screenshot storyboard with required sizes. Nothing published.
-        <em>It found a fourth metadata defect &mdash; the live description instructs headphones and
-        2.0 refuses to measure them &mdash; and a code dependency: the listening screen takes a
-        <code>LiveTalkRatioSource</code> and the Simulator has no microphone, so two of the six shots
-        need a <code>#if DEBUG</code> fixture before anyone can take them.</em></div></div>
-      <div class="row done"><div class="who">Closed</div><div class="txt">
-        <b>Dan was provisioned all along (Pard, 21 Sep):</b> internal group <code>DinP</code>,
-        state <code>INSTALLED</code>, four testers total. Internal groups auto-receive every
-        processed build, so 2.0&nbsp;(5) reached him at 15:36&nbsp;UTC.
-        <em>My inferred absence was wrong, in the direction I flagged.</em></div></div>
-      <div class="row done"><div class="who">Evidenced</div><div class="txt">
-        <b>No 2.0 version record exists at all</b> &mdash;
-        <code>GET /v1/apps/1593948410/appStoreVersions</code>, 21 Sep: 1.1
-        <code>READY_FOR_SALE</code>, 1.0 <code>REPLACED_WITH_NEW_VERSION</code>, nothing from the
-        2.0 line. <em>Five processed builds with nothing to attach to. Was my inference; is now a
-        reading.</em></div></div>
-      <div class="row done"><div class="who">Corroborated</div><div class="txt">
-        <b>The public listing agrees</b> &mdash; live, version 1.1, updated 07/19/2023, seller
-        Christian Crumlish (read 22 Sep). <em>A second independent surface, not the same record
-        read twice. Also swept clean: the listing requires iOS 11 and 2.0 requires iOS 17, but the
-        09-07 analytics say every download since 2024 is on 17+.</em></div></div>
-      <div class="row done"><div class="who">Closed</div><div class="txt">
-        <b>App Store Connect readback (Pard, 18 Sep):</b> 1.1 on sale, 1.0 replaced, no 2.0 version in
-        review; no removal-date field in the API.</div></div>
-      <div class="row done"><div class="who">Shipped</div><div class="txt">
-        <b>The diagnostic build is written and pushed — <code>62feb22</code>, 2.0 (4).</b>
-        <code>CaptureState.failed(String)</code> set before every throw, so the reason survives a
-        caller that swallows; <code>buffersReceived</code> separates an engine receiving nothing
-        from one that never started; <code>isCalibrated</code> says when a number is computed
-        against placeholder thresholds; a rolling event log, copyable from three places.
-        <code>stop()</code> is now reachable from every state — it guarded on <code>isRunning</code>,
-        which is set <em>last</em> in <code>start()</code>, so a failed start could never be torn
-        down — and the interruption-observer token is held and removed rather than discarded on
-        every <code>start()</code>. <em><b>Syntax-checked only:</b> <code>swiftc -parse</code> clean
-        on kindbook, which has no SDK, so no type checking and no isolation analysis. Not compiled.
-        Pard verifies.</em></div></div>
-      <div class="row done"><div class="who">Answered</div><div class="txt">
-        <b>The ask about the 2.0 (3) crash submission: there isn't one.</b> Checked twice, three
-        hours apart, logbody re-pulled to rule out a cached list. <em>Newest is 09-15 against
-        2.0 (2), same 23,762 bytes, same <code>closure #1 in LiveMicSource.start()</code>.</em></div></div>
-      <div class="row done"><div class="who">Kept</div><div class="txt">
-        <b>One positive result survives from xian's report: 2.0 (3) did not crash immediately the
-        way (2) did.</b> <em>That is the only evidence anyone has that the <code>@Sendable</code>
-        fix did anything — and no fourth theory has been built on it.</em></div></div>
-      <div class="row done"><div class="who">Analysed</div><div class="txt">
-        <b>The five-whys is done and the root cause is named.</b> Every defect this month — missing
-        usage string, 0 Hz tap, isolation trap, tracks-nothing — presents identically: the app dies
-        or does nothing and tells no one why. <b>One property, four symptoms.</b>
-        <em><code>docs/architecture-review-2026-09-16.md</code>, grounded in a full read of the four
-        source files rather than in inference.</em></div></div>
-      <div class="row done"><div class="who">Found</div><div class="txt">
-        <b>Five more defects, by reading rather than by crashing.</b> <code>.unavailable</code>
-        passes <code>isUsable</code> (30 dB gap, 8 dB threshold); <code>stop()</code> is unreachable
-        after a failed <code>start()</code> because <code>isRunning = true</code> is the last line
-        and <code>stop()</code> guards on it; <code>observeInterruptions()</code> adds an observer
-        on every <code>start()</code> and discards the token so it can never be removed; time
-        accounting is buffer-count × 0.1s rather than elapsed seconds, making
-        <code>evidenceCoverage</code> a fiction that looks like a measurement; one
-        <code>AVAudioEngine</code>, two owners, no arbitration.
-        <em>None of these is being proposed as the crash.</em></div></div>
-      <div class="row done"><div class="who">Shipped</div><div class="txt">
-        <b>2.0 (3) built, archived and uploaded</b> — delivery <code>30256500</code>,
-        <code>ARCHIVE SUCCEEDED</code>, zero new warnings, artifact-checked. The <code>@Sendable</code>
-        fix compiles clean, which was the open question I couldn't answer from kindbook.</div></div>
-      <div class="row done"><div class="who">Retracted</div><div class="txt">
-        <b>Pard killed his own binary check before reporting it as verification.</b> He ran it
-        against the 2.0 (2) binary — which demonstrably crashes on that assert — and got the same
-        <code>0</code>. The rule survives; his implementation didn't discriminate.
-        <em>Keeping the previous IPA on disk is what made the control possible, and is now standing
-        practice. <b>A check is only a check if it distinguishes the broken build from the fixed
-        one</b> — the same sentence as this rollup's root cause, with a different subject.</em></div></div>
-
-      <div class="row done"><div class="who">Fixed</div><div class="txt">
-        <b>The isolation assert — <code>fc806dd</code>.</b> <code>start()</code>’s tap is
-        <code>@Sendable</code> and therefore nonisolated; it computes the level through the
-        <code>nonisolated static</code> and hops to the main actor carrying a <code>Double</code>.
-        <code>ed10b05</code> applies the same attribute to the interruption observer, which has the
-        identical shape and survives today only because <code>queue: .main</code> happens to land it
-        on the main queue — a separate commit so it can be dropped alone.
-        <code>0ea5f9f</code> bumps the build number to 3.
-        <em>Not compiled anywhere yet. Amber answers that.</em></div></div>
-      <div class="row done"><div class="who">Decided</div><div class="txt">
-        <b>Why <code>@Sendable</code> and not the other two shapes.</b> A <code>nonisolated</code>
-        <code>classify</code> over a lock would make every view read acquire a lock and cost
-        <code>@Observable</code> its single-threaded story. A counters actor looks symmetrical with
-        <code>Samples</code> and isn’t — <code>Samples</code> is write-only during capture and
-        read once at the end, while the live counters are read continuously by the UI, so an actor
-        forces a <code>@MainActor</code> mirror, and <b>a mirror is a second source of truth that can
-        lag.</b>
-        <em>For an app premised on a confident wrong number being worse than an honest partial one, a
-        drift-capable copy of the number does not go on the screen. State stays where it is; the
-        isolation moves.</em></div></div>
-      <div class="row done"><div class="who">Kept</div><div class="txt">
-        <b>Pard’s <code>df2997b</code> guards stay.</b> The permission gate on
-        <code>sampleLevel</code> and the 0 Hz refusal fixed a real defect that was never this one.
-        <em>Not reverted, and not wanted reverted.</em></div></div>
-      <div class="row done"><div class="who">Shipped</div><div class="txt">
-        <b>2.0 (2) exists</b> — 09-14 17:07, delivery <code>0702a0ea</code>, 34 minutes from Janus's
-        GO. Carries the four Info.plist keys verified in the artifact, plus a real fix:
-        <code>sampleLevel</code> behind the same permission gate <code>start()</code> uses, and both
-        tap sites refusing a 0 Hz format rather than raising an uncatchable exception.
-        <em>It did not fix the crash. It was still a defect worth closing.</em></div></div>
-      <div class="row done"><div class="who">Refuted</div><div class="txt">
-        <b>The <code>sampleLevel</code> theory, by direct test.</b> Janus's timestamp chain: Apple
-        processed 2.0 (2) at 17:11:55, exactly one other "completed processing" mail exists for this
-        app this week (2.0 (1), 09-11), so there was no older build to confuse it with — and the
-        third crash submission says <em style="font-style:italic;display:inline">"definitely latest
-        build (2)"</em> from the device itself.
-        <em>Right twice over, from two independent records.</em></div></div>
-      <div class="row done"><div class="who">Retracted</div><div class="txt">
-        <b>My missing-mic-string diagnosis was wrong, and Pard caught it before rebuilding.</b> He read
-        all four keys out of the <em style="font-style:italic;display:inline">accepted</em> IPA: present.
-        2.0 (1) was built from the already-fixed tree; <code>99a34bc</code> was the record of the fix,
-        pushed after the upload.
-        <em>"Ship regardless" was correct under my premise, and the premise was false. The commit graph
-        read naturally and was not the artifact.</em></div></div>
-      <div class="row done"><div class="who">Found</div><div class="txt">
-        <b>The crash submissions were readable by API the whole time</b> —
-        <code>GET /v1/apps/1593948410/betaFeedbackCrashSubmissions</code>, the same key that mints
-        profiles. Three of them, in xian's own words, the first dated <b>09-11 19:26: "crashed when it
-        went to background."</b>
-        <em>Nobody fetched it for three days. Now one of Pard's standing checks for this app.</em></div></div>
-      <div class="row done"><div class="who">Dan</div><div class="txt">
-        <b>The brochure is built</b> — <code>docs/for-dan/three-futures-for-optilisten.html</code>.
-        Three futures at equal weight, no recommendation, no ask.
-        <em>Supersedes <code>what-optilisten-does-now.html</code>; don't send both.</em></div></div>
-
-      <div class="row done"><div class="who">Diagnosed</div><div class="txt">
-        <b>The crash.</b> iOS terminates any process on first microphone access without
-        <code>NSMicrophoneUsageDescription</code> — no error, just gone. 2.0 (1) was built before
-        the fix landed. Pard's own table had flagged exactly this row as "discoverable only in
-        TestFlight."
-        <em>Not investigated; predicted. Build 2 carries the string.</em></div></div>
-      <div class="row done"><div class="who">Shipped</div><div class="txt">
-        <b>2.0 (1) uploaded, delivery <code>a5d9eccf</code>.</b> The account question — absent,
-        re-add, which session — is closed and moot: <code>manual</code> signing with an API-minted
-        profile never needed the account visible.
-        <em>Coral's <code>AMBER-XCODE.md</code> was the map; Pard walked it in a morning.</em></div></div>
-      <div class="row done"><div class="who">Accounted</div><div class="txt">
-        <b>Every <code>INFOPLIST_KEY_*</code> setting was dead.</b> Those keys inject only into
-        generated Info.plists and this project declares an explicit one. Orientations and launch
-        screen were caught by Apple's validator; the icon too (the tree had no asset catalog — Pard
-        recovered the original from Apple's CDN); the mic string was caught by your phone.
-        <em>All keys now under <code>info.properties</code>, with a comment forbidding the old
-        form.</em></div></div>
-      <div class="row done"><div class="who">For Dan</div><div class="txt">
-        <b>A page he can read.</b> <code>docs/for-dan/what-optilisten-does-now.html</code>,
-        published as its own artifact.
-        <em>The email was written for you and read by him.</em></div></div>
-      <div class="row done"><div class="who">Verified</div><div class="txt">
-        <b>The Apple-mail forward works.</b> A <code>no_reply@email.apple.com</code> message
-        reached the readable mailbox on the 11th.
-        <em>A receipt, not ASC mail — but the path is proven end to end.</em></div></div>
-      <div class="row done"><div class="who">Retracted</div><div class="txt">
-        <b>"The account is absent."</b> Present the whole time; invisible to an SSH session because
-        Xcode stores credentials in the local-items keychain. Three agreeing checks from one vantage
-        point.
-        <em>Stays retracted, and is now beside the point.</em></div></div>
-      <div class="row done"><div class="who">Bundle ID</div><div class="txt">
-        <b><code>com.longskymedia.optilisten</code></b>, from the 1.x project file — not the
-        string in Austin's 2022 email. Your question caught it.
-        <em>The instruction is not the artifact.</em></div></div>
-      <div class="row done"><div class="who">Clean</div><div class="txt">
-        <b>The tree compiles end to end</b> — Swift 6 strict concurrency, zero errors, iOS 26.5
-        SDK. Two errors found and fixed in under a day once the loop was running.</div></div>
-      <div class="row done"><div class="who">Analytics</div><div class="txt">
-        <b>96 lifetime downloads, ~1.3 sessions each, retention nil — but 548 impressions and
-        5 first-time downloads in the last 30 days with zero marketing.</b> iOS 17 target
-        confirmed.</div></div>
-      <div class="row done"><div class="who">Dan</div><div class="txt">
-        <b>Co-decider, not courtesy consult.</b> He owns OptiListen and is likely to take your
-        advice; the proposal goes to him with a recommendation attached.</div></div>
-      <div class="row done"><div class="who">Found</div><div class="txt">
-        <b>The 1.x source</b> — <code>AustinWood/listenup-mobile</code>; your login already had
-        access. <b>Rewrite, not upgrade</b> — RN 0.66 with the framework itself patched.</div></div>
-      <div class="row done"><div class="who">Settled</div><div class="txt">
-        <b>The App Store record is yours</b> — team <code>YZ4B34YGX9</code>, created Aug 2022. No
-        transfer, no paperwork.</div></div>
-            </div>
+      <div class="row done"><div class="who">Board</div><div class="txt"><b>This page.</b>
+        <em>13 rev narratives and the resolved/retired history moved to the archive file. 728 lines &rarr; 80.</em></div></div>
+      <div class="row done"><div class="who">Site</div><div class="txt"><b>Site work is finished.</b>
+        <em>Tier 1 and Tier 2 shipped <i>and deployed live</i> (<code>5087264</code>, <code>c8b80fd</code>, <code>687b760</code>;
+        deploy verified in the shipped bundle, not just on <code>main</code>). The Privacy page now explains the microphone,
+        both stale 2022 dates are current, and <code>/privacy</code> stopped 404-ing on 09-24 &mdash; which retires the
+        listing item that used to be (c). The 1.x headphone wrinkle is recorded as D-022.</em></div></div>
+      <div class="row done"><div class="who">Risk</div><div class="txt"><b>"Compiling is not running, and running is not being used" is retired.</b>
+        <em>2.0 (5) ran in a real conversation on 09-26 and produced a usable measurement. That risk stood since rev 17.</em></div></div>
+      <div class="row done"><div class="who">D-020</div><div class="txt"><b>The percentage report &mdash; a display defect, not the math.</b>
+        <em>Fixed <code>86213d5</code>.</em></div></div>
+      <div class="row done"><div class="who">D-021</div><div class="txt"><b>The second classification gap &mdash; "other" now needs a 0.3s minimum run.</b>
+        <em>Fixed <code>92fc1e9</code>, <code>CURRENT_PROJECT_VERSION</code> &rarr; 7. Parse-checked on kindbook, not yet on a device.</em></div></div>
+      <div class="row done"><div class="who">Earlier</div><div class="txt"><b>Fully archived:</b>
+        <em>the colour ruling (green, 09-24), the iPad question (dropped, 09-23), the <code>screenshot-fixture</code> merge and CI going green on <code>main</code> (D-018/D-019, 09-24).</em></div></div>
+    </div>
   </section>
 
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Three builds, three theories, nothing
-      diagnosed.</b> Each theory was a real defect; none was the bug. <b>Until the app can report its
-      own state, a fourth build is a fourth guess.</b></div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>No instrumentation — the inner half is closed as of 2.0 (4),
-      the outer half is not.</b> The app can now say what happened to it, on screen and in a
-      copyable log. What remains is the layer outside it: there is no alert when a submission
-      lands, and <b>a crash that produces no submission is invisible to the standing check</b> —
-      which is exactly what 2.0 (3) did. Every crash this month was still found because a human
-      installed a build and hit it.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>2.0 has never been observed working.</b>
-      Three installs on a real phone: died, died, tracked nothing and died. Nobody has watched
-      calibration or the loop behave in an actual conversation.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>Apple rejected this app once before over
-      background modes</b> (July 2023). If any eventual fix needs an audio background mode, that is a
-      submission-risk conversation, not just a code change.</div></div>
-    <div class="risk"><span class="dot">▲</span><div><b>The 24 Nov date exists only in the 26 Aug notice.</b> App Store Connect's API has no removal-date field (Pard, 18 Sep). Accepted builds do not move it: Apple stops the removal on <i>"an update and it's approved,"</i> and a 21 Sep API read found no 2.0 version record at all. <b>One signing path</b>
-      expiring Aug 2027, nothing watching. <b>Age-rating questions</b> still due at submission.</div></div>
-  </section>
-
-  <section class="sec">
-    <div class="sec-hd"><h2>Method notes</h2><span class="count">the week's, condensed</span></div>
-    <div class="notes">
-      <div class="note"><b>A system that cannot report its own state can only be debugged by
-        inference — and inference from source is where every one of us has failed this month.</b>
-        Pard's truncated ID read as an API limit; my commit graph read as a build; both of us reading
-        half of a two-part report. The architecture and the process share one root.</div>
-      <div class="note"><b>A check is only a check if it distinguishes the broken build from the
-        fixed one</b> — Pard, on his own vacuous binary grep, found by running the control. The same
-        sentence with the subject changed: <b>an app is only debuggable if it distinguishes its own
-        failure modes.</b></div>
-      <div class="note"><b>The value named "unavailable" was the one value that could never report
-        itself unavailable.</b> A sentinel built from plausible numbers passes every check written
-        against plausible numbers. Absence needs its own type, not a magic value.</div>
-      <div class="note"><b>Care in the wrong half.</b> <code>LiveMicSource</code> carries thirty
-        lines of doc comment on what the measurement means and nine lines under
-        <code>// MARK: Session plumbing</code>. On iOS, RMS-to-percentage is the easy part and the
-        audio session lifecycle is the entire difficulty.</div>
-
-      <div class="note"><b>When a report names two things and you can only find a mechanism for one, the
-        one you can't explain is the finding.</b> xian's first sentence on 09-11 was "crashes as soon as
-        I fill out the first screen <em style="font-style:italic;display:inline">and it tries to go to
-        background</em>." Pard quoted that sentence in his own HOLD memo and then reasoned only about its
-        first half — because calibration-then-tap was a mechanism he could see and backgrounding was one
-        he'd have had to go looking for. I relayed both halves and then did the same thing. Three days.</div>
-      <div class="note"><b>Going from one hypothesis to zero is a worse position than it looks.</b>
-        Janus's framing, and the reason no third build ships on a story. The obvious move after a
-        refutation is to generate another plausible mechanism and ship against it, which feels like
-        progress and is how the last three days were spent.</div>
-      <div class="note"><b>The channel where the property lives, not the channel you're used to.</b> The
-        crash submissions were one authenticated GET away for three days while three agents traded
-        inferences. Same class of error as the mailbox conventions.</div>
-      <div class="note"><b>Build identity is settled by the vendor's timestamps, not by anyone's
-        recollection.</b> Janus resolved "which build did he run" from Apple's processing mail and the
-        count of such mails — a question that would otherwise have cost another round trip through a
-        human who was heads-down elsewhere.</div>
-
-      <div class="note"><b>Reading the artifact means diffing it against the full intent, not
-        spot-checking the fields that burned you last time.</b> Pard verified version, bundle and
-        signing out of the built archive and called it verified; the validator then found four
-        absent keys in the same file. His words, and they apply to me at least as much.</div>
-      <div class="note"><b>The instruction is not the artifact.</b> A 2022 email said
-        <code>com.optilisten.ios</code>; the project file that shipped said
-        <code>com.longskymedia.optilisten</code>. Five days in a build config before anyone
-        opened the file that mattered.</div>
-      <div class="note"><b>Three agreeing checks from one vantage point are one check.</b>
-        "No accounts," "no keychain item," "empty plist" all read the same session. The account
-        was there. A headless session on Amber reports "not visible from here," never
-        "absent."</div>
-      <div class="note"><b>Two people can both be right if they're reading different stores.</b>
-        The reflex is to work out who's mistaken. It cost a day. The answer was a keychain the
-        SSH session couldn't open.</div>
-      <div class="note"><b>Written for you, read by him.</b> The update note to Dan was accurate
-        and unreadable. The audience for a page decides its vocabulary, not the author's
-        week.</div>
-            </div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>Newest build in TestFlight is 2.0 (5), six days old</b>, while the code has moved to 7. Two proposed builds are unbuilt.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>Nothing watches for a submission landing.</b> A crash that produces no submission is invisible to Pard's standing check &mdash; which is exactly what 2.0 (3) did. Raised by xian 09-14, still true.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>Calibration is <code>Codable</code> and nothing persists it</b> &mdash; recalibrates every cold launch.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>The fleet has one signing path and it expires Aug 2027.</b> The API can renew it; nothing watches for expiry.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>Apple rejected this app once before</b> (July 2023, background modes). 2.0 omits <code>UIBackgroundModes</code>. If a fix ever needs an audio background mode, that's a submission-risk conversation, not a code change.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>Age-rating social-media questions</b> at submission; ~10 min; the answers are "no."</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>A claim in this rollup is not a commit.</b> Rev 17 marked a fix as owned and it then sat unwritten for 58 hours while the row read like work in progress. Ownership recorded here is followed in the same fire by either the work or a stated hand-off.</div></div>
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 40<br>
-    Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
-    <code>mediajunkie/mediajunkie:docs/mail/</code>
+    rev 41 &middot; 2026-09-27 08:0x PT &middot; Cairn &middot; mailbox quiet since Pard's 09-26 memo (answered)<br>
+    Source: <code>docs/attention.md</code> &middot; page source: <code>docs/attention.html</code> &middot;
+    history: <code>docs/attention-archive-through-rev40.md</code> &middot; decisions: <code>docs/decisions.md</code>
   </div>
 
 </div>
-
-</body></html>
