@@ -1,11 +1,43 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-27 (rev 39) · **Deadline:** 2026-11-24 (58 days · day 32 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
+**Maintained by:** Cairn · **Updated:** 2026-09-27 (rev 40) · **Deadline:** 2026-11-24 (58 days · day 32 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
+
+> **rev 40: xian pushed further on the percentage report, and it found a second, real gap — now closed. Site work followed and finished.**
+> **He read the 09-26 breakdown again and noticed the thing rev 39 missed: no second person was
+> actually speaking during that test.** `other 0:06` had nowhere honest to come from except ambient
+> sound. Alongside it he asked the architecture question directly — video call only, or would a
+> concurrent phone call on the same device work? Reading `LiveMicSource` answers both: the mic is
+> always the phone's own built-in mic, never a call tap, and `observeInterruptions()` stops capture
+> the instant a real phone call starts (a same-device video/VoIP call, which stays foregrounded, is
+> untested). **Not a display defect, as he concluded — a genuine classification gap, distinct from
+> rev 39's.**
+>
+> **Fixed: "other" now needs a minimum run, not just a moment.** `classify(_:)` never did voice
+> detection and still doesn't — that's a different, larger feature. What changed: a moderate-volume
+> stretch must hold for three buffers (0.3s) before it counts as `otherSpeakingSeconds`; shorter
+> stretches fold into silence instead, via a new `resolvePendingOtherRun()`, so a door, a cough, or a
+> page turn no longer reads as a second voice while a real "mm-hmm" still does. Two diagnostics
+> counters (`discardedOtherRuns/Seconds`) surface what got folded. The "user" bucket is untouched —
+> no evidence it has the same problem. Full writeup, rejected alternatives, and the epistemic status
+> of "0.3s" (a first estimate, same as the 12/16 dB bars) are **D-021** in `docs/decisions.md`.
+> `CURRENT_PROJECT_VERSION` bumped **6 → 7**. Pushed as `92fc1e9`. Verified with `xcrun swiftc -parse`
+> on kindbook; not yet on a device with a real second speaker.
+>
+> **Site work xian asked for, finished the same pass.** Tier 2 from `docs/site-audit-2026-09-27.md`
+> is now complete: the Privacy page got a "How the Microphone Is Used" section (on-device loudness
+> classification only, nothing recorded/transcribed/transmitted, no network code) and both its stale
+> 2022 dates updated, approved by xian and pushed/deployed as `687b760` on the site repo. Along the
+> way xian also confirmed 1.x genuinely was headphone-dependent — so the Tier 1 copy patch is,
+> briefly, wrong about the app the site's download button actually ships — and explicitly said to
+> leave it, since there are no active or new 1.x users right now (**D-022**). **Tier 3 (visual
+> refresh toward moss/amber, FAQ tone, site structure) is written up as a ready checklist — exact hex
+> values pulled from `Theme.swift`, exact FAQ lines named — but deliberately not started**, same
+> screenshot-sequencing logic as the rest of this project: it waits for a 2.0 submission date.
 
 > **rev 39: xian ran it, and it worked — with one confusing number, now explained rather than changed.**
 > **Item 1 is answered, at least in part: a run happened.** xian tested 2.0 (5) on 2026-09-26 ("test
