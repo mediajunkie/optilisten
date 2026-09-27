@@ -7,6 +7,9 @@ only, narrative to the logs, nothing cut that isn't stored elsewhere first.
 
 - **History through rev 40** — every rev narrative, Dan's feedback, the resolved items and the retired
   risks — is archived verbatim at [`docs/attention-archive-through-rev40.md`](attention-archive-through-rev40.md).
+- **The rev-40 page as rendered** is kept at `docs/attention-archive-through-rev40.html` — worth
+  knowing it exists because it carried a **Method notes** section (13 condensed lessons from the month)
+  that the markdown never had.
 - **Decisions** D-001…D-022: [`docs/decisions.md`](decisions.md). **Session logs:** `logs/`.
 - Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
   (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.

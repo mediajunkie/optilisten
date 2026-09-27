@@ -4,6 +4,10 @@ This is `docs/attention.md` exactly as it stood at rev 40 (2026-09-27, commit f4
 verbatim before the board was trimmed on xian’s lean-board instruction of 2026-09-27: current active
 items only on the board, narrative to the logs, nothing cut before it exists somewhere durable.
 
+The rendered page of the same revision is preserved beside this file as
+`attention-archive-through-rev40.html`; it carried a **Method notes** section of 13 condensed lessons
+that this markdown never contained, so read that file rather than this one for those.
+
 Everything below is history. The live board is `attention.md`; decisions are `decisions.md`.
 
 ---
