@@ -47,6 +47,21 @@ import Observation
 /// itself, `events` is what it did in order, and both are rendered rather than
 /// inferred. Nothing here fixes a crash; it converts the next bug from an
 /// inference problem into a reading problem.
+///
+/// ## 2026-09-27: "other" now has to last a moment, not a buffer
+///
+/// `classify(_:)` has never done voice detection — it never will, that's a
+/// different and much larger feature. It sorts 0.1s buffers by loudness
+/// alone. That means "other speaking" was really "moderate-volume sound of
+/// unknown origin," and a single loud buffer from a door or a cough counted
+/// exactly the same as a real second voice. xian's 09-26 field test had no
+/// second speaker in the room at all, which is what surfaced this: `other
+/// 0:06` in that run was very likely ambient noise, not a person.
+/// `otherMinRunBuffers` below requires a moderate-volume stretch to hold for
+/// three buffers (0.3s) before it counts; shorter stretches fold into
+/// silence instead. It is still not speaker detection — it is a debounce —
+/// and it is a first estimate awaiting a field test with a real second
+/// speaker, the same way the 12/16 dB bars were.
 @Observable
 @MainActor
 final class LiveMicSource: LiveTalkRatioSource {
@@ -220,6 +235,8 @@ final class LiveMicSource: LiveTalkRatioSource {
             String(format: "heard %.1fs — user %.1f / other %.1f / silence %.1f",
                    observedDuration, userSpeakingSeconds,
                    otherSpeakingSeconds, silenceSeconds),
+            String(format: "discarded (sub-gate 'other', folded into silence): %d run(s), %.1fs",
+                   discardedOtherRuns, discardedOtherSeconds),
             ""
         ].joined(separator: "\n")
 
@@ -235,6 +252,13 @@ final class LiveMicSource: LiveTalkRatioSource {
     private(set) var userSpeakingSeconds: TimeInterval = 0
     private(set) var otherSpeakingSeconds: TimeInterval = 0
     private(set) var silenceSeconds: TimeInterval = 0
+
+    /// Buffers folded into silence because a moderate-volume stretch never
+    /// reached `otherMinRunBuffers` — a door, a cough, a page turn, read and
+    /// discarded rather than counted as a second voice. Diagnostics only;
+    /// see `classify(_:)`.
+    private(set) var discardedOtherRuns = 0
+    private(set) var discardedOtherSeconds: TimeInterval = 0
 
     /// Set when the OS interrupts capture — a phone call, Siri, the app
     /// leaving the foreground. Evidence gathered after an interruption is
@@ -406,6 +430,10 @@ final class LiveMicSource: LiveTalkRatioSource {
         if isScreenshotFixture { fixtureStop(); return }
 #endif
         note("stop() requested — state was \(state.label)")
+        // A run still building toward `otherMinRunBuffers` when capture stops
+        // never gets to prove itself. Fold it into silence rather than drop
+        // it silently — `observedDuration` must still equal what was heard.
+        resolvePendingOtherRun()
         await teardown()
         // A failure outlives the stop that follows it: the reflection screen
         // still has to be able to say why there is no number.
@@ -419,6 +447,10 @@ final class LiveMicSource: LiveTalkRatioSource {
         wasInterrupted = false
         buffersReceived = 0
         lastLevel = nil
+        pendingOtherRun = 0
+        pendingOtherSeconds = 0
+        discardedOtherRuns = 0
+        discardedOtherSeconds = 0
     }
 
     /// Record a failure where the UI can read it, then tear down.
@@ -456,6 +488,34 @@ final class LiveMicSource: LiveTalkRatioSource {
 
     // MARK: Classification
 
+    /// Consecutive buffers a moderate-volume stretch must hold before it
+    /// counts as "other speaking" rather than a stray noise.
+    ///
+    /// 2026-09-26 field report, re-read 2026-09-27: xian correctly pointed
+    /// out that no second person was speaking during that test at all, so
+    /// the "other 0:06" it recorded almost certainly was ambient sound, not
+    /// evidence of a voice. `classify(_:)` had no way to tell the difference
+    /// — every 0.1s buffer in the threshold/floor gap was "other," full
+    /// stop, regardless of whether it lasted one buffer or thirty.
+    ///
+    /// Three buffers (0.3s) is a first estimate, the same way the 12/16 dB
+    /// calibration bars started as estimates from a single run: long enough
+    /// that a door, a cough, or a page turn doesn't clear it, short enough
+    /// that a real backchannel ("mm-hmm") still does. It only gates "other";
+    /// "user" is not touched, because nothing in the field report or this
+    /// project's evidence so far suggests transient noise is being
+    /// misread as *you* — if that shows up, the same technique applies there
+    /// too, but it isn't a problem yet and this file doesn't fix problems it
+    /// doesn't have.
+    private let otherMinRunBuffers = 3
+
+    /// Buffers of the current "other"-range run not yet long enough to
+    /// commit. Held rather than counted-then-uncounted: reversing a public
+    /// counter after the fact is exactly the kind of number this file
+    /// exists to keep from happening.
+    private var pendingOtherRun = 0
+    private var pendingOtherSeconds: TimeInterval = 0
+
     private func classify(_ level: Double) {
         buffersReceived += 1
         lastLevel = level
@@ -465,16 +525,49 @@ final class LiveMicSource: LiveTalkRatioSource {
         }
 
         guard calibration.isUsable else {
+            resolvePendingOtherRun()
             silenceSeconds += bufferSeconds
             return
         }
         if level < calibration.silenceFloor {
+            resolvePendingOtherRun()
             silenceSeconds += bufferSeconds
         } else if level >= calibration.threshold {
+            resolvePendingOtherRun()
             userSpeakingSeconds += bufferSeconds
         } else {
-            otherSpeakingSeconds += bufferSeconds
+            pendingOtherRun += 1
+            if pendingOtherRun < otherMinRunBuffers {
+                pendingOtherSeconds += bufferSeconds
+            } else if pendingOtherRun == otherMinRunBuffers {
+                // The run just cleared the gate — credit it retroactively,
+                // including the buffers that arrived before this one.
+                otherSpeakingSeconds += pendingOtherSeconds + bufferSeconds
+                pendingOtherSeconds = 0
+            } else {
+                otherSpeakingSeconds += bufferSeconds
+            }
         }
+    }
+
+    /// Ends the current "other"-range run, wherever it stands.
+    ///
+    /// If it never reached `otherMinRunBuffers`, it was never counted as
+    /// speech — the held seconds are folded into silence, the same honest
+    /// bucket `silenceFloor` already uses for "moderate sound we won't
+    /// guess the source of." If it already cleared the gate, there's
+    /// nothing pending to resolve; this is a no-op.
+    private func resolvePendingOtherRun() {
+        guard pendingOtherRun > 0, pendingOtherRun < otherMinRunBuffers else {
+            pendingOtherRun = 0
+            pendingOtherSeconds = 0
+            return
+        }
+        discardedOtherRuns += 1
+        discardedOtherSeconds += pendingOtherSeconds
+        silenceSeconds += pendingOtherSeconds
+        pendingOtherRun = 0
+        pendingOtherSeconds = 0
     }
 
     // MARK: Calibration capture

@@ -23,17 +23,13 @@ Store side. This is the site's turn.
   does not update the live site; this repo has no CI/deploy workflow, `npm run deploy` is a manual
   step. Worth knowing for next time: a future patch to this repo is not live until someone runs it.
 
-## Open question this patch rests on
+## Open question this patch rests on — RESOLVED 2026-09-27
 
-I don't have a read of `AustinWood/listenup-mobile` (the 1.x source) in this session, so I can't
-confirm whether 1.x's actual algorithm needed headphones or whether that claim was simply wrong from
-day one. Circumstantial evidence points to "always wrong": `LiveMicSource.swift`'s doc comment
-traces the proximity approach back to a 2022 thread ("sent Fractal an .aif recording to help train
-the thresholds"), which suggests the loudness/proximity concept predates 2.0 rather than being new
-to it. But 1.1 is still the build the site's "Try the Free App" button actually delivers today, and
-if 1.x genuinely is headphone-dependent, the patched copy is briefly wrong about the *live* app until
-2.0 ships. Worth a direct check against the 1.x source before this goes further, or worth accepting
-as a calculated risk given the evidence — your call, flagging rather than deciding it myself.
+**xian confirmed directly: 1.x was in fact designed to be used with headphones.** So the patched
+copy above is, briefly, wrong about the app the site's "Try the Free App" button actually delivers
+today — it describes 2.0's mechanism, not 1.1's. **Left as-is, on xian's call:** there are no active
+or new users of 1.x right now, so a short window of copy/app mismatch costs nothing, and the copy
+becomes true the moment 2.0 ships. See D-022 in `docs/decisions.md`. No further change needed here.
 
 ## Findings from reading the rest of the site
 

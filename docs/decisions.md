@@ -420,3 +420,67 @@ on `LiveMicSource.currentShare` pointing here); both display sites named above.
 Verified with `xcrun swiftc -parse` on kindbook against all four changed files —
 clean. Not yet on a device; needs a TestFlight build to confirm the caption reads
 right at actual list-row width before this is closed rather than just decided.
+
+---
+
+## D-021 · "Other" speaking time needs a minimum run before it counts
+**2026-09-27 · Cairn proposed, xian leaned toward this shape · DECIDED**
+
+xian pushed back on the D-020 fix with a sharper observation than the one that
+prompted it: in the 09-26 field test that produced `other 0:06`, no second person
+was actually speaking at all. That six seconds was something in the room, not
+someone in the conversation. Worth asking directly: **could OptiListen only ever
+work listening to a video call, or would a concurrent phone call on the same
+device work too?** Answer, from reading `LiveMicSource` rather than guessing:
+neither is quite right. The mic is the phone's own built-in mic, never a call
+tap; a real phone call is an `AVAudioSession` interruption and `observeInterruptions()`
+stops capture the moment one starts. A video/VoIP call on the same device that
+keeps the session foregrounded is untested this session — the app doesn't
+distinguish it from any other room-audio case. **So: not a display defect, as
+xian concluded — a real classification gap**, distinct from D-020's.
+
+**The gap:** `classify(_:)` has no voice-activity detection and never claimed to.
+Every 0.1s buffer in the threshold/floor gap was "other," regardless of whether
+it lasted one buffer or thirty — a door, a cough, a page turn, and a real second
+voice were indistinguishable.
+
+**The fix:** a minimum-run gate on the "other" bucket only. A moderate-volume
+stretch must hold for `otherMinRunBuffers` (3 buffers, 0.3s) before it counts as
+`otherSpeakingSeconds`; a shorter stretch folds into `silenceSeconds` instead,
+via `resolvePendingOtherRun()`, called on every non-"other" buffer and on `stop()`
+so a run still building when capture ends doesn't vanish from `observedDuration`
+uncounted. Two diagnostics counters (`discardedOtherRuns`, `discardedOtherSeconds`)
+surface what got folded, in the same log a tester can already paste. The "user"
+bucket is untouched — no evidence yet that transient noise misreads as *you*, and
+this file's own rule is to fix problems it has, not problems it might have.
+
+**Not done, and why:** real voice-activity detection (pitch, formants, anything
+beyond loudness) — a much larger feature than this field report calls for, and
+this project's standing pattern is the smallest fix that answers the actual
+evidence. 0.3s is a first estimate, same epistemic status as the original 12/16 dB
+calibration bars: it wants a field test with a real second speaker before anyone
+treats it as tuned.
+
+**Shows up in:** `OptiListen/Sources/LiveMicSource.swift` (`classify(_:)`,
+`resolvePendingOtherRun()`, `otherMinRunBuffers`, `discardedOtherRuns/Seconds`,
+a new class-doc addendum). `CURRENT_PROJECT_VERSION` bumped "6" → "7". No UI
+changes — `PracticeLoopView.swift` and `Practice.swift` already read the resolved
+totals after `stop()`, so this is invisible to callers. Verified with `xcrun
+swiftc -parse` on kindbook; not yet on a device with a real second speaker.
+
+## D-022 · Site copy patch stands even though 1.x needed headphones
+**2026-09-27 · xian decided · DECIDED**
+
+`docs/site-audit-2026-09-27.md` flagged an open question: the site's "Try the
+Free App" button still ships 1.x, and the Tier 1 copy patch (`5087264`) says the
+phone listens to the room, no headphones — true for 2.0, unconfirmed for 1.x.
+**xian confirmed 1.x was in fact designed for headphones.** So the patched copy
+is, briefly, wrong about the app that button actually delivers.
+
+**Left as-is anyway, on xian's call:** there are no active or new users of 1.x
+right now, so a short window of copy/app mismatch on a page nobody's reading
+costs nothing. No further change to the site or the app-download gating.
+
+**Shows up in:** closes the open question in `docs/site-audit-2026-09-27.md`.
+Nothing to revert if 2.0 slips — the copy becomes true the moment 2.0 ships,
+which is the point of writing it that way in the first place.
