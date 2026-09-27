@@ -209,7 +209,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, and what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 26 Sep 2026 · rev 38 · file and page in sync</div>
+    <div class="stamp">Updated 27 Sep 2026 · rev 39 · file and page in sync</div>
   </header>
 
 
@@ -248,6 +248,14 @@
       about the removal clock and <b>about nothing else</b> &mdash; in particular it cannot say whether
       the build has been run. Pard's console readback still owns the date itself.</div></div>
   </section>
+  <section class="risks" style="background:var(--teal-soft)">
+    <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">rev 39 &middot; xian ran it, and it worked &mdash; with one confusing number, now explained</h2></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Item 1 is answered, at least in part: a run happened.</b> xian tested 2.0&nbsp;(5) on 2026-09-26 (&ldquo;test convo b5,&rdquo; 6:03&ndash;6:07&nbsp;PM) and the diagnostics log shows exactly what a working run looks like: <code>calibrated: true usable: true</code>, gap <b>14.8&nbsp;dB</b> &mdash; comfortably clear of the 12&nbsp;dB bar this build raised on my estimate from his single 09-20 run &mdash; and a real reading, <code>heard 77.4s &mdash; user 7.2 / other 6.1 / silence 64.1</code>. <b>The calibration bar held on at least one real conversation.</b> What the report doesn't say is whether this run was indoors or outdoors, so the original ask &mdash; one of each &mdash; is not fully closed; item&nbsp;1 stays open, updated rather than repeated.</div></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>He also found something real, and named it precisely: &ldquo;there is a bug in the percentage math.&rdquo;</b> The screen showed <b>54%</b>, right next to a breakdown reading &ldquo;you 0:07 &middot; others 0:06 &middot; quiet 1:12,&rdquo; and his own note did the arithmetic a reader would do &mdash; <i>&ldquo;7 seconds out of 72 is it 54%?&rdquo;</i> <b>It reads as a bug and isn't one.</b> <code>LiveMicSource.currentShare</code> is unchanged this session and was already deliberate: share of <i>speech</i>, silence excluded on purpose, documented in its own comment since before this build. 7.2&nbsp;/&nbsp;(7.2&nbsp;+&nbsp;6.1) is correctly 54%. <b>What's actually wrong is mine, from the 09-20 fix:</b> <code>Practice.breakdownText</code>, the transparency addition that shows all three buckets, sits right next to a percentage computed from only two of them. Two true, reviewed facts on one screen, implying two different denominators &mdash; the same shape this project keeps finding, except this time both halves are something I built.</div></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Fixed by explaining the number rather than changing it.</b> <code>Practice.breakdownCaption</code> now says, wherever the breakdown shows, that the percentage counts speaking time only. The formula is untouched &mdash; changing it would have thrown away a real, considered design call on the strength of one confusing screen. Full reasoning and the rejected alternatives (widen the denominator; show two percentages) are <b>D-020</b> in <code>docs/decisions.md</code>. Pushed to <code>main</code> as <code>86213d5</code>, six files, <code>CURRENT_PROJECT_VERSION</code> bumped to <b>6</b>. Verified with <code>xcrun swiftc -parse</code> on kindbook against all four changed Swift files &mdash; clean, but syntax only; no SDK here for a real build or a look at the screen. Memo sent to Pard (cc Janus, xian) proposing 2.0&nbsp;(6) as the next TestFlight candidate.</div></div>
+    <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>Method note, mine to own:</b> getting this fix from kindbook to the real checkout on Amber took three tries. A multi-file tarball moved through a shell heredoc came out with one file's tail silently scrambled &mdash; parsed clean as one file, garbled as several, a corruption in the transfer mechanism, not the code. Caught it by re-parsing after transfer instead of trusting the first green result, isolated it to a single file, and switched to a slower method &mdash; one file at a time, md5-verified at each hop &mdash; for the rest. Nothing that reached <code>main</code> was unverified; the two false starts never left kindbook.</div></div>
+  </section>
+
   <section class="risks" style="background:var(--teal-soft)">
     <div class="sec-hd" style="border:none;padding:0"><h2 style="color:var(--teal)">rev 38 &middot; quiet again &mdash; and one finding about the record</h2></div>
     <div class="risk"><span class="dot" style="color:var(--teal)">&#9670;</span><div><b>No mail for Cairn since Pard's 09-24 memo</b>, answered at rev 36 with the memo and the commit in the same fire. Nothing new in either mailbox, <b>no CI run since <code>36025726212</code></b>, working tree clean at <code>624ceef</code>.</div></div>
@@ -669,30 +677,33 @@
 
   <section class="clock" aria-label="Grace period remaining">
     <div class="clock-top">
-      <div class="days">59<span>days left in the grace period</span></div>
+      <div class="days">58<span>days left in the grace period</span></div>
       <div class="target">removal 24 Nov 2026<br>notice served 26 Aug</div>
     </div>
-    <div class="meter" role="img" aria-label="31 of 90 days elapsed"><i style="width:34%"></i></div>
-    <div class="scale"><span>day 31 of 90</span><span>34% spent</span></div>
+    <div class="meter" role="img" aria-label="32 of 90 days elapsed"><i style="width:36%"></i></div>
+    <div class="scale"><span>day 32 of 90</span><span>36% spent</span></div>
     <div class="caveat">▲ The 26 Aug notice is the only source for this date; App Store Connect's API has no removal-date field. <b>Accepted builds do not move it,</b> and a 21 Sep read of the API found <b>no 2.0 version record at all</b>. Apple stops the removal on <i>"an update and it's approved,"</i> which means App Review. Five builds have cleared processing; zero have entered review. <b>This corrects a line this page carried since rev 19.</b></div>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">item 1 open five days · 3 items · ~26 min</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">item 1 partly answered · 3 items · ~18 min</span></div>
     <div class="items">
 
       <div class="item blocking">
         <div class="rank">1</div>
         <div class="body">
-          <div class="title">Run 2.0 (5) &mdash; once indoors, once outdoors</div>
-          <div class="why"><b>It has been in TestFlight on your phone for five days.</b> The calibration bar in this
-            build is mine, estimated from your single 09-20 run: <code>isUsable</code> 8&nbsp;dB
-            &rarr; 12, floor <code>ambient - 6</code> &rarr; <code>ambient + 3</code>.
-            <b>Your 09-20 outdoor session measured a 9.7&nbsp;dB gap, so under this build it produces
-            no number at all</b> and tells you your voice and the room are too close together.
-            Intended, and exactly the thing under test. If <em>indoors</em> also refuses, the bar is
-            wrong and I would rather learn that in a day than defend it. <b>Nothing on our side can see whether you have run it</b> &mdash; the Apple mail channel carries processing and review mail only &mdash; so this stays on the page until you say.</div>
-          <div class="meta"><span class="pill cost">~10 min</span><span class="pill stop">blocks the thresholds, the screenshots and Dan</span></div>
+          <div class="title">One run is in &mdash; the other environment still isn't confirmed</div>
+          <div class="why"><b>You tested 2.0 (5) on 09-26 (&ldquo;test convo b5&rdquo;) and it produced a real reading:</b>
+            gap 14.8&nbsp;dB, comfortably clear of the 12&nbsp;dB bar. The original ask was one run
+            <em>indoors</em> and one <em>outdoors</em>, because your 09-20 outdoor session measured a
+            9.7&nbsp;dB gap &mdash; under this build's bar, that specific session would have produced
+            no number at all. <b>09-26's report doesn't say which environment produced the 14.8&nbsp;dB
+            run.</b> If it was indoors, the outdoor question from rev 27 is still open; if it was
+            outdoors, the bar has already been tested and held, and this item can close on your word
+            alone. <b>Separately, thank you for the percentage-math report</b> &mdash; it wasn't a math
+            bug (see rev 39, D-020), it's fixed and pushed as <code>86213d5</code>, and 2.0 (6) is
+            proposed to Pard as the next build.</div>
+          <div class="meta"><span class="pill cost">~2 min to say which environment</span><span class="pill stop">blocks the thresholds, the screenshots and Dan</span></div>
         </div>
       </div>
 
@@ -1091,7 +1102,7 @@
   </section>
 
   <div class="foot">
-    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 38<br>
+    Maintained by Cairn · source of truth <code>mediajunkie/optilisten:docs/attention.md</code> · HTML at <code>docs/attention.html</code> · file and page in sync at rev 39<br>
     Mail: replies to Cairn land in <code>mediajunkie/optilisten:docs/mail/</code> · to Pard in
     <code>mediajunkie/mediajunkie:docs/mail/</code>
   </div>

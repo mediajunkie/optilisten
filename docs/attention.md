@@ -1,11 +1,48 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-26 (rev 38) · **Deadline:** 2026-11-24 (59 days · day 31 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
+**Maintained by:** Cairn · **Updated:** 2026-09-27 (rev 39) · **Deadline:** 2026-11-24 (58 days · day 32 of 90 — from the 08-26 notice, the only place the date exists; App Store Connect's API has no removal-date field. No 2.0 version record exists at all — read from the API on 09-21, not inferred)
 
 Canonical state. Janus may summarize this into the cross-project meta-rollup.
 Rendered for xian as an artifact — https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215
 (republish that same URL rather than creating a new one). This file is the source; the artifact follows it.
 The artifact's HTML source lives beside this file at `docs/attention.html`.
+
+> **rev 39: xian ran it, and it worked — with one confusing number, now explained rather than changed.**
+> **Item 1 is answered, at least in part: a run happened.** xian tested 2.0 (5) on 2026-09-26 ("test
+> convo b5", 6:03–6:07 PM) and the diagnostics log shows exactly what a working run looks like:
+> `calibrated: true usable: true`, gap **14.8 dB** — comfortably clear of the 12 dB bar this build
+> raised on my estimate from his single 09-20 run — and a real reading, `heard 77.4s — user 7.2 /
+> other 6.1 / silence 64.1`. **The calibration bar held on at least one real conversation.** What
+> the report doesn't say is whether this run was indoors or outdoors, so the original ask — one of
+> each — is not fully closed; item 1 stays open, updated rather than repeated.
+>
+> **He also found something real, and named it precisely: "there is a bug in the percentage math."**
+> The screen showed **54%**, right next to a breakdown reading "you 0:07 · others 0:06 · quiet
+> 1:12", and his own note did the arithmetic a reader would do — *"7 seconds out of 72 is it 54%?"*
+> **It reads as a bug and isn't one.** `LiveMicSource.currentShare` is unchanged this session and was
+> already deliberate: share of *speech*, silence excluded on purpose, documented in its own comment
+> since before this build. 7.2 / (7.2 + 6.1) is correctly 54%. **What's actually wrong is mine, from
+> the 09-20 fix:** `Practice.breakdownText`, the transparency addition that shows all three buckets,
+> sits right next to a percentage computed from only two of them. Two true, reviewed facts on one
+> screen, implying two different denominators — the same shape this project keeps finding, except
+> this time both halves are something I built.
+>
+> **Fixed by explaining the number rather than changing it.** `Practice.breakdownCaption` now says,
+> wherever the breakdown shows, that the percentage counts speaking time only. The formula is
+> untouched — changing it would have thrown away a real, considered design call on the strength of
+> one confusing screen. Full reasoning and the rejected alternatives (widen the denominator; show two
+> percentages) are **D-020** in `docs/decisions.md`. Pushed to `main` as `86213d5`, six files,
+> `CURRENT_PROJECT_VERSION` bumped to **6**. Verified with `xcrun swiftc -parse` on kindbook against
+> all four changed Swift files — clean, but syntax only; no SDK here for a real build or a look at
+> the screen. Memo sent to Pard (cc Janus, xian) proposing 2.0 (6) as the next TestFlight candidate.
+>
+> **Method note, mine to own:** getting this fix from kindbook to the real checkout on Amber took
+> three tries. A multi-file tarball moved through a shell heredoc came out with one file's tail
+> silently scrambled — parsed clean as one file, garbled as several, a corruption in the transfer
+> mechanism, not the code. Caught it by re-parsing after transfer instead of trusting the first green
+> result, isolated it to a single file, and switched to a slower method — one file at a time,
+> md5-verified at each hop — for the rest. Nothing that reached `main` was unverified; the two false
+> starts never left kindbook.
 
 > **rev 38: quiet again — and one finding about the record, not about the app.**
 > **No mail for Cairn since Pard's 09-24 memo**, answered at rev 36 with the memo and the commit in
@@ -406,7 +443,7 @@ The artifact's HTML source lives beside this file at `docs/attention.html`.
 
 | # | Item | Why it's yours | Cost | Blocking |
 |---|---|---|---|---|
-| 1 | **Run 2.0 (5) — once indoors, once outdoors.** It has been on your phone five days. | The calibration bar in this build is mine, estimated from your single 09-20 run: `isUsable` 8 dB → 12, floor `ambient - 6` → `ambient + 3`. **Your 09-20 outdoor session measured a 9.7 dB gap, so under this build it produces no number at all** and tells you your voice and the room are too close together. Intended, and exactly the thing under test. If indoors also refuses, the bar is wrong and I would rather learn that in a day than defend it. **Nothing on our side can see whether you have run it** — the Apple channel carries processing and review mail only — so this stays on the page until you say. | ~10 min | the thresholds, the listing screenshots, and Dan's first impression |
+| 1 | **One run is in — the other environment still isn't confirmed.** You tested 2.0 (5) on 09-26 ("test convo b5") and it produced a real reading: gap 14.8 dB, comfortably clear of the 12 dB bar. What the report doesn't say is whether that run was indoors or outdoors. | The original ask was one of each, because your 09-20 outdoor session measured a 9.7 dB gap — under this build's 12 dB bar, that specific session would have produced no number at all. 09-26's 14.8 dB gap clears the bar, but I can't tell from the data which environment produced it. If 09-26 was indoors, the outdoor question raised at rev 27 is still open; if it was outdoors, the bar has already been tested and held, and this item can close on your word alone. **Separately, thank you for the percentage-math report** — it wasn't a math bug (see rev 39, D-020), it's fixed and pushed as `86213d5`, and 2.0 (6) is proposed to Pard as the next build. | ~2 min to say which environment | the thresholds, the listing screenshots, and Dan's first impression |
 | 2 | **Tell Dan it is already on his phone.** No setup needed — he is provisioned and installed. | Pard read the tester list out of App Store Connect on the 21st: Dan is in the internal **DinP** group, state **INSTALLED**, four testers on the app in total. Internal groups receive every processed build automatically, so **the two-minute App Store Connect job this item used to describe does not exist.** He said yes on 09-16 and has been able to open 2.0 (5) since 15:36 UTC on the 21st without knowing it is there. He is traveling, so this is not urgent — it is one sentence whenever you reach him. | ~1 min | Dan's first contact with the product |
 | 3 | **Two reads and two decisions the store-content draft cannot make from here.** All in App Store Connect or on the marketing site. | `docs/store-content-2.0.md` is drafted and waiting. **The iPad question that used to be (a) is closed, and it closed as "drop it"** — 1.1 shipped iPhone-only, evidenced three ways on 09-23, so dropping iPad costs no existing customer anything. That recommendation is in Pard's inbox and the edit is his. What is left for you: **(a) Uncheck — or deliberately keep — Mac and Apple Vision.** The live Compatibility block lists 1.1 as available on both. [INFERRED] that is a per-app availability setting 2.0 inherits; 2.0 is portrait-only, opens the microphone on launch, and has run on one iPhone. **(b) The keyword field and the secondary category** are not public and must be read before being overwritten. **(c) The privacy URL returns HTTP 404** behind a JavaScript shim — the policy renders for a browser and is dated 4 July 2022, but the link in the listing is a 404 to anything reading status codes, and the policy never mentions the microphone. Not a blocker: 1.x cleared review twice on this site. **(d) Sign off on the subtitle and description**, or redirect them — the current description's first sentence has to go either way. | ~15 min | the screenshot shoot, and nothing else yet |
 | ~ | **[CLOSED 09-24 — you ruled green.]** Was: rule on one colour. Two screens already disagree. | Not a taste question and not a screenshot's request. `HomeView.swift:168` already renders an under-ceiling number in **moss** (visible in shot 6's Recent list); `PracticeLoopView.swift:214` and the After card leave it **black**. `Theme.swift`'s own doc comment says the green/amber pair exists *"because the person reading it is mid-conversation and not really reading"* — which describes the Listening screen, the one place it is not applied. **So the question is which of two screens is right, with the design pass's stated intent on the record.** Say go and it is two lines plus a re-shoot of shots 3 and 5 (scripted, minutes); say leave it and I rewrite two captions instead. Either answer unblocks the art. | ~1 min | the screenshot set, and the shot-3/5 re-shoot |
