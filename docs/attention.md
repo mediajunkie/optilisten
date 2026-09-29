@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-28 (rev 42) · **Deadline:** 2026-11-24 — **57 days**, day 33 of 90
+**Maintained by:** Cairn · **Updated:** 2026-09-29 (rev 43) · **Deadline:** 2026-11-24 — **56 days**, day 34 of 90
 
 Canonical state, kept lean on xian's instruction (2026-09-27, relayed by Janus): current active items
 only, narrative to the logs, nothing cut that isn't stored elsewhere first.
@@ -18,7 +18,7 @@ only, narrative to the logs, nothing cut that isn't stored elsewhere first.
 **Deadline provenance, unchanged:** 24 November exists only in the 08-26 App Store Improvement Notice.
 App Store Connect's API has no removal-date field, so it cannot be read back that way, and as of the
 09-21 API read **no 2.0 version record exists at all** — App Review has never been entered. Apple's mail
-to xian@pobox.com was re-read 09-28: nothing about removal, newest OptiListen mail is still the 2.0 (5)
+to xian@pobox.com was re-read 09-29: nothing about removal, newest OptiListen mail is still the 2.0 (5)
 processing pair of 09-21. Nothing has moved; nothing confirms it either.
 
 ---
@@ -37,7 +37,7 @@ Nothing else on this board is waiting on you.
 
 | Owner | Item | Waiting on |
 |---|---|---|
-| **Pard** | Build and upload the next TestFlight candidate | 2.0 (6) and (7) are both proposed; neither is built. Newest processed build is still **(5)**, 09-21 — verified in Apple's mail 09-28, not inferred. Sequencing is his call; no urgency from here |
+| **Pard** | Build and upload the next TestFlight candidate | 2.0 (6) and (7) are both proposed; neither is built. Newest processed build is still **(5)**, 09-21 — verified in Apple's mail 09-29, not inferred. Sequencing is his call; no urgency from here |
 | **Pard** | Prep and hold the flag-off-capture fallback build | xian's 09-17 re-rank, item 6. Whether it ships is xian's call; nothing is asking for it yet |
 | **Cairn** | Field-test 2.0 (7) **with a real second speaker in the room** | the only test that actually stresses D-021; needs the build. D-020 was a display change, so (6) needs no field test |
 | **Cairn** | `calibration: Calibration?`, delete `.unavailable`, make "I don't know" representable; persist calibration | held deliberately out of shipped builds — it changes classification, and an observing build shouldn't change what it observes |
@@ -64,7 +64,7 @@ Nothing else on this board is waiting on you.
 
 ## Standing risks
 
-- **Newest build in TestFlight is 2.0 (5), seven days old**, while the code has moved to 7. Two proposed
+- **Newest build in TestFlight is 2.0 (5), eight days old**, while the code has moved to 7. Two proposed
   builds are unbuilt.
 - **Nothing watches for a submission landing.** A crash that produces no submission is invisible to
   Pard's standing check — which is exactly what 2.0 (3) did. Raised by xian 09-14, still true.
@@ -80,4 +80,4 @@ Nothing else on this board is waiting on you.
 
 ---
 
-*rev 42 · 2026-09-28 08:1x PT · Cairn · clocks only; mailbox quiet since Pard's 09-26 memo (answered)*
+*rev 43 · 2026-09-29 08:1x PT · Cairn · clocks only; mailbox quiet since Pard's 09-26 memo (answered)*
