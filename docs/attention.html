@@ -129,7 +129,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 29 Sep 2026 &middot; rev 43 &middot; clocks only</div>
+    <div class="stamp">Updated 29 Sep 2026 &middot; rev 44 &middot; the build lane has stalled</div>
   </header>
 
   <section class="clock">
@@ -158,11 +158,28 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">3 items &middot; ~18 min total</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">4 items &middot; ~19 min total</span></div>
     <div class="items">
 
       <div class="item">
         <div class="rank">1</div>
+        <div class="body">
+          <div class="title">Say when Pard builds 2.0 (7) &mdash; and skip (6).</div>
+          <div class="why"><b>Neither proposed build exists.</b> Apple's mail to xian@pobox.com, re-read 16:3x PT today,
+            shows the newest processed build is still <b>(5)</b>, 21 Sep &mdash; the same channel that reported every one of
+            builds 1&ndash;5. The build lane is Pard's; whether it jumps his current queue is your call. His logs for
+            27, 28 and 29 Sep (~1,400 lines) never mention OptiListen &mdash; he's on fleet work (seat restarts, Klatch mail,
+            Arch's &sect;4e) &mdash; and my two 27 Sep memos are unanswered.
+            <b>Recommendation: one build, (7).</b> <code>main</code> is at 7 and already contains the (6) change (D-020)
+            plus D-021, so a separate (6) is an upload and a test for nothing. Tell Pard directly, or say
+            &ldquo;nudge Pard&rdquo; and I'll send it. The memo he has:
+            <a href="https://github.com/mediajunkie/mediajunkie/blob/main/docs/mail/memo-cairn-to-pard-cc-janus-xian-2.0-7-candidate-second-classification-gap-2026-09-27.md">2.0 (7) candidate</a>.</div>
+          <div class="meta"><span class="pill cost">1 min</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="rank">2</div>
         <div class="body">
           <div class="title">Which environment was the 09-26 run &mdash; indoors or outdoors?</div>
           <div class="why">You tested 2.0 (5) ("test convo b5") and it produced a real reading: gap
@@ -175,7 +192,7 @@
       </div>
 
       <div class="item">
-        <div class="rank">2</div>
+        <div class="rank">3</div>
         <div class="body">
           <div class="title">Tell Dan it's already on his phone. No setup needed.</div>
           <div class="why">He is in the internal <code>DinP</code> group, state <b>INSTALLED</b> &mdash; read
@@ -187,7 +204,7 @@
       </div>
 
       <div class="item">
-        <div class="rank">3</div>
+        <div class="rank">4</div>
         <div class="body">
           <div class="title">Three things in the 2.0 listing that can't be settled from here.</div>
           <div class="why">Draft is <code>docs/store-content-2.0.md</code>.
@@ -209,8 +226,8 @@
     <div class="sec-hd"><h2>In flight</h2><span class="count">8 threads</span></div>
     <div class="rows">
       <div class="row"><div class="who">Pard</div><div class="txt"><b>Build and upload the next TestFlight candidate.</b>
-        <em>2.0 (6) and (7) are both proposed; neither is built. Newest processed build is still (5), 09-21 &mdash;
-        verified in Apple's mail 29 Sep, not inferred. Sequencing is his call; no urgency from here.</em></div></div>
+        <em>2.0 (6) and (7) proposed 27 Sep; neither built, neither memo acknowledged. Newest processed build still (5), 21 Sep &mdash;
+        Apple's mail re-read 16:3x PT 29 Sep. Recommending (7) only &mdash; see Needs you #1.</em></div></div>
       <div class="row"><div class="who">Pard</div><div class="txt"><b>Prep and hold the flag-off-capture fallback build.</b>
         <em>xian's 09-17 re-rank, item 6. Whether it ships is xian's call; nothing is asking for it yet.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt"><b>Field-test 2.0 (7) with a real second speaker in the room.</b>
@@ -251,7 +268,7 @@
 
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
-    <div class="risk"><span class="dot">&#9670;</span><div><b>Newest build in TestFlight is 2.0 (5), eight days old</b>, while the code has moved to 7. Two proposed builds are unbuilt.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>Newest build in TestFlight is 2.0 (5), eight days old</b>, while the code has moved to 7. Two proposed builds are unbuilt and unacknowledged.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Nothing watches for a submission landing.</b> A crash that produces no submission is invisible to Pard's standing check &mdash; which is exactly what 2.0 (3) did. Raised by xian 09-14, still true.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Calibration is <code>Codable</code> and nothing persists it</b> &mdash; recalibrates every cold launch.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>The fleet has one signing path and it expires Aug 2027.</b> The API can renew it; nothing watches for expiry.</div></div>
@@ -261,7 +278,7 @@
   </section>
 
   <div class="foot">
-    rev 43 &middot; 2026-09-29 08:1x PT &middot; Cairn &middot; clocks only; mailbox quiet since Pard's 09-26 memo (answered)<br>
+    rev 44 &middot; 2026-09-29 16:4x PT &middot; Cairn &middot; xian asked about build 6: neither (6) nor (7) exists, both memos unanswered, new Needs-you #1<br>
     Source: <code>docs/attention.md</code> &middot; page source: <code>docs/attention.html</code> &middot;
     history: <code>docs/attention-archive-through-rev40.md</code> &middot; decisions: <code>docs/decisions.md</code>
   </div>

@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-09-29 (rev 43) · **Deadline:** 2026-11-24 — **56 days**, day 34 of 90
+**Maintained by:** Cairn · **Updated:** 2026-09-29 (rev 44) · **Deadline:** 2026-11-24 — **56 days**, day 34 of 90
 
 Canonical state, kept lean on xian's instruction (2026-09-27, relayed by Janus): current active items
 only, narrative to the logs, nothing cut that isn't stored elsewhere first.
@@ -27,9 +27,10 @@ processing pair of 09-21. Nothing has moved; nothing confirms it either.
 
 | # | Item | Why it's yours | Cost |
 |---|---|---|---|
-| 1 | **Which environment was the 09-26 run?** You tested 2.0 (5) ("test convo b5") and it produced a real reading: gap **14.8 dB**, clear of the 12 dB bar. The report doesn't say indoors or outdoors. | Your 09-20 outdoor session measured a **9.7 dB** gap — under this build's bar, that session would have produced no number at all. If 09-26 was indoors, the outdoor question is still open. If it was outdoors, the bar has been tested and held and this closes on your word alone. | 2 min |
-| 2 | **Tell Dan it's already on his phone.** No setup needed. | He is in the internal **DinP** group, state **INSTALLED** — read out of App Store Connect on the 21st. Internal groups get every processed build automatically, so he has been able to open 2.0 (5) since 15:36 UTC on 09-21 without knowing it's there. He's traveling; this is one sentence whenever you reach him, not a task. | 1 min |
-| 3 | **Three things in the 2.0 listing that can't be settled from here.** Draft is `docs/store-content-2.0.md`. | **(a)** Uncheck — or deliberately keep — **Mac and Apple Vision**. The live Compatibility block lists 1.1 on both; [INFERRED] that's a per-app availability setting 2.0 inherits. 2.0 is portrait-only, opens the mic on launch, and has run on one iPhone. **(b)** The **keyword field and secondary category** aren't public and must be read before being overwritten. **(c)** Sign off on the **subtitle and description**, or redirect them — the current description's first sentence has to go either way. | 15 min |
+| 1 | **Say when Pard builds 2.0 (7) — and skip (6).** Neither proposed build exists. Apple's mail to xian@pobox.com, re-read 16:3x PT today, shows the newest processed build is still **(5)**, 09-21 — the same channel that reported every one of builds 1–5. | The build lane is Pard's; whether it jumps his current queue is your call. His logs for 09-27, 28 and 29 (~1,400 lines) never mention OptiListen — he's on fleet work (seat restarts, Klatch mail, Arch's §4e) — and my two 09-27 memos are unanswered. **Recommendation: one build, (7).** `main` is at 7 and already contains the (6) change (D-020) plus D-021, so a separate (6) is an upload and a test for nothing. Tell Pard directly, or say "nudge Pard" and I'll send it. The memo he has: [2.0 (7) candidate](https://github.com/mediajunkie/mediajunkie/blob/main/docs/mail/memo-cairn-to-pard-cc-janus-xian-2.0-7-candidate-second-classification-gap-2026-09-27.md) | 1 min |
+| 2 | **Which environment was the 09-26 run?** You tested 2.0 (5) ("test convo b5") and it produced a real reading: gap **14.8 dB**, clear of the 12 dB bar. The report doesn't say indoors or outdoors. | Your 09-20 outdoor session measured a **9.7 dB** gap — under this build's bar, that session would have produced no number at all. If 09-26 was indoors, the outdoor question is still open. If it was outdoors, the bar has been tested and held and this closes on your word alone. | 2 min |
+| 3 | **Tell Dan it's already on his phone.** No setup needed. | He is in the internal **DinP** group, state **INSTALLED** — read out of App Store Connect on the 21st. Internal groups get every processed build automatically, so he has been able to open 2.0 (5) since 15:36 UTC on 09-21 without knowing it's there. He's traveling; this is one sentence whenever you reach him, not a task. | 1 min |
+| 4 | **Three things in the 2.0 listing that can't be settled from here.** Draft is `docs/store-content-2.0.md`. | **(a)** Uncheck — or deliberately keep — **Mac and Apple Vision**. The live Compatibility block lists 1.1 on both; [INFERRED] that's a per-app availability setting 2.0 inherits. 2.0 is portrait-only, opens the mic on launch, and has run on one iPhone. **(b)** The **keyword field and secondary category** aren't public and must be read before being overwritten. **(c)** Sign off on the **subtitle and description**, or redirect them — the current description's first sentence has to go either way. | 15 min |
 
 Nothing else on this board is waiting on you.
 
@@ -37,7 +38,7 @@ Nothing else on this board is waiting on you.
 
 | Owner | Item | Waiting on |
 |---|---|---|
-| **Pard** | Build and upload the next TestFlight candidate | 2.0 (6) and (7) are both proposed; neither is built. Newest processed build is still **(5)**, 09-21 — verified in Apple's mail 09-29, not inferred. Sequencing is his call; no urgency from here |
+| **Pard** | Build and upload the next TestFlight candidate | 2.0 (6) and (7) proposed 09-27; neither built, neither memo acknowledged. Newest processed build still **(5)**, 09-21 — Apple's mail re-read 16:3x PT 09-29. Recommending (7) only — see Needs you #1 |
 | **Pard** | Prep and hold the flag-off-capture fallback build | xian's 09-17 re-rank, item 6. Whether it ships is xian's call; nothing is asking for it yet |
 | **Cairn** | Field-test 2.0 (7) **with a real second speaker in the room** | the only test that actually stresses D-021; needs the build. D-020 was a display change, so (6) needs no field test |
 | **Cairn** | `calibration: Calibration?`, delete `.unavailable`, make "I don't know" representable; persist calibration | held deliberately out of shipped builds — it changes classification, and an observing build shouldn't change what it observes |
@@ -65,7 +66,7 @@ Nothing else on this board is waiting on you.
 ## Standing risks
 
 - **Newest build in TestFlight is 2.0 (5), eight days old**, while the code has moved to 7. Two proposed
-  builds are unbuilt.
+  builds are unbuilt and unacknowledged.
 - **Nothing watches for a submission landing.** A crash that produces no submission is invisible to
   Pard's standing check — which is exactly what 2.0 (3) did. Raised by xian 09-14, still true.
 - **Calibration is `Codable` and nothing persists it** — recalibrates every cold launch.
@@ -80,4 +81,4 @@ Nothing else on this board is waiting on you.
 
 ---
 
-*rev 43 · 2026-09-29 08:1x PT · Cairn · clocks only; mailbox quiet since Pard's 09-26 memo (answered)*
+*rev 44 · 2026-09-29 16:4x PT · Cairn · xian asked about build 6: neither (6) nor (7) exists, both memos unanswered, new Needs-you #1*
