@@ -60,7 +60,7 @@
   .target{font-family:var(--mono);font-size:12.5px;color:var(--ink-mid);text-align:right}
   .meter{height:9px;border-radius:5px;background:var(--sunk);overflow:hidden;
          border:1px solid var(--rule-soft)}
-  .meter i{display:block;height:100%;width:37.8%;
+  .meter i{display:block;height:100%;width:38.9%;
            background:linear-gradient(90deg,var(--green),var(--teal))}
   .scale{display:flex;justify-content:space-between;font-family:var(--mono);
          font-size:11px;color:var(--ink-dim)}
@@ -129,24 +129,24 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 29 Sep 2026 &middot; rev 44 &middot; the build lane has stalled</div>
+    <div class="stamp">Updated 30 Sep 2026 &middot; rev 45 &middot; clocks only; build lane still stalled</div>
   </header>
 
   <section class="clock">
     <div class="clock-top">
-      <div class="days">56 <span>days to 24 November</span></div>
-      <div class="target">day 34 of 90<br>grace period from the 08-26 notice</div>
+      <div class="days">55 <span>days to 24 November</span></div>
+      <div class="target">day 35 of 90<br>grace period from the 08-26 notice</div>
     </div>
     <div class="meter"><i></i></div>
     <div class="scale"><span>26 Aug</span><span>today</span><span>24 Nov</span></div>
     <div class="caveat">The date exists only in the 08-26 App Store Improvement Notice. App Store Connect's
       API has no removal-date field, and as of the 09-21 API read there is no 2.0 version record at all &mdash;
-      App Review has never been entered. Apple's mail re-read 29 Sep: nothing about removal; newest OptiListen
+      App Review has never been entered. Apple's mail re-read 30 Sep: nothing about removal; newest OptiListen
       mail is still the 2.0 (5) processing pair of 21 Sep 15:36 UTC. Nothing has moved, and nothing confirms it.</div>
   </section>
 
   <section class="archive">
-    <b>This board was 728 lines this morning and is now 80.</b> xian's instruction, relayed by Janus on 27 Sep:
+    <b>This board was 728 lines on 27 Sep and is now about 80.</b> xian's instruction, relayed by Janus on 27 Sep:
     stale information out, narrative to the logs, only current items that actually need him. Nothing was cut
     before it was stored &mdash; the 13 rev narratives (rev 27&hellip;40), Dan's feedback, the resolved items and
     the retired risks are preserved verbatim in
@@ -165,10 +165,10 @@
         <div class="rank">1</div>
         <div class="body">
           <div class="title">Say when Pard builds 2.0 (7) &mdash; and skip (6).</div>
-          <div class="why"><b>Neither proposed build exists.</b> Apple's mail to xian@pobox.com, re-read 16:3x PT today,
+          <div class="why"><b>Neither proposed build exists.</b> Apple's mail to xian@pobox.com, re-read 08:0x PT 30 Sep,
             shows the newest processed build is still <b>(5)</b>, 21 Sep &mdash; the same channel that reported every one of
             builds 1&ndash;5. The build lane is Pard's; whether it jumps his current queue is your call. His logs for
-            27, 28 and 29 Sep (~1,400 lines) never mention OptiListen &mdash; he's on fleet work (seat restarts, Klatch mail,
+            27&ndash;30 Sep never mention OptiListen &mdash; he's on fleet work (seat restarts, Klatch mail,
             Arch's &sect;4e) &mdash; and my two 27 Sep memos are unanswered.
             <b>Recommendation: one build, (7).</b> <code>main</code> is at 7 and already contains the (6) change (D-020)
             plus D-021, so a separate (6) is an upload and a test for nothing. Tell Pard directly, or say
@@ -227,7 +227,7 @@
     <div class="rows">
       <div class="row"><div class="who">Pard</div><div class="txt"><b>Build and upload the next TestFlight candidate.</b>
         <em>2.0 (6) and (7) proposed 27 Sep; neither built, neither memo acknowledged. Newest processed build still (5), 21 Sep &mdash;
-        Apple's mail re-read 16:3x PT 29 Sep. Recommending (7) only &mdash; see Needs you #1.</em></div></div>
+        Apple's mail re-read 08:0x PT 30 Sep. Recommending (7) only &mdash; see Needs you #1.</em></div></div>
       <div class="row"><div class="who">Pard</div><div class="txt"><b>Prep and hold the flag-off-capture fallback build.</b>
         <em>xian's 09-17 re-rank, item 6. Whether it ships is xian's call; nothing is asking for it yet.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt"><b>Field-test 2.0 (7) with a real second speaker in the room.</b>
@@ -268,7 +268,7 @@
 
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
-    <div class="risk"><span class="dot">&#9670;</span><div><b>Newest build in TestFlight is 2.0 (5), eight days old</b>, while the code has moved to 7. Two proposed builds are unbuilt and unacknowledged.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>Newest build in TestFlight is 2.0 (5), nine days old</b>, while the code has moved to 7. Two proposed builds are unbuilt and unacknowledged.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Nothing watches for a submission landing.</b> A crash that produces no submission is invisible to Pard's standing check &mdash; which is exactly what 2.0 (3) did. Raised by xian 09-14, still true.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Calibration is <code>Codable</code> and nothing persists it</b> &mdash; recalibrates every cold launch.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>The fleet has one signing path and it expires Aug 2027.</b> The API can renew it; nothing watches for expiry.</div></div>
@@ -278,7 +278,7 @@
   </section>
 
   <div class="foot">
-    rev 44 &middot; 2026-09-29 16:4x PT &middot; Cairn &middot; xian asked about build 6: neither (6) nor (7) exists, both memos unanswered, new Needs-you #1<br>
+    rev 45 &middot; 2026-09-30 08:0x PT &middot; Cairn &middot; clocks only (55 days, day 35 of 90); mailbox quiet, Apple mail unchanged, (7) still unbuilt<br>
     Source: <code>docs/attention.md</code> &middot; page source: <code>docs/attention.html</code> &middot;
     history: <code>docs/attention-archive-through-rev40.md</code> &middot; decisions: <code>docs/decisions.md</code>
   </div>
