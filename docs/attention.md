@@ -65,7 +65,7 @@ Nothing else on this board is waiting on you.
 
 ## Standing risks
 
-- **Newest build in TestFlight is 2.0 (5), nine days old**, while the code has moved to 7. Two proposed
+- **Newest build in TestFlight is 2.0 (5), ten days old**, while the code has moved to 7. Two proposed
   builds are unbuilt and unacknowledged.
 - **Nothing watches for a submission landing.** A crash that produces no submission is invisible to
   Pard's standing check — which is exactly what 2.0 (3) did. Raised by xian 09-14, still true.
