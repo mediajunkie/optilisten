@@ -129,7 +129,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 2 Oct 2026 &middot; rev 47 &middot; clocks only; build lane still stalled</div>
+    <div class="stamp">Updated 2 Oct 2026 &middot; rev 48 &middot; one item left: the listing copy</div>
   </header>
 
   <section class="clock">
@@ -158,62 +158,20 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">4 items &middot; ~19 min total</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">1 item &middot; ~15 min</span></div>
     <div class="items">
 
       <div class="item">
         <div class="rank">1</div>
         <div class="body">
-          <div class="title">Say when Pard builds 2.0 (7) &mdash; and skip (6).</div>
-          <div class="why"><b>Neither proposed build exists.</b> Apple's mail to xian@pobox.com, re-read 08:0x PT 2 Oct,
-            shows the newest processed build is still <b>(5)</b>, 21 Sep &mdash; the same channel that reported every one of
-            builds 1&ndash;5. The build lane is Pard's; whether it jumps his current queue is your call. His logs for
-            27 Sep&ndash;2 Oct never mention OptiListen &mdash; he's on fleet work (seat restarts, Klatch mail,
-            Arch's &sect;4e) &mdash; and my two 27 Sep memos are unanswered.
-            <b>Recommendation: one build, (7).</b> <code>main</code> is at 7 and already contains the (6) change (D-020)
-            plus D-021, so a separate (6) is an upload and a test for nothing. Tell Pard directly, or say
-            &ldquo;nudge Pard&rdquo; and I'll send it. The memo he has:
-            <a href="https://github.com/mediajunkie/mediajunkie/blob/main/docs/mail/memo-cairn-to-pard-cc-janus-xian-2.0-7-candidate-second-classification-gap-2026-09-27.md">2.0 (7) candidate</a>.</div>
-          <div class="meta"><span class="pill cost">1 min</span></div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="rank">2</div>
-        <div class="body">
-          <div class="title">Which environment was the 09-26 run &mdash; indoors or outdoors?</div>
-          <div class="why">You tested 2.0 (5) ("test convo b5") and it produced a real reading: gap
-            <b>14.8 dB</b>, clear of the 12 dB bar. The report doesn't say which environment.
-            Your 09-20 <i>outdoor</i> session measured a <b>9.7 dB</b> gap &mdash; under this build's bar,
-            that session would have produced no number at all. If 09-26 was indoors, the outdoor question
-            is still open. If it was outdoors, the bar has been tested and held, and this closes on your word alone.</div>
-          <div class="meta"><span class="pill cost">2 min</span></div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="rank">3</div>
-        <div class="body">
-          <div class="title">Tell Dan it's already on his phone. No setup needed.</div>
-          <div class="why">He is in the internal <code>DinP</code> group, state <b>INSTALLED</b> &mdash; read
-            out of App Store Connect on the 21st. Internal groups get every processed build automatically, so
-            he has been able to open 2.0 (5) since 15:36 UTC on 09-21 without knowing it is there. He's
-            traveling; this is one sentence whenever you reach him, not a task.</div>
-          <div class="meta"><span class="pill cost">1 min</span></div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="rank">4</div>
-        <div class="body">
-          <div class="title">Three things in the 2.0 listing that can't be settled from here.</div>
-          <div class="why">Draft is <code>docs/store-content-2.0.md</code>.
-            <b>(a)</b> Uncheck &mdash; or deliberately keep &mdash; <b>Mac and Apple Vision</b>. The live
-            Compatibility block lists 1.1 on both; [INFERRED] that's a per-app availability setting 2.0
-            inherits. 2.0 is portrait-only, opens the mic on launch, and has run on one iPhone.
-            <b>(b)</b> The <b>keyword field and secondary category</b> aren't public and must be read before
-            being overwritten. <b>(c)</b> Sign off on the <b>subtitle and description</b>, or redirect them
-            &mdash; the current description's first sentence has to go either way.</div>
+          <div class="title">Read and sign off the 2.0 listing copy &mdash; or redirect it.</div>
+          <div class="why">Five fields in <a href="https://github.com/mediajunkie/optilisten/blob/main/docs/store-content-2.0.md">docs/store-content-2.0.md</a>:
+            <b>subtitle</b>, <b>promotional text</b> and <b>description</b> (&sect;1), <b>What's New</b> (&sect;2.2),
+            <b>notes to the reviewer</b> (&sect;2.3). The six screenshots are in
+            <a href="https://github.com/mediajunkie/optilisten/tree/main/docs/store-art/6.9-inch">docs/store-art/6.9-inch</a>. Every one is published under your name, behind
+            xian@pobox.com. The current description's first sentence (&ldquo;Put your headphones on&hellip;&rdquo;)
+            has to go either way. Skip the file's Findings 2 and 3 and its privacy-URL warning &mdash; all three
+            are settled.</div>
           <div class="meta"><span class="pill cost">15 min</span></div>
         </div>
       </div>
@@ -223,15 +181,14 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>In flight</h2><span class="count">8 threads</span></div>
+    <div class="sec-hd"><h2>In flight</h2><span class="count">9 threads</span></div>
     <div class="rows">
       <div class="row"><div class="who">Pard</div><div class="txt"><b>Build and upload the next TestFlight candidate.</b>
-        <em>2.0 (6) and (7) proposed 27 Sep; neither built, neither memo acknowledged. Newest processed build still (5), 21 Sep &mdash;
-        Apple's mail re-read 08:0x PT 2 Oct. Recommending (7) only &mdash; see Needs you #1.</em></div></div>
+        <em>xian nudged Pard 2 Oct. One build, (7), skipping (6). Newest processed build still (5), 21 Sep.</em></div></div>
       <div class="row"><div class="who">Pard</div><div class="txt"><b>Prep and hold the flag-off-capture fallback build.</b>
         <em>xian's 09-17 re-rank, item 6. Whether it ships is xian's call; nothing is asking for it yet.</em></div></div>
-      <div class="row"><div class="who">Cairn</div><div class="txt"><b>Field-test 2.0 (7) with a real second speaker in the room.</b>
-        <em>The only test that actually stresses D-021; needs the build. D-020 was a display change, so (6) needs no field test.</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt"><b>Field-test 2.0 (7) with a real second speaker in the room &mdash; and once outdoors.</b>
+        <em>The second speaker is the only test that stresses D-021. Outdoors is still untested under the 12 dB bar: xian confirmed 2 Oct that the 26 Sep run (14.8 dB) was indoors, and the 20 Sep outdoor session measured 9.7 dB. Needs the build.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt"><b><code>calibration: Calibration?</code>, delete <code>.unavailable</code>, make "I don't know" representable; persist calibration.</b>
         <em>Held deliberately out of shipped builds &mdash; it changes classification, and an observing build shouldn't change what it observes.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt"><b>Lifecycle state machine, one engine owner, <code>stop()</code> reachable from every non-idle state; real buffer-duration accounting.</b>
@@ -240,6 +197,8 @@
         <em>Waiting on a build that has been used.</em></div></div>
       <div class="row"><div class="who">Janus</div><div class="txt"><b>Registry: two entries &mdash; <code>mediajunkie/optilisten</code> (app) and <code>Design-in-Product/optilisten</code> (live site).</b>
         <em>Memo 09-07; still unconfirmed.</em></div></div>
+      <div class="row"><div class="who">xian</div><div class="txt"><b>At submission: uncheck Mac and Apple Vision availability in App Store Connect.</b>
+        <em>Decided 2 Oct (D-014): 2.0 does not claim either. The setting is behind xian@pobox.com, so it is one click when the 2.0 version record is created.</em></div></div>
       <div class="row held"><div class="who">Held</div><div class="txt"><b>Site Tier 3 &mdash; visual refresh toward moss/amber, FAQ tone, structure.</b>
         <em>Waits on a 2.0 submission date, by the same don't-shoot-twice logic as the screenshots. Ready checklist in <code>docs/site-audit-2026-09-27.md</code>.</em></div></div>
     </div>
@@ -248,6 +207,8 @@
   <section class="sec">
     <div class="sec-hd"><h2>Closed since rev 40</h2></div>
     <div class="rows">
+      <div class="row done"><div class="who">xian</div><div class="txt"><b>Closed 2 Oct on xian's word.</b>
+        <em>Pard nudged for build (7); the 26 Sep run was indoors; Dan knows 2.0 (5) is on his phone; Mac/Vision will not be claimed (D-014). Keywords and categories stay as they are &mdash; nothing requires changing them.</em></div></div>
       <div class="row done"><div class="who">Board</div><div class="txt"><b>This page.</b>
         <em>13 rev narratives and the resolved/retired history moved to the archive file. 728 lines &rarr; 80.</em></div></div>
       <div class="row done"><div class="who">Site</div><div class="txt"><b>Site work is finished.</b>
@@ -268,7 +229,7 @@
 
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
-    <div class="risk"><span class="dot">&#9670;</span><div><b>Newest build in TestFlight is 2.0 (5), eleven days old</b>, while the code has moved to 7. Two proposed builds are unbuilt and unacknowledged.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>Newest build in TestFlight is 2.0 (5), eleven days old</b>, while the code has moved to 7. Build (7) is requested (xian nudged Pard 2 Oct) and not yet built.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Nothing watches for a submission landing.</b> A crash that produces no submission is invisible to Pard's standing check &mdash; which is exactly what 2.0 (3) did. Raised by xian 09-14, still true.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Calibration is <code>Codable</code> and nothing persists it</b> &mdash; recalibrates every cold launch.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>The fleet has one signing path and it expires Aug 2027.</b> The API can renew it; nothing watches for expiry.</div></div>
@@ -278,7 +239,7 @@
   </section>
 
   <div class="foot">
-    rev 47 &middot; 2026-10-02 08:0x PT &middot; Cairn &middot; clocks only (53 days, day 37 of 90); mailbox quiet, Apple mail unchanged, (7) still unbuilt<br>
+    rev 48 &middot; 2026-10-02 16:4x PT &middot; Cairn &middot; xian closed three of four Needs-you items and ruled D-014; one item left, the listing copy<br>
     Source: <code>docs/attention.md</code> &middot; page source: <code>docs/attention.html</code> &middot;
     history: <code>docs/attention-archive-through-rev40.md</code> &middot; decisions: <code>docs/decisions.md</code>
   </div>

@@ -267,15 +267,16 @@ drift crossing the ceiling, and four real rows.
 
 ---
 
-## D-014 · Mac and Apple Vision availability — OPEN
-**2026-09-23 · raised by Cairn · OPEN, xian's**
+## D-014 · Mac and Apple Vision availability — not claimed
+**2026-09-23 · raised by Cairn · DECIDED by xian 2026-10-02: 2.0 does not claim Mac or Apple Vision support**
 
 The live listing shows 1.1 available on Mac (Apple silicon) and Apple Vision.
 [INFERRED] that is the per-app App Store Connect availability setting, so 2.0
 inherits it unless unchecked. 2.0 is portrait-only, opens the microphone on launch,
 and has run on exactly one iPhone.
 
-**It is a checkbox**, in App Store Connect, which is behind xian@pobox.com.
+**It is a checkbox**, in App Store Connect, which is behind xian@pobox.com. Still to do: uncheck
+both when the 2.0 version record is created. Nothing in the repo changes.
 
 ---
 

@@ -1,6 +1,13 @@
 # App Store content pass — OptiListen 2.0
 
 **Date:** 2026-09-22 · **Author:** Cairn · **Status:** reviewable draft, nothing published
+
+> **Reading this to sign off (note added 2026-10-02):** the fields to rule on are the subtitle,
+> promotional text and description in §1, What's New in §2.2 and the reviewer notes in §2.3.
+> **Already settled, skip:** Finding 2 (iPhone only, D-008), Finding 3 (the six shots exist in
+> `docs/store-art/6.9-inch/`), the privacy-URL warning (fixed 09-24), Mac/Vision (not claimed, D-014).
+> **Keywords and categories: leave the existing ones.** Nothing requires changing them; the
+> proposals below are optional.
 **Prompted by:** xian, relayed through Pard 2026-09-22 — no submission date until Dan's test; do the
 content pass now so that when the gate is passed, submission is same-day work.
 
