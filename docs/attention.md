@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-10-02 (rev 48) · **Deadline:** 2026-11-24 — **53 days**, day 37 of 90
+**Maintained by:** Cairn · **Updated:** 2026-10-03 (rev 49) · **Deadline:** 2026-11-24 — **52 days**, day 38 of 90
 
 Canonical state, kept lean on xian's instruction (2026-09-27, relayed by Janus): current active items
 only, narrative to the logs, nothing cut that isn't stored elsewhere first.
@@ -18,8 +18,9 @@ only, narrative to the logs, nothing cut that isn't stored elsewhere first.
 **Deadline provenance, unchanged:** 24 November exists only in the 08-26 App Store Improvement Notice.
 App Store Connect's API has no removal-date field, so it cannot be read back that way, and as of the
 09-21 API read **no 2.0 version record exists at all** — App Review has never been entered. Apple's mail
-to xian@pobox.com was re-read 10-02: nothing about removal, newest OptiListen mail is still the 2.0 (5)
-processing pair of 09-21. Nothing has moved; nothing confirms it either.
+to xian@pobox.com was re-read 10-03: nothing about removal; newest OptiListen mail is the 2.0 (7)
+processing pair of 10-02 19:01 PT. A TestFlight build is not a submission, so the date has not moved;
+nothing confirms it either.
 
 ---
 
@@ -27,7 +28,8 @@ processing pair of 09-21. Nothing has moved; nothing confirms it either.
 
 | # | Item | Why it's yours | Cost |
 |---|---|---|---|
-| 1 | **Read and sign off the 2.0 listing copy — or redirect it.** Five fields in [`docs/store-content-2.0.md`](store-content-2.0.md): **subtitle** and **description** (§1), **promotional text** (§1), **What's New** (§2.2), **notes to the reviewer** (§2.3). The six screenshots are in [`docs/store-art/6.9-inch/`](store-art/6.9-inch). | Every one is published under your name, behind xian@pobox.com. The current description's first sentence ("Put your headphones on…") has to go either way. Skip the file's Findings 2 and 3 and its privacy-URL warning — all three are settled. | 15 min |
+| 1 | **Run 2.0 (7) twice: once with a second person talking in the room, once outdoors.** It is in TestFlight now — update from (5) on your phone. | Only a phone in a real room can test it. The second speaker is the one test that stresses D-021 ("other" needs a 0.3 s run before it counts). Outdoors has never been tried under the 12 dB bar: 09-26 (14.8 dB) was indoors, and the 09-20 outdoor session measured 9.7 dB, which this build would refuse to score. Tell me what each run showed. | 2 × ~10 min |
+| 2 | **Read and sign off the 2.0 listing copy — or redirect it.** Five fields in [`docs/store-content-2.0.md`](store-content-2.0.md): **subtitle** and **description** (§1), **promotional text** (§1), **What's New** (§2.2), **notes to the reviewer** (§2.3). The six screenshots are in [`docs/store-art/6.9-inch/`](store-art/6.9-inch). | Every one is published under your name, behind xian@pobox.com. The current description's first sentence ("Put your headphones on…") has to go either way. Skip the file's Findings 2 and 3 and its privacy-URL warning — all three are settled. | 15 min |
 
 Nothing else on this board is waiting on you.
 
@@ -35,9 +37,8 @@ Nothing else on this board is waiting on you.
 
 | Owner | Item | Waiting on |
 |---|---|---|
-| **Pard** | Build and upload the next TestFlight candidate | xian nudged Pard 10-02. One build, **(7)**, skipping (6). Newest processed build still **(5)**, 09-21 |
 | **Pard** | Prep and hold the flag-off-capture fallback build | xian's 09-17 re-rank, item 6. Whether it ships is xian's call; nothing is asking for it yet |
-| **Cairn** | Field-test 2.0 (7) **with a real second speaker in the room — and once outdoors** | the second speaker is the only test that stresses D-021. Outdoors is still untested under the 12 dB bar: xian confirmed 10-02 that the 09-26 run (14.8 dB) was **indoors**, and the 09-20 outdoor session measured 9.7 dB. Needs the build |
+| **Cairn** | Read the 2.0 (7) field results and decide whether (7) is the submission candidate | xian's two runs (Needs you #1) |
 | **Cairn** | `calibration: Calibration?`, delete `.unavailable`, make "I don't know" representable; persist calibration | held deliberately out of shipped builds — it changes classification, and an observing build shouldn't change what it observes |
 | **Cairn** | Lifecycle state machine, one engine owner, `stop()` reachable from every non-idle state; real buffer-duration accounting | queued behind the build lane |
 | **Cairn** | Update Dan's brochure once a build survives use | a build that has been used |
@@ -47,6 +48,11 @@ Nothing else on this board is waiting on you.
 
 ## Closed since rev 40
 
+- **2.0 (7) is in TestFlight (10-02 19:01 PT).** Pard built, exported and uploaded it from Amber; (6) was
+  skipped. Apple's "completed processing" and "available to test" mails for 2.0 (7) are both in the
+  forwarded mailbox, and Pard read the build back from App Store Connect as `VALID`. The release procedure
+  is now a script with a gate per past mistake: `scripts/release.sh`, explained in
+  [`docs/RELEASE.md`](RELEASE.md).
 - **Closed 10-02 on xian's word:** Pard nudged for build (7); the 09-26 run was indoors; Dan knows 2.0 (5)
   is on his phone (he has been on family travel); Mac/Vision will not be claimed (**D-014**). **Keywords and
   categories stay as they are** — nothing requires changing them, and the proposed replacements are
@@ -61,19 +67,19 @@ Nothing else on this board is waiting on you.
   conversation on 09-26 and produced a usable measurement. That risk stood since rev 17.
 - **The percentage report** — a display defect, not the math: **D-020**, fixed `86213d5`.
 - **The second classification gap** — "other" now needs a 0.3s minimum run: **D-021**, fixed
-  `92fc1e9`, `CURRENT_PROJECT_VERSION` → 7. Parse-checked on kindbook, not yet on a device.
+  `92fc1e9`, `CURRENT_PROJECT_VERSION` → 7. Compiled and shipped in 2.0 (7); not yet run on a device.
 - Earlier and fully archived: the colour ruling (green, 09-24), the iPad question (dropped, 09-23),
   the `screenshot-fixture` merge and CI going green on `main` (D-018/D-019, 09-24).
 
 ## Standing risks
 
-- **Newest build in TestFlight is 2.0 (5), eleven days old**, while the code has moved to 7. Build (7) is
-  requested (xian nudged Pard 10-02) and not yet built.
+- **2.0 (7) has compiled and uploaded, and has not been run.** D-021 changes what counts as the other
+  person speaking, and no one has yet used it in a conversation.
 - **Nothing watches for a submission landing.** A crash that produces no submission is invisible to
   Pard's standing check — which is exactly what 2.0 (3) did. Raised by xian 09-14, still true.
 - **Calibration is `Codable` and nothing persists it** — recalibrates every cold launch.
 - **The fleet has one signing path and it expires Aug 2027.** The API can renew it; nothing watches
-  for expiry.
+  for expiry, and nothing tracks whether the API key itself is still valid (Pard, 10-02).
 - **Apple rejected this app once before** (July 2023, background modes). 2.0 omits `UIBackgroundModes`.
   If a fix ever needs an audio background mode, that's a submission-risk conversation, not a code change.
 - **Age-rating social-media questions** at submission; ~10 min; the answers are "no."
@@ -83,4 +89,4 @@ Nothing else on this board is waiting on you.
 
 ---
 
-*rev 48 · 2026-10-02 16:4x PT · Cairn · xian closed three of four Needs-you items and ruled D-014; one item left, the listing copy*
+*rev 49 · 2026-10-03 08:1x PT · Cairn · 2.0 (7) is in TestFlight; the field test moves to Needs you*

@@ -60,7 +60,7 @@
   .target{font-family:var(--mono);font-size:12.5px;color:var(--ink-mid);text-align:right}
   .meter{height:9px;border-radius:5px;background:var(--sunk);overflow:hidden;
          border:1px solid var(--rule-soft)}
-  .meter i{display:block;height:100%;width:41.1%;
+  .meter i{display:block;height:100%;width:42.2%;
            background:linear-gradient(90deg,var(--green),var(--teal))}
   .scale{display:flex;justify-content:space-between;font-family:var(--mono);
          font-size:11px;color:var(--ink-dim)}
@@ -129,20 +129,20 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 2 Oct 2026 &middot; rev 48 &middot; one item left: the listing copy</div>
+    <div class="stamp">Updated 3 Oct 2026 &middot; rev 49 &middot; 2.0 (7) is in TestFlight and waiting to be run</div>
   </header>
 
   <section class="clock">
     <div class="clock-top">
-      <div class="days">53 <span>days to 24 November</span></div>
-      <div class="target">day 37 of 90<br>grace period from the 08-26 notice</div>
+      <div class="days">52 <span>days to 24 November</span></div>
+      <div class="target">day 38 of 90<br>grace period from the 08-26 notice</div>
     </div>
     <div class="meter"><i></i></div>
     <div class="scale"><span>26 Aug</span><span>today</span><span>24 Nov</span></div>
     <div class="caveat">The date exists only in the 08-26 App Store Improvement Notice. App Store Connect's
       API has no removal-date field, and as of the 09-21 API read there is no 2.0 version record at all &mdash;
-      App Review has never been entered. Apple's mail re-read 2 Oct: nothing about removal; newest OptiListen
-      mail is still the 2.0 (5) processing pair of 21 Sep 15:36 UTC. Nothing has moved, and nothing confirms it.</div>
+      App Review has never been entered. Apple's mail re-read 3 Oct: nothing about removal; newest OptiListen
+      mail is the 2.0 (7) processing pair of 2 Oct 19:01 PT. A TestFlight build is not a submission, so the date has not moved, and nothing confirms it.</div>
   </section>
 
   <section class="archive">
@@ -158,11 +158,23 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">1 item &middot; ~15 min</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">2 items &middot; ~35 min</span></div>
     <div class="items">
 
       <div class="item">
         <div class="rank">1</div>
+        <div class="body">
+          <div class="title">Run 2.0 (7) twice: once with a second person talking in the room, once outdoors.</div>
+          <div class="why">It is in TestFlight now &mdash; update from (5) on your phone. Only a phone in a real room can test it.
+            The second speaker is the one test that stresses D-021 (&ldquo;other&rdquo; needs a 0.3&nbsp;s run before it counts).
+            Outdoors has never been tried under the 12&nbsp;dB bar: 26 Sep (14.8&nbsp;dB) was indoors, and the 20 Sep outdoor
+            session measured 9.7&nbsp;dB, which this build would refuse to score. Tell me what each run showed.</div>
+          <div class="meta"><span class="pill cost">2 &times; ~10 min</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="rank">2</div>
         <div class="body">
           <div class="title">Read and sign off the 2.0 listing copy &mdash; or redirect it.</div>
           <div class="why">Five fields in <a href="https://github.com/mediajunkie/optilisten/blob/main/docs/store-content-2.0.md">docs/store-content-2.0.md</a>:
@@ -181,14 +193,12 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>In flight</h2><span class="count">9 threads</span></div>
+    <div class="sec-hd"><h2>In flight</h2><span class="count">8 threads</span></div>
     <div class="rows">
-      <div class="row"><div class="who">Pard</div><div class="txt"><b>Build and upload the next TestFlight candidate.</b>
-        <em>xian nudged Pard 2 Oct. One build, (7), skipping (6). Newest processed build still (5), 21 Sep.</em></div></div>
       <div class="row"><div class="who">Pard</div><div class="txt"><b>Prep and hold the flag-off-capture fallback build.</b>
         <em>xian's 09-17 re-rank, item 6. Whether it ships is xian's call; nothing is asking for it yet.</em></div></div>
-      <div class="row"><div class="who">Cairn</div><div class="txt"><b>Field-test 2.0 (7) with a real second speaker in the room &mdash; and once outdoors.</b>
-        <em>The second speaker is the only test that stresses D-021. Outdoors is still untested under the 12 dB bar: xian confirmed 2 Oct that the 26 Sep run (14.8 dB) was indoors, and the 20 Sep outdoor session measured 9.7 dB. Needs the build.</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt"><b>Read the 2.0 (7) field results and decide whether (7) is the submission candidate.</b>
+        <em>Waiting on xian's two runs (Needs you #1).</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt"><b><code>calibration: Calibration?</code>, delete <code>.unavailable</code>, make "I don't know" representable; persist calibration.</b>
         <em>Held deliberately out of shipped builds &mdash; it changes classification, and an observing build shouldn't change what it observes.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt"><b>Lifecycle state machine, one engine owner, <code>stop()</code> reachable from every non-idle state; real buffer-duration accounting.</b>
@@ -207,6 +217,8 @@
   <section class="sec">
     <div class="sec-hd"><h2>Closed since rev 40</h2></div>
     <div class="rows">
+      <div class="row done"><div class="who">Pard</div><div class="txt"><b>2.0 (7) is in TestFlight (2 Oct 19:01 PT).</b>
+        <em>Built, exported and uploaded from Amber; (6) was skipped. Apple's &ldquo;completed processing&rdquo; and &ldquo;available to test&rdquo; mails for 2.0 (7) are both in the forwarded mailbox, and Pard read the build back from App Store Connect as <code>VALID</code>. The release procedure is now a script with a gate per past mistake: <code>scripts/release.sh</code>, explained in <code>docs/RELEASE.md</code>.</em></div></div>
       <div class="row done"><div class="who">xian</div><div class="txt"><b>Closed 2 Oct on xian's word.</b>
         <em>Pard nudged for build (7); the 26 Sep run was indoors; Dan knows 2.0 (5) is on his phone; Mac/Vision will not be claimed (D-014). Keywords and categories stay as they are &mdash; nothing requires changing them.</em></div></div>
       <div class="row done"><div class="who">Board</div><div class="txt"><b>This page.</b>
@@ -221,7 +233,7 @@
       <div class="row done"><div class="who">D-020</div><div class="txt"><b>The percentage report &mdash; a display defect, not the math.</b>
         <em>Fixed <code>86213d5</code>.</em></div></div>
       <div class="row done"><div class="who">D-021</div><div class="txt"><b>The second classification gap &mdash; "other" now needs a 0.3s minimum run.</b>
-        <em>Fixed <code>92fc1e9</code>, <code>CURRENT_PROJECT_VERSION</code> &rarr; 7. Parse-checked on kindbook, not yet on a device.</em></div></div>
+        <em>Fixed <code>92fc1e9</code>, <code>CURRENT_PROJECT_VERSION</code> &rarr; 7. Compiled and shipped in 2.0 (7); not yet run on a device.</em></div></div>
       <div class="row done"><div class="who">Earlier</div><div class="txt"><b>Fully archived:</b>
         <em>the colour ruling (green, 09-24), the iPad question (dropped, 09-23), the <code>screenshot-fixture</code> merge and CI going green on <code>main</code> (D-018/D-019, 09-24).</em></div></div>
     </div>
@@ -229,17 +241,17 @@
 
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
-    <div class="risk"><span class="dot">&#9670;</span><div><b>Newest build in TestFlight is 2.0 (5), eleven days old</b>, while the code has moved to 7. Build (7) is requested (xian nudged Pard 2 Oct) and not yet built.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>2.0 (7) has compiled and uploaded, and has not been run.</b> D-021 changes what counts as the other person speaking, and no one has yet used it in a conversation.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Nothing watches for a submission landing.</b> A crash that produces no submission is invisible to Pard's standing check &mdash; which is exactly what 2.0 (3) did. Raised by xian 09-14, still true.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Calibration is <code>Codable</code> and nothing persists it</b> &mdash; recalibrates every cold launch.</div></div>
-    <div class="risk"><span class="dot">&#9670;</span><div><b>The fleet has one signing path and it expires Aug 2027.</b> The API can renew it; nothing watches for expiry.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>The fleet has one signing path and it expires Aug 2027.</b> The API can renew it; nothing watches for expiry, and nothing tracks whether the API key itself is still valid (Pard, 2 Oct).</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Apple rejected this app once before</b> (July 2023, background modes). 2.0 omits <code>UIBackgroundModes</code>. If a fix ever needs an audio background mode, that's a submission-risk conversation, not a code change.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Age-rating social-media questions</b> at submission; ~10 min; the answers are "no."</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>A claim in this rollup is not a commit.</b> Rev 17 marked a fix as owned and it then sat unwritten for 58 hours while the row read like work in progress. Ownership recorded here is followed in the same fire by either the work or a stated hand-off.</div></div>
   </section>
 
   <div class="foot">
-    rev 48 &middot; 2026-10-02 16:4x PT &middot; Cairn &middot; xian closed three of four Needs-you items and ruled D-014; one item left, the listing copy<br>
+    rev 49 &middot; 2026-10-03 08:1x PT &middot; Cairn &middot; 2.0 (7) is in TestFlight; the field test moves to Needs you<br>
     Source: <code>docs/attention.md</code> &middot; page source: <code>docs/attention.html</code> &middot;
     history: <code>docs/attention-archive-through-rev40.md</code> &middot; decisions: <code>docs/decisions.md</code>
   </div>
