@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-10-04 (rev 50) · **Deadline:** 2026-11-24 — **51 days**, day 39 of 90
+**Maintained by:** Cairn · **Updated:** 2026-10-04 (rev 51) · **Deadline:** 2026-11-24 — **51 days**, day 39 of 90
 
 Canonical state, kept lean on xian's instruction (2026-09-27, relayed by Janus): current active items
 only, narrative to the logs, nothing cut that isn't stored elsewhere first.
@@ -26,23 +26,23 @@ nothing confirms it either.
 
 ## Needs you
 
-**🔒 = blocked on xian**: work stops until he answers (his rule of 10-03, relayed by Janus). Both items
-below gate the submission, and the submission is the only thing that moves 24 November. Both were
-escalated to Janus on 10-04.
+**🔒 = blocked on xian**: work stops until he answers (his rule of 10-03, relayed by Janus).
 
 | # | Item | Why it's yours | Cost |
 |---|---|---|---|
-| 1 | **🔒 blocked on xian since 10-03 — Is 2.0 (7) the build we submit?** Deciding it takes two runs only you can do: once with a second person talking in the room, once outdoors. It is in TestFlight now — update from (5) on your phone. **Smallest answer:** one line per run. | Only a phone in a real room can test it. The second speaker is the one test that stresses D-021 ("other" needs a 0.3 s run before it counts). Outdoors has never been tried under the 12 dB bar: 09-26 (14.8 dB) was indoors, and the 09-20 outdoor session measured 9.7 dB, which this build would refuse to score. Tell me what each run showed. | 2 × ~10 min |
-| 2 | **🔒 blocked on xian since 09-22 — Does the 2.0 listing copy go out as drafted?** **Smallest answer:** "approved", or name the field to change. Five fields in [`docs/store-content-2.0.md`](store-content-2.0.md): **subtitle** and **description** (§1), **promotional text** (§1), **What's New** (§2.2), **notes to the reviewer** (§2.3). The six screenshots are in [`docs/store-art/6.9-inch/`](store-art/6.9-inch). | Every one is published under your name, behind xian@pobox.com. The current description's first sentence ("Put your headphones on…") has to go either way. Skip the file's Findings 2 and 3 and its privacy-URL warning — all three are settled. | 15 min |
+| 1 | **🔒 blocked on xian since 10-04 — What did Dan say?** You answered the last question on 10-04: 2.0 (7) is not the submission build, Dan has tested and has feedback, more adjustments are likely. The next build cannot be scoped until that feedback is written down here. **Smallest answer:** paste or forward Dan's notes as he gave them, rough is fine, plus which build he ran — (5) or (7). | You hold it. A search of the forwarded mailbox on 10-04 (OptiListen, TestFlight, Brodnitz, last 6 days) found nothing from Dan, so it did not arrive anywhere an agent can read. | 5 min |
 
-Nothing else on this board is waiting on you.
+**The listing copy is no longer waiting on you.** It describes the app's behaviour closely (the single
+number, green and amber, the one tap, the 1–5 rating), so adjustments after Dan's feedback may change
+it. Answer it after the next build is settled, not now. It moved to In flight.
 
 ## In flight
 
 | Owner | Item | Waiting on |
 |---|---|---|
 | **Pard** | Prep and hold the flag-off-capture fallback build | xian's 09-17 re-rank, item 6. Whether it ships is xian's call; nothing is asking for it yet |
-| **Cairn** | Read the 2.0 (7) field results and decide whether (7) is the submission candidate | xian's two runs (Needs you #1) |
+| **Cairn** | Turn Dan's feedback into a scoped change list for the next build, and hand it to Pard | Dan's feedback (Needs you #1) |
+| **held** | Listing copy sign-off — five fields in [`docs/store-content-2.0.md`](store-content-2.0.md), six screenshots in [`docs/store-art/6.9-inch/`](store-art/6.9-inch). xian's, 15 min, when it comes back | the next build being settled; the copy and the shots are rechecked against it first. The current description's first sentence ("Put your headphones on…") goes either way |
 | **Cairn** | `calibration: Calibration?`, delete `.unavailable`, make "I don't know" representable; persist calibration | held deliberately out of shipped builds — it changes classification, and an observing build shouldn't change what it observes |
 | **Cairn** | Lifecycle state machine, one engine owner, `stop()` reachable from every non-idle state; real buffer-duration accounting | queued behind the build lane |
 | **Cairn** | Update Dan's brochure once a build survives use | a build that has been used |
@@ -52,6 +52,9 @@ Nothing else on this board is waiting on you.
 
 ## Closed since rev 40
 
+- **2.0 (7) is not the submission build (10-04, xian's word, relayed by Janus).** Dan has done initial
+  testing and has feedback; more adjustments are expected. The two field runs asked for on 10-03 are
+  withdrawn as a gate — they belong to whichever build comes next.
 - **The blocked-on-xian rule is adopted (10-04).** Janus's memo of 10-03; both Needs-you items carry 🔒 and
   a date, and both went to Janus the same day.
 - **2.0 (7) is in TestFlight (10-02 19:01 PT).** Pard built, exported and uploaded it from Amber; (6) was
@@ -79,8 +82,11 @@ Nothing else on this board is waiting on you.
 
 ## Standing risks
 
-- **2.0 (7) has compiled and uploaded, and has not been run.** D-021 changes what counts as the other
-  person speaking, and no one has yet used it in a conversation.
+- **What Dan tested is not recorded.** Neither the build he ran nor what he found has reached this repo,
+  so it is not known whether D-021 (the 0.3 s rule for the other speaker, new in (7)) has been used in a
+  conversation, or whether outdoors has been tried under the 12 dB bar.
+- **51 days, and the next build is unscoped.** Each round is feedback, change, build, test; Apple's
+  review comes after the last one.
 - **Nothing watches for a submission landing.** A crash that produces no submission is invisible to
   Pard's standing check — which is exactly what 2.0 (3) did. Raised by xian 09-14, still true.
 - **Calibration is `Codable` and nothing persists it** — recalibrates every cold launch.
@@ -95,4 +101,4 @@ Nothing else on this board is waiting on you.
 
 ---
 
-*rev 50 · 2026-10-04 08:1x PT · Cairn · both Needs-you items flagged 🔒 blocked on xian and escalated to Janus*
+*rev 51 · 2026-10-04 16:1x PT · Cairn · xian answered: (7) is not the submission build; the one open item is Dan's feedback; listing copy held behind it*
