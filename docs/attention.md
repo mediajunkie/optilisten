@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-10-03 (rev 49) · **Deadline:** 2026-11-24 — **52 days**, day 38 of 90
+**Maintained by:** Cairn · **Updated:** 2026-10-04 (rev 50) · **Deadline:** 2026-11-24 — **51 days**, day 39 of 90
 
 Canonical state, kept lean on xian's instruction (2026-09-27, relayed by Janus): current active items
 only, narrative to the logs, nothing cut that isn't stored elsewhere first.
@@ -18,7 +18,7 @@ only, narrative to the logs, nothing cut that isn't stored elsewhere first.
 **Deadline provenance, unchanged:** 24 November exists only in the 08-26 App Store Improvement Notice.
 App Store Connect's API has no removal-date field, so it cannot be read back that way, and as of the
 09-21 API read **no 2.0 version record exists at all** — App Review has never been entered. Apple's mail
-to xian@pobox.com was re-read 10-03: nothing about removal; newest OptiListen mail is the 2.0 (7)
+to xian@pobox.com was re-read 10-04: nothing about removal; newest OptiListen mail is the 2.0 (7)
 processing pair of 10-02 19:01 PT. A TestFlight build is not a submission, so the date has not moved;
 nothing confirms it either.
 
@@ -26,10 +26,14 @@ nothing confirms it either.
 
 ## Needs you
 
+**🔒 = blocked on xian**: work stops until he answers (his rule of 10-03, relayed by Janus). Both items
+below gate the submission, and the submission is the only thing that moves 24 November. Both were
+escalated to Janus on 10-04.
+
 | # | Item | Why it's yours | Cost |
 |---|---|---|---|
-| 1 | **Run 2.0 (7) twice: once with a second person talking in the room, once outdoors.** It is in TestFlight now — update from (5) on your phone. | Only a phone in a real room can test it. The second speaker is the one test that stresses D-021 ("other" needs a 0.3 s run before it counts). Outdoors has never been tried under the 12 dB bar: 09-26 (14.8 dB) was indoors, and the 09-20 outdoor session measured 9.7 dB, which this build would refuse to score. Tell me what each run showed. | 2 × ~10 min |
-| 2 | **Read and sign off the 2.0 listing copy — or redirect it.** Five fields in [`docs/store-content-2.0.md`](store-content-2.0.md): **subtitle** and **description** (§1), **promotional text** (§1), **What's New** (§2.2), **notes to the reviewer** (§2.3). The six screenshots are in [`docs/store-art/6.9-inch/`](store-art/6.9-inch). | Every one is published under your name, behind xian@pobox.com. The current description's first sentence ("Put your headphones on…") has to go either way. Skip the file's Findings 2 and 3 and its privacy-URL warning — all three are settled. | 15 min |
+| 1 | **🔒 blocked on xian since 10-03 — Is 2.0 (7) the build we submit?** Deciding it takes two runs only you can do: once with a second person talking in the room, once outdoors. It is in TestFlight now — update from (5) on your phone. **Smallest answer:** one line per run. | Only a phone in a real room can test it. The second speaker is the one test that stresses D-021 ("other" needs a 0.3 s run before it counts). Outdoors has never been tried under the 12 dB bar: 09-26 (14.8 dB) was indoors, and the 09-20 outdoor session measured 9.7 dB, which this build would refuse to score. Tell me what each run showed. | 2 × ~10 min |
+| 2 | **🔒 blocked on xian since 09-22 — Does the 2.0 listing copy go out as drafted?** **Smallest answer:** "approved", or name the field to change. Five fields in [`docs/store-content-2.0.md`](store-content-2.0.md): **subtitle** and **description** (§1), **promotional text** (§1), **What's New** (§2.2), **notes to the reviewer** (§2.3). The six screenshots are in [`docs/store-art/6.9-inch/`](store-art/6.9-inch). | Every one is published under your name, behind xian@pobox.com. The current description's first sentence ("Put your headphones on…") has to go either way. Skip the file's Findings 2 and 3 and its privacy-URL warning — all three are settled. | 15 min |
 
 Nothing else on this board is waiting on you.
 
@@ -48,6 +52,8 @@ Nothing else on this board is waiting on you.
 
 ## Closed since rev 40
 
+- **The blocked-on-xian rule is adopted (10-04).** Janus's memo of 10-03; both Needs-you items carry 🔒 and
+  a date, and both went to Janus the same day.
 - **2.0 (7) is in TestFlight (10-02 19:01 PT).** Pard built, exported and uploaded it from Amber; (6) was
   skipped. Apple's "completed processing" and "available to test" mails for 2.0 (7) are both in the
   forwarded mailbox, and Pard read the build back from App Store Connect as `VALID`. The release procedure
@@ -89,4 +95,4 @@ Nothing else on this board is waiting on you.
 
 ---
 
-*rev 49 · 2026-10-03 08:1x PT · Cairn · 2.0 (7) is in TestFlight; the field test moves to Needs you*
+*rev 50 · 2026-10-04 08:1x PT · Cairn · both Needs-you items flagged 🔒 blocked on xian and escalated to Janus*

@@ -60,7 +60,7 @@
   .target{font-family:var(--mono);font-size:12.5px;color:var(--ink-mid);text-align:right}
   .meter{height:9px;border-radius:5px;background:var(--sunk);overflow:hidden;
          border:1px solid var(--rule-soft)}
-  .meter i{display:block;height:100%;width:42.2%;
+  .meter i{display:block;height:100%;width:43.3%;
            background:linear-gradient(90deg,var(--green),var(--teal))}
   .scale{display:flex;justify-content:space-between;font-family:var(--mono);
          font-size:11px;color:var(--ink-dim)}
@@ -129,19 +129,19 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 3 Oct 2026 &middot; rev 49 &middot; 2.0 (7) is in TestFlight and waiting to be run</div>
+    <div class="stamp">Updated 4 Oct 2026 &middot; rev 50 &middot; two decisions are blocked on xian; 2.0 (7) is waiting to be run</div>
   </header>
 
   <section class="clock">
     <div class="clock-top">
-      <div class="days">52 <span>days to 24 November</span></div>
-      <div class="target">day 38 of 90<br>grace period from the 08-26 notice</div>
+      <div class="days">51 <span>days to 24 November</span></div>
+      <div class="target">day 39 of 90<br>grace period from the 08-26 notice</div>
     </div>
     <div class="meter"><i></i></div>
     <div class="scale"><span>26 Aug</span><span>today</span><span>24 Nov</span></div>
     <div class="caveat">The date exists only in the 08-26 App Store Improvement Notice. App Store Connect's
       API has no removal-date field, and as of the 09-21 API read there is no 2.0 version record at all &mdash;
-      App Review has never been entered. Apple's mail re-read 3 Oct: nothing about removal; newest OptiListen
+      App Review has never been entered. Apple's mail re-read 4 Oct: nothing about removal; newest OptiListen
       mail is the 2.0 (7) processing pair of 2 Oct 19:01 PT. A TestFlight build is not a submission, so the date has not moved, and nothing confirms it.</div>
   </section>
 
@@ -158,14 +158,15 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">2 items &middot; ~35 min</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">2 items &middot; ~35 min &middot; both &#128274;</span></div>
+    <div class="note">&#128274; = <b>blocked on xian</b>: work stops until he answers (his rule of 3 Oct, relayed by Janus). Both items gate the submission, and the submission is the only thing that moves 24 November. Both were escalated to Janus on 4 Oct.</div>
     <div class="items">
 
       <div class="item">
         <div class="rank">1</div>
         <div class="body">
-          <div class="title">Run 2.0 (7) twice: once with a second person talking in the room, once outdoors.</div>
-          <div class="why">It is in TestFlight now &mdash; update from (5) on your phone. Only a phone in a real room can test it.
+          <div class="title">&#128274; Is 2.0 (7) the build we submit?</div>
+          <div class="why"><b>Blocked on xian since 3 Oct.</b> Deciding it takes two runs only you can do: once with a second person talking in the room, once outdoors. <b>Smallest answer:</b> one line per run. It is in TestFlight now &mdash; update from (5) on your phone. Only a phone in a real room can test it.
             The second speaker is the one test that stresses D-021 (&ldquo;other&rdquo; needs a 0.3&nbsp;s run before it counts).
             Outdoors has never been tried under the 12&nbsp;dB bar: 26 Sep (14.8&nbsp;dB) was indoors, and the 20 Sep outdoor
             session measured 9.7&nbsp;dB, which this build would refuse to score. Tell me what each run showed.</div>
@@ -176,8 +177,8 @@
       <div class="item">
         <div class="rank">2</div>
         <div class="body">
-          <div class="title">Read and sign off the 2.0 listing copy &mdash; or redirect it.</div>
-          <div class="why">Five fields in <a href="https://github.com/mediajunkie/optilisten/blob/main/docs/store-content-2.0.md">docs/store-content-2.0.md</a>:
+          <div class="title">&#128274; Does the 2.0 listing copy go out as drafted?</div>
+          <div class="why"><b>Blocked on xian since 22 Sep.</b> <b>Smallest answer:</b> &ldquo;approved&rdquo;, or name the field to change. Five fields in <a href="https://github.com/mediajunkie/optilisten/blob/main/docs/store-content-2.0.md">docs/store-content-2.0.md</a>:
             <b>subtitle</b>, <b>promotional text</b> and <b>description</b> (&sect;1), <b>What's New</b> (&sect;2.2),
             <b>notes to the reviewer</b> (&sect;2.3). The six screenshots are in
             <a href="https://github.com/mediajunkie/optilisten/tree/main/docs/store-art/6.9-inch">docs/store-art/6.9-inch</a>. Every one is published under your name, behind
@@ -217,6 +218,8 @@
   <section class="sec">
     <div class="sec-hd"><h2>Closed since rev 40</h2></div>
     <div class="rows">
+      <div class="row done"><div class="who">Cairn</div><div class="txt"><b>The blocked-on-xian rule is adopted (4 Oct).</b>
+        <em>Janus's memo of 3 Oct. Both Needs-you items carry &#128274; and a date, and both went to Janus the same day.</em></div></div>
       <div class="row done"><div class="who">Pard</div><div class="txt"><b>2.0 (7) is in TestFlight (2 Oct 19:01 PT).</b>
         <em>Built, exported and uploaded from Amber; (6) was skipped. Apple's &ldquo;completed processing&rdquo; and &ldquo;available to test&rdquo; mails for 2.0 (7) are both in the forwarded mailbox, and Pard read the build back from App Store Connect as <code>VALID</code>. The release procedure is now a script with a gate per past mistake: <code>scripts/release.sh</code>, explained in <code>docs/RELEASE.md</code>.</em></div></div>
       <div class="row done"><div class="who">xian</div><div class="txt"><b>Closed 2 Oct on xian's word.</b>
@@ -251,7 +254,7 @@
   </section>
 
   <div class="foot">
-    rev 49 &middot; 2026-10-03 08:1x PT &middot; Cairn &middot; 2.0 (7) is in TestFlight; the field test moves to Needs you<br>
+    rev 50 &middot; 2026-10-04 08:1x PT &middot; Cairn &middot; both Needs-you items flagged &#128274; blocked on xian and escalated to Janus<br>
     Source: <code>docs/attention.md</code> &middot; page source: <code>docs/attention.html</code> &middot;
     history: <code>docs/attention-archive-through-rev40.md</code> &middot; decisions: <code>docs/decisions.md</code>
   </div>
