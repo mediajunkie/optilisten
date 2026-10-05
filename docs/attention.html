@@ -60,7 +60,7 @@
   .target{font-family:var(--mono);font-size:12.5px;color:var(--ink-mid);text-align:right}
   .meter{height:9px;border-radius:5px;background:var(--sunk);overflow:hidden;
          border:1px solid var(--rule-soft)}
-  .meter i{display:block;height:100%;width:43.3%;
+  .meter i{display:block;height:100%;width:44.4%;
            background:linear-gradient(90deg,var(--green),var(--teal))}
   .scale{display:flex;justify-content:space-between;font-family:var(--mono);
          font-size:11px;color:var(--ink-dim)}
@@ -129,19 +129,19 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 4 Oct 2026 &middot; rev 51 &middot; 2.0 (7) is not the submission build; one item is blocked on xian &mdash; Dan's feedback</div>
+    <div class="stamp">Updated 5 Oct 2026 &middot; rev 52 &middot; 2.0 (7) is not the submission build; one item is blocked on xian &mdash; Dan's feedback</div>
   </header>
 
   <section class="clock">
     <div class="clock-top">
-      <div class="days">51 <span>days to 24 November</span></div>
-      <div class="target">day 39 of 90<br>grace period from the 08-26 notice</div>
+      <div class="days">50 <span>days to 24 November</span></div>
+      <div class="target">day 40 of 90<br>grace period from the 08-26 notice</div>
     </div>
     <div class="meter"><i></i></div>
     <div class="scale"><span>26 Aug</span><span>today</span><span>24 Nov</span></div>
     <div class="caveat">The date exists only in the 08-26 App Store Improvement Notice. App Store Connect's
       API has no removal-date field, and as of the 09-21 API read there is no 2.0 version record at all &mdash;
-      App Review has never been entered. Apple's mail re-read 4 Oct: nothing about removal; newest OptiListen
+      App Review has never been entered. Apple's mail re-read 5 Oct: nothing about removal; newest OptiListen
       mail is the 2.0 (7) processing pair of 2 Oct 19:01 PT. A TestFlight build is not a submission, so the date has not moved, and nothing confirms it.</div>
   </section>
 
@@ -166,7 +166,7 @@
         <div class="rank">1</div>
         <div class="body">
           <div class="title">&#128274; What did Dan say?</div>
-          <div class="why"><b>Blocked on xian since 4 Oct.</b> You answered the last question on 4 Oct: 2.0 (7) is not the submission build, Dan has tested and has feedback, more adjustments are likely. The next build cannot be scoped until that feedback is written down here. <b>Smallest answer:</b> paste or forward Dan's notes as he gave them, rough is fine, plus which build he ran &mdash; (5) or (7). You hold it: a search of the forwarded mailbox on 4 Oct (OptiListen, TestFlight, Brodnitz, last 6 days) found nothing from Dan, so it did not arrive anywhere an agent can read.</div>
+          <div class="why"><b>Blocked on xian since 4 Oct.</b> You answered the last question on 4 Oct: 2.0 (7) is not the submission build, Dan has tested and has feedback, more adjustments are likely. The next build cannot be scoped until that feedback is written down here. <b>Smallest answer:</b> paste or forward Dan's notes as he gave them, rough is fine, plus which build he ran &mdash; (5) or (7). You hold it: a search of the forwarded mailbox on 4 Oct and again on 5 Oct (OptiListen, TestFlight, Brodnitz, last 6 days) found nothing from Dan, so it did not arrive anywhere an agent can read.</div>
           <div class="meta"><span class="pill cost">5 min</span></div>
         </div>
       </div>
@@ -231,7 +231,7 @@
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>What Dan tested is not recorded.</b> Neither the build he ran nor what he found has reached this repo, so it is not known whether D-021 (the 0.3&nbsp;s rule for the other speaker, new in (7)) has been used in a conversation, or whether outdoors has been tried under the 12&nbsp;dB bar.</div></div>
-    <div class="risk"><span class="dot">&#9670;</span><div><b>51 days, and the next build is unscoped.</b> Each round is feedback, change, build, test; Apple's review comes after the last one.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>50 days, and the next build is unscoped.</b> Each round is feedback, change, build, test; Apple's review comes after the last one.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Nothing watches for a submission landing.</b> A crash that produces no submission is invisible to Pard's standing check &mdash; which is exactly what 2.0 (3) did. Raised by xian 09-14, still true.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Calibration is <code>Codable</code> and nothing persists it</b> &mdash; recalibrates every cold launch.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>The fleet has one signing path and it expires Aug 2027.</b> The API can renew it; nothing watches for expiry, and nothing tracks whether the API key itself is still valid (Pard, 2 Oct).</div></div>
@@ -241,7 +241,7 @@
   </section>
 
   <div class="foot">
-    rev 51 &middot; 2026-10-04 16:1x PT &middot; Cairn &middot; xian answered: (7) is not the submission build; the one open item is Dan's feedback; listing copy held behind it<br>
+    rev 52 &middot; 2026-10-05 08:1x PT &middot; Cairn &middot; clocks only: mailbox quiet, no new Apple mail; the one open item is still Dan's feedback<br>
     Source: <code>docs/attention.md</code> &middot; page source: <code>docs/attention.html</code> &middot;
     history: <code>docs/attention-archive-through-rev40.md</code> &middot; decisions: <code>docs/decisions.md</code>
   </div>

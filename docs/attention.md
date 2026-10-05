@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-10-04 (rev 51) · **Deadline:** 2026-11-24 — **51 days**, day 39 of 90
+**Maintained by:** Cairn · **Updated:** 2026-10-05 (rev 52) · **Deadline:** 2026-11-24 — **50 days**, day 40 of 90
 
 Canonical state, kept lean on xian's instruction (2026-09-27, relayed by Janus): current active items
 only, narrative to the logs, nothing cut that isn't stored elsewhere first.
@@ -18,7 +18,7 @@ only, narrative to the logs, nothing cut that isn't stored elsewhere first.
 **Deadline provenance, unchanged:** 24 November exists only in the 08-26 App Store Improvement Notice.
 App Store Connect's API has no removal-date field, so it cannot be read back that way, and as of the
 09-21 API read **no 2.0 version record exists at all** — App Review has never been entered. Apple's mail
-to xian@pobox.com was re-read 10-04: nothing about removal; newest OptiListen mail is the 2.0 (7)
+to xian@pobox.com was re-read 10-05: nothing about removal; newest OptiListen mail is the 2.0 (7)
 processing pair of 10-02 19:01 PT. A TestFlight build is not a submission, so the date has not moved;
 nothing confirms it either.
 
@@ -30,7 +30,7 @@ nothing confirms it either.
 
 | # | Item | Why it's yours | Cost |
 |---|---|---|---|
-| 1 | **🔒 blocked on xian since 10-04 — What did Dan say?** You answered the last question on 10-04: 2.0 (7) is not the submission build, Dan has tested and has feedback, more adjustments are likely. The next build cannot be scoped until that feedback is written down here. **Smallest answer:** paste or forward Dan's notes as he gave them, rough is fine, plus which build he ran — (5) or (7). | You hold it. A search of the forwarded mailbox on 10-04 (OptiListen, TestFlight, Brodnitz, last 6 days) found nothing from Dan, so it did not arrive anywhere an agent can read. | 5 min |
+| 1 | **🔒 blocked on xian since 10-04 — What did Dan say?** You answered the last question on 10-04: 2.0 (7) is not the submission build, Dan has tested and has feedback, more adjustments are likely. The next build cannot be scoped until that feedback is written down here. **Smallest answer:** paste or forward Dan's notes as he gave them, rough is fine, plus which build he ran — (5) or (7). | You hold it. A search of the forwarded mailbox on 10-04 and again on 10-05 (OptiListen, TestFlight, Brodnitz, last 6 days) found nothing from Dan, so it did not arrive anywhere an agent can read. | 5 min |
 
 **The listing copy is no longer waiting on you.** It describes the app's behaviour closely (the single
 number, green and amber, the one tap, the 1–5 rating), so adjustments after Dan's feedback may change
@@ -85,7 +85,7 @@ it. Answer it after the next build is settled, not now. It moved to In flight.
 - **What Dan tested is not recorded.** Neither the build he ran nor what he found has reached this repo,
   so it is not known whether D-021 (the 0.3 s rule for the other speaker, new in (7)) has been used in a
   conversation, or whether outdoors has been tried under the 12 dB bar.
-- **51 days, and the next build is unscoped.** Each round is feedback, change, build, test; Apple's
+- **50 days, and the next build is unscoped.** Each round is feedback, change, build, test; Apple's
   review comes after the last one.
 - **Nothing watches for a submission landing.** A crash that produces no submission is invisible to
   Pard's standing check — which is exactly what 2.0 (3) did. Raised by xian 09-14, still true.
@@ -101,4 +101,4 @@ it. Answer it after the next build is settled, not now. It moved to In flight.
 
 ---
 
-*rev 51 · 2026-10-04 16:1x PT · Cairn · xian answered: (7) is not the submission build; the one open item is Dan's feedback; listing copy held behind it*
+*rev 52 · 2026-10-05 08:1x PT · Cairn · clocks only: mailbox quiet, no new Apple mail; the one open item is still Dan's feedback*
