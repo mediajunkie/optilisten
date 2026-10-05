@@ -30,7 +30,7 @@ nothing confirms it either.
 
 | # | Item | Why it's yours | Cost |
 |---|---|---|---|
-| 1 | **🔒 blocked on xian since 10-04 — What did Dan say?** You answered the last question on 10-04: 2.0 (7) is not the submission build, Dan has tested and has feedback, more adjustments are likely. The next build cannot be scoped until that feedback is written down here. **Smallest answer:** paste or forward Dan's notes as he gave them, rough is fine, plus which build he ran — (5) or (7). | You hold it. A search of the forwarded mailbox on 10-04 and again on 10-05 (OptiListen, TestFlight, Brodnitz, last 6 days) found nothing from Dan, so it did not arrive anywhere an agent can read. | 5 min |
+| 1 | **🔒 blocked on xian since 10-04 — What did Dan say?** You answered the last question on 10-04: 2.0 (7) is not the submission build, Dan has tested and has feedback, more adjustments are likely. The next build cannot be scoped until that feedback is written down here. **Smallest answer:** paste or forward Dan's notes as he gave them, rough is fine, plus which build he ran — (5) or (7). | You hold it. A search of the forwarded mailbox on 10-04 and again on 10-05 (OptiListen, TestFlight, Brodnitz, last 6 days) found nothing from Dan about OptiListen, so it did not arrive anywhere an agent can read. | 5 min |
 
 **The listing copy is no longer waiting on you.** It describes the app's behaviour closely (the single
 number, green and amber, the one tap, the 1–5 rating), so adjustments after Dan's feedback may change
