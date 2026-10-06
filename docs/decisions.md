@@ -485,3 +485,51 @@ costs nothing. No further change to the site or the app-download gating.
 **Shows up in:** closes the open question in `docs/site-audit-2026-09-27.md`.
 Nothing to revert if 2.0 slips — the copy becomes true the moment 2.0 ships,
 which is the point of writing it that way in the first place.
+
+## D-023 · The first conversation passes through calibration; no calibration, no number
+**2026-10-06 · xian agreed the flow should steer; Cairn chose this shape · DECIDED, not yet run on a device**
+
+Dan's first run of 2.0 (7), relayed verbatim by Janus on 10-06
+(`docs/mail/janus-to-cairn-cc-xian-dans-feedback-on-build-7-2026-10-06.md`): he
+liked the design, talked alone into the phone, and "the percentage was going
+down." He had not calibrated: "I think the flow didn't steer me that way." xian:
+"i agree it should steer you!"
+
+**What the code did, read from 2.0 (7)'s source.** The only door to calibration
+was an icon-only toolbar button on Home. A practice started without it ran
+against `Calibration.unavailable` (user −20 dBFS, ambient −50), which puts the
+you/other line at −36.5 dBFS and the silence floor at −47. Any 0.1 s stretch of
+sound between those two levels that lasts 0.3 s counts as someone else talking.
+The listening screen did say "Not calibrated, so this number is against
+placeholder thresholds", in a grey footnote under a 100-point number.
+
+**What is inferred, not measured.** That Dan's own voice fell into that band
+often enough to pull his share down. It fits what he described and the
+thresholds allow it; no diagnostics log from his run exists, so it is a
+mechanism that explains the report, not a reading of it.
+
+**The change.**
+1. Tapping Start with headphones off and no calibration this launch opens
+   calibration first, with a line saying why and a Skip. Finishing, skipping or
+   failing all lead on to the conversation.
+2. With no calibration the listening screen shows the practice line and "No
+   reading this time", the same screen headphones get, and nothing is stored as
+   a measurement. A number against placeholder thresholds is no longer shown
+   anywhere.
+3. The ceiling caption on the Before screen read "Share of the conversation you
+   intend to spend talking", while every reading is a share of the *talking*.
+   It now reads "Share of the talking you intend to do. Quiet stretches don't
+   count either way."
+
+**Not done, and why.** Calibration is still not persisted, so the steer happens
+once per launch; whether a calibration should outlive the room it was taken in
+is a real question and this entry does not answer it. `Calibration.unavailable`
+still exists and `classify(_:)` still runs against it; nothing reads the result.
+Telling two voices in one room apart is not attempted: the classifier sorts by
+loudness, so it separates near from far and nothing else.
+
+**Shows up in:** `OptiListen/Views/PracticeLoopView.swift` (`begin()`,
+`startListening()`, the listening and capture guards, the ceiling caption),
+`OptiListen/Views/CalibrationView.swift` (`isFirstRun`).
+`CURRENT_PROJECT_VERSION` "7" → "8" in `project.yml`; the Xcode project is
+regenerated at build time on Amber. Syntax-checked only on kindbook.

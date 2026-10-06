@@ -12,6 +12,10 @@ struct CalibrationView: View {
 
     @Environment(\.dismiss) private var dismiss
     let source: LiveMicSource
+    /// True when the practice loop opened this on the way into a conversation,
+    /// rather than the user opening it from Home. It says why it appeared and
+    /// offers a way past it.
+    var isFirstRun = false
 
     @State private var phase: Phase = .intro
     @State private var userLevel: Double = 0
@@ -33,7 +37,7 @@ struct CalibrationView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Close") { dismiss() }
+                    Button(isFirstRun ? "Skip" : "Close") { dismiss() }
                 }
             }
         }
@@ -45,10 +49,19 @@ struct CalibrationView: View {
             Image(systemName: "waveform")
                 .font(.system(size: 44, weight: .light))
                 .foregroundStyle(.secondary)
+            if isFirstRun {
+                Text("First, about twelve seconds of setup.")
+                    .font(.title3)
+            }
             Text("Put the phone where you'll keep it during calls — face up, beside you, about an arm's length.")
             Text("Two quick readings: one with you talking, one with you quiet. Nothing is recorded.")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
+            if isFirstRun {
+                Text("Without it there's no way to tell your voice from anyone else's, so you'd practice without a number.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
 
         case .speaking:
             Image(systemName: "mic.fill")

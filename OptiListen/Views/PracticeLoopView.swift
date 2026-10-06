@@ -22,6 +22,9 @@ struct PracticeLoopView: View {
     @State private var practice = Practice()
 #endif
     @State private var usingHeadphones = false
+    /// Calibration offered on the way into listening, not left behind an
+    /// unlabelled toolbar icon on Home. See `begin()`.
+    @State private var showingCalibration = false
 
     var body: some View {
         NavigationStack {
@@ -29,8 +32,7 @@ struct PracticeLoopView: View {
                 switch step {
                 case .intention:
                     IntentionStep(practice: $practice, usingHeadphones: $usingHeadphones) {
-                        practice.intentionSetAt = .now
-                        step = .listening
+                        begin()
                     }
                 case .listening:
                     ListeningStep(
@@ -60,6 +62,12 @@ struct PracticeLoopView: View {
             .animation(.snappy, value: step)
         }
         .interactiveDismissDisabled(step == .reflection)
+        // Whatever happened in the sheet, the conversation goes ahead. A
+        // calibration that was skipped or came back unusable leads to the
+        // no-number listening screen, which is a complete way to use this.
+        .sheet(isPresented: $showingCalibration, onDismiss: startListening) {
+            CalibrationView(source: source, isFirstRun: true)
+        }
 #if DEBUG
         .onAppear {
             // Jump to the requested step the same way the buttons would have.
@@ -78,12 +86,36 @@ struct PracticeLoopView: View {
 #endif
     }
 
+    /// Start was tapped.
+    ///
+    /// 2026-10-06, Dan's first run of 2.0 (7): he never calibrated, "the flow
+    /// didn't steer me that way", and talking alone into the phone he watched
+    /// the percentage fall. The only door to calibration was an icon in the
+    /// Home toolbar. So the first conversation that will use the microphone now
+    /// passes through calibration on its way to listening. Once per launch:
+    /// the calibration is not persisted, and a room is not a permanent fact.
+    private func begin() {
+        if !usingHeadphones && !source.isCalibrated {
+            showingCalibration = true
+        } else {
+            startListening()
+        }
+    }
+
+    private func startListening() {
+        guard step == .intention else { return }
+        practice.intentionSetAt = .now
+        step = .listening
+    }
+
     private func captureEvidence() {
         Task {
             await source.stop()
             // Headphones mean the microphone only ever heard the user, so the
             // ratio is meaningless. Record the duration, refuse the number.
-            guard !usingHeadphones, source.calibration.isUsable,
+            // Never calibrated means the number would be computed against the
+            // placeholder thresholds, so it is refused the same way.
+            guard !usingHeadphones, source.isCalibrated, source.calibration.isUsable,
                   source.state.failureText == nil, source.buffersReceived > 0 else { return }
             practice.measuredSpeakingShare = source.currentShare
             practice.evidenceDuration = source.observedDuration
@@ -118,7 +150,7 @@ private struct IntentionStep: View {
                         .monospacedDigit()
                         .contentTransition(.numericText())
                     Slider(value: $practice.goalSpeakingShare, in: 0.05...0.75, step: 0.05)
-                    Text("Share of the conversation you intend to spend talking.")
+                    Text("Share of the talking you intend to do. Quiet stretches don't count either way.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
@@ -184,8 +216,11 @@ private struct ListeningStep: View {
             if let failure = source.state.failureText {
                 // A failed start used to be pixel-identical to a working one.
                 CaptureFailureCard(message: failure, log: source.eventLogText)
-            } else if usingHeadphones || !source.calibration.isUsable {
+            } else if usingHeadphones || !source.isCalibrated || !source.calibration.isUsable {
                 // No number, on purpose. The intention still does the work.
+                // That includes never having calibrated: 2.0 (7) showed a
+                // number against placeholder thresholds with a grey footnote
+                // saying so, and the number was read while the footnote wasn't.
                 VStack(spacing: 14) {
                     Image(systemName: "ear")
                         .font(.system(size: 40, weight: .light))
@@ -233,20 +268,12 @@ private struct ListeningStep: View {
                 .padding(.horizontal, 32)
                 .padding(.top, 18)
 
-                // Two things that were previously invisible and both of which
-                // render as a confident 0%: an engine that started and is
-                // receiving nothing, and a number computed against the
-                // placeholder calibration.
+                // Previously invisible, and rendered as a confident 0%: an
+                // engine that started and is receiving nothing.
                 if source.isRunning && source.buffersReceived == 0 && elapsed >= 3 {
                     Label("No audio is arriving from the microphone.", systemImage: "exclamationmark.triangle")
                         .font(.footnote)
                         .foregroundStyle(Theme.over)
-                        .padding(.horizontal, 32)
-                }
-                if !source.isCalibrated {
-                    Text("Not calibrated, so this number is against placeholder thresholds.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
                         .padding(.horizontal, 32)
                 }
                 if source.calibration.isMarginal {
