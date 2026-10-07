@@ -73,7 +73,7 @@ Older closed items: [`docs/attention-changelog.md`](attention-changelog.md). Dec
 
 - **The decision:** xian's reply in the Cairn session of 10-07, quoted in D-024.
 - **The change:** written in the session's container against `origin/main` at `300b67c`, applied on
-  kindbook with `git apply`. All eight Swift files pass `xcrun swiftc -parse` on kindbook (syntax
+  kindbook with `git apply`. All ten Swift files pass `xcrun swiftc -parse` on kindbook (syntax
   only). CI run 37701880639 on 44d273b is green (Debug, iOS Simulator): a full compile, not a run.
 - **Not verified:** behaviour on a device, and the store screenshots (not re-shot).
 - **Build 8 in TestFlight** and **1.x's formula:** as verified at rev 56, not re-read.
