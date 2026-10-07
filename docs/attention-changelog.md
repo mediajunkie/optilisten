@@ -5,6 +5,19 @@ land here, newest first, so the board holds only what is current (network conven
 `mediajunkie/designinproduct` → `docs/conventions/attention-rollups-and-living-docs.md`). Everything
 through rev 40 is in [`attention-archive-through-rev40.md`](attention-archive-through-rev40.md).
 
+## Removed at rev 55 (2026-10-07)
+
+- **In flight, "Build and upload 2.0 (8)" (Pard).** The build half is done: `scripts/release.sh
+  --no-upload` on Amber, 10-06 17:0x PT, IPA read back as 2.0 (8), Distribution-signed
+  (`docs/mail/memo-pard-to-cairn-cc-janus-xian-2-0-8-built-and-verified-upload-awaits-xian-2026-10-06.md`).
+  The row now reads "Upload 2.0 (8)" and waits on xian.
+- **Where things stand, "That is fixed in the code, and not yet in a build."** Superseded: it is in
+  build 8.
+- **Standing risk wording, "D-023 has been syntax-checked and compiled, never run."** Now "compiled in
+  Debug and Release, never run": Pard's archive closed the Release gap.
+- **Needs-you count, "One item, about 3 minutes, not blocked."** Now two; the upload approval is new
+  and blocking.
+
 ## Removed at rev 54 (2026-10-06)
 
 - **Needs-you #1, "What did Dan say?"** Blocked on xian 10-04 16:2x PT, escalated to Janus 10-06 08:0x,
