@@ -265,19 +265,20 @@ final class LiveMicSource: LiveTalkRatioSource {
     /// still valid; it just covers less, and `observedDuration` says so.
     private(set) var wasInterrupted = false
 
-    /// Share of *speaking* time that was the user. Silence is excluded
-    /// deliberately: a conversation with long pauses shouldn't read as
-    /// listening well. The practice is about the split between voices.
+    /// Share of the *whole observed time* that was the user talking. Other
+    /// voices and quiet are both "not you talking", as in 1.x.
     ///
-    /// 2026-09-26 field report read as a math bug and wasn't one: this
-    /// formula is unchanged, but `Practice.breakdownText` shows all three
-    /// buckets (including quiet) next to a percentage computed from only
-    /// two of them. `Practice.breakdownCaption` says so at both display
-    /// sites rather than this property changing what it measures.
+    /// D-024, 2026-10-07, xian's decision. Until then this was the user's
+    /// share of speech only (`user / (user + other)`), quiet excluded so that
+    /// long pauses would not read as listening well. Both people who used
+    /// 2.0 divided by the whole time instead (xian 09-26, Dan 10-07), and a
+    /// speech-only share cannot be tested by one person: alone it reads 100%.
+    /// The number now depends on `calibration.threshold` alone. The
+    /// other/quiet split is still measured and shown in the breakdown.
     var currentShare: Double {
-        let speech = userSpeakingSeconds + otherSpeakingSeconds
-        guard speech > 0 else { return 0 }
-        return userSpeakingSeconds / speech
+        let total = observedDuration
+        guard total > 0 else { return 0 }
+        return userSpeakingSeconds / total
     }
 
     var observedDuration: TimeInterval {
@@ -305,10 +306,12 @@ final class LiveMicSource: LiveTalkRatioSource {
         let source = LiveMicSource()
         source.fixtureShare = share
         source.applyCalibration(userLevel: -18, ambientLevel: -46)
-        let speech = elapsed * 0.85
-        source.userSpeakingSeconds = speech * share
-        source.otherSpeakingSeconds = speech * (1 - share)
-        source.silenceSeconds = elapsed - speech
+        // `share` is of the whole elapsed time (D-024); the rest is split
+        // four to one between other voices and quiet.
+        let user = elapsed * share
+        source.userSpeakingSeconds = user
+        source.otherSpeakingSeconds = (elapsed - user) * 0.8
+        source.silenceSeconds = (elapsed - user) * 0.2
         source.buffersReceived = Int(elapsed / source.bufferSeconds)
         source.note("SCREENSHOT FIXTURE — scripted reading; the microphone is not in use")
         return source
@@ -322,9 +325,9 @@ final class LiveMicSource: LiveTalkRatioSource {
             while !Task.isCancelled {
                 try? await Task.sleep(for: .seconds(1))
                 guard let self, !Task.isCancelled else { return }
-                self.userSpeakingSeconds += 0.85 * share
-                self.otherSpeakingSeconds += 0.85 * (1 - share)
-                self.silenceSeconds += 0.15
+                self.userSpeakingSeconds += share
+                self.otherSpeakingSeconds += (1 - share) * 0.8
+                self.silenceSeconds += (1 - share) * 0.2
                 self.buffersReceived += 10
             }
         }

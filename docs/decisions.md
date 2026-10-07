@@ -537,7 +537,7 @@ regenerated at build time on Amber. Syntax-checked only on kindbook.
 ---
 
 ## D-024 · What the percentage is a share of: all the talking, or the whole time
-**2026-10-07 · Dan raised it; xian decides · OPEN**
+**2026-10-07 · Dan raised it; xian decided: the whole time · DECIDED, not yet run on a device**
 
 Reopens the denominator D-020 kept. Dan, 10-07, relayed verbatim in
 `docs/mail/xian-via-janus-to-cairn-dan-feedback-on-the-percentage-math-2026-10-07.md`:
@@ -589,4 +589,35 @@ ceiling caption, `breakdownCaption`); two lines of the description in
 `project.yml` build 8 → 9. Practices already stored on xian's and Dan's phones
 would keep numbers computed the old way.
 
-**Recommendation (Cairn):** the whole time. Not decided.
+**Recommendation (Cairn):** the whole time.
+
+**Decided, 2026-10-07 16:1x PT.** xian: "whole time. yes, both Dan and I
+intuitively expected this, as per the 1.0, 1.1 design." This supersedes the
+formula half of D-020; D-020's caption is rewritten rather than removed.
+
+**What was changed** (the estimate above said six strings; it was four, and one
+line of listing copy, not two).
+1. `LiveMicSource.currentShare` is `userSpeakingSeconds / observedDuration`.
+2. `Practice.shownSpeakingShare` is new and is what every screen reads. It
+   recomputes from the stored `you / others / quiet` seconds when a practice has
+   them, so practices recorded under the old formula show on the new basis
+   without a migration. `measuredSpeakingShare` is still what gets stored.
+3. Strings: "of the time is you talking" (listening), "of the time was you
+   talking" (after, and the detail view), the ceiling caption "Share of the
+   conversation you intend to spend talking. Quiet counts as listening.", and
+   the breakdown caption "The percentage is your talking out of the whole time.
+   Others and quiet are the rest." The history row's "you talking" was already
+   true and is unchanged.
+4. The Debug screenshot fixture and seed rows now build their three parts so the
+   requested share is a share of the whole time.
+5. `docs/store-content-2.0.md` §1: "how much of the time you have been talking".
+6. `CURRENT_PROJECT_VERSION` 8 → 9 in `project.yml` and the committed project.
+
+**Not done.** The store screenshots still show the old captions; the scripted
+re-shoot is Pard's (D-016). The slider's range (5% to 75%) and the 30% default
+ceiling were chosen for a share of speech and have not been revisited: under the
+whole time the same digits are a looser limit.
+
+**Shows up in:** `OptiListen/Sources/LiveMicSource.swift`,
+`OptiListen/Models/Practice.swift`, `OptiListen/Views/PracticeLoopView.swift`,
+`OptiListen/Views/HomeView.swift`, `OptiListen/Debug/ScreenshotFixture.swift`.

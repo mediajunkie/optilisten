@@ -124,7 +124,7 @@ the one field that can carry a beta note, a price note or a seasonal line withou
 > a time. Note: We're launching OptiListen as a free app and all data is kept locally on your
 > phone.
 
-**Proposed** (2,181 / 4,000):
+**Proposed** (2,185 / 4,000):
 
 > **Talking less is a skill, and skills need practice.**
 >
@@ -140,7 +140,7 @@ the one field that can carry a beta note, a price note or a seasonal line withou
 > mid-sentence.
 >
 > **During.** Set the phone face up, an arm's length away, and stop looking at it. A single number
-> shows how much of the talking has been yours. It settles once a second instead of twitching, it
+> shows how much of the time you have been talking. It settles once a second instead of twitching, it
 > goes green while you are inside your ceiling and amber when you cross it, and it taps you once
 > the first time you go over. That is the whole of what it does during a conversation, and that is
 > deliberate — anything that pulls your eyes off the person you are talking to is a defect.

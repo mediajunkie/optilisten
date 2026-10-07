@@ -35,8 +35,13 @@ final class Practice {
 
     // MARK: 2. Evidence — gathered during, optional by design
 
-    /// Measured share of speaking time, 0.0–1.0, if any source produced one.
-    /// Nil is a first-class state: the user practiced without instrumentation.
+    /// Measured share of the observed time the user spent talking, 0.0–1.0,
+    /// if any source produced one. Nil is a first-class state: the user
+    /// practiced without instrumentation.
+    ///
+    /// Practices stored before D-024 (2026-10-07) hold the older speech-only
+    /// share here. Display goes through `shownSpeakingShare`, which recomputes
+    /// from the stored parts, so old and new rows read on the same basis.
     var measuredSpeakingShare: Double?
 
     /// Which source produced `measuredSpeakingShare`, for honest display.
@@ -108,8 +113,22 @@ extension Practice {
     /// Signed distance from the goal. Negative means the user spoke less than
     /// they intended. Nil when there's no evidence to compare against.
     var goalDelta: Double? {
-        guard let measured = measuredSpeakingShare else { return nil }
+        guard let measured = shownSpeakingShare else { return nil }
         return measured - goalSpeakingShare
+    }
+
+    /// The share every screen shows: the user's talking over the whole
+    /// observed time (D-024). Recomputed from the stored parts when they
+    /// exist, because a practice recorded before D-024 stored a speech-only
+    /// share in `measuredSpeakingShare`. Nil exactly when that is nil.
+    var shownSpeakingShare: Double? {
+        guard let stored = measuredSpeakingShare else { return nil }
+        guard let user = userSpeakingSeconds,
+              let other = otherSpeakingSeconds,
+              let silence = silenceSeconds else { return stored }
+        let total = user + other + silence
+        guard total > 0 else { return stored }
+        return user / total
     }
 
     /// "you 1:16 · others 0:25 · quiet 0:00" — the parts behind the percentage.
@@ -120,18 +139,16 @@ extension Practice {
         return "you \(Self.clock(user)) · others \(Self.clock(other)) · quiet \(Self.clock(silence))"
     }
 
+    /// Says what the percentage is out of, wherever the breakdown is shown.
+    ///
     /// 2026-09-26 field note, verbatim: "extended silence never reduced my
-    /// percentage. 7 seconds out of 72 is it 54%." It isn't a math bug — the
-    /// percentage is `LiveMicSource.currentShare`, share of *speech*
-    /// (`userSpeakingSeconds / (userSpeakingSeconds + otherSpeakingSeconds)`),
-    /// which excludes silence on purpose (see that property's comment). The
-    /// bug is that `breakdownText` sits right next to the percentage showing
-    /// all three buckets including quiet, which invites the reader to divide
-    /// against the wrong total. Rather than change a reviewed, deliberate
-    /// formula, say what it counts wherever the breakdown is shown.
+    /// percentage. 7 seconds out of 72 is it 54%." At the time the percentage
+    /// was a share of speech only and this caption said so (D-020). D-024
+    /// changed the formula to the division that note expected: the user's
+    /// talking over all three parts.
     var breakdownCaption: String? {
         guard breakdownText != nil else { return nil }
-        return "Percentage counts speaking time only — the quiet time above isn't part of it."
+        return "The percentage is your talking out of the whole time. Others and quiet are the rest."
     }
 
     /// Nothing was ever quiet, so everything was counted as speech. Outdoors or
@@ -176,7 +193,7 @@ extension Practice {
     var goalPercentText: String { Self.percent(goalSpeakingShare) }
 
     var measuredPercentText: String? {
-        measuredSpeakingShare.map(Self.percent)
+        shownSpeakingShare.map(Self.percent)
     }
 
     static func percent(_ share: Double) -> String {

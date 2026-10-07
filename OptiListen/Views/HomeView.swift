@@ -198,7 +198,7 @@ private struct PracticeDetail: View {
                             Text(measured)
                                 .font(Theme.numeralSmall)
                                 .monospacedDigit()
-                            Text("of the talking was you")
+                            Text("of the time was you talking")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -273,7 +273,7 @@ private struct GoalChart: View {
     var body: some View {
         Chart {
             ForEach(practices) { practice in
-                if let measured = practice.measuredSpeakingShare {
+                if let measured = practice.shownSpeakingShare {
                     LineMark(
                         x: .value("When", practice.createdAt),
                         y: .value("Spoke", measured * 100),

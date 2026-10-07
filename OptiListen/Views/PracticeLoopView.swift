@@ -150,7 +150,7 @@ private struct IntentionStep: View {
                         .monospacedDigit()
                         .contentTransition(.numericText())
                     Slider(value: $practice.goalSpeakingShare, in: 0.05...0.75, step: 0.05)
-                    Text("Share of the talking you intend to do. Quiet stretches don't count either way.")
+                    Text("Share of the conversation you intend to spend talking. Quiet counts as listening.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
@@ -234,7 +234,8 @@ private struct ListeningStep: View {
                 }
                 .padding(.horizontal, 32)
             } else {
-                // The number is the share of speech that is YOU, measured against a
+                // The number is the share of the whole time that is YOU talking
+                // (D-024; it was a share of speech until 2026-10-07), measured against a
                 // ceiling you set. Unlabelled, in an app called OptiListen, with the
                 // practice line sitting directly underneath, a rising number reads as
                 // success when it means the opposite: 2026-09-20 field note, verbatim,
@@ -247,7 +248,7 @@ private struct ListeningStep: View {
                         .monospacedDigit()
                         .contentTransition(.numericText())
                         .foregroundStyle(overGoal ? Theme.over : Theme.within)
-                    Text("of the talking is you")
+                    Text("of the time is you talking")
                         .font(.subheadline.weight(.medium))
                     Text(overGoal
                          ? "over your \(practice.goalPercentText) ceiling"
@@ -380,7 +381,7 @@ private struct ReflectionStep: View {
                                 .font(Theme.numeralSmall)
                                 .monospacedDigit()
                                 .foregroundStyle(practice.metGoal == true ? Theme.within : Theme.over)
-                            Text("of the talking was you")
+                            Text("of the time was you talking")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }

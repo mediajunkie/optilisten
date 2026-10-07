@@ -85,12 +85,12 @@ enum ScreenshotFixture {
             let practice = Practice(label: row.label, goalSpeakingShare: 0.30, focus: row.focus)
             let created = Calendar.current.date(byAdding: .day, value: -row.daysAgo, to: .now) ?? .now
             let duration: TimeInterval = 1_800
-            let speech = duration * 0.85
+            let user = duration * row.share
             practice.createdAt = created
             practice.intentionSetAt = created
-            practice.userSpeakingSeconds = speech * row.share
-            practice.otherSpeakingSeconds = speech * (1 - row.share)
-            practice.silenceSeconds = duration - speech
+            practice.userSpeakingSeconds = user
+            practice.otherSpeakingSeconds = (duration - user) * 0.8
+            practice.silenceSeconds = (duration - user) * 0.2
             practice.measuredSpeakingShare = row.share
             practice.evidenceDuration = duration
             practice.evidenceSourceID = "live-mic"
