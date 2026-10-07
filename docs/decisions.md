@@ -533,3 +533,60 @@ loudness, so it separates near from far and nothing else.
 `OptiListen/Views/CalibrationView.swift` (`isFirstRun`).
 `CURRENT_PROJECT_VERSION` "7" → "8" in `project.yml`; the Xcode project is
 regenerated at build time on Amber. Syntax-checked only on kindbook.
+
+---
+
+## D-024 · What the percentage is a share of: all the talking, or the whole time
+**2026-10-07 · Dan raised it; xian decides · OPEN**
+
+Reopens the denominator D-020 kept. Dan, 10-07, relayed verbatim in
+`docs/mail/xian-via-janus-to-cairn-dan-feedback-on-the-percentage-math-2026-10-07.md`:
+"In the original it was as a percent of the total. In this version it says quiet
+periods don't count. Which means you kind of can't test it with one person because
+you will have to be 100%", and "the old model of 'time talking' v 'time not
+talking' is easier than 'time talking' v 'time someone else is talking'". xian:
+"We could change that math for sure. Maybe that would make it easier. Even still I
+want to make sure that it goes in the right direction when I'm talking or when I'm
+not talking".
+
+**What each version does, read from source.** 2.0, `LiveMicSource.currentShare` at
+`ee11718`: `userSpeakingSeconds / (userSpeakingSeconds + otherSpeakingSeconds)`.
+1.x, `src/screens/Listen/RecordSession.tsx` at the head of
+`AustinWood/listenup-mobile`: spoken seconds over `durationInSecond`, the whole
+elapsed time (or elapsed minus spoken over elapsed, in listening mode). Dan's
+account of both is correct. 1.x had no second bucket at all: every second was
+either the user speaking or not.
+
+**What changed since D-020.** D-020 rejected a new denominator "on the word of one
+confused reading rather than a re-litigation of the original call". That reading
+was xian's. Dan's is the second, he is the product's inventor, and he was not
+confused: he described the formula accurately and prefers the other one. Two of
+the two people who have used 2.0 expected the whole time.
+
+**For the whole time** (`userSpeakingSeconds / observedDuration`).
+- It is the number both readers expected and the one 1.x users had.
+- One person can test it: talk and it rises, stop and it falls. Under the current
+  formula a solo run reads 100% whenever it reads anything, so the direction xian
+  wants to confirm cannot be seen without a second sound source.
+- The number rests on one line, `calibration.threshold` (you, or not you). Today
+  it also rests on `silenceFloor` and on the 0.3 s minimum run of D-021, which
+  together decide whether a moderate sound is another person. That is the part
+  that cannot separate two voices in one room. It would still be measured and
+  shown in the breakdown; it would stop moving the headline number.
+
+**For keeping all the talking.**
+- A conversation with long pauses does not read as good listening. This was the
+  original reason and it is still true.
+- Under the whole time a ceiling means something different, and stored goals keep
+  their digits: an even two-person conversation that is one-fifth quiet reads 40%
+  rather than 50%.
+- Nothing ships: build 8 is already the candidate.
+
+**What the change touches if taken.** `currentShare` (one line); six strings
+("of the talking is you" ×1, "of the talking was you" ×2, "you talking", the
+ceiling caption, `breakdownCaption`); two lines of the description in
+`docs/store-content-2.0.md` §1; the screenshots that show those strings, re-shot by script (D-016);
+`project.yml` build 8 → 9. Practices already stored on xian's and Dan's phones
+would keep numbers computed the old way.
+
+**Recommendation (Cairn):** the whole time. Not decided.

@@ -5,6 +5,23 @@ land here, newest first, so the board holds only what is current (network conven
 `mediajunkie/designinproduct` → `docs/conventions/attention-rollups-and-living-docs.md`). Everything
 through rev 40 is in [`attention-archive-through-rev40.md`](attention-archive-through-rev40.md).
 
+## Removed at rev 56 (2026-10-07)
+
+- **Needs-you #1, "🔒 Approve the TestFlight upload of 2.0 (8)."** Blocked 10-06 17:0x PT, answered
+  10-07 ~08:00 PT ("Go", relayed by Janus to Pard). Pard uploaded; Apple's processing and
+  available-to-test mails are dated 10-07 08:59 PT. Delivery UUID
+  `a4e5974a-6a4c-4bb1-9e47-fc3a17887f4b`
+  (`docs/mail/memo-pard-to-cairn-cc-janus-xian-2-0-8-uploaded-2026-10-07.md`). Never escalated.
+- **Needs-you #2, "Answer Dan's question about two voices, and tell him where calibration is."**
+  Overtaken: xian and Dan talked on 10-07
+  (`docs/mail/xian-via-janus-to-cairn-dan-feedback-on-the-percentage-math-2026-10-07.md`). Whether
+  the paste-ready text was used is not recorded. Its factual content stands in D-023.
+- **In flight, "Upload 2.0 (8) to TestFlight" (Pard).** Done.
+- **Where things stand, "Dan ran build 7 and liked it" and "Build 8 exists and is not in
+  TestFlight."** Superseded; Dan's build-7 words are in the 10-06 memo and D-023.
+- **Standing risk wording, "D-023 has been compiled in Debug and Release, never run."** Now "in
+  TestFlight in build 8 and no run of it is recorded".
+
 ## Removed at rev 55 (2026-10-07)
 
 - **In flight, "Build and upload 2.0 (8)" (Pard).** The build half is done: `scripts/release.sh

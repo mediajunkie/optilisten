@@ -129,7 +129,7 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 7 Oct 2026 08:1x PT &middot; rev 55 &middot; build 8 is built; its upload waits on your approval</div>
+    <div class="stamp">Updated 7 Oct 2026 16:2x PT &middot; rev 56 &middot; build 8 is in TestFlight; one decision on the percentage waits on you</div>
   </header>
 
   <section class="clock">
@@ -145,34 +145,34 @@
   <section class="archive">
     <b>Where things stand.</b>
     <ul style="margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px">
-      <li><b>Dan ran build 7 and liked it.</b> His words: &ldquo;the basic design is really elegant&rdquo;, &ldquo;keeping this this simple is really nice&rdquo;. The number did not work for him: talking alone into the phone, his percentage went down. He had not calibrated, because nothing in the app sent him there.</li>
-      <li><b>That is fixed, and the fix is in a build that has not left Amber.</b> Tapping Start now opens the 12-second calibration first, and without a calibration the app shows no number at all instead of a wrong one. Commit <a href="https://github.com/mediajunkie/optilisten/commit/d154f55">d154f55</a>, decision D-023. It compiles: <a href="https://github.com/mediajunkie/optilisten/actions/runs/37545093840">CI run 37545093840</a> is green (Debug, iOS Simulator).</li>
-      <li><b>Build 8 exists and is not in TestFlight.</b> Pard built it on Amber on 6 Oct at 17:0x PT and read it back from the IPA: <code>com.longskymedia.optilisten</code>, 2.0 (8), Distribution-signed. The Release configuration compiles. His seat refused the upload as a production deploy and he did not route around it, so it waits on you (item 1). Nobody has run this build, on a phone or in a simulator.</li>
+      <li><b>Build 8 is in TestFlight.</b> Apple's &ldquo;completed processing&rdquo; and &ldquo;available to test&rdquo; mails for OptiListen 2.0 (8) both arrived on 7 Oct at 08:59 PT, after your &ldquo;go&rdquo;. It carries the calibration-first flow (D-023, <a href="https://github.com/mediajunkie/optilisten/commit/d154f55">d154f55</a>). No run of it is recorded anywhere Cairn can read.</li>
+      <li><b>Dan thinks the percentage is the real problem, and he has read the app correctly.</b> 2.0 divides your talking by all the talking it detects, you plus others, and leaves quiet out. One person alone can therefore only read 100%. 1.x divided your talking by the whole elapsed time; that is in its source (<code>RecordSession.tsx</code>, lines 239-243). Dan prefers the 1.x way. You told him &ldquo;we could change that math for sure&rdquo;, and to hold off testing until the next version.</li>
+      <li><b>This is the second time the same division has been expected.</b> On 26 Sep you divided by the whole time yourself (&ldquo;7 seconds out of 72 is it 54%?&rdquo;). D-020 kept the formula and added a caption. Both people who have used 2.0 have now expected the other denominator.</li>
       <li><b>Nothing has been submitted to Apple</b>, so 24 November has not moved.</li>
     </ul>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">2 items &middot; ~4 min &middot; 1 blocking</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">2 items &middot; ~5 min &middot; 1 blocking</span></div>
     <div class="items">
 
       <div class="item">
         <div class="rank">1</div>
         <div class="body">
-          <div class="title">&#128274; Approve the TestFlight upload of 2.0 (8)</div>
-          <div class="why">Blocked since 6 Oct 17:0x PT: build 8 cannot reach you or Dan without it. <b>Where the action happens:</b> Pard's console on Amber, where it is his open item 2. The smallest answer is &ldquo;go&rdquo;, then allow the prompt. Or run it yourself on Amber: <code>cd ~/Development/optilisten &amp;&amp; scripts/release.sh</code> (a rebuild and upload, about a minute).</div>
-          <div class="why">Apple's processing mail follows in roughly ten minutes, and the build then appears in TestFlight for you and Dan with no further step.</div>
-          <div class="meta"><span class="pill cost">1 min</span><span class="pill cost">blocked since 6 Oct</span></div>
+          <div class="title">&#128274; What is the percentage a share of?</div>
+          <div class="why">Blocked since 7 Oct 11:0x PT: it decides whether build 8 or a build 9 is the one Dan tests. <b>Where the action happens:</b> any reply to Janus or a Cairn session. The smallest answer is <b>&ldquo;whole time&rdquo;</b> or <b>&ldquo;keep&rdquo;</b>.</div>
+          <div class="why"><b>&ldquo;whole time&rdquo;</b> (your talking &divide; everything elapsed, as in 1.x). Cairn's recommendation. It is what you and Dan both expected on first reading. It can be tested alone: talk and it rises, stop and it falls. And the number then rests on one loudness line (you or not you) instead of two; the part of the classifier that guesses whether a moderate sound is another person, which cannot tell two voices in one room apart, drops out of the headline number. What it costs: quiet lowers your number, so a long silence reads as listening (the reason D-020 gave for leaving quiet out); a ceiling means something different (an even two-person conversation that is one-fifth quiet reads 40%, not 50%); six on-screen strings, two lines of listing copy, and the screenshots that show those strings, change. On this answer Cairn writes it at the next fire, Pard builds (9), and Dan waits for (9).</div>
+          <div class="why"><b>&ldquo;keep&rdquo;</b>. Then build 8 is the version you told Dan to wait for, and you can tell him it is on his phone. He needs a second voice to test it: a podcast playing from a laptop across the room will do. Alone, the number can only read 100% or nothing.</div>
+          <div class="why">The full comparison is D-024 in <a href="https://github.com/mediajunkie/optilisten/blob/main/docs/decisions.md">docs/decisions.md</a>, status OPEN.</div>
+          <div class="meta"><span class="pill cost">2 min</span><span class="pill cost">blocked since 7 Oct</span></div>
         </div>
       </div>
 
       <div class="item">
         <div class="rank">2</div>
         <div class="body">
-          <div class="title">Answer Dan's question about two voices, and tell him where calibration is</div>
-          <div class="why">He asked whether the app can tell different voices apart with no headphones, and said he would retry on the morning of 7 Oct. Not blocking. Whether you have already answered him is not visible from here. <b>Where the action happens:</b> your chat with Dan. Text you can paste or reword; every statement in it is read from the build-7 source except the one marked &ldquo;probably&rdquo;.</div>
-          <div class="note">Calibration in the build you have is the slider icon at the top left of the home screen. It takes about twelve seconds; do it before you tap +. Without it the app was using made-up loudness levels, which is probably why your number fell while you were the only one talking. The next build walks you into it.<br><br>On two voices: it can't tell voices apart. It tells near from far, by loudness. You are next to the phone; the other person is coming out of a laptop speaker, or sitting further away. Two people the same distance from the phone both count as you. With headphones on it hears only you, so it gives no number.<br><br>If the number looks wrong again: while it's listening, tap the stethoscope at the top right, then Copy, and send me what it gives you.</div>
-          <div class="why">What Dan sends back decides whether build 8 needs anything more than D-023. Forward it to Janus or paste it in any Cairn session.</div>
+          <div class="title">Run build 8 once yourself</div>
+          <div class="why">Not blocking. <b>Where the action happens:</b> TestFlight on your phone. Tap +, then Start. The calibration sheet should open, take its two readings, and hand you to the listening screen. That path (a sheet opening from inside a sheet, then advancing the screen behind it) has compiled and has never run on a device, and build 9 would inherit it. One line back: &ldquo;calibration worked&rdquo; or what it did instead.</div>
           <div class="meta"><span class="pill cost">3 min</span></div>
         </div>
       </div>
@@ -183,12 +183,12 @@
   <section class="sec">
     <div class="sec-hd"><h2>In flight</h2><span class="count">11 threads</span></div>
     <div class="rows">
-      <div class="row"><div class="who">Pard</div><div class="txt"><b>Upload 2.0 (8) to TestFlight.</b>
-        <em>Built and verified 6 Oct; the IPA is at <code>build/release-8-export/OptiListen.ipa</code> on Amber. Waits on your approval, Needs-you 1.</em></div></div>
-      <div class="row"><div class="who">xian + Dan</div><div class="txt"><b>Run (8) once it is in TestFlight: once with a second person talking, once outdoors.</b>
-        <em>Waits on build 8. These are the two runs carried over from (7).</em></div></div>
+      <div class="row"><div class="who">Cairn</div><div class="txt"><b>Write the denominator change as D-024 if the answer is &ldquo;whole time&rdquo;; <code>project.yml</code> build goes to 9 with it (Pard's note, 7 Oct).</b>
+        <em>Waits on Needs-you 1.</em></div></div>
+      <div class="row"><div class="who">xian + Dan</div><div class="txt"><b>Two field runs: once with a second person talking, once outdoors.</b>
+        <em>Waits on whichever build Needs-you 1 settles on. Carried over from (7).</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt"><b>Decide what the app says on screen about two people in one room.</b>
-        <em>Waits on Dan's retry and his reaction to the answer above.</em></div></div>
+        <em>Waits on Needs-you 1. Under &ldquo;whole time&rdquo; the other voice no longer moves the number.</em></div></div>
       <div class="row held"><div class="who">Held</div><div class="txt"><b>Listing copy sign-off &mdash; five fields in <a href="https://github.com/mediajunkie/optilisten/blob/main/docs/store-content-2.0.md">docs/store-content-2.0.md</a>, six screenshots in <a href="https://github.com/mediajunkie/optilisten/tree/main/docs/store-art/6.9-inch">docs/store-art/6.9-inch</a>.</b>
         <em>xian's, 15 min, when it comes back. Waits on the submission build being settled; Dan also wants a language pass, &ldquo;later&rdquo;.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt"><b>Remove the placeholder calibration from the classifier; decide whether a calibration is remembered between launches.</b>
@@ -225,7 +225,7 @@
 
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
-    <div class="risk"><span class="dot">&#9670;</span><div><b>D-023 has been compiled in Debug and Release, never run.</b> The path it changes, a sheet opening from inside another sheet and then advancing the screen behind it, is the kind of thing that compiles and misbehaves.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>D-023 is in TestFlight in build 8 and no run of it is recorded</b> (Needs-you 2).</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>No run with a real second speaker exists on any build</b>, and none outdoors under the 12&nbsp;dB bar.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>48 days.</b> Each round is change, build, test; Apple's review comes after the last one.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Calibration is not remembered between launches</b>, so the 12-second step recurs on each cold start.</div></div>
@@ -236,23 +236,25 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Verified how</h2><span class="count">rev 55</span></div>
+    <div class="sec-hd"><h2>Verified how</h2><span class="count">rev 56</span></div>
     <div class="rows">
-      <div class="row"><div class="who">Mail</div><div class="txt"><b><code>docs/mail/</code> in this repo: 1 of 1 new memo read in full (Pard, 6 Oct 17:0x PT).</b>
-        <em>It asks nothing, so no reply was sent. Pard's and Janus's mailboxes pulled and listed.</em></div></div>
-      <div class="row"><div class="who">Build 8</div><div class="txt"><b>Not measured by Cairn: it is Pard's readback from the IPA on Amber, as his memo states it.</b>
-        <em>Checked from kindbook: <code>origin/main</code> at <code>2ef1999</code> has <code>CURRENT_PROJECT_VERSION</code> 8 in both <code>project.yml</code> and the committed <code>.xcodeproj</code> (<code>8dc5336</code>).</em></div></div>
-      <div class="row"><div class="who">Upload</div><div class="txt"><b>Still waiting, per Pard's log entry of 7 Oct 03:07 PT and his <code>docs/xian-open-actions.md</code> (reconciled 7 Oct 07:09 PT), where it is item 2.</b>
-        <em>App Store Connect was not read (its key is on Amber).</em></div></div>
-      <div class="row"><div class="who">Apple</div><div class="txt"><b>Forwarded Gmail searched from kindbook for Apple-domain mail, last 3 days.</b>
-        <em>Newest is still the One Job TestFlight mail of 6 Oct 13:30 PT, which is before build 8 existed, so the mailbox's silence about (8) proves nothing by itself. Nothing about removal.</em></div></div>
-      <div class="row"><div class="who">Dan</div><div class="txt"><b>Forwarded Gmail searched for his address and the app's name, last 3 days: nothing about OptiListen.</b>
-        <em>His conversation with xian is in chat, which Cairn cannot read.</em></div></div>
+      <div class="row"><div class="who">Mail</div><div class="txt"><b><code>docs/mail/</code> in this repo: 2 of 2 new memos read in full (Pard 7 Oct 09:0x PT; xian's chat with Dan relayed by Janus, 7 Oct 11:0x PT).</b>
+        <em>Reply to Janus in <code>mediajunkie/designinproduct</code> <code>docs/mail/</code>. Pard's and Janus's mailboxes pulled and listed.</em></div></div>
+      <div class="row"><div class="who">Build 8</div><div class="txt"><b>In TestFlight, read from the forwarded Gmail on kindbook: two Apple mails dated 2026-10-07 15:59 UTC, &ldquo;completed processing&rdquo; and &ldquo;now available to test&rdquo;.</b>
+        <em>App Store Connect itself was not read (its key is on Amber). Whether it is installed on anyone's phone is not visible from here.</em></div></div>
+      <div class="row"><div class="who">2.0 math</div><div class="txt"><b>Read from <code>origin/main</code> at <code>ee11718</code>, <code>LiveMicSource.currentShare</code>: <code>userSpeakingSeconds / (userSpeakingSeconds + otherSpeakingSeconds)</code>.</b>
+        <em>All eight Swift source files searched for other uses; the three display sites read that one property.</em></div></div>
+      <div class="row"><div class="who">1.x math</div><div class="txt"><b>Read from <code>AustinWood/listenup-mobile</code> at its default-branch head, <code>src/screens/Listen/RecordSession.tsx</code>: spoken seconds (or elapsed minus spoken, in listening mode) divided by <code>durationInSecond</code>.</b>
+        <em>One file read; that repo head is 1.3 (6), not the shipped 1.1 binary.</em></div></div>
+      <div class="row"><div class="who">Inferred</div><div class="txt"><b>That &ldquo;the next version&rdquo; in your chat with Dan meant build 8.</b>
+        <em>When the chat took place relative to the 08:59 upload is not recorded; the inference rests on your description of it (the calibration flow).</em></div></div>
+      <div class="row"><div class="who">Apple</div><div class="txt"><b>Same Gmail search, last 3 days: nothing about removal.</b>
+        <em>24 November still rests on the 08-26 notice alone.</em></div></div>
     </div>
   </section>
 
   <div class="foot">
-    rev 55 &middot; 2026-10-07 08:1x PT &middot; Cairn &middot; build 8 is built and verified on Amber; its upload waits on xian's approval &middot; file and page in sync at rev 55<br>
+    rev 56 &middot; 2026-10-07 16:2x PT &middot; Cairn &middot; build 8 is in TestFlight; what the percentage is a share of waits on xian &middot; file and page in sync at rev 56<br>
     Source: <code>docs/attention.md</code> &middot; page source: <code>docs/attention.html</code> &middot;
     changelog: <code>docs/attention-changelog.md</code> &middot; decisions: <code>docs/decisions.md</code>
   </div>
