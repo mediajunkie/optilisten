@@ -5,9 +5,19 @@ land here, newest first, so the board holds only what is current (network conven
 `mediajunkie/designinproduct` → `docs/conventions/attention-rollups-and-living-docs.md`). Everything
 through rev 40 is in [`attention-archive-through-rev40.md`](attention-archive-through-rev40.md).
 
+## Removed at rev 57 (2026-10-07)
+
+- **Needs-you #1, "🔒 What is the percentage a share of?"** Blocked 10-07 11:0x PT, answered 10-07
+  16:1x PT by xian in the Cairn session: "whole time. yes, both Dan and I intuitively expected this,
+  as per the 1.0, 1.1 design." Written the same session as D-024. Never escalated.
+- **In flight, "Write the denominator change as D-024" (Cairn).** Done.
+- **In flight, "Decide what the app says on screen about two people in one room" (Cairn).** Withdrawn:
+  under D-024 the other voice no longer moves the number, so there is nothing to explain on screen.
+- **Where things stand, the three bullets on Dan's reading and the earlier division.** Now in D-024.
+
 ## Removed at rev 56 (2026-10-07)
 
-- **Needs-you #1, "🔒 Approve the TestFlight upload of 2.0 (8)."** Blocked 10-06 17:0x PT, answered
+- **Needs-you #1, "🔒 Approve the TestFlight upload of 2.0 (8)."** Blocked 10-06 16:3x PT, answered
   10-07 ~08:00 PT ("Go", relayed by Janus to Pard). Pard uploaded; Apple's processing and
   available-to-test mails are dated 10-07 08:59 PT. Delivery UUID
   `a4e5974a-6a4c-4bb1-9e47-fc3a17887f4b`
@@ -25,7 +35,7 @@ through rev 40 is in [`attention-archive-through-rev40.md`](attention-archive-th
 ## Removed at rev 55 (2026-10-07)
 
 - **In flight, "Build and upload 2.0 (8)" (Pard).** The build half is done: `scripts/release.sh
-  --no-upload` on Amber, 10-06 17:0x PT, IPA read back as 2.0 (8), Distribution-signed
+  --no-upload` on Amber, 10-06 16:3x PT, IPA read back as 2.0 (8), Distribution-signed
   (`docs/mail/memo-pard-to-cairn-cc-janus-xian-2-0-8-built-and-verified-upload-awaits-xian-2026-10-06.md`).
   The row now reads "Upload 2.0 (8)" and waits on xian.
 - **Where things stand, "That is fixed in the code, and not yet in a build."** Superseded: it is in
