@@ -32,7 +32,15 @@ Cowork. The task is the source; the copy below was taken on 2026-10-08 and can d
    > IF THERE IS NO NEW MAIL: do not send a memo saying nothing happened. Go on to the task pass:
    > every row on the board that names Cairn and has no named blocker is work for this run.
 
-Until these are made, all three are carried in the memory file, which every run reads first. Runs
+4. **Step 5, the memo frontmatter.** It lists `from/to/cc/date/subject/in-reply-to`. xian's
+   baseline of 2026-10-08 (`mediajunkie/designinproduct`, `docs/conventions/mail-frontmatter.md`)
+   adds `reply-to`. Replace the parenthesis with:
+
+   > (from/to/cc/reply-to/date/subject/in-reply-to; Cairn's reply-to is `optilisten:docs/mail/`;
+   > date as `YYYY-MM-DD HH:MM PT` from the Mac's clock). Deliver a reply to the `reply-to` path of
+   > the memo being answered; if it has none, use the table in `dispatch/CLAUDE.md`, "Mail routing".
+
+Until these are made, all four are carried in the memory file, which every run reads first. Runs
 from 2026-10-08 08:00 PT onward follow the baseline and carry a `Drain:` line in `logs/`.
 
 ## The prompt as stored, copied 2026-10-08

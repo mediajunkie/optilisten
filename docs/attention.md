@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-10-08 08:2x PT (**rev 58**) · **Deadline:** 2026-11-24 — **47 days**, day 43 of 90
+**Maintained by:** Cairn · **Updated:** 2026-10-08 16:1x PT (**rev 59**) · **Deadline:** 2026-11-24 — **47 days**, day 43 of 90
 
 Rendered for xian at https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215 (same URL
 every rev). This file is the source; the page follows it.
@@ -16,7 +16,8 @@ every rev). This file is the source; the page follows it.
   Letting calibration finish avoids it.
 - **The fix is on `main` as D-025** ([`docs/decisions.md`](decisions.md), commit `86f32a5`, build
   number 10). It compiles ([CI run 37798916638](https://github.com/mediajunkie/optilisten/actions/runs/37798916638)
-  is green: Debug, iOS Simulator). It has not run on a device, and Pard has not built it.
+  is green: Debug, iOS Simulator). It has not run on a device, and Pard has not built it. His log for 10-08 does not
+  mention the request, sent at 08:25; I asked again at 16:1x PT.
 - **Nothing has been submitted to Apple**, so 24 November has not moved.
 
 ## Needs you
@@ -31,18 +32,18 @@ Optional, one more minute, and it would turn my reading into a fact: quit the ap
 tap Skip while it says "Talk normally". I expect a crash. If it does not crash, I am wrong about
 build 9 and want to know.
 
-**2. Three small edits to this scheduled task's prompt.** A scheduled run cannot edit its own
+**2. Four small edits to this scheduled task's prompt.** A scheduled run cannot edit its own
 prompt, so they wait on you. Say "update the task prompt" in a Cairn session, or edit it in
 Claude → Scheduled → "OptiListen — check agent mail and update the attention rollup". The edits,
 ready to paste, are in [`docs/cairn-scheduled-task.md`](cairn-scheduled-task.md): the memory file
-path, a pointer to your duty-cycle baseline, and the "no new mail" paragraph. Until then all three
-live in my memory file, which each run reads first, and this run followed the baseline.
+path, a pointer to your duty-cycle baseline, the "no new mail" paragraph, and (new today) your `reply-to`
+field in the memo template. Until then all four live in my memory file, which each run reads first.
 
 ## In flight
 
 | Owner | Item | Waiting on |
 |---|---|---|
-| **Pard** | Build 2.0 (10) from `main` and upload it | his queue; memo sent 10-08 |
+| **Pard** | Build 2.0 (10) from `main` and upload it | Pard reading the request. Sent 10-08 08:25; every cycle in his log since says "Mail: nothing for me". Asked again 16:1x PT. His draft permissions keep release uploads on hold, so the upload may wait on your "go" |
 | **Pard** | Re-shoot the store screenshots that show the changed captions (scripted, D-016). Asked 10-07; `docs/store-art` was last changed 09-24 | his queue; asked again 10-08 |
 | **xian + Dan** | Once with a second person, once outdoors, on (9) or (10) | a first solo run (Needs-you 1) |
 | **Cairn** | Revisit the ceiling slider's range and 30% default, which were chosen for a share of speech | a run of (9): real whole-time numbers |
@@ -83,7 +84,15 @@ Older closed items: [`docs/attention-changelog.md`](attention-changelog.md). Dec
 - **Apple rejected this app once before** (July 2023, background modes). 2.0 omits `UIBackgroundModes`.
 - **Age-rating social-media questions** at submission; about 10 min; the answers are "no".
 
-## Verified how (rev 58)
+## Verified how (rev 59)
+
+- **Pard has not picked up build 10:** `logs/2026-10-08-pard-log.md` in `mediajunkie` at `3e8aaa8`
+  (15:08 PT), read on kindbook. No line mentions build 10 or D-025, and each cycle records "Mail:
+  nothing for me". My memo is in his mailbox (`6f746ec`, 08:25). Why his sweep passed over it is not
+  known. Amber was not read, so a build he made without logging it would not show here.
+- **No newer Apple mail:** the forwarded Gmail, searched from kindbook at 16:1x PT. Newest OptiListen
+  mail is still the two for 2.0 (9). Nothing to or from Dan in three days.
+- The four below are unchanged from rev 58.
 
 - **Build 9 in TestFlight:** Apple's "completed processing" and "available to test" mails for 2.0 (9),
   both 2026-10-08 00:23 UTC, read in the forwarded Gmail from kindbook. Delivery UUID from Pard's memo.
@@ -99,4 +108,4 @@ Older closed items: [`docs/attention-changelog.md`](attention-changelog.md). Dec
   tree was not read.
 
 ---
-*rev 58 · 2026-10-08 08:2x PT · Cairn · build 9 is in TestFlight; a likely crash on Skip mid-calibration is fixed on main (D-025, build 10)*
+*rev 59 · 2026-10-08 16:1x PT · Cairn · the build 10 request has not been picked up, asked again; a fourth prompt edit (reply-to)*
