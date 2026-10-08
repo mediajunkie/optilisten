@@ -621,3 +621,62 @@ whole time the same digits are a looser limit.
 **Shows up in:** `OptiListen/Sources/LiveMicSource.swift`,
 `OptiListen/Models/Practice.swift`, `OptiListen/Views/PracticeLoopView.swift`,
 `OptiListen/Views/HomeView.swift`, `OptiListen/Debug/ScreenshotFixture.swift`.
+
+---
+
+## D-025 · One engine, one owner at a time; "no calibration" is nothing, not a placeholder
+**2026-10-08 · Cairn (a code repair inside D-023's shape, no change to what the screens say) · DECIDED, compiled, not yet run on a device**
+
+**The defect, read from the source of builds 8 and 9. Not reproduced on a device.**
+D-023 opens calibration on the way into the first conversation. The sheet's
+Skip button stays live during the two six-second readings, and the sheet can
+also be swiped down. Either one dismisses it, and the sheet's `onDismiss` goes
+straight on to the listening screen, which calls `LiveMicSource.start()`. The
+reading that was in flight is not stopped: it was an unheld `Task`, and
+`sampleLevel(for:)` still has its tap on bus 0 of the one shared
+`AVAudioEngine`. `start()` then installs a second tap on the same bus. Apple
+documents one tap per bus; the second raises an Objective-C exception that
+Swift cannot catch, so the expected result is a crash. This is item 5 of
+`docs/architecture-review-2026-09-16.md` ("one engine, two owners, no
+arbitration"), which was a candidate then and became reachable in one tap when
+D-023 shipped. The same overlap exists on Home: Close mid-reading, reopen
+Calibrate, Begin.
+
+**What is inferred.** That the second `installTap` crashes on the iOS versions
+in use. It follows from Apple's documentation and from this file's own history
+of tap-site exceptions; nobody has tapped Skip mid-reading on a phone and
+reported back. Build 9 is the control: if it crashes there and build 10 does
+not, the inference is a fact.
+
+**The change.**
+1. A calibration reading can be abandoned. `sampleLevel(for:)` sleeps in
+   tenth-of-a-second slices, gives the engine back on every way out, and throws
+   `CancellationError` when it was abandoned. `CalibrationView` holds its task
+   and cancels it when the sheet goes away, so the microphone no longer keeps
+   running behind a closed sheet.
+2. `start()` checks whether a reading holds the engine, asks it to stop, and
+   waits until it has let go before installing its own tap.
+3. A reading refuses to begin while a conversation is running or starting, or
+   while another reading is in flight (`TalkRatioSourceError.busy`, shown as
+   "OptiListen is already using the microphone. Give it a moment and try
+   again.").
+4. A `start()` that was suspended across a `stop()` no longer switches the
+   microphone on afterwards (`startGeneration`).
+5. `Calibration.unavailable` is deleted and `calibration` is an `Optional`.
+   With no calibration there is nothing to classify against; every buffer
+   counts as quiet and no number exists. Item 2 of the same review. The
+   screens already showed no number in this state (D-023), so nothing visible
+   changes.
+
+**Not done, and why.** A full `enum` state machine for the engine: the three
+flags above close the overlaps that can be reached from the screens, and a
+rewrite of a capture path that has two unrun changes on it (D-023, D-024) would
+make the next device report harder to read. Calibration is still per launch;
+whether it should also expire inside a long-lived launch waits on someone
+having used the twelve-second step on a phone.
+
+**Shows up in:** `OptiListen/Sources/LiveMicSource.swift` (`sampleLevel(for:)`,
+`start()`, `stop()`, `calibration`), `OptiListen/Sources/TalkRatioSource.swift`
+(`.busy`), `OptiListen/Views/CalibrationView.swift` (`reading`),
+`OptiListen/Views/PracticeLoopView.swift` (three optional reads).
+`CURRENT_PROJECT_VERSION` 9 → 10 in `project.yml` and the committed project.

@@ -99,6 +99,10 @@ enum TalkRatioSourceError: LocalizedError {
     /// so installing a tap against that format raises an uncatchable ObjC exception.
     /// Surfacing it as a thrown error lets the UI say something instead of dying.
     case inputUnavailable
+    /// The one audio engine is already held, by a conversation or by another
+    /// calibration reading. A second tap on the same bus is an uncatchable
+    /// ObjC exception, so the second caller is refused instead (D-025).
+    case busy
 
     var errorDescription: String? {
         switch self {
@@ -112,6 +116,8 @@ enum TalkRatioSourceError: LocalizedError {
             "Listening stopped early, so this reading covers only part of the conversation."
         case .inputUnavailable:
             "The microphone isn't available yet. Close and reopen OptiListen, and allow microphone access when asked."
+        case .busy:
+            "OptiListen is already using the microphone. Give it a moment and try again."
         }
     }
 }

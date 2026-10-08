@@ -62,6 +62,20 @@ import Observation
 /// silence instead. It is still not speaker detection — it is a debounce —
 /// and it is a first estimate awaiting a field test with a real second
 /// speaker, the same way the 12/16 dB bars were.
+///
+/// ## 2026-10-08: one engine, one owner at a time (D-025)
+///
+/// Calibration and capture share one `AVAudioEngine` and both install a tap
+/// on bus 0. Two taps on one bus is an Objective-C exception, which Swift
+/// cannot catch. Until 2.0 (8) the two could not overlap, because calibration
+/// lived on Home. D-023 put calibration on the way into a conversation with a
+/// Skip button that stays live during the readings, so Skip mid-reading led
+/// straight to `start()` while `sampleLevel(for:)` still held its tap. Read
+/// from the source of builds 8 and 9; not reproduced on a device.
+///
+/// Now a reading in flight gives the engine back before capture takes it,
+/// a reading refuses to begin while anything else holds the microphone, and
+/// "no calibration" is `nil` rather than a pair of invented levels.
 @Observable
 @MainActor
 final class LiveMicSource: LiveTalkRatioSource {
@@ -121,26 +135,20 @@ final class LiveMicSource: LiveTalkRatioSource {
             let gap = userLevel - ambientLevel
             return gap >= 12.0 && gap < 16.0
         }
-
-        /// The value held before anyone has calibrated.
-        ///
-        /// **Known defect, deliberately not changed in this build.** Its 30 dB
-        /// gap passes `isUsable`, so "never calibrated" is numerically
-        /// indistinguishable from "calibrated well" — the same
-        /// failure-looks-like-success shape this build exists to remove.
-        /// Making `calibration` an `Optional` and deleting this is the right
-        /// repair, and it changes classification behaviour, so it does not
-        /// belong in a build whose job is to observe. `isCalibrated` below
-        /// makes the distinction *visible* in the meantime, which is what a
-        /// diagnostic build owes you.
-        static let unavailable = Calibration(userLevel: -20, ambientLevel: -50)
     }
 
-    private(set) var calibration: Calibration = .unavailable
+    /// The calibration in force, or `nil` when nobody has calibrated this
+    /// launch.
+    ///
+    /// This was a non-optional value that began as a placeholder (user -20
+    /// dBFS, ambient -50). Its 30 dB gap passed `isUsable`, so "never
+    /// calibrated" was numerically the same as "calibrated well", and
+    /// `classify(_:)` ran against it. With `nil` there is nothing to classify
+    /// against and nothing that can be mistaken for a reading.
+    private(set) var calibration: Calibration?
 
-    /// Whether `calibration` came from two real readings or is still the
-    /// placeholder. Read by the UI; see the note on `.unavailable`.
-    private(set) var isCalibrated = false
+    /// Whether two real readings have been taken this launch.
+    var isCalibrated: Bool { calibration != nil }
 
     /// Store a calibration built from two measured levels.
     ///
@@ -152,7 +160,6 @@ final class LiveMicSource: LiveTalkRatioSource {
     func applyCalibration(userLevel: Double, ambientLevel: Double) -> Calibration {
         let calibration = Calibration(userLevel: userLevel, ambientLevel: ambientLevel)
         self.calibration = calibration
-        isCalibrated = true
         note(String(
             format: "calibrated — user %.1f dBFS, ambient %.1f dBFS, gap %.1f dB, threshold %.1f",
             userLevel, ambientLevel, userLevel - ambientLevel, calibration.threshold
@@ -224,14 +231,22 @@ final class LiveMicSource: LiveTalkRatioSource {
     /// Deliberately not a crash report: it exists so that learning what
     /// happened does not depend on catching a modal sheet and tapping Share.
     var eventLogText: String {
+        let levels: String
+        if let calibration = self.calibration {
+            levels = String(format: "user %.1f / ambient %.1f / threshold %.1f / floor %.1f",
+                            calibration.userLevel, calibration.ambientLevel,
+                            calibration.threshold, calibration.silenceFloor)
+        } else {
+            levels = "no calibration this launch"
+        }
+        let usable = calibration?.isUsable == true
+
         let header = [
             "OptiListen capture log",
             "state: \(state.label)",
             "running: \(isRunning)  buffers: \(buffersReceived)",
-            "calibrated: \(isCalibrated)  usable: \(calibration.isUsable)",
-            String(format: "user %.1f / ambient %.1f / threshold %.1f / floor %.1f",
-                   calibration.userLevel, calibration.ambientLevel,
-                   calibration.threshold, calibration.silenceFloor),
+            "calibrated: \(isCalibrated)  usable: \(usable)",
+            levels,
             String(format: "heard %.1fs — user %.1f / other %.1f / silence %.1f",
                    observedDuration, userSpeakingSeconds,
                    otherSpeakingSeconds, silenceSeconds),
@@ -346,6 +361,16 @@ final class LiveMicSource: LiveTalkRatioSource {
     private let engine = AVAudioEngine()
     private let bufferSeconds: TimeInterval = 0.1
 
+    /// True while `sampleLevel(for:)` holds the engine for a calibration
+    /// reading. Capture and a second reading both check it (D-025).
+    private var isSampling = false
+    /// Set by `start()` to ask a reading in flight to give the engine back.
+    private var samplingCancelled = false
+    /// Bumped by every `start()` and `stop()`, so a `start()` that was
+    /// suspended across a `stop()` can tell it has been overtaken and must
+    /// not switch the microphone on after the user has left the screen.
+    private var startGeneration = 0
+
     /// Held so the observer can be removed. It was previously discarded, which
     /// added a fresh observer on every `start()` and never removed any.
     private var interruptionObserver: NSObjectProtocol?
@@ -369,16 +394,36 @@ final class LiveMicSource: LiveTalkRatioSource {
 #if DEBUG
         if isScreenshotFixture { fixtureStart(); return }
 #endif
-        guard !isRunning else {
-            note("start() ignored — already running")
+        guard !isRunning, state != .starting else {
+            note("start() ignored — already \(state.label)")
             return
         }
 
         state = .starting
+        startGeneration += 1
+        let generation = startGeneration
         note("start() requested")
+
+        // One engine, one owner. If a calibration reading still holds the tap
+        // (Skip was tapped mid-reading), ask it to stop and wait until it has
+        // let go. `Task.yield()` is there because a cancelled task's
+        // `Task.sleep` returns at once, and this loop must still let the
+        // reading run on the main actor in order to finish.
+        if isSampling {
+            note("start() — a calibration reading is in flight; asking it to stop")
+            samplingCancelled = true
+            while isSampling {
+                await Task.yield()
+                try? await Task.sleep(for: .milliseconds(20))
+            }
+        }
 
         do {
             guard await isAvailable() else { throw TalkRatioSourceError.permissionDenied }
+            guard generation == startGeneration else {
+                note("start() abandoned — stop() arrived first")
+                return
+            }
             note("microphone permission: granted")
 
             reset()
@@ -421,7 +466,7 @@ final class LiveMicSource: LiveTalkRatioSource {
             state = .running
             note(isCalibrated
                  ? "engine running — calibrated"
-                 : "engine running — NOT CALIBRATED, classifying against placeholder thresholds")
+                 : "engine running — no calibration, so nothing is classified")
         } catch {
             await fail(error, during: "start()")
             throw error
@@ -432,6 +477,7 @@ final class LiveMicSource: LiveTalkRatioSource {
 #if DEBUG
         if isScreenshotFixture { fixtureStop(); return }
 #endif
+        startGeneration += 1
         note("stop() requested — state was \(state.label)")
         // A run still building toward `otherMinRunBuffers` when capture stops
         // never gets to prove itself. Fold it into silence rather than drop
@@ -527,7 +573,7 @@ final class LiveMicSource: LiveTalkRatioSource {
             note(String(format: "first buffer — %.1f dBFS", level))
         }
 
-        guard calibration.isUsable else {
+        guard let calibration = self.calibration, calibration.isUsable else {
             resolvePendingOtherRun()
             silenceSeconds += bufferSeconds
             return
@@ -577,7 +623,22 @@ final class LiveMicSource: LiveTalkRatioSource {
 
     /// Sample the room for `duration`, returning mean dBFS. Called twice at
     /// setup: once while the user speaks, once while they're quiet.
+    ///
+    /// Holds the engine for the length of the reading and gives it back on
+    /// every way out. Throws `CancellationError` when the reading was
+    /// abandoned, either because the caller's task was cancelled (the sheet
+    /// closed) or because `start()` asked for the engine; that is not a
+    /// failure and is not reported as one.
     func sampleLevel(for duration: TimeInterval) async throws -> Double {
+        try Task.checkCancellation()
+        guard !isSampling, !isRunning, state != .starting else {
+            note("sampleLevel() refused — the microphone is already in use")
+            throw TalkRatioSourceError.busy
+        }
+        isSampling = true
+        samplingCancelled = false
+        defer { isSampling = false }
+
         note("sampleLevel(\(Int(duration))s) requested")
         do {
             // 2026-09-14: calibration runs BEFORE any start(), so on a first run this was
@@ -612,10 +673,22 @@ final class LiveMicSource: LiveTalkRatioSource {
 
             engine.prepare()
             try engine.start()
-            try? await Task.sleep(for: .seconds(duration))
+
+            // Slept in slices so the reading can be abandoned within a tenth
+            // of a second instead of running out its six.
+            var waited: TimeInterval = 0
+            while waited < duration, !samplingCancelled, !Task.isCancelled {
+                try? await Task.sleep(for: .milliseconds(100))
+                waited += 0.1
+            }
 
             input.removeTap(onBus: 0)
             engine.stop()
+
+            if samplingCancelled || Task.isCancelled {
+                note("sample abandoned after " + String(format: "%.1f", waited) + "s")
+                throw CancellationError()
+            }
 
             let count = await samples.count
             let mean = await samples.mean
@@ -624,6 +697,8 @@ final class LiveMicSource: LiveTalkRatioSource {
             // returned the -80 floor, which looks exactly like a silent room.
             guard count > 0 else { throw TalkRatioSourceError.inputUnavailable }
             return mean
+        } catch is CancellationError {
+            throw CancellationError()
         } catch {
             await fail(error, during: "sampleLevel()")
             throw error

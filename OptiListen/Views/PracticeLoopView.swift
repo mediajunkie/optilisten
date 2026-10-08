@@ -113,9 +113,9 @@ struct PracticeLoopView: View {
             await source.stop()
             // Headphones mean the microphone only ever heard the user, so the
             // ratio is meaningless. Record the duration, refuse the number.
-            // Never calibrated means the number would be computed against the
-            // placeholder thresholds, so it is refused the same way.
-            guard !usingHeadphones, source.isCalibrated, source.calibration.isUsable,
+            // Never calibrated means there is nothing to compute a number
+            // against, so it is refused the same way.
+            guard !usingHeadphones, source.calibration?.isUsable == true,
                   source.state.failureText == nil, source.buffersReceived > 0 else { return }
             practice.measuredSpeakingShare = source.currentShare
             practice.evidenceDuration = source.observedDuration
@@ -216,7 +216,7 @@ private struct ListeningStep: View {
             if let failure = source.state.failureText {
                 // A failed start used to be pixel-identical to a working one.
                 CaptureFailureCard(message: failure, log: source.eventLogText)
-            } else if usingHeadphones || !source.isCalibrated || !source.calibration.isUsable {
+            } else if usingHeadphones || source.calibration?.isUsable != true {
                 // No number, on purpose. The intention still does the work.
                 // That includes never having calibrated: 2.0 (7) showed a
                 // number against placeholder thresholds with a grey footnote
@@ -277,7 +277,7 @@ private struct ListeningStep: View {
                         .foregroundStyle(Theme.over)
                         .padding(.horizontal, 32)
                 }
-                if source.calibration.isMarginal {
+                if source.calibration?.isMarginal == true {
                     Text("Your voice and the room are close together. Treat the split between you and others as rough.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)

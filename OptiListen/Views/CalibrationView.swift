@@ -20,6 +20,10 @@ struct CalibrationView: View {
     @State private var phase: Phase = .intro
     @State private var userLevel: Double = 0
     @State private var ambientLevel: Double = 0
+    /// The two readings in flight, held so that closing the sheet stops them.
+    /// It used to be a `Task` nobody held and nobody could cancel: Skip or Close
+    /// mid-reading left the microphone running behind a dismissed sheet.
+    @State private var reading: Task<Void, Never>?
 
     private let sampleSeconds: TimeInterval = 6
 
@@ -41,6 +45,7 @@ struct CalibrationView: View {
                 }
             }
         }
+        .onDisappear { reading?.cancel() }
     }
 
     @ViewBuilder private var content: some View {
@@ -147,13 +152,14 @@ struct CalibrationView: View {
     /// Run the two readings.
     ///
     /// This was `(try? await source.sampleLevel(...)) ?? -20` and `?? -50`.
-    /// Those two fallbacks are numerically `Calibration.unavailable`, whose
-    /// 30 dB gap passes `isUsable` — so a calibration in which *both readings
+    /// Those two fallbacks were numerically the old placeholder calibration,
+    /// whose 30 dB gap passed `isUsable` — so a calibration in which *both readings
     /// failed* rendered a green checkmark and "Ready." A failure that reports
     /// itself as success is the defect class this build exists to remove, and
     /// this was its worst instance.
     private func run() {
-        Task {
+        reading?.cancel()
+        reading = Task {
             do {
                 phase = .speaking
                 userLevel = try await source.sampleLevel(for: sampleSeconds)
@@ -166,6 +172,9 @@ struct CalibrationView: View {
                     ambientLevel: ambientLevel
                 )
                 phase = calibration.isUsable ? .result : .tooClose
+            } catch is CancellationError {
+                // The sheet was closed mid-reading. Nothing to show, and
+                // nothing was applied.
             } catch {
                 let message = (error as? LocalizedError)?.errorDescription
                     ?? error.localizedDescription
