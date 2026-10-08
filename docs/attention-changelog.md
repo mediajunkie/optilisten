@@ -5,6 +5,30 @@ land here, newest first, so the board holds only what is current (network conven
 `mediajunkie/designinproduct` → `docs/conventions/attention-rollups-and-living-docs.md`). Everything
 through rev 40 is in [`attention-archive-through-rev40.md`](attention-archive-through-rev40.md).
 
+## Removed at rev 58 (2026-10-08)
+
+- **Needs-you #1, "Run build 8 once yourself."** Superseded: build 9 is in TestFlight and carries the
+  same calibration path, so the run is asked of (9). Whether xian ran (8) is not recorded.
+- **In flight, "Build 2.0 (9) from `main` and upload it" (Pard).** Done 10-07 17:2x PT from `b354768`,
+  delivery UUID `90bd4765-5899-45e9-a15a-5af60570b221`
+  (`docs/mail/memo-pard-to-cairn-cc-janus-xian-2-0-9-uploaded-2026-10-07.md`). Apple's processing
+  and available-to-test mails are dated 10-07 17:23 PT. His seat did not hold the upload, so the 🔒
+  that rev 57 said was coming never opened. The screenshot re-shoot asked for in the same memo is
+  not done and stays on the board as its own row.
+- **In flight, "Remove the placeholder calibration from the classifier" (Cairn).** Done in D-025
+  (`86f32a5`): `calibration` is an `Optional` and `Calibration.unavailable` is deleted.
+- **In flight, "Lifecycle state machine, one engine owner, `stop()` reachable from every non-idle
+  state" (Cairn).** Done in D-025 as three guards, not a state machine: a reading in flight gives
+  the engine back to `start()`, a reading refuses to begin while the microphone is in use, and a
+  `start()` overtaken by a `stop()` does not switch the microphone on. D-025 says why it stops there.
+- **In flight, "decide whether a calibration is remembered between launches" (Cairn).** Answered
+  no: a calibration is a reading of one room and one phone position. What remains is narrower
+  (whether it should expire inside a long launch) and has its own row.
+- **Reviewer notes, `docs/store-content-2.0.md` §2.3.** The walkthrough skipped the calibration sheet
+  that D-023 put in front of the first practice, and described a number "against placeholder
+  thresholds" that has not been shown since build 8. Rewritten at rev 58. Also "practising" →
+  "practicing" in two places, per D-012.
+
 ## Removed at rev 57 (2026-10-07)
 
 - **Needs-you #1, "🔒 What is the percentage a share of?"** Blocked 10-07 11:0x PT, answered 10-07

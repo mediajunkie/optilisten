@@ -129,7 +129,7 @@ the one field that can carry a beta note, a price note or a seasonal line withou
 > **Talking less is a skill, and skills need practice.**
 >
 > OptiListen is a rehearsal loop for listening. Before a conversation you set a ceiling — the share
-> of it you mean to spend talking — and name one thing you are practising. During the conversation
+> of it you mean to spend talking — and name one thing you are practicing. During the conversation
 > you can leave the phone face up beside you and see where you are while you can still do something
 > about it. Afterwards you say how present you actually were.
 >
@@ -252,8 +252,10 @@ rejection on the record, and has a diagnostics affordance a reviewer will find a
 >
 > **How to exercise the app in about two minutes.** Launch it and tap the button to start a
 > practice. On the "Before" screen set a ceiling percentage and type one line in "What are you
-> practising?", then tap Start. Grant the microphone prompt. Talk for thirty seconds or so and a
-> percentage appears; tap End. On the "After" screen choose a presence rating of 1–5 and tap Done.
+> practicing?", then tap Start. A calibration sheet opens: tap Begin, grant the microphone prompt,
+> talk for six seconds when asked and stay quiet for six, then tap Done. On the listening screen
+> talk for thirty seconds or so and a percentage appears; tap End. On the "After" screen choose a
+> presence rating of 1–5 and tap Done.
 > The practice then appears on the home screen. No account, no network connection and no purchase
 > is required at any point.
 >
@@ -263,11 +265,12 @@ rejection on the record, and has a diagnostics affordance a reviewer will find a
 > speech recognition framework in the app and no network code of any kind. The privacy manifest
 > declares no collected data types and one required-reason API (`UserDefaults`, CA92.1).
 >
-> **Calibration.** "Calibrate" in the home toolbar takes two short readings — one of the reviewer
-> speaking, one of the room — to establish the gap between them. It is optional; the app works
-> without it and says so on screen when a number is computed against placeholder thresholds. If
-> the room is too loud or headphones are in use, the app reports that it cannot produce a reliable
+> **Calibration.** The first practice after each launch opens with two short readings — one of the
+> reviewer speaking, one of the room — to establish the gap between them. It can be skipped; the
+> app then runs the practice and shows "No reading this time" in place of a percentage. If the
+> room is too loud or headphones are in use, the app reports that it cannot produce a reliable
 > reading and offers to continue without one. That refusal is intended behaviour, not a failure.
+> "Calibrate" in the home toolbar repeats the readings at any time.
 >
 > **Diagnostics.** The listening screen has a stethoscope button that opens a plain-text event log
 > and a copy button. It is a support affordance for a measurement users are asked to trust; it
