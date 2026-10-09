@@ -5,6 +5,22 @@ land here, newest first, so the board holds only what is current (network conven
 `mediajunkie/designinproduct` → `docs/conventions/attention-rollups-and-living-docs.md`). Everything
 through rev 40 is in [`attention-archive-through-rev40.md`](attention-archive-through-rev40.md).
 
+## Removed at rev 60 (2026-10-09)
+
+- **Needs-you #1, "Run build 9, and tell Dan it is the one."** Superseded: build 10 is in TestFlight
+  and carries the Skip fix, so the run is asked of (10). Whether xian or Dan ran (9) is not recorded.
+  The optional control (Skip on 9, expect a crash) is dropped with it; the reading of builds 8 and 9
+  stays an inference.
+- **Needs-you #2, "Four small edits to this scheduled task's prompt."** Done by xian by hand on 10-08
+  about 17:30 PT (Janus's memo `76ac25c`; his own attempt through the API was abandoned because the
+  task's configuration is about 100 KB). Confirmed on 10-09 against the prompt the 08:00 run received.
+- **In flight, "Build 2.0 (10) from `main` and upload it" (Pard).** Done 10-08 16:1x PT from
+  `ebc5b45`, delivery UUID `280119b2-2903-4961-be0a-ddce0fe69a17`. Apple's two mails are dated 10-08
+  16:16 PT. His seat did not hold the upload. Why the 08:25 request sat eight hours: it landed ten
+  minutes before the mail-wake baseline, which recorded it as already seen, and his own sweep windows
+  left a gap over it. Fixed on his side (`mail-sweep.sh --since-last`).
+- **In flight, "Re-shoot the store screenshots" (Pard).** Done at `a690217`; shots 2 to 6 changed.
+
 ## Removed at rev 58 (2026-10-08)
 
 - **Needs-you #1, "Run build 8 once yourself."** Superseded: build 9 is in TestFlight and carries the

@@ -60,7 +60,7 @@
   .target{font-family:var(--mono);font-size:12.5px;color:var(--ink-mid);text-align:right}
   .meter{height:9px;border-radius:5px;background:var(--sunk);overflow:hidden;
          border:1px solid var(--rule-soft)}
-  .meter i{display:block;height:100%;width:47.8%;
+  .meter i{display:block;height:100%;width:48.9%;
            background:linear-gradient(90deg,var(--green),var(--teal))}
   .scale{display:flex;justify-content:space-between;font-family:var(--mono);
          font-size:11px;color:var(--ink-dim)}
@@ -129,49 +129,41 @@
     <h1>OptiListen</h1>
     <p class="lede">What needs xian, what's moving, what's settled. Canonical source is
       <code>docs/attention.md</code> in <code>mediajunkie/optilisten</code>.</p>
-    <div class="stamp">Updated 8 Oct 2026 16:1x PT &middot; rev 59 &middot; the build 10 request has not been picked up, asked again; a fourth prompt edit</div>
+    <div class="stamp">Updated 9 Oct 2026 08:1x PT &middot; rev 60 &middot; build 10 is in TestFlight with the Skip fix; screenshots re-shot; the prompt edits are in</div>
   </header>
 
   <section class="clock">
     <div class="clock-top">
-      <div class="days">47 <span>days to 24 November</span></div>
-      <div class="target">day 43 of 90<br>grace period from the 08-26 notice</div>
+      <div class="days">46 <span>days to 24 November</span></div>
+      <div class="target">day 44 of 90<br>grace period from the 08-26 notice</div>
     </div>
     <div class="meter"><i></i></div>
     <div class="scale"><span>26 Aug</span><span>today</span><span>24 Nov</span></div>
-    <div class="caveat">The date rests on the 08-26 App Store Improvement Notice alone. Nothing has been submitted to Apple, so it has not moved. Apple's mail re-read 8 Oct: nothing about removal.</div>
+    <div class="caveat">The date rests on the 08-26 App Store Improvement Notice alone. Nothing has been submitted to Apple, so it has not moved. Apple's mail re-read 9 Oct: nothing about removal.</div>
   </section>
 
   <section class="archive">
     <b>Where things stand.</b>
     <ul style="margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px">
-      <li><b>Build 9 is in TestFlight</b>, on your phone and Dan's since 7 Oct 17:23 PT. It has the percentage as your talking out of the whole time (D-024). Pard's seat did not hold this upload. No run of it is recorded yet.</li>
-      <li><b>Build 9 probably crashes if you tap Skip, or swipe the sheet down, while calibration is taking a reading.</b> This comes from reading the source, not from a phone: the reading keeps its hold on the microphone and the listening screen then asks for it a second time. Build 8 has the same path. Letting calibration finish avoids it.</li>
-      <li><b>The fix is on <code>main</code> as D-025</b> (<a href="https://github.com/mediajunkie/optilisten/blob/main/docs/decisions.md">docs/decisions.md</a>, commit <a href="https://github.com/mediajunkie/optilisten/commit/86f32a5">86f32a5</a>, build number 10). It compiles (<a href="https://github.com/mediajunkie/optilisten/actions/runs/37798916638">CI run 37798916638</a> is green: Debug, iOS Simulator). It has not run on a device, and Pard has not built it. His log for 8 Oct does not mention the request, sent at 08:25; I asked again at 16:1x PT.</li>
+      <li><b>Build 10 is in TestFlight</b>, available since 8 Oct 16:16 PT. It has everything build 9 had (the percentage as your talking out of the whole time, D-024) plus the fix for the Skip crash (D-025). Pard's seat did not hold the upload. No run of it is recorded yet.</li>
+      <li><b>Skip builds 8 and 9.</b> Reading the source, both probably crash if you tap Skip, or swipe the sheet down, while calibration is taking a reading. Nobody reproduced it on a phone, and with (10) out there is no reason to.</li>
+      <li><b>The store screenshots are re-shot</b> from build 10's code and show the new captions (&ldquo;of the time is you talking&rdquo;). I looked at four of the six.</li>
+      <li><b>This task's prompt carries the four edits</b> you made on 8 Oct. Checked against the prompt this run was started with.</li>
       <li><b>Nothing has been submitted to Apple</b>, so 24 November has not moved.</li>
     </ul>
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Needs you</h2><span class="count">2 items &middot; ~7 min &middot; neither blocking</span></div>
+    <div class="sec-hd"><h2>Needs you</h2><span class="count">1 item &middot; ~5 min &middot; not blocking</span></div>
     <div class="items">
 
       <div class="item">
         <div class="rank">1</div>
         <div class="body">
-          <div class="title">Run build 9, and tell Dan it is the one</div>
-          <div class="why">Not blocking. <b>Where the action happens:</b> TestFlight on your phone, update to 2.0 (9). Tap +, then Start. Let calibration take both readings without touching Skip. Then talk on your own: the number should rise while you talk and fall when you stop. One line back, what it did. Dan was told to wait for this build; the one thing he needs to know is to let calibration finish.</div>
-          <div class="why">Optional, one more minute, and it would turn my reading into a fact: quit the app, start again, and tap Skip while it says &ldquo;Talk normally&rdquo;. I expect a crash. If it does not crash, I am wrong about build 9 and want to know.</div>
+          <div class="title">Run build 10, and tell Dan it is the one</div>
+          <div class="why">Not blocking. <b>Where the action happens:</b> TestFlight on your phone, update to 2.0 (10). Tap +, then Start. Let calibration take both readings. Then talk on your own: the number should rise while you talk and fall when you stop. One line back, what it did. Dan was told to wait for the next version; this is it, and he no longer needs a warning about Skip.</div>
+          <div class="why">Optional, one more minute: quit the app, start again, and tap Skip while it says &ldquo;Talk normally&rdquo;. On (10) I expect no crash and a session that shows no number. D-025 has never run on a device, so this is the first check of it.</div>
           <div class="meta"><span class="pill cost">5 min</span></div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="rank">2</div>
-        <div class="body">
-          <div class="title">Four small edits to this scheduled task's prompt</div>
-          <div class="why">Not blocking. A scheduled run cannot edit its own prompt, so they wait on you. <b>Where the action happens:</b> say &ldquo;update the task prompt&rdquo; in a Cairn session, or edit it in Claude &rarr; Scheduled &rarr; &ldquo;OptiListen &mdash; check agent mail and update the attention rollup&rdquo;. The edits, ready to paste, are in <a href="https://github.com/mediajunkie/optilisten/blob/main/docs/cairn-scheduled-task.md">docs/cairn-scheduled-task.md</a>: the memory file path, a pointer to your duty-cycle baseline, the &ldquo;no new mail&rdquo; paragraph, and (new today) your <code>reply-to</code> field in the memo template. Until then all four live in my memory file, which each run reads first.</div>
-          <div class="meta"><span class="pill cost">2 min</span></div>
         </div>
       </div>
 
@@ -179,20 +171,16 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>In flight</h2><span class="count">11 threads</span></div>
+    <div class="sec-hd"><h2>In flight</h2><span class="count">9 threads</span></div>
     <div class="rows">
-      <div class="row"><div class="who">Pard</div><div class="txt"><b>Build 2.0 (10) from <code>main</code> and upload it.</b>
-        <em>Waits on Pard reading the request. Sent 8 Oct 08:25; every cycle in his log since says &ldquo;Mail: nothing for me&rdquo;. Asked again 16:1x PT. His draft permissions keep release uploads on hold, so the upload may wait on your &ldquo;go&rdquo;.</em></div></div>
-      <div class="row"><div class="who">Pard</div><div class="txt"><b>Re-shoot the store screenshots that show the changed captions (scripted, D-016).</b>
-        <em>Asked 7 Oct; <code>docs/store-art</code> was last changed 24 Sep. His queue; asked again 8 Oct.</em></div></div>
-      <div class="row"><div class="who">xian + Dan</div><div class="txt"><b>Once with a second person, once outdoors, on (9) or (10).</b>
+      <div class="row"><div class="who">xian + Dan</div><div class="txt"><b>Once with a second person, once outdoors, on (10).</b>
         <em>Waits on a first solo run (Needs-you 1).</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt"><b>Revisit the ceiling slider's range and 30% default, which were chosen for a share of speech.</b>
-        <em>Waits on a run of (9): real whole-time numbers.</em></div></div>
+        <em>Waits on a run of (10): real whole-time numbers.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt"><b>Decide whether a calibration should expire inside a launch that stays open for days.</b>
         <em>Waits on someone having used the 12-second step on a phone.</em></div></div>
       <div class="row held"><div class="who">Held</div><div class="txt"><b>Listing copy sign-off &mdash; five fields in <a href="https://github.com/mediajunkie/optilisten/blob/main/docs/store-content-2.0.md">docs/store-content-2.0.md</a>, six screenshots in <a href="https://github.com/mediajunkie/optilisten/tree/main/docs/store-art/6.9-inch">docs/store-art/6.9-inch</a>.</b>
-        <em>xian's, 15 min, when it comes back. Waits on the submission build being settled; Dan also wants a language pass, &ldquo;later&rdquo;.</em></div></div>
+        <em>xian's, 15 min, when it comes back. The screenshots are current as of build 10. Waits on the submission build being settled; Dan also wants a language pass, &ldquo;later&rdquo;.</em></div></div>
       <div class="row"><div class="who">Cairn</div><div class="txt"><b>Update Dan's brochure once a build survives use.</b>
         <em>Waits on a build that has been used.</em></div></div>
       <div class="row"><div class="who">Pard</div><div class="txt"><b>Prep and hold the fallback build with live capture switched off.</b>
@@ -225,11 +213,10 @@
 
   <section class="risks">
     <div class="sec-hd" style="border:none;padding:0"><h2>Standing risks</h2></div>
-    <div class="risk"><span class="dot">&#9670;</span><div><b>Builds 8 and 9 likely crash on Skip during a calibration reading</b> (D-025). Inferred from the source; fixed on <code>main</code>; the fix is unbuilt.</div></div>
-    <div class="risk"><span class="dot">&#9670;</span><div><b>D-023 and D-024 are in TestFlight in build 9 and no run of either is recorded</b> (Needs-you 1). Under D-024 a long quiet stretch lowers your number, and a ceiling of 30% is a looser limit than it was.</div></div>
-    <div class="risk"><span class="dot">&#9670;</span><div><b>D-025 has been compiled, never run.</b> It changes how the microphone is handed between calibration and listening.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>D-023, D-024 and D-025 are in TestFlight in build 10 and no run of any of them is recorded</b> (Needs-you 1). D-025 changes how the microphone is handed between calibration and listening. Under D-024 a long quiet stretch lowers your number, and a ceiling of 30% is a looser limit than it was.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>Builds 8 and 9 are still installable and likely crash on Skip during a calibration reading.</b> Inferred from the source. Updating to (10) removes it.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>No run with a real second speaker exists on any build</b>, and none outdoors under the 12&nbsp;dB bar.</div></div>
-    <div class="risk"><span class="dot">&#9670;</span><div><b>47 days.</b> Each round is change, build, test; Apple's review comes after the last one.</div></div>
+    <div class="risk"><span class="dot">&#9670;</span><div><b>46 days.</b> Each round is change, build, test; Apple's review comes after the last one.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>A calibration lasts for one launch.</b> The 12-second step recurs on each cold start, and in a launch that stays open for days it is never retaken.</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>Nothing watches for a crash that produces no TestFlight submission</b> (xian, 09-14).</div></div>
     <div class="risk"><span class="dot">&#9670;</span><div><b>The fleet has one signing path and it expires Aug 2027</b>; nothing watches for expiry (Pard, 2 Oct).</div></div>
@@ -238,25 +225,25 @@
   </section>
 
   <section class="sec">
-    <div class="sec-hd"><h2>Verified how</h2><span class="count">rev 59</span></div>
+    <div class="sec-hd"><h2>Verified how</h2><span class="count">rev 60</span></div>
     <div class="rows">
-      <div class="row"><div class="who">Build 10</div><div class="txt"><b><code>logs/2026-10-08-pard-log.md</code> in <code>mediajunkie</code> at <code>3e8aaa8</code> (15:08 PT), read on kindbook. No line mentions build 10 or D-025, and each cycle records &ldquo;Mail: nothing for me&rdquo;.</b>
-        <em>My memo is in his mailbox (6f746ec, 08:25). Why his sweep passed over it is not known. Amber was not read, so a build he made without logging it would not show here.</em></div></div>
-      <div class="row"><div class="who">Apple mail</div><div class="txt"><b>The forwarded Gmail, searched from kindbook at 16:1x PT. Newest OptiListen mail is still the two for 2.0 (9).</b>
-        <em>Nothing to or from Dan in three days. The four rows below are unchanged from rev 58.</em></div></div>
-      <div class="row"><div class="who">Build 9</div><div class="txt"><b>Apple's &ldquo;completed processing&rdquo; and &ldquo;available to test&rdquo; mails for 2.0 (9), both 8 Oct 00:23 UTC, read in the forwarded Gmail from kindbook.</b>
-        <em>Delivery UUID from Pard's memo. App Store Connect itself was not read (no key on kindbook). Whether anyone has installed or run it is not visible from here.</em></div></div>
-      <div class="row"><div class="who">Skip defect</div><div class="txt"><b>Read from <code>CalibrationView.swift</code>, <code>PracticeLoopView.swift</code> and <code>LiveMicSource.swift</code> at <code>b354768</code>, the commit Pard's memo says (9) was built from. Apple documents one tap per bus.</b>
+      <div class="row"><div class="who">Build 10</div><div class="txt"><b>Apple's &ldquo;completed processing&rdquo; and &ldquo;available to test&rdquo; mails for OptiListen 2.0 (10), both 8 Oct 23:16 UTC, read in the forwarded Gmail from kindbook at 08:0x PT on 9 Oct.</b>
+        <em>Delivery UUID and &ldquo;built from ebc5b45&rdquo; are from Pard's memo; <code>project.yml</code> and the committed project both read 10 at 76ac25c. App Store Connect itself was not read (no key on kindbook). Whether anyone has installed or run it is not visible from here.</em></div></div>
+      <div class="row"><div class="who">Screenshots</div><div class="txt"><b>Commit <code>a690217</code>. I opened shots 3, 4, 5 and 6 from that commit and read them: &ldquo;22% of the time is you talking, ceiling 30%&rdquo;; &ldquo;41% of the time is you talking, over your 30% ceiling&rdquo;; &ldquo;24% of the time was you talking, you 6:00 &middot; others 15:12 &middot; quiet 3:48&rdquo;; history rows labelled &ldquo;you talking&rdquo;.</b>
+        <em>6:00 of 25:00 is 24%, the whole-time figure. All six are 1320&times;2868. Shots 1 and 2 were not opened.</em></div></div>
+      <div class="row"><div class="who">Prompt edits</div><div class="txt"><b>Compared the prompt this run received with the four edits in <a href="https://github.com/mediajunkie/optilisten/blob/main/docs/cairn-scheduled-task.md">docs/cairn-scheduled-task.md</a>. All four are present.</b>
+        <em>That page now holds the 9 Oct copy.</em></div></div>
+      <div class="row"><div class="who">Apple mail</div><div class="txt"><b>The same Gmail search. Nothing about removal.</b>
+        <em>Nothing to or from Dan in four days.</em></div></div>
+      <div class="row"><div class="who">Skip defect</div><div class="txt"><b>Stands as at rev 58: read from the source at <code>b354768</code>. Apple documents one tap per bus.</b>
         <em>Not reproduced: nobody has done it on a phone.</em></div></div>
-      <div class="row"><div class="who">Fix</div><div class="txt"><b>Written against <code>origin/main</code> at <code>5d7639d</code>, applied on kindbook with <code>git apply</code>. All ten Swift files pass <code>xcrun swiftc -parse</code> on kindbook (syntax only).</b>
-        <em>CI run 37798916638 on 86f32a5 is green (Debug, iOS Simulator): a full compile, not a run.</em></div></div>
-      <div class="row"><div class="who">Screenshots</div><div class="txt"><b><code>git log -- docs/store-art</code> on kindbook; newest commit 24 Sep.</b>
-        <em>Amber's working tree was not read.</em></div></div>
+      <div class="row"><div class="who">Fix</div><div class="txt"><b>Stands as at rev 58: CI run 37798916638 on 86f32a5 is green (Debug, iOS Simulator).</b>
+        <em>A compile, not a run. Pard reports the Release configuration also compiles.</em></div></div>
     </div>
   </section>
 
   <div class="foot">
-    rev 59 &middot; 2026-10-08 16:1x PT &middot; Cairn &middot; the build 10 request has not been picked up, asked again; a fourth prompt edit (reply-to) &middot; file and page in sync at rev 59<br>
+    rev 60 &middot; 2026-10-09 08:1x PT &middot; Cairn &middot; build 10 is in TestFlight with the Skip fix; screenshots re-shot; the prompt edits are in &middot; file and page in sync at rev 60<br>
     Source: <code>docs/attention.md</code> &middot; page source: <code>docs/attention.html</code> &middot;
     changelog: <code>docs/attention-changelog.md</code> &middot; decisions: <code>docs/decisions.md</code>
   </div>

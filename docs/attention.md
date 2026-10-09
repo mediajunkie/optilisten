@@ -1,54 +1,44 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-10-08 16:1x PT (**rev 59**) · **Deadline:** 2026-11-24 — **47 days**, day 43 of 90
+**Maintained by:** Cairn · **Updated:** 2026-10-09 08:1x PT (**rev 60**) · **Deadline:** 2026-11-24 — **46 days**, day 44 of 90
 
 Rendered for xian at https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215 (same URL
 every rev). This file is the source; the page follows it.
 
 ## Where things stand
 
-- **Build 9 is in TestFlight**, on your phone and Dan's since 10-07 17:23 PT. It has the percentage
-  as your talking out of the whole time (D-024). Pard's seat did not hold this upload. No run of it
-  is recorded yet.
-- **Build 9 probably crashes if you tap Skip, or swipe the sheet down, while calibration is taking a
-  reading.** This comes from reading the source, not from a phone: the reading keeps its hold on the
-  microphone and the listening screen then asks for it a second time. Build 8 has the same path.
-  Letting calibration finish avoids it.
-- **The fix is on `main` as D-025** ([`docs/decisions.md`](decisions.md), commit `86f32a5`, build
-  number 10). It compiles ([CI run 37798916638](https://github.com/mediajunkie/optilisten/actions/runs/37798916638)
-  is green: Debug, iOS Simulator). It has not run on a device, and Pard has not built it. His log for 10-08 does not
-  mention the request, sent at 08:25; I asked again at 16:1x PT.
+- **Build 10 is in TestFlight**, available since 10-08 16:16 PT. It has everything build 9 had (the
+  percentage as your talking out of the whole time, D-024) plus the fix for the Skip crash (D-025).
+  Pard's seat did not hold the upload. No run of it is recorded yet.
+- **Skip builds 8 and 9.** Reading the source, both probably crash if you tap Skip, or swipe the
+  sheet down, while calibration is taking a reading. Nobody reproduced it on a phone, and with (10)
+  out there is no reason to.
+- **The store screenshots are re-shot** from build 10's code and show the new captions ("of the time
+  is you talking"). I looked at four of the six.
+- **This task's prompt carries the four edits** you made on 10-08. Checked against the prompt this
+  run was started with.
 - **Nothing has been submitted to Apple**, so 24 November has not moved.
 
 ## Needs you
 
-Two items, about 7 minutes, neither blocking.
+One item, about 5 minutes, not blocking.
 
-**1. Run build 9, and tell Dan it is the one.** TestFlight on your phone, update to 2.0 (9). Tap +,
-then Start. Let calibration take both readings without touching Skip. Then talk on your own: the
-number should rise while you talk and fall when you stop. One line back, what it did. Dan was told to
-wait for this build; the one thing he needs to know is to let calibration finish.
-Optional, one more minute, and it would turn my reading into a fact: quit the app, start again, and
-tap Skip while it says "Talk normally". I expect a crash. If it does not crash, I am wrong about
-build 9 and want to know.
-
-**2. Four small edits to this scheduled task's prompt.** A scheduled run cannot edit its own
-prompt, so they wait on you. Say "update the task prompt" in a Cairn session, or edit it in
-Claude → Scheduled → "OptiListen — check agent mail and update the attention rollup". The edits,
-ready to paste, are in [`docs/cairn-scheduled-task.md`](cairn-scheduled-task.md): the memory file
-path, a pointer to your duty-cycle baseline, the "no new mail" paragraph, and (new today) your `reply-to`
-field in the memo template. Until then all four live in my memory file, which each run reads first.
+**1. Run build 10, and tell Dan it is the one.** TestFlight on your phone, update to 2.0 (10). Tap +,
+then Start. Let calibration take both readings. Then talk on your own: the number should rise while
+you talk and fall when you stop. One line back, what it did. Dan was told to wait for the next
+version; this is it, and he no longer needs a warning about Skip.
+Optional, one more minute: quit the app, start again, and tap Skip while it says "Talk normally".
+On (10) I expect no crash and a session that shows no number. D-025 has never run on a device, so
+this is the first check of it.
 
 ## In flight
 
 | Owner | Item | Waiting on |
 |---|---|---|
-| **Pard** | Build 2.0 (10) from `main` and upload it | Pard reading the request. Sent 10-08 08:25; every cycle in his log since says "Mail: nothing for me". Asked again 16:1x PT. His draft permissions keep release uploads on hold, so the upload may wait on your "go" |
-| **Pard** | Re-shoot the store screenshots that show the changed captions (scripted, D-016). Asked 10-07; `docs/store-art` was last changed 09-24 | his queue; asked again 10-08 |
-| **xian + Dan** | Once with a second person, once outdoors, on (9) or (10) | a first solo run (Needs-you 1) |
-| **Cairn** | Revisit the ceiling slider's range and 30% default, which were chosen for a share of speech | a run of (9): real whole-time numbers |
+| **xian + Dan** | Once with a second person, once outdoors, on (10) | a first solo run (Needs-you 1) |
+| **Cairn** | Revisit the ceiling slider's range and 30% default, which were chosen for a share of speech | a run of (10): real whole-time numbers |
 | **Cairn** | Decide whether a calibration should expire inside a launch that stays open for days | someone having used the 12-second step on a phone |
-| **held** | Listing copy sign-off — five fields in [`docs/store-content-2.0.md`](store-content-2.0.md), six screenshots in [`docs/store-art/6.9-inch/`](store-art/6.9-inch). xian's, 15 min, when it comes back | the submission build being settled; Dan also wants a language pass, "later" |
+| **held** | Listing copy sign-off — five fields in [`docs/store-content-2.0.md`](store-content-2.0.md), six screenshots in [`docs/store-art/6.9-inch/`](store-art/6.9-inch). xian's, 15 min, when it comes back. The screenshots are current as of build 10 | the submission build being settled; Dan also wants a language pass, "later" |
 | **Cairn** | Update Dan's brochure once a build survives use | a build that has been used |
 | **Pard** | Prep and hold the fallback build with live capture switched off | whether it ships is xian's call; nothing is asking for it |
 | **Janus** | Registry: `mediajunkie/optilisten` (app) and `Design-in-Product/optilisten` (live site) | memo 09-07; unconfirmed |
@@ -68,15 +58,14 @@ Older closed items: [`docs/attention-changelog.md`](attention-changelog.md). Dec
 
 ## Standing risks
 
-- **Builds 8 and 9 likely crash on Skip during a calibration reading** (D-025). Inferred from the
-  source; fixed on `main`; the fix is unbuilt.
-- **D-023 and D-024 are in TestFlight in build 9 and no run of either is recorded** (Needs-you 1).
+- **D-023, D-024 and D-025 are in TestFlight in build 10 and no run of any of them is recorded**
+  (Needs-you 1). D-025 changes how the microphone is handed between calibration and listening.
   Under D-024 a long quiet stretch lowers your number, and a ceiling of 30% is a looser limit than
   it was.
-- **D-025 has been compiled, never run.** It changes how the microphone is handed between
-  calibration and listening.
+- **Builds 8 and 9 are still installable and likely crash on Skip during a calibration reading.**
+  Inferred from the source. Updating to (10) removes it.
 - **No run with a real second speaker exists on any build**, and none outdoors under the 12 dB bar.
-- **47 days.** Each round is change, build, test; Apple's review comes after the last one.
+- **46 days.** Each round is change, build, test; Apple's review comes after the last one.
 - **A calibration lasts for one launch.** The 12-second step recurs on each cold start, and in a
   launch that stays open for days it is never retaken.
 - **Nothing watches for a crash that produces no TestFlight submission** (xian, 09-14).
@@ -84,28 +73,27 @@ Older closed items: [`docs/attention-changelog.md`](attention-changelog.md). Dec
 - **Apple rejected this app once before** (July 2023, background modes). 2.0 omits `UIBackgroundModes`.
 - **Age-rating social-media questions** at submission; about 10 min; the answers are "no".
 
-## Verified how (rev 59)
+## Verified how (rev 60)
 
-- **Pard has not picked up build 10:** `logs/2026-10-08-pard-log.md` in `mediajunkie` at `3e8aaa8`
-  (15:08 PT), read on kindbook. No line mentions build 10 or D-025, and each cycle records "Mail:
-  nothing for me". My memo is in his mailbox (`6f746ec`, 08:25). Why his sweep passed over it is not
-  known. Amber was not read, so a build he made without logging it would not show here.
-- **No newer Apple mail:** the forwarded Gmail, searched from kindbook at 16:1x PT. Newest OptiListen
-  mail is still the two for 2.0 (9). Nothing to or from Dan in three days.
-- The four below are unchanged from rev 58.
-
-- **Build 9 in TestFlight:** Apple's "completed processing" and "available to test" mails for 2.0 (9),
-  both 2026-10-08 00:23 UTC, read in the forwarded Gmail from kindbook. Delivery UUID from Pard's memo.
-  App Store Connect itself was not read (no key on kindbook). Whether anyone has installed or run it
-  is not visible from here.
-- **The Skip defect:** read from `CalibrationView.swift`, `PracticeLoopView.swift` and
-  `LiveMicSource.swift` at `b354768`, the commit Pard's memo says (9) was built from. Apple documents
-  one tap per bus. Not reproduced: nobody has done it on a phone.
-- **The fix:** written in this run's container against `origin/main` at `5d7639d`, applied on kindbook
-  with `git apply`. All ten Swift files pass `xcrun swiftc -parse` on kindbook (syntax only). CI run
-  37798916638 on `86f32a5` is green (Debug, iOS Simulator): a full compile, not a run.
-- **The screenshots:** `git log -- docs/store-art` on kindbook; newest commit 09-24. Amber's working
-  tree was not read.
+- **Build 10 in TestFlight:** Apple's "completed processing" and "available to test" mails for
+  OptiListen 2.0 (10), both 2026-10-08 23:16 UTC, read in the forwarded Gmail from kindbook at
+  08:0x PT on 10-09. Delivery UUID and "built from `ebc5b45`" are from Pard's memo
+  (`docs/mail/memo-pard-to-cairn-cc-janus-xian-2-0-10-uploaded-store-art-reshot-and-why-i-missed-both-asks-2026-10-08.md`);
+  `project.yml` and the committed project both read 10 at `76ac25c`. App Store Connect itself was
+  not read (no key on kindbook). Whether anyone has installed or run it is not visible from here.
+- **The screenshots:** commit `a690217`. I opened shots 3, 4, 5 and 6 from that commit and read them:
+  "22% of the time is you talking, ceiling 30%"; "41% of the time is you talking, over your 30%
+  ceiling"; "24% of the time was you talking, you 6:00 · others 15:12 · quiet 3:48" (6:00 of 25:00
+  is 24%, the whole-time figure); history rows labelled "you talking". All six are 1320×2868.
+  Shots 1 and 2 were not opened.
+- **The prompt edits:** compared the prompt this run received with the four edits in
+  [`docs/cairn-scheduled-task.md`](cairn-scheduled-task.md). All four are present. That page now
+  holds the 10-09 copy.
+- **No other Apple mail, nothing from Dan:** the same Gmail search. Nothing about removal. Nothing to
+  or from Dan in four days.
+- **The Skip defect in 8 and 9** stands as at rev 58: read from the source at `b354768`, not
+  reproduced. **The fix** stands as at rev 58: CI run 37798916638 on `86f32a5` is green (Debug, iOS
+  Simulator), a compile and not a run; Pard reports the Release configuration also compiles.
 
 ---
-*rev 59 · 2026-10-08 16:1x PT · Cairn · the build 10 request has not been picked up, asked again; a fourth prompt edit (reply-to)*
+*rev 60 · 2026-10-09 08:1x PT · Cairn · build 10 is in TestFlight with the Skip fix; screenshots re-shot; the prompt edits are in*
