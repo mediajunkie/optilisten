@@ -1,6 +1,6 @@
 # OptiListen — what needs xian
 
-**Maintained by:** Cairn · **Updated:** 2026-10-09 08:1x PT (**rev 60**) · **Deadline:** 2026-11-24 — **46 days**, day 44 of 90
+**Maintained by:** Cairn · **Updated:** 2026-10-10 08:1x PT (**rev 61**) · **Deadline:** 2026-11-24 — **45 days**, day 45 of 90
 
 Rendered for xian at https://claude.ai/code/artifact/54087bd3-f172-494f-b79b-49d3406f5215 (same URL
 every rev). This file is the source; the page follows it.
@@ -14,7 +14,7 @@ every rev). This file is the source; the page follows it.
   sheet down, while calibration is taking a reading. Nobody reproduced it on a phone, and with (10)
   out there is no reason to.
 - **The store screenshots are re-shot** from build 10's code and show the new captions ("of the time
-  is you talking"). I looked at four of the six.
+  is you talking"). I looked at all six.
 - **This task's prompt carries the four edits** you made on 10-08. Checked against the prompt this
   run was started with.
 - **Nothing has been submitted to Apple**, so 24 November has not moved.
@@ -65,7 +65,7 @@ Older closed items: [`docs/attention-changelog.md`](attention-changelog.md). Dec
 - **Builds 8 and 9 are still installable and likely crash on Skip during a calibration reading.**
   Inferred from the source. Updating to (10) removes it.
 - **No run with a real second speaker exists on any build**, and none outdoors under the 12 dB bar.
-- **46 days.** Each round is change, build, test; Apple's review comes after the last one.
+- **45 days.** Each round is change, build, test; Apple's review comes after the last one.
 - **A calibration lasts for one launch.** The 12-second step recurs on each cold start, and in a
   launch that stays open for days it is never retaken.
 - **Nothing watches for a crash that produces no TestFlight submission** (xian, 09-14).
@@ -73,27 +73,30 @@ Older closed items: [`docs/attention-changelog.md`](attention-changelog.md). Dec
 - **Apple rejected this app once before** (July 2023, background modes). 2.0 omits `UIBackgroundModes`.
 - **Age-rating social-media questions** at submission; about 10 min; the answers are "no".
 
-## Verified how (rev 60)
+## Verified how (rev 61)
 
 - **Build 10 in TestFlight:** Apple's "completed processing" and "available to test" mails for
-  OptiListen 2.0 (10), both 2026-10-08 23:16 UTC, read in the forwarded Gmail from kindbook at
-  08:0x PT on 10-09. Delivery UUID and "built from `ebc5b45`" are from Pard's memo
+  OptiListen 2.0 (10), both 2026-10-08 23:16 UTC, read in the forwarded Gmail from kindbook on
+  10-09 and again at 08:0x PT on 10-10; no newer OptiListen mail from Apple. Delivery UUID and "built from `ebc5b45`" are from Pard's memo
   (`docs/mail/memo-pard-to-cairn-cc-janus-xian-2-0-10-uploaded-store-art-reshot-and-why-i-missed-both-asks-2026-10-08.md`);
   `project.yml` and the committed project both read 10 at `76ac25c`. App Store Connect itself was
   not read (no key on kindbook). Whether anyone has installed or run it is not visible from here.
-- **The screenshots:** commit `a690217`. I opened shots 3, 4, 5 and 6 from that commit and read them:
+- **The screenshots:** commit `a690217`. I opened all six from that commit (3 to 6 on the morning of 10-09, 1 and 2
+  that afternoon) and read them: shot 1 is the empty home card; shot 2 is Before with the ceiling at
+  30% and the caption "Share of the conversation you intend to spend talking. Quiet counts as
+  listening.";
   "22% of the time is you talking, ceiling 30%"; "41% of the time is you talking, over your 30%
   ceiling"; "24% of the time was you talking, you 6:00 · others 15:12 · quiet 3:48" (6:00 of 25:00
   is 24%, the whole-time figure); history rows labelled "you talking". All six are 1320×2868.
-  Shots 1 and 2 were not opened.
 - **The prompt edits:** compared the prompt this run received with the four edits in
   [`docs/cairn-scheduled-task.md`](cairn-scheduled-task.md). All four are present. That page now
   holds the 10-09 copy.
-- **No other Apple mail, nothing from Dan:** the same Gmail search. Nothing about removal. Nothing to
-  or from Dan in four days.
+- **No other Apple mail, nothing from Dan:** Gmail search from kindbook, 10-10 08:0x PT. Nothing about
+  removal. Nothing to or from Dan about OptiListen in three days. The forward is proven live to
+  10-09 00:17 UTC (One Job's build mails).
 - **The Skip defect in 8 and 9** stands as at rev 58: read from the source at `b354768`, not
   reproduced. **The fix** stands as at rev 58: CI run 37798916638 on `86f32a5` is green (Debug, iOS
   Simulator), a compile and not a run; Pard reports the Release configuration also compiles.
 
 ---
-*rev 60 · 2026-10-09 08:1x PT · Cairn · build 10 is in TestFlight with the Skip fix; screenshots re-shot; the prompt edits are in*
+*rev 61 · 2026-10-10 08:1x PT · Cairn · clocks; all six screenshots looked at; no new mail*
